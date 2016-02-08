@@ -12,7 +12,7 @@ box install integrated
 **Important:**
 Add the Integrated lib directory to `this.javaSettings` in your `*tests*` directory's `Application.cfc`.
 
-```cfscript
+```cfc
 this.javaSettings = { loadPaths = [ "Integrated/lib" ], reloadOnChange = false };
 ```
 
@@ -20,7 +20,7 @@ this.javaSettings = { loadPaths = [ "Integrated/lib" ], reloadOnChange = false }
 
 Change your Integration tests to extend from `Integration.BaseSpec`. (Make sure to call the parent class's `beforeAll` method.)
 
-```cfscript
+```cfc
 component extends="Integration.BaseSpec" {
     function beforeAll() {
         // Make sure to call the parent class's beforeAll() method.
@@ -31,7 +31,7 @@ component extends="Integration.BaseSpec" {
 
 Start using an easy, fluent API for your integration tests!
 
-```cfscript
+```cfc
 function run() {
     describe( "Registering", function() {
         it( "allows a new user to register for the site", function() {
