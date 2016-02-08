@@ -21,7 +21,7 @@ this.javaSettings = { loadPaths = [ "Integrated/lib" ], reloadOnChange = false }
 Change your Integration tests to extend from `Integration.BaseSpec`. (Make sure to call the parent class's `beforeAll` method.)
 
 ```cfc
-component extends="Integration.BaseSpec" {
+component extends="Integrated.BaseSpec" {
     function beforeAll() {
         // Make sure to call the parent class's beforeAll() method.
         super.beforeAll();
