@@ -1,41 +1,48 @@
 {
-    "name": "Integrated",
-    "version": "0.1.0",
-    "author": "Eric Peterson",
-    "location": "",
-    "directory": "",
-    "createPackageDirectory": true,
-    "packageDirectory": "",
-    "homepage": "https://github.com/elpete/integrated",
-    "documentation": "https://github.com/elpete/integrated/wiki",
-    "repository": {
-        "type": "git",
-        "URL": "https://github.com/elpete/integrated"
+    "name":"Integrated",
+    "version":"0.1.0",
+    "author":"Eric Peterson",
+    "location":"",
+    "directory":"",
+    "createPackageDirectory":true,
+    "packageDirectory":"",
+    "homepage":"https://github.com/elpete/integrated",
+    "documentation":"https://github.com/elpete/integrated/wiki",
+    "repository":{
+        "type":"git",
+        "URL":"https://github.com/elpete/integrated"
     },
-    "bugs": "https://github.com/elpete/integrated/issues",
-    "slug": "integrated",
-    "shortDescription": "A TestBox package for even better Integration tests in ColdBox!",
-    "description": "A TestBox package for even better Integration tests in ColdBox!",
-    "type": "testing",
-    "keywords": [
+    "bugs":"https://github.com/elpete/integrated/issues",
+    "slug":"integrated",
+    "shortDescription":"A TestBox package for even better Integration tests in ColdBox!",
+    "description":"A TestBox package for even better Integration tests in ColdBox!",
+    "type":"testing",
+    "keywords":[
         "testbox",
         "coldbox",
         "integration",
         "testing",
         "database"
     ],
-    "private": false,
-    "license": [
+    "private":false,
+    "license":[
         {
-            "type": "MIT",
-            "URL": "http://opensource.org/licenses/MIT"
+            "type":"MIT",
+            "URL":"http://opensource.org/licenses/MIT"
         }
     ],
-    "dependencies":  {},
-    "devDependencies": {},
-    "ignore": [
+    "dependencies":{
+        
+    },
+    "devDependencies":{
+        "testbox":"2.2.0"
+    },
+    "ignore":[
         "**/.*",
         "test",
         "tests"
-    ]
+    ],
+    "installPaths":{
+        "testbox":"testbox"
+    }
 }

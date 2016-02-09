@@ -12,7 +12,8 @@ component extends="coldbox.system.testing.BaseTestCase" {
     /***************************** Interactions *******************************/
 
     public BaseSpec function visit(required string uri) {
-        debug("Method not implemented yet");
+        // Coming soon....
+        // var event = execute(url = arguments.url, renderResults = true);
 
         return this;
     }
@@ -70,6 +71,12 @@ component extends="coldbox.system.testing.BaseTestCase" {
     /***************************** Expectations *******************************/
 
     public BaseSpec function seePageIs() {
+        debug("Method not implemented yet");
+
+        return this;
+    }
+
+    public BaseSpec function seeTitleIs() {
         debug("Method not implemented yet");
 
         return this;
