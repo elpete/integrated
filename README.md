@@ -2,6 +2,8 @@
 
 ## A TestBox package for even better Integration tests in ColdBox!
 
+![travis master status](https://img.shields.io/travis/elpete/Integrated/master.svg?style=flat-square&label=master) ![travis development status](https://img.shields.io/travis/elpete/Integrated/development.svg?style=flat-square&label=development)
+
 ### Installation
 Install the package from ForgeBox:
 
