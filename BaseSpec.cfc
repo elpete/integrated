@@ -24,14 +24,31 @@ component extends='coldbox.system.testing.BaseTestCase' {
 
     /***************************** Interactions *******************************/
 
-    public BaseSpec function visit(required string uri) {
-        // Coming soon....
-        // var event = execute(url = arguments.url, renderResults = true);
+    public BaseSpec function visit(required string route) {
+        // Clear out the requestMethod in case the call fails
+        variables.requestMethod = '';
+
+        try {
+            variables.event = execute(route = arguments.route, renderResults = true);
+        }
+        catch (HandlerService.EventHandlerNotRegisteredException e) {
+            throw(
+                type = 'TestBox.AssertionFailed',
+                message = 'Could not find any route called [#arguments.route#].',
+                detail = e.message
+            )
+        }
+
+        variables.requestMethod = 'visit';
+        variables.page = variables.parser.parse(getHTML(variables.event));
 
         return this;
     }
 
     public BaseSpec function visitEvent(required string event) {
+        // Clear out the requestMethod in case the call fails
+        variables.requestMethod = '';
+
         try {
             variables.event = execute(event = arguments.event, renderResults = true);
         }
@@ -43,6 +60,7 @@ component extends='coldbox.system.testing.BaseTestCase' {
             )
         }
 
+        variables.requestMethod = 'visitEvent';
         variables.page = variables.parser.parse(getHTML(variables.event));
 
         return this;
