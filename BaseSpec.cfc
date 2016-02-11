@@ -67,15 +67,26 @@ component extends='coldbox.system.testing.BaseTestCase' {
     }
 
     public BaseSpec function click(required string name) {
-        fail('method not implemented yet');
+        // verify that the link exists
+        // this.seeLink(arguments.name);
+
+        // First try to find using the argument as a selector
+        var anchorTag = getParsedPage().select('#arguments.name#');
+
+        // If there is no value, try to find the link by text
+        if (ArrayLen(anchorTag) == 0) {
+            anchorTag = getParsedPage().select('a:contains(#arguments.name#)');
+        }
+
+        var route = anchorTag.attr('href');
+
+        this.visit(route);
 
         return this;
     }
 
     public BaseSpec function type(required string text, required string element) {
-        fail('method not implemented yet');
-
-        return this;
+        return this.storeInput(arguments.element, arguments.text);
     }
 
     public BaseSpec function check(required string element) {
@@ -233,7 +244,7 @@ component extends='coldbox.system.testing.BaseTestCase' {
     }
 
     public BaseSpec function seeLink(required string text, string url = '') {
-        var errorMessage = 'No links were found with expected text [#arguments.text#]';
+        var errorMessage = 'No links were found matching the pattern [#arguments.text#]';
 
         if (arguments.url != '') {
             errorMessage &= ' and URL [#arguments.url#]';
@@ -261,14 +272,7 @@ component extends='coldbox.system.testing.BaseTestCase' {
     }
 
     public BaseSpec function seeInField(required string selector, required string text, boolean negate = false) {
-        var inputs = getParsedPage().select('#arguments.selector#[value]');
-
-        if (ArrayLen(inputs) == 0) {
-            throw(
-                type = 'TestBox.AssertionFailed',
-                message = 'Failed to find an [#arguments.selector#] input on the page.'
-            );
-        }
+        var inputs = this.findFieldBySelectorOrName(arguments.selector);
 
         var inputsWithValue = inputs.select('[value=#arguments.text#');
 
@@ -291,14 +295,7 @@ component extends='coldbox.system.testing.BaseTestCase' {
     }
 
     public BaseSpec function seeIsChecked(required string selector, boolean negate = false) {
-        var checkboxes = getParsedPage().select('#arguments.selector#[type=checkbox]');
-
-        if (ArrayLen(checkboxes) == 0) {
-            throw(
-                type = 'TestBox.AssertionFailed',
-                message = 'Failed to find a [#arguments.selector#] checkbox on the page.'
-            );
-        }
+        var checkboxes = this.findCheckboxBySelectorOrName(arguments.selector);
 
         var checkedCheckboxes = checkboxes.select('[checked]');
 
@@ -326,14 +323,7 @@ component extends='coldbox.system.testing.BaseTestCase' {
     }
 
     public BaseSpec function seeIsSelected(required string selector, required string value, boolean negate = false) {
-        var selectFields = getParsedPage().select('select#arguments.selector#');
-
-        if (ArrayLen(selectFields) == 0) {
-            throw(
-                type = 'TestBox.AssertionFailed',
-                message = 'Failed to find a [#arguments.selector#] select field on the page.'
-            );
-        }
+        var selectFields = this.findSelectFieldBySelectorOrName(arguments.selector);
 
         var selectedOption = selectFields.select('option[selected]');
 
@@ -388,7 +378,7 @@ component extends='coldbox.system.testing.BaseTestCase' {
         return variables.event;
     }
 
-    private boolean function hasLink(required string text, string url = '') {
+    private boolean function hasLink(required string value, string url = '') {
         var anchorTags = getParsedPage().select('a');
 
         if (ArrayLen(anchorTags) == 0) {
@@ -398,7 +388,13 @@ component extends='coldbox.system.testing.BaseTestCase' {
             );
         }
 
-        var linksWithTextAndUrl = anchorTags.select(':contains(#arguments.text#)');
+        // First try to find the link by selector
+        var linksWithTextAndUrl = anchorTags.select('#arguments.value#');
+
+        // If we didn't find any by selector, try by text
+        if (ArrayLen(linksWithTextAndUrl) == 0) {
+            linksWithTextAndUrl = anchorTags.select(':contains(#arguments.value#)');
+        }
 
         if (arguments.url != '') {
             linksWithTextAndUrl = anchorTags.select('[href="#arguments.url#"]');
@@ -414,10 +410,11 @@ component extends='coldbox.system.testing.BaseTestCase' {
         }
 
         variables.page = variables.parser.parse(htmlString);
+
         return;
     }
 
-    private function getHTML(event) {
+    private string function getHTML(event) {
         var rc = event.getCollection();
 
         if (StructKeyExists(rc, 'cbox_rendered_content')) {
@@ -426,4 +423,80 @@ component extends='coldbox.system.testing.BaseTestCase' {
 
         return '';
     }
+
+    private BaseSpec function storeInput(required string element, required string text) {
+        this.findFieldBySelectorOrName(arguments.element);
+
+        var key = generateInputKey(arguments.element);
+
+        variables.inputs[key] = arguments.text;
+
+        return this;
+    }
+
+    private string function generateInputKey(required string element) {
+        return replace(arguments.element, '##', '', 'all');
+    }
+
+    /**************************** Finder Methods ******************************/
+
+    private function findSelectFieldBySelectorOrName(
+        required string selectorOrName,
+        string errorMessage = 'Failed to find a [#arguments.selectorOrName#] select field on the page.'
+    ) {
+        var elements = this.findElementBySelectorOrName(arguments.selectorOrName, arguments.errorMessage);
+
+        var selectFields = elements.select('select');
+
+        expect(selectFields).notToBeEmpty(arguments.errorMessage);
+
+        return selectFields;
+    }
+
+    private function findCheckboxBySelectorOrName(
+        required string selectorOrName,
+        string errorMessage = 'Failed to find a [#arguments.selectorOrName#] checkbox on the page.'
+    ) {
+        var fields = this.findElementBySelectorOrName(arguments.selectorOrName, arguments.errorMessage);
+
+        // Filter down to checkboxes
+        var checkboxes = fields.select('[type=checkbox]');
+
+        expect(checkboxes).notToBeEmpty(arguments.errorMessage);
+
+        return checkboxes;
+    }
+
+    private function findFieldBySelectorOrName(
+        required string selectorOrName,
+        string errorMessage = 'Failed to find a [#arguments.selectorOrName#] input on the page.'
+    ) {
+        var elements = this.findElementBySelectorOrName(arguments.selectorOrName, arguments.errorMessage);
+
+        // Filter down to elements that have values
+        var fields = elements.select('[value]');
+
+        expect(fields).notToBeEmpty(arguments.errorMessage);
+
+        return fields;
+    }
+
+    private function findElementBySelectorOrName(
+        required string selectorOrName,
+        string errorMessage = 'Failed to find a [#arguments.selectorOrName#] element on the page.'
+    ) {
+        // First try to find the field by selector
+        var elements = getParsedPage().select('#arguments.selectorOrName#');
+
+        // If we couldn't find it by selector, try by name
+        if (ArrayLen(elements) == 0) {
+            elements = getParsedPage().select('[name=#arguments.selectorOrName#]');
+        }
+
+        expect(elements).notToBeEmpty(arguments.errorMessage);
+
+        return elements;
+    }
+
+
 }

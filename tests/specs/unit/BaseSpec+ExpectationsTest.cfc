@@ -16,7 +16,7 @@ component extends='testbox.system.BaseSpec' {
 
             beforeEach(function() {
                 // Read in a sample html page
-                var html = fileRead(expandPath('/tests/resources/sample-page.html'));
+                var html = fileRead(expandPath('/tests/resources/login-page.html'));
 
                 // Parse the html page in
                 makePublic(this.CUT, 'parse', 'parsePublic');
@@ -32,17 +32,17 @@ component extends='testbox.system.BaseSpec' {
 
             feature('seePageIs', function() {
                 it('verifies the url of the page', function() {
-                    mockEvent.$('getCurrentRoutedUrl').$results('/sample-page.html');
+                    mockEvent.$('getCurrentRoutedUrl').$results('/login-page.html');
 
                     expect(function() {
-                        this.CUT.seePageIs('/sample-page.html');
+                        this.CUT.seePageIs('/login-page.html');
                     }).notToThrow();
 
                     expect(function() {
                         this.CUT.seePageIs('/random-page.html');
                     }).toThrow(
                         type = 'TestBox.AssertionFailed',
-                        regex = 'Failed asserting that the url \[\/sample-page\.html\] \(actual\) equalled \[\/random\-page\.html\] \(expected\)\.'
+                        regex = 'Failed asserting that the url \[\/login-page\.html\] \(actual\) equalled \[\/random\-page\.html\] \(expected\)\.'
                     );
                 });
 
@@ -74,14 +74,14 @@ component extends='testbox.system.BaseSpec' {
             feature('seeTitleIs', function() {
                 it('verifies the title of the page', function() {
                     expect(function() {
-                        this.CUT.seeTitleIs('Sample Page'); }
+                        this.CUT.seeTitleIs('Login Page'); }
                     ).notToThrow();
 
                     expect(function() {
                         this.CUT.seeTitleIs('Random Page');
                     }).toThrow(
                         type = 'TestBox.AssertionFailed',
-                        regex = 'Failed asserting that \[Sample Page\] \(actual\) equalled \[Random Page\] \(expected\)\.'
+                        regex = 'Failed asserting that \[Login Page\] \(actual\) equalled \[Random Page\] \(expected\)\.'
                     );
                 });
 
@@ -90,7 +90,7 @@ component extends='testbox.system.BaseSpec' {
                     this.CUT.$property(propertyName = 'event', mock = '');
 
                     expect(function() {
-                        this.CUT.seeTitleIs('Sample Page');
+                        this.CUT.seeTitleIs('Login Page');
                     }).toThrow(
                         type = 'TestBox.AssertionFailed',
                         regex = 'Cannot make assertions until you visit a page\.  Make sure to run visit\(\) or visitEvent\(\) first\.'
@@ -358,21 +358,41 @@ component extends='testbox.system.BaseSpec' {
                     }).notToThrow();
 
                     expect(function() {
-                        this.CUT.seeLink('About', '/about.html');
+                        this.CUT.seeLink('About', '/about');
                     }).notToThrow();
 
                     expect(function() {
                         this.CUT.seeLink('About', 'http://google.com');
                     }).toThrow(
                         type = 'TestBox.AssertionFailed',
-                        regex = 'No links were found with expected text \[About\]\ and URL \[http\:\/\/google\.com\].'
+                        regex = 'No links were found matching the pattern \[About\]\ and URL \[http\:\/\/google\.com\].'
                     );
 
                     expect(function() {
                         this.CUT.seeLink('Contact Us');
                     }).toThrow(
                         type = 'TestBox.AssertionFailed',
-                        regex = 'No links were found with expected text \[Contact Us\]\.'
+                        regex = 'No links were found matching the pattern \[Contact Us\]\.'
+                    );
+                });
+
+                it('verifies links given a selector', function() {
+                    expect(function() {
+                        this.CUT.seeLink('##test-link');
+                    }).notToThrow();
+
+                    expect(function() {
+                        this.CUT.seeLink('.some-link');
+                    }).toThrow(
+                        type = 'TestBox.AssertionFailed',
+                        regex = 'No links were found matching the pattern \[\.some\-link\]\.'
+                    );
+
+                    expect(function() {
+                        this.CUT.seeLink('Contact Us');
+                    }).toThrow(
+                        type = 'TestBox.AssertionFailed',
+                        regex = 'No links were found matching the pattern \[Contact Us\]\.'
                     );
                 });
 
@@ -411,10 +431,10 @@ component extends='testbox.system.BaseSpec' {
                     }).notToThrow();
 
                     expect(function() {
-                        this.CUT.dontSeeLink('About', '/about.html');
+                        this.CUT.dontSeeLink('About', '/about');
                     }).toThrow(
                         type = 'TestBox.AssertionFailed',
-                        regex = 'A link was found with expected text \[About\]\ and URL \[\/about\.html\]\.'
+                        regex = 'A link was found with expected text \[About\]\ and URL \[\/about\]\.'
                     );
 
                     expect(function() {
@@ -456,7 +476,7 @@ component extends='testbox.system.BaseSpec' {
                         this.CUT.seeInField('##doesntExist', 'random');
                     }).toThrow(
                         type = 'TestBox.AssertionFailed',
-                        regex = 'Failed to find an \[##doesntExist\] input on the page\.'
+                        regex = 'Failed to find a \[##doesntExist\] input on the page\.'
                     );
                 });
 
@@ -484,6 +504,12 @@ component extends='testbox.system.BaseSpec' {
                         type = 'TestBox.AssertionFailed',
                         regex = 'Failed asserting that \[sample\] does not appear in a \[##email\] input on the page\.'
                     );
+                });
+
+                it('finds fields by names as well as ids', function() {
+                    expect(function() {
+                        this.CUT.dontSeeInField('email', 'random');
+                    }).notToThrow();
                 });
 
                 it('throws an exception if there is no parsed document', function() {
