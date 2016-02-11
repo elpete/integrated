@@ -13,11 +13,18 @@ component{
 	this.setClientCookies 	= true;
 
 	// Create testing mapping
-	this.mappings["/tests"] = getDirectoryFromPath( getCurrentTemplatePath() );
+	testsPath = getDirectoryFromPath( getCurrentTemplatePath() );
+	this.mappings["/tests"] = testsPath;
+
 	// Map back to its root
 	rootPath = REReplaceNoCase( this.mappings[ "/tests" ], "tests(\\|/)", "" );
 	this.mappings["/root"] = rootPath;
-    this.mappings["/models"] = rootPath & "/models";
+
+	// Map to the SampleApp
+	this.mappings["/SampleApp"] = testsPath & "resources/SampleApp";
+	this.mappings["/coldbox"] = testsPath & "resources/SampleApp/coldbox";
+
     this.mappings[ "/testbox" ] = rootPath & "/testbox";
 
+    this.javaSettings = { loadPaths = [ "/lib" ], reloadOnChange = false };
 }
