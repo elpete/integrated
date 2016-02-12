@@ -1,11 +1,14 @@
 #!/bin/bash
 
-cd `dirname $0`/tests
-CWD="`pwd`"
+box server start
 
-box $CWD/run.cfm
+curl http://127.0.0.1:12121/tests/runner.cfm\?propertiesSummary\=true\&reporter\=text
 
-exitcode=$(<.exitcode)
-rm -f .exitcode
+box server stop
 
-exit $exitcode
+if ! grep 'test.passed=true' tests/results/TEST.properties
+then
+	exit 1
+else
+	exit 0
+fi
