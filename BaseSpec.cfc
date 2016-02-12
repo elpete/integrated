@@ -442,6 +442,8 @@ component extends='coldbox.system.testing.BaseTestCase' {
         // Clear out the requestMethod in case the call fails
         variables.requestMethod = '';
 
+        // Setup a new ColdBox request
+        setup();
         // Prepare a request context mock
         var eventMock = prepareMock(getRequestContext());
         // Set the HTTP Method
