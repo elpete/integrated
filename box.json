@@ -32,9 +32,9 @@
         }
     ],
     "dependencies":{
-        "coldbox":"4.1.0+00002"
     },
     "devDependencies":{
+        "coldbox":"4.1.0+00002",
         "testbox":"2.2.0"
     },
     "ignore":[
@@ -44,6 +44,6 @@
     ],
     "installPaths":{
         "testbox":"testbox",
-        "coldbox":"coldbox"
+        "coldbox":"tests/resources/SampleApp/coldbox"
     }
 }

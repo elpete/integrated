@@ -37,7 +37,7 @@ component extends='coldbox.system.testing.BaseTestCase' {
 
     public BaseSpec function click(required string name) {
         // verify that the link exists
-        // this.seeLink(arguments.name);
+        this.seeLink(arguments.name);
 
         // First try to find using the argument as a selector
         var anchorTag = getParsedPage().select('#arguments.name#');
@@ -429,9 +429,18 @@ component extends='coldbox.system.testing.BaseTestCase' {
     }
 
     private string function parseActionFromForm(required string action) {
-        // TODO: Better URL parsing
-        var pos = findNoCase('index.cfm', arguments.action);
-        return mid(arguments.action, pos + 9, Len(arguments.action));
+        var matches = REFind(
+            '^(?:https?\:\/\/(?:[^\:]+)\:?(?:\d+)(?:\/index\.cfm)?)([^\?]+)',
+            arguments.action,
+            1,
+            true
+        );
+
+        if (ArrayLen(matches.pos) < 2) {
+            throw("Couldn't parse action from form [#arguments.action#].  Please file a bug and include this error message.");
+        }
+
+        return mid(arguments.action, matches.pos[2], matches.len[2]);
     }
 
     private function makeRequest(required string method, string route, string event, struct parameters = {}) {
