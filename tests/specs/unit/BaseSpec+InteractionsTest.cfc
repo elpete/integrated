@@ -194,29 +194,99 @@ component extends='testbox.system.BaseSpec' {
 
                 feature('check', function() {
                     it('checks a checkbox', function() {
-                        fail('test not implemented yet');
+                        this.CUT.visit('/login')
+                                .dontSeeIsChecked('spam-me')
+                                .check('##spam-me');
+
+                        var inputs = this.CUT.$getProperty('inputs');
+
+                        expect(inputs['spam-me']).toBe(true);
+                    });
+
+                    it('fails if the checkbox does not exist', function() {
+                        expect(function() {
+                            this.CUT.visit('/login')
+                                    .check('terms');
+                        }).toThrow(
+                            type = 'TestBox.AssertionFailed'
+                        );
                     });
                 });
 
-                feature('uncheck', function() {
+                feature('unchecks', function() {
                     it('unchecks a checkbox', function() {
-                        fail('test not implemented yet');
+                        this.CUT.visit('/login')
+                                .seeIsChecked('remember-me')
+                                .uncheck('##remember-me');
+
+                        var inputs = this.CUT.$getProperty('inputs');
+
+                        expect(inputs['remember-me']).toBe(false);
+                    });
+
+                    it('fails if the checkbox does not exist', function() {
+                        expect(function() {
+                            this.CUT.visit('/login')
+                                    .check('terms');
+                        }).toThrow(
+                            type = 'TestBox.AssertionFailed'
+                        );
+                    });
+                });
+
+                feature('select', function() {
+                    it('selects an option', function() {
+                        this.CUT.visit('/login')
+                                .seeIsSelected('##country', 'USA')
+                                .select('CA', '##country');
+
+                        var inputs = this.CUT.$getProperty('inputs');
+
+                        expect(inputs['country']).toBe('CA');
+                    });
+
+                    it('selects an option by name as well as value', function() {
+                        this.CUT.visit('/login')
+                                .seeIsSelected('##country', 'USA')
+                                .select('Canada', '##country');
+
+                        var inputs = this.CUT.$getProperty('inputs');
+
+                        expect(inputs['country']).toBe('CA');
+                    });
+
+                    it('fails if the select field does not exist', function() {
+                        expect(function() {
+                            this.CUT.visit('/login')
+                                    .select('Male', 'gender');
+                        }).toThrow(
+                            type = 'TestBox.AssertionFailed'
+                        );
                     });
                 });
 
                 feature('press', function() {
                     it('presses a button', function() {
-                        fail('test not implemented yet');
+                        this.CUT.visit('/login')
+                                .type('john@example.com', 'email')
+                                .type('mY@wes0mep2ssw0rD', 'password')
+                                .press('Log In')
+                                .seeTitleIs('Secured Page');
                     });
                 });
 
                 feature('submitForm', function() {
                     it('submits a form', function() {
-                        fail('test not implemented yet');
+                        this.CUT.visit('/login')
+                                .submitForm('Log In');
                     });
 
                     it('accepts an optional struct of form data', function() {
-                        fail('test not implemented yet');
+                        this.CUT.visit('/login')
+                                .submitForm('Log In', {
+                                    email = 'john@example.com',
+                                    password = 'mY@wes0mep2ssw0rD'
+                                });
                     });
                 });
             });
@@ -227,6 +297,7 @@ component extends='testbox.system.BaseSpec' {
     private function setUpRequests() {
         setUpLoginPage();
         setUpAboutPage();
+        setUpSecuredPage();
         throwOnOtherRequests();
     }
 
@@ -246,6 +317,15 @@ component extends='testbox.system.BaseSpec' {
         mockAboutEvent.$(method = 'getCollection', returns = { cbox_rendered_content = aboutPage });
 
         this.CUT.$('execute').$args(route = '/about', renderResults = true).$results(mockAboutEvent);
+    }
+
+    private function setUpSecuredPage() {
+        var securedPage = fileRead(expandPath('/tests/resources/secured-page.html'));
+
+        mockSecuredEvent = getMockBox().createMock('coldbox.system.web.context.RequestContext');
+        mockSecuredEvent.$(method = 'getCollection', returns = { cbox_rendered_content = securedPage });
+
+        this.CUT.$('execute').$args(route = '/secured', renderResults = true).$results(mockSecuredEvent);
     }
 
     private function throwOnOtherRequests() {

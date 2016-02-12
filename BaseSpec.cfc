@@ -8,6 +8,8 @@ component extends='coldbox.system.testing.BaseTestCase' {
     property name='event';
     // The way we last made a request
     property name='requestMethod';
+    // The struct of form input values
+    property name='inputs' default='{}';
 
     function beforeAll(parser = createObject('java', 'org.jsoup.Jsoup')) {
         // Set up the ColdBox BaseTestCase
@@ -18,6 +20,7 @@ component extends='coldbox.system.testing.BaseTestCase' {
         variables.page = '';
         variables.event = '';
         variables.requestMethod = '';
+        variables.inputs = {};
 
         return this;
     }
@@ -25,45 +28,11 @@ component extends='coldbox.system.testing.BaseTestCase' {
     /***************************** Interactions *******************************/
 
     public BaseSpec function visit(required string route) {
-        // Clear out the requestMethod in case the call fails
-        variables.requestMethod = '';
-
-        try {
-            variables.event = execute(route = arguments.route, renderResults = true);
-        }
-        catch (HandlerService.EventHandlerNotRegisteredException e) {
-            throw(
-                type = 'TestBox.AssertionFailed',
-                message = 'Could not find any route called [#arguments.route#].',
-                detail = e.message
-            )
-        }
-
-        variables.requestMethod = 'visit';
-        variables.page = variables.parser.parse(getHTML(variables.event));
-
-        return this;
+        return this.makeRequest(method = 'GET', route = arguments.route);
     }
 
     public BaseSpec function visitEvent(required string event) {
-        // Clear out the requestMethod in case the call fails
-        variables.requestMethod = '';
-
-        try {
-            variables.event = execute(event = arguments.event, renderResults = true);
-        }
-        catch (HandlerService.EventHandlerNotRegisteredException e) {
-            throw(
-                type = 'TestBox.AssertionFailed',
-                message = 'Could not find any event called [#arguments.event#].',
-                detail = e.message
-            )
-        }
-
-        variables.requestMethod = 'visitEvent';
-        variables.page = variables.parser.parse(getHTML(variables.event));
-
-        return this;
+        return this.makeRequest(method = 'GET', event = arguments.event);
     }
 
     public BaseSpec function click(required string name) {
@@ -90,31 +59,34 @@ component extends='coldbox.system.testing.BaseTestCase' {
     }
 
     public BaseSpec function check(required string element) {
-        fail('method not implemented yet');
-
-        return this;
+        return this.storeInput(arguments.element, true);
     }
 
     public BaseSpec function uncheck(required string element) {
-        fail('method not implemented yet');
-
-        return this;
+        return this.storeInput(arguments.element, false);
     }
 
     public BaseSpec function select(required string option, required string element) {
-        fail('method not implemented yet');
+        var value = this.findOptionValue(arguments.option);
 
-        return this;
+        return this.storeInput(arguments.element, value);
     }
 
-    public BaseSpec function press(required string buttonText) {
-        fail('method not implemented yet');
-
-        return this;
+    public BaseSpec function press(required string buttonSelectorOrText) {
+        return this.submitForm(arguments.buttonSelectorOrText, variables.inputs);
     }
 
-    public BaseSpec function submitForm(required string buttonText, struct inputs = {}) {
-        fail('method not implemented yet');
+    public BaseSpec function submitForm(required string buttonSelectorOrText, struct inputs = {}) {
+        var pageForm = this.findForm(arguments.buttonSelectorOrText);
+
+        // Put the form values in to the variables.input struct        
+        this.extractValuesFromForm(pageForm);
+
+        this.makeRequest(
+            method = pageForm.attr('method'),
+            route = this.parseActionFromForm(pageForm.attr('action')),
+            parameters = variables.inputs
+        );
 
         return this;
     }
@@ -327,10 +299,7 @@ component extends='coldbox.system.testing.BaseTestCase' {
 
         var selectedOption = selectFields.select('option[selected]');
 
-        expect(ArrayLen(selectedOption)).notToBe(
-            0,
-            'Failed to find any selected options in [#arguments.selector#] select field on the page.'
-        );
+        expect(selectedOption).notToBeEmpty('Failed to find any selected options in [#arguments.selector#] select field on the page.');
 
         if (!negate) {
             var isValue = selectedOption.val() == arguments.value || selectedOption.html() == arguments.value;
@@ -424,18 +393,106 @@ component extends='coldbox.system.testing.BaseTestCase' {
         return '';
     }
 
-    private BaseSpec function storeInput(required string element, required string text) {
-        this.findFieldBySelectorOrName(arguments.element);
+    private BaseSpec function storeInput(required string element, required string value, boolean overwrite = false) {
+        this.findElementBySelectorOrName(arguments.element);
 
         var key = generateInputKey(arguments.element);
 
-        variables.inputs[key] = arguments.text;
+        if (StructKeyExists(variables.inputs, 'key')) {
+            if (arguments.overwrite) {
+                variables.inputs[key] = arguments.value;
+            }
+        }
+        else {
+            variables.inputs[key] = arguments.value;
+        }
 
         return this;
     }
 
     private string function generateInputKey(required string element) {
         return replace(arguments.element, '##', '', 'all');
+    }
+
+    private void function extractValuesFromForm(required pageForm) {
+        var inputs = pageForm.select('[name]');
+
+        for (var input in inputs) {
+            this.storeInput(
+                element = input.attr('name'),
+                value = input.val(),
+                overwrite = false
+            );
+        }
+
+        return;
+    }
+    private string function parseActionFromForm(required string action) {
+        var pos = findNoCase('index.cfm', arguments.action);
+        return mid(arguments.action, pos + 9, Len(arguments.action));
+    }
+
+    private function makeRequest(required string method, string route, string event, struct parameters = {}) {
+        if (!IsDefined('arguments.route') && !IsDefined('arguments.event')) {
+            throw(message = 'Must pass either a route or an event to the makeRequest() method.');
+        }
+
+        // Clear out the requestMethod in case the call fails
+        variables.requestMethod = '';
+
+        // Prepare a request context mock
+        var eventMock = prepareMock(getRequestContext());
+        // Set the HTTP Method
+        eventMock.$("getHTTPMethod", arguments.method);
+        // Set the parameters to the form or url scope
+        if (arguments.method == 'GET') {
+            for (var key in arguments.parameters) {
+                URL[key] = arguments.parameters[key];
+            }
+        }
+        else {
+            for (var key in arguments.parameters) {
+                FORM[key] = arguments.parameters[key];
+            }   
+        }
+
+        try {
+            if (IsDefined('arguments.route')) {
+                variables.event = execute(route = arguments.route, renderResults = true);
+            }
+            else {
+                variables.event = execute(event = arguments.event, renderResults = true);   
+            }
+        }
+        catch (HandlerService.EventHandlerNotRegisteredException e) {
+            if (IsDefined('arguments.route')) {
+                throw(
+                    type = 'TestBox.AssertionFailed',
+                    message = 'Could not find any route called [#arguments.route#].',
+                    detail = e.message
+                );
+            }
+            else {
+                throw(
+                    type = 'TestBox.AssertionFailed',
+                    message = 'Could not find any event called [#arguments.event#].',
+                    detail = e.message
+                );
+            }
+        }
+
+        variables.inputs = {};
+
+        if (IsDefined('arguments.route')) {
+            variables.requestMethod = 'visit';
+        }
+        else {
+            variables.requestMethod = 'visitEvent';   
+        }
+
+        variables.page = variables.parser.parse(getHTML(variables.event));
+
+        return this;
     }
 
     /**************************** Finder Methods ******************************/
@@ -498,5 +555,38 @@ component extends='coldbox.system.testing.BaseTestCase' {
         return elements;
     }
 
+    private function findOptionValue(required string value) {
+        // First try to find the field by value
+        var options = getParsedPage().select('option[value=#arguments.value#]');
+
+        // If we couldn't find it by selector, try by text
+        if (ArrayLen(options) == 0) {
+            options = getParsedPage().select('option:contains(#arguments.value#)');
+        }
+
+        expect(options).notToBeEmpty('Failed to find an option with value or text [#arguments.value#].');
+
+        return options.val();
+    }
+
+    private function findForm(string buttonSelectorOrText = '') {
+        if (buttonSelectorOrText != '') {
+            var pageForm = getParsedPage().select('form:has(button#arguments.buttonSelectorOrText#)');
+
+            if (ArrayLen(pageForm) == 0) {
+                pageForm = getParsedPage().select('form:has(button:contains(#arguments.buttonSelectorOrText#))');
+            }
+
+            expect(pageForm).notToBeEmpty('Failed to find a form with a button [#arguments.buttonSelectorOrText#].');
+
+            return pageForm;
+        }
+
+        var pageForm = getParsedPage().select('form');
+
+        expect(pageForm).notToBeEmpty('Failed to find a form with a button [#arguments.buttonSelectorOrText#].');
+
+        return pageForm;
+    }
 
 }
