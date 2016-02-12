@@ -72,21 +72,38 @@ component extends='coldbox.system.testing.BaseTestCase' {
         return storeInput(arguments.element, value);
     }
 
-    public BaseSpec function press(required string buttonSelectorOrText) {
-        return this.submitForm(arguments.buttonSelectorOrText, variables.inputs);
+    public BaseSpec function press(required string buttonSelectorOrText, string overrideEvent = '') {
+        return this.submitForm(
+            buttonSelectorOrText = arguments.buttonSelectorOrText,
+            inputs = variables.inputs,
+            overrideEvent = arguments.overrideEvent
+        );
     }
 
-    public BaseSpec function submitForm(required string buttonSelectorOrText, struct inputs = {}) {
+    public BaseSpec function submitForm(
+        required string buttonSelectorOrText,
+        struct inputs = {},
+        string overrideEvent = ''
+    ) {
         var pageForm = findForm(arguments.buttonSelectorOrText);
 
         // Put the form values in to the variables.input struct        
         extractValuesFromForm(pageForm);
 
-        makeRequest(
-            method = pageForm.attr('method'),
-            route = parseActionFromForm(pageForm.attr('action')),
-            parameters = variables.inputs
-        );
+        if (arguments.overrideEvent != '') {
+            makeRequest(
+                method = pageForm.attr('method'),
+                event = arguments.overrideEvent,
+                parameters = variables.inputs
+            );
+        }
+        else {
+            makeRequest(
+                method = pageForm.attr('method'),
+                route = parseActionFromForm(pageForm.attr('action')),
+                parameters = variables.inputs
+            );
+        }
 
         return this;
     }

@@ -274,6 +274,13 @@ component extends='testbox.system.BaseSpec' {
                                 .seeTitleIs('Secured Page');
                     });
 
+                    it('can take an optional override event', function() {
+                        this.CUT.visit('/login')
+                                .type('john@example.com', 'email')
+                                .type('mY@wes0mep2ssw0rD', 'password')
+                                .press('Log In', 'about')
+                                .seeTitleIs('About Page');
+                    });
                 });
 
                 feature('submitForm', function() {
@@ -287,7 +294,17 @@ component extends='testbox.system.BaseSpec' {
                                 .submitForm('Log In', {
                                     email = 'john@example.com',
                                     password = 'mY@wes0mep2ssw0rD'
-                                });
+                                })
+                                .seeTitleIs('Secured Page');
+                    });
+
+                    it('can take an optional override event', function() {
+                        this.CUT.visit('/login')
+                                .submitForm('Log In', {
+                                    email = 'john@example.com',
+                                    password = 'mY@wes0mep2ssw0rD'
+                                }, 'about')
+                                .seeTitleIs('About Page'); 
                     });
                 });
             });
@@ -317,6 +334,7 @@ component extends='testbox.system.BaseSpec' {
         mockAboutEvent = getMockBox().createMock('coldbox.system.web.context.RequestContext');
         mockAboutEvent.$(method = 'getCollection', returns = { cbox_rendered_content = aboutPage });
 
+        this.CUT.$('execute').$args(event = 'about', renderResults = true).$results(mockAboutEvent);
         this.CUT.$('execute').$args(route = '/about', renderResults = true).$results(mockAboutEvent);
     }
 
