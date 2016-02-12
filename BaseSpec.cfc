@@ -429,18 +429,9 @@ component extends='coldbox.system.testing.BaseTestCase' {
     }
 
     private string function parseActionFromForm(required string action) {
-        var matches = REFind(
-            '^(?:https?\:\/\/(?:[^\:]+)\:?(?:\d+)(?:\/index\.cfm)?)([^\?]+)',
-            arguments.action,
-            1,
-            true
-        );
+        var baseUrl = controller.getSetting('SESBaseUrl');
 
-        if (ArrayLen(matches.pos) < 2) {
-            throw("Couldn't parse action from form [#arguments.action#].  Please file a bug and include this error message.");
-        }
-
-        return mid(arguments.action, matches.pos[2], matches.len[2]);
+        return replace(arguments.action, baseUrl, '');
     }
 
     private function makeRequest(required string method, string route, string event, struct parameters = {}) {

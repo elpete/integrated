@@ -273,6 +273,7 @@ component extends='testbox.system.BaseSpec' {
                                 .press('Log In')
                                 .seeTitleIs('Secured Page');
                     });
+
                 });
 
                 feature('submitForm', function() {
