@@ -28,11 +28,11 @@ component extends='coldbox.system.testing.BaseTestCase' {
     /***************************** Interactions *******************************/
 
     public BaseSpec function visit(required string route) {
-        return this.makeRequest(method = 'GET', route = arguments.route);
+        return makeRequest(method = 'GET', route = arguments.route);
     }
 
     public BaseSpec function visitEvent(required string event) {
-        return this.makeRequest(method = 'GET', event = arguments.event);
+        return makeRequest(method = 'GET', event = arguments.event);
     }
 
     public BaseSpec function click(required string name) {
@@ -55,21 +55,21 @@ component extends='coldbox.system.testing.BaseTestCase' {
     }
 
     public BaseSpec function type(required string text, required string element) {
-        return this.storeInput(arguments.element, arguments.text);
+        return storeInput(arguments.element, arguments.text);
     }
 
     public BaseSpec function check(required string element) {
-        return this.storeInput(arguments.element, true);
+        return storeInput(arguments.element, true);
     }
 
     public BaseSpec function uncheck(required string element) {
-        return this.storeInput(arguments.element, false);
+        return storeInput(arguments.element, false);
     }
 
     public BaseSpec function select(required string option, required string element) {
-        var value = this.findOptionValue(arguments.option);
+        var value = findOptionValue(arguments.option);
 
-        return this.storeInput(arguments.element, value);
+        return storeInput(arguments.element, value);
     }
 
     public BaseSpec function press(required string buttonSelectorOrText) {
@@ -77,14 +77,14 @@ component extends='coldbox.system.testing.BaseTestCase' {
     }
 
     public BaseSpec function submitForm(required string buttonSelectorOrText, struct inputs = {}) {
-        var pageForm = this.findForm(arguments.buttonSelectorOrText);
+        var pageForm = findForm(arguments.buttonSelectorOrText);
 
         // Put the form values in to the variables.input struct        
-        this.extractValuesFromForm(pageForm);
+        extractValuesFromForm(pageForm);
 
-        this.makeRequest(
+        makeRequest(
             method = pageForm.attr('method'),
-            route = this.parseActionFromForm(pageForm.attr('action')),
+            route = parseActionFromForm(pageForm.attr('action')),
             parameters = variables.inputs
         );
 
@@ -224,7 +224,7 @@ component extends='coldbox.system.testing.BaseTestCase' {
 
         errorMessage &= '.';
 
-        expect(this.hasLink(arguments.text, arguments.url)).toBeTrue(errorMessage);
+        expect(hasLink(arguments.text, arguments.url)).toBeTrue(errorMessage);
 
         return this;
     }
@@ -238,13 +238,13 @@ component extends='coldbox.system.testing.BaseTestCase' {
 
         errorMessage &= '.';
 
-        expect(this.hasLink(arguments.text, arguments.url)).toBeFalse(errorMessage);
+        expect(hasLink(arguments.text, arguments.url)).toBeFalse(errorMessage);
 
         return this;
     }
 
     public BaseSpec function seeInField(required string selector, required string text, boolean negate = false) {
-        var inputs = this.findFieldBySelectorOrName(arguments.selector);
+        var inputs = findFieldBySelectorOrName(arguments.selector);
 
         var inputsWithValue = inputs.select('[value=#arguments.text#');
 
@@ -267,7 +267,7 @@ component extends='coldbox.system.testing.BaseTestCase' {
     }
 
     public BaseSpec function seeIsChecked(required string selector, boolean negate = false) {
-        var checkboxes = this.findCheckboxBySelectorOrName(arguments.selector);
+        var checkboxes = findCheckboxBySelectorOrName(arguments.selector);
 
         var checkedCheckboxes = checkboxes.select('[checked]');
 
@@ -295,7 +295,7 @@ component extends='coldbox.system.testing.BaseTestCase' {
     }
 
     public BaseSpec function seeIsSelected(required string selector, required string value, boolean negate = false) {
-        var selectFields = this.findSelectFieldBySelectorOrName(arguments.selector);
+        var selectFields = findSelectFieldBySelectorOrName(arguments.selector);
 
         var selectedOption = selectFields.select('option[selected]');
 
@@ -394,7 +394,7 @@ component extends='coldbox.system.testing.BaseTestCase' {
     }
 
     private BaseSpec function storeInput(required string element, required string value, boolean overwrite = true) {
-        this.findElementBySelectorOrName(arguments.element);
+        findElementBySelectorOrName(arguments.element);
 
         var key = generateInputKey(arguments.element);
 
@@ -418,7 +418,7 @@ component extends='coldbox.system.testing.BaseTestCase' {
         var inputs = pageForm.select('[name]');
 
         for (var input in inputs) {
-            this.storeInput(
+            storeInput(
                 element = input.attr('name'),
                 value = input.val(),
                 overwrite = false
@@ -498,7 +498,7 @@ component extends='coldbox.system.testing.BaseTestCase' {
         required string selectorOrName,
         string errorMessage = 'Failed to find a [#arguments.selectorOrName#] select field on the page.'
     ) {
-        var elements = this.findElementBySelectorOrName(arguments.selectorOrName, arguments.errorMessage);
+        var elements = findElementBySelectorOrName(arguments.selectorOrName, arguments.errorMessage);
 
         var selectFields = elements.select('select');
 
@@ -511,7 +511,7 @@ component extends='coldbox.system.testing.BaseTestCase' {
         required string selectorOrName,
         string errorMessage = 'Failed to find a [#arguments.selectorOrName#] checkbox on the page.'
     ) {
-        var fields = this.findElementBySelectorOrName(arguments.selectorOrName, arguments.errorMessage);
+        var fields = findElementBySelectorOrName(arguments.selectorOrName, arguments.errorMessage);
 
         // Filter down to checkboxes
         var checkboxes = fields.select('[type=checkbox]');
@@ -525,7 +525,7 @@ component extends='coldbox.system.testing.BaseTestCase' {
         required string selectorOrName,
         string errorMessage = 'Failed to find a [#arguments.selectorOrName#] input on the page.'
     ) {
-        var elements = this.findElementBySelectorOrName(arguments.selectorOrName, arguments.errorMessage);
+        var elements = findElementBySelectorOrName(arguments.selectorOrName, arguments.errorMessage);
 
         // Filter down to elements that have values
         var fields = elements.select('[value]');
