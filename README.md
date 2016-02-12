@@ -2,8 +2,9 @@
 
 ## A TestBox package for even better Integration tests in ColdBox!
 
-[![Master Branch Build Status](https://travis-ci.org/elpete/integrated.svg?branch=master&style=flat-square&label=master)](https://travis-ci.org/elpete/integrated)
-[![Development Branch Build Status](https://travis-ci.org/elpete/integrated.svg?branch=development&style=flat-square&label=master)](https://travis-ci.org/elpete/integrated)
+[![Master Branch Build Status](https://img.shields.io/travis/elpete/integrated/master.svg?style=flat-square&label=master)](https://travis-ci.org/elpete/integrated)
+[![Development Branch Build Status](https://img.shields.io/travis/elpete/integrated/development.svg?style=flat-square&label=development)](https://travis-ci.org/elpete/integrated)
+![travis development status](https://img.shields.io/travis/elpete/integrated/development.svg?style=flat-square&label=development)
 
 ### Installation
 Install the package from ForgeBox:
