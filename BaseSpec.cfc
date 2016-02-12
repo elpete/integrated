@@ -393,12 +393,12 @@ component extends='coldbox.system.testing.BaseTestCase' {
         return '';
     }
 
-    private BaseSpec function storeInput(required string element, required string value, boolean overwrite = false) {
+    private BaseSpec function storeInput(required string element, required string value, boolean overwrite = true) {
         this.findElementBySelectorOrName(arguments.element);
 
         var key = generateInputKey(arguments.element);
 
-        if (StructKeyExists(variables.inputs, 'key')) {
+        if (StructKeyExists(variables.inputs, key)) {
             if (arguments.overwrite) {
                 variables.inputs[key] = arguments.value;
             }
@@ -427,7 +427,9 @@ component extends='coldbox.system.testing.BaseTestCase' {
 
         return;
     }
+
     private string function parseActionFromForm(required string action) {
+        // TODO: Better URL parsing
         var pos = findNoCase('index.cfm', arguments.action);
         return mid(arguments.action, pos + 9, Len(arguments.action));
     }
@@ -445,15 +447,8 @@ component extends='coldbox.system.testing.BaseTestCase' {
         // Set the HTTP Method
         eventMock.$("getHTTPMethod", arguments.method);
         // Set the parameters to the form or url scope
-        if (arguments.method == 'GET') {
-            for (var key in arguments.parameters) {
-                URL[key] = arguments.parameters[key];
-            }
-        }
-        else {
-            for (var key in arguments.parameters) {
-                FORM[key] = arguments.parameters[key];
-            }   
+        for (var key in arguments.parameters) {
+            eventMock.setValue(key, arguments.parameters[key]);
         }
 
         try {
