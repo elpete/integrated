@@ -456,6 +456,8 @@ component extends='coldbox.system.testing.BaseTestCase' {
     }
 
     private function makeRequest(required string method, string route, string event, struct parameters = {}) {
+        arguments.method = UCase(arguments.method);
+
         if (!IsDefined('arguments.route') && !IsDefined('arguments.event')) {
             throw(message = 'Must pass either a route or an event to the makeRequest() method.');
         }
@@ -475,7 +477,7 @@ component extends='coldbox.system.testing.BaseTestCase' {
         }
 
         // Only mock the HTTP method if needed
-        if (UCase(arguments.method) != 'GET' && UCase(arguments.method) != 'POST') {
+        if (arguments.method != 'GET' && arguments.method != 'POST') {
             // Prepare a request context mock
             var eventMock = prepareMock(event);
             // Set the HTTP Method
