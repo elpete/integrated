@@ -469,17 +469,17 @@ component extends='coldbox.system.testing.BaseTestCase' {
         setup();
 
         // cache the request context
-        var event = getRequestContext();
+        local.event = getRequestContext();
 
         // Set the parameters to the form or url scope
         for (var key in arguments.parameters) {
-            event.setValue(key, arguments.parameters[key]);
+            local.event.setValue(key, arguments.parameters[key]);
         }
 
         // Only mock the HTTP method if needed
         if (arguments.method != 'GET' && arguments.method != 'POST') {
             // Prepare a request context mock
-            var eventMock = prepareMock(event);
+            var eventMock = prepareMock(local.event);
             // Set the HTTP Method
             eventMock.$("getHTTPMethod", arguments.method);
         }
