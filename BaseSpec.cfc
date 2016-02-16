@@ -475,7 +475,7 @@ component extends='coldbox.system.testing.BaseTestCase' {
         }
 
         // Only mock the HTTP method if needed
-        if (arguments.method != 'GET' && arguments.method != 'POST') {
+        if (UCase(arguments.method) != 'GET' && UCase(arguments.method) != 'POST') {
             // Prepare a request context mock
             var eventMock = prepareMock(event);
             // Set the HTTP Method
