@@ -94,14 +94,18 @@ component extends='coldbox.system.testing.BaseTestCase' {
             makeRequest(
                 method = pageForm.attr('method'),
                 event = arguments.overrideEvent,
-                parameters = variables.inputs
+                // if inputs were passed in, use them; otherwise, use variables.inputs
+                parameters = StructIsEmpty(arguments.inputs) ?
+                    variables.inputs : arguments.inputs
             );
         }
         else {
             makeRequest(
                 method = pageForm.attr('method'),
                 route = parseActionFromForm(pageForm.attr('action')),
-                parameters = variables.inputs
+                // if inputs were passed in, use them; otherwise, use variables.inputs
+                parameters = StructIsEmpty(arguments.inputs) ?
+                    variables.inputs : arguments.inputs
             );
         }
 
@@ -461,13 +465,21 @@ component extends='coldbox.system.testing.BaseTestCase' {
 
         // Setup a new ColdBox request
         setup();
-        // Prepare a request context mock
-        var eventMock = prepareMock(getRequestContext());
-        // Set the HTTP Method
-        eventMock.$("getHTTPMethod", arguments.method);
+
+        // cache the request context
+        var event = getRequestContext();
+
         // Set the parameters to the form or url scope
         for (var key in arguments.parameters) {
-            eventMock.setValue(key, arguments.parameters[key]);
+            event.setValue(key, arguments.parameters[key]);
+        }
+
+        // Only mock the HTTP method if needed
+        if (arguments.method != 'GET' && arguments.method != 'POST') {
+            // Prepare a request context mock
+            var eventMock = prepareMock(event);
+            // Set the HTTP Method
+            eventMock.$("getHTTPMethod", arguments.method);
         }
 
         try {

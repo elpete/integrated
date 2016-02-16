@@ -267,44 +267,117 @@ component extends='testbox.system.BaseSpec' {
 
                 feature('press', function() {
                     it('presses a button', function() {
+                        var mockEvent = getMockBox().createMock('coldbox.system.web.context.RequestContext');
+                        mockEvent.$('setValue', mockEvent);
+                        this.CUT.$('getRequestContext', mockEvent);
+
                         this.CUT.visit('/login')
                                 .type('john@example.com', 'email')
                                 .type('mY@wes0mep2ssw0rD', 'password')
                                 .press('Log In')
                                 .seeTitleIs('Secured Page');
+
+                        var setValueCallLog = mockEvent.$callLog().setValue;
+
+                        // convert the strange array of arrays into a struct
+                        setValueCallLog = ArrayReduce(setValueCallLog, function(callLog, call) {
+                            callLog[call[1]] = call[2];
+                            
+                            return callLog;
+                        }, {});
+
+                        expect(setValueCallLog).toHaveKey('email');
+                        expect(setValueCallLog.email).toBe('john@example.com');
+                        expect(setValueCallLog).toHaveKey('password');
+                        expect(setValueCallLog.password).toBe('mY@wes0mep2ssw0rD');
                     });
 
                     it('can take an optional override event', function() {
+                        var mockEvent = getMockBox().createMock('coldbox.system.web.context.RequestContext');
+                        mockEvent.$('setValue', mockEvent);
+                        this.CUT.$('getRequestContext', mockEvent);
+
                         this.CUT.visit('/login')
                                 .type('john@example.com', 'email')
                                 .type('mY@wes0mep2ssw0rD', 'password')
                                 .press('Log In', 'about')
                                 .seeTitleIs('About Page');
+
+                        var setValueCallLog = mockEvent.$callLog().setValue;
+
+                        // convert the strange array of arrays into a struct
+                        setValueCallLog = ArrayReduce(setValueCallLog, function(callLog, call) {
+                            callLog[call[1]] = call[2];
+                            
+                            return callLog;
+                        }, {});
+
+                        expect(setValueCallLog).toHaveKey('email');
+                        expect(setValueCallLog.email).toBe('john@example.com');
+                        expect(setValueCallLog).toHaveKey('password');
+                        expect(setValueCallLog.password).toBe('mY@wes0mep2ssw0rD');
                     });
                 });
 
                 feature('submitForm', function() {
                     it('submits a form', function() {
                         this.CUT.visit('/login')
-                                .submitForm('Log In');
+                                .submitForm('Log In')
+                                .seeTitleIs('Secured Page');
                     });
 
                     it('accepts an optional struct of form data', function() {
+                        var mockEvent = getMockBox().createMock('coldbox.system.web.context.RequestContext');
+                        mockEvent.$('setValue', mockEvent);
+                        this.CUT.$('getRequestContext', mockEvent);
+
                         this.CUT.visit('/login')
                                 .submitForm('Log In', {
                                     email = 'john@example.com',
                                     password = 'mY@wes0mep2ssw0rD'
                                 })
                                 .seeTitleIs('Secured Page');
+
+                        var setValueCallLog = mockEvent.$callLog().setValue;
+
+                        // convert the strange array of arrays into a struct
+                        setValueCallLog = ArrayReduce(setValueCallLog, function(callLog, call) {
+                            callLog[call[1]] = call[2];
+                            
+                            return callLog;
+                        }, {});
+
+                        expect(setValueCallLog).toHaveKey('email');
+                        expect(setValueCallLog.email).toBe('john@example.com');
+                        expect(setValueCallLog).toHaveKey('password');
+                        expect(setValueCallLog.password).toBe('mY@wes0mep2ssw0rD');
                     });
 
                     it('can take an optional override event', function() {
+                        var mockEvent = getMockBox().createMock('coldbox.system.web.context.RequestContext');
+                        mockEvent.$('setValue', mockEvent);
+                        this.CUT.$('getRequestContext', mockEvent);
+
                         this.CUT.visit('/login')
                                 .submitForm('Log In', {
                                     email = 'john@example.com',
                                     password = 'mY@wes0mep2ssw0rD'
                                 }, 'about')
-                                .seeTitleIs('About Page'); 
+                                .seeTitleIs('About Page');
+
+                        var setValueCallLog = mockEvent.$callLog().setValue;
+
+                        // convert the strange array of arrays into a struct
+                        setValueCallLog = ArrayReduce(setValueCallLog, function(callLog, call) {
+                            callLog[call[1]] = call[2];
+                            
+                            return callLog;
+                        }, {});
+
+                        expect(setValueCallLog).toHaveKey('email');
+                        expect(setValueCallLog.email).toBe('john@example.com');
+                        expect(setValueCallLog).toHaveKey('password');
+                        expect(setValueCallLog.password).toBe('mY@wes0mep2ssw0rD');
                     });
                 });
             });
