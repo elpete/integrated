@@ -67,7 +67,7 @@ component extends='coldbox.system.testing.BaseTestCase' {
     }
 
     public BaseSpec function select(required string option, required string element) {
-        var value = findOptionValue(arguments.option);
+        var value = findOptionValue(arguments.option, arguments.element);
 
         return storeInput(arguments.element, value);
     }
@@ -94,14 +94,18 @@ component extends='coldbox.system.testing.BaseTestCase' {
             makeRequest(
                 method = pageForm.attr('method'),
                 event = arguments.overrideEvent,
-                parameters = variables.inputs
+                // if inputs were passed in, use them; otherwise, use variables.inputs
+                parameters = StructIsEmpty(arguments.inputs) ?
+                    variables.inputs : arguments.inputs
             );
         }
         else {
             makeRequest(
                 method = pageForm.attr('method'),
                 route = parseActionFromForm(pageForm.attr('action')),
-                parameters = variables.inputs
+                // if inputs were passed in, use them; otherwise, use variables.inputs
+                parameters = StructIsEmpty(arguments.inputs) ?
+                    variables.inputs : arguments.inputs
             );
         }
 
@@ -452,6 +456,8 @@ component extends='coldbox.system.testing.BaseTestCase' {
     }
 
     private function makeRequest(required string method, string route, string event, struct parameters = {}) {
+        arguments.method = UCase(arguments.method);
+
         if (!IsDefined('arguments.route') && !IsDefined('arguments.event')) {
             throw(message = 'Must pass either a route or an event to the makeRequest() method.');
         }
@@ -461,13 +467,21 @@ component extends='coldbox.system.testing.BaseTestCase' {
 
         // Setup a new ColdBox request
         setup();
-        // Prepare a request context mock
-        var eventMock = prepareMock(getRequestContext());
-        // Set the HTTP Method
-        eventMock.$("getHTTPMethod", arguments.method);
+
+        // cache the request context
+        var event = getRequestContext();
+
         // Set the parameters to the form or url scope
         for (var key in arguments.parameters) {
-            eventMock.setValue(key, arguments.parameters[key]);
+            event.setValue(key, arguments.parameters[key]);
+        }
+
+        // Only mock the HTTP method if needed
+        if (arguments.method != 'GET' && arguments.method != 'POST') {
+            // Prepare a request context mock
+            var eventMock = prepareMock(event);
+            // Set the HTTP Method
+            eventMock.$("getHTTPMethod", arguments.method);
         }
 
         try {
@@ -544,8 +558,8 @@ component extends='coldbox.system.testing.BaseTestCase' {
     ) {
         var elements = findElementBySelectorOrName(arguments.selectorOrName, arguments.errorMessage);
 
-        // Filter down to elements that have values
-        var fields = elements.select('[value]');
+        // Filter down to elements that are inputs or textareas
+        var fields = elements.select('input, textarea');
 
         expect(fields).notToBeEmpty(arguments.errorMessage);
 
@@ -569,18 +583,20 @@ component extends='coldbox.system.testing.BaseTestCase' {
         return elements;
     }
 
-    private function findOptionValue(required string value) {
+    private function findOptionValue(required string value, required string selectSelector) {
+        var selectFields = findSelectFieldBySelectorOrName(arguments.selectSelector);
         // First try to find the field by value
-        var options = getParsedPage().select('option[value=#arguments.value#]');
+        var options = selectFields.select('option[value=#arguments.value#]');
 
         // If we couldn't find it by selector, try by text
         if (ArrayLen(options) == 0) {
-            options = getParsedPage().select('option:contains(#arguments.value#)');
+            options = selectFields.select('option:contains(#arguments.value#)');
         }
 
-        expect(options).notToBeEmpty('Failed to find an option with value or text [#arguments.value#].');
+        expect(options).notToBeEmpty('Failed to find an option with value or text [#arguments.value#] in [#arguments.selectSelector#].');
 
-        return options.val();
+        // If the option does not have a value attribute, return the option text
+        return options.val() != '' ? options.val() : options.text();
     }
 
     private function findForm(string buttonSelectorOrText = '') {
