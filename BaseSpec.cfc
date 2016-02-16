@@ -556,8 +556,8 @@ component extends='coldbox.system.testing.BaseTestCase' {
     ) {
         var elements = findElementBySelectorOrName(arguments.selectorOrName, arguments.errorMessage);
 
-        // Filter down to elements that have values
-        var fields = elements.select('[value]');
+        // Filter down to elements that are inputs or textareas
+        var fields = elements.select('input, textarea');
 
         expect(fields).notToBeEmpty(arguments.errorMessage);
 
