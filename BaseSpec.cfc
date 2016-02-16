@@ -67,7 +67,7 @@ component extends='coldbox.system.testing.BaseTestCase' {
     }
 
     public BaseSpec function select(required string option, required string element) {
-        var value = findOptionValue(arguments.option);
+        var value = findOptionValue(arguments.option, arguments.element);
 
         return storeInput(arguments.element, value);
     }
@@ -581,16 +581,17 @@ component extends='coldbox.system.testing.BaseTestCase' {
         return elements;
     }
 
-    private function findOptionValue(required string value) {
+    private function findOptionValue(required string value, required string selectSelector) {
+        var selectFields = findSelectFieldBySelectorOrName(arguments.selectSelector);
         // First try to find the field by value
-        var options = getParsedPage().select('option[value=#arguments.value#]');
+        var options = selectFields.select('option[value=#arguments.value#]');
 
         // If we couldn't find it by selector, try by text
         if (ArrayLen(options) == 0) {
-            options = getParsedPage().select('option:contains(#arguments.value#)');
+            options = selectFields.select('option:contains(#arguments.value#)');
         }
 
-        expect(options).notToBeEmpty('Failed to find an option with value or text [#arguments.value#].');
+        expect(options).notToBeEmpty('Failed to find an option with value or text [#arguments.value#] in [#arguments.selectSelector#].');
 
         // If the option does not have a value attribute, return the option text
         return options.val() != '' ? options.val() : options.text();

@@ -263,6 +263,15 @@ component extends='testbox.system.BaseSpec' {
                             type = 'TestBox.AssertionFailed'
                         );
                     });
+
+                    it('fails if the option does not exist in the select field provided', function() {
+                        expect(function() {
+                            this.CUT.visit('/login')
+                                    .select('Earth', 'country');
+                        }).toThrow(
+                            type = 'TestBox.AssertionFailed'
+                        );
+                    });
                 });
 
                 feature('press', function() {
