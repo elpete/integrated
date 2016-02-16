@@ -580,7 +580,8 @@ component extends='coldbox.system.testing.BaseTestCase' {
 
         expect(options).notToBeEmpty('Failed to find an option with value or text [#arguments.value#].');
 
-        return options.val();
+        // If the option does not have a value attribute, return the option text
+        return options.val() != '' ? options.val() : options.text();
     }
 
     private function findForm(string buttonSelectorOrText = '') {
