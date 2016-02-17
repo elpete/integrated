@@ -23,8 +23,8 @@ component{
 	// Map to the SampleApp
 	this.mappings["/SampleApp"] = testsPath & "resources/SampleApp";
 	this.mappings["/coldbox"] = testsPath & "resources/SampleApp/coldbox";
-
     this.mappings[ "/testbox" ] = rootPath & "/testbox";
+    this.mappings[ "/docbox" ] = rootPath & "/docbox";
 
     this.javaSettings = { loadPaths = [ "/lib" ], reloadOnChange = false };
 }
