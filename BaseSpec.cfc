@@ -70,7 +70,7 @@ component extends='coldbox.system.testing.BaseTestCase' {
         var anchorTag = getParsedPage().select('#arguments.link#');
 
         // If there is no value, try to find the link by text
-        if (ArrayLen(anchorTag) == 0) {
+        if (ArrayIsEmpty(anchorTag)) {
             anchorTag = getParsedPage().select('a:contains(#arguments.link#)');
         }
 
@@ -442,10 +442,10 @@ component extends='coldbox.system.testing.BaseTestCase' {
         var inputsWithValue = inputs.select('[value=#arguments.value#');
 
         if (!negate) {
-            expect(ArrayLen(inputsWithValue)).notToBe(0, 'Failed asserting that [#arguments.value#] appears in a [#arguments.element#] input or textarea on the page.');
+            expect(inputsWithValue).notToBeEmpty('Failed asserting that [#arguments.value#] appears in a [#arguments.element#] input or textarea on the page.');
         }
         else {
-            expect(ArrayLen(inputsWithValue)).toBe(0, 'Failed asserting that [#arguments.value#] does not appear in a [#arguments.element#] input or textarea on the page.');
+            expect(inputsWithValue).toBeEmpty('Failed asserting that [#arguments.value#] does not appear in a [#arguments.element#] input or textarea on the page.');
         }
 
         return this;
@@ -481,16 +481,10 @@ component extends='coldbox.system.testing.BaseTestCase' {
         var checkedCheckboxes = checkboxes.select('[checked]');
 
         if (!negate) {
-            expect(ArrayLen(checkedCheckboxes)).notToBe(
-                0,
-                'Failed asserting that [#arguments.element#] is checked on the page.'
-            );
+            expect(checkedCheckboxes).notToBeEmpty('Failed asserting that [#arguments.element#] is checked on the page.');
         }
         else {
-            expect(ArrayLen(checkedCheckboxes)).toBe(
-                0,
-                'Failed asserting that [#arguments.element#] is not checked on the page.'
-            );
+            expect(checkedCheckboxes).toBeEmpty('Failed asserting that [#arguments.element#] is not checked on the page.');
         }
 
         return this;
