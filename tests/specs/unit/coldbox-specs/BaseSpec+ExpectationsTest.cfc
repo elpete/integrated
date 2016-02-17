@@ -1,7 +1,7 @@
 component extends='testbox.system.BaseSpec' {
     
     function beforeAll() {
-        this.CUT = new BaseSpec();
+        this.CUT = new BaseSpecs.ColdBoxBaseSpec();
         getMockBox().prepareMock(this.CUT);
 
         // Set the appMapping for testing

@@ -1,24 +1,24 @@
 component extends='coldbox.system.testing.BaseTestCase' {
 
     // The jsoup parser object
-    property name='parser';
+    property name='parser' type='org.jsoup.parser.Parser';
     // The parsed jsoup document object
-    property name='page';
+    property name='page' type='org.jsoup.nodes.Document';
     // The ColdBox event object
-    property name='event';
+    property name='event' type='coldbox.system.web.context.RequestContext';
     // The way we last made a request
-    property name='requestMethod';
+    property name='requestMethod' type='string';
     // The struct of form input values
-    property name='inputs' default='{}';
+    property name='inputs' type='struct' default='{}';
 
     /**
     * Sets up the needed dependancies for Integrated.
     *
     * @parser Optional. A Jsoup parser. It is provided here so it can be overridden for testing. Default: createObject('java', 'org.jsoup.Jsoup').
     *
-    * @returns Integrated.BaseSpec
+    * @return Integrated.BaseSpecs.ColdBoxBaseSpec
     */
-    function beforeAll(parser = createObject('java', 'org.jsoup.Jsoup')) {
+    public ColdBoxBaseSpec function beforeAll(parser = createObject('java', 'org.jsoup.Jsoup')) {
         // Set up the ColdBox BaseTestCase
         super.beforeAll();
         
@@ -41,9 +41,9 @@ component extends='coldbox.system.testing.BaseTestCase' {
     *
     * @route The ColdBox route to visit, e.g. `/login` or `/posts/4`. Integrated will build the full url based on ColdBox settings (including `index.cfm`, if needed).
     *
-    * @returns Integrated.BaseSpec
+    * @return Integrated.BaseSpecs.ColdBoxBaseSpec
     */
-    public BaseSpec function visit(required string route) {
+    public ColdBoxBaseSpec function visit(required string route) {
         return makeRequest(method = 'GET', route = arguments.route);
     }
 
@@ -52,20 +52,20 @@ component extends='coldbox.system.testing.BaseTestCase' {
     *
     * @event The ColdBox event to visit, e.g. `Main.index` or `Posts.4`.
     *
-    * @returns Integrated.BaseSpec
+    * @return Integrated.BaseSpecs.ColdBoxBaseSpec
     */
-    public BaseSpec function visitEvent(required string event) {
+    public ColdBoxBaseSpec function visitEvent(required string event) {
         return makeRequest(method = 'GET', event = arguments.event);
     }
 
     /**
     * Clicks on a link in the current page.
     *
-    * @selectorOrText A selector of a link or the text of the link to click.
+    * @link A selector of a link or the text of the link to click.
     *
-    * @returns Integrated.BaseSpec
+    * @return Integrated.BaseSpecs.ColdBoxBaseSpec
     */
-    public BaseSpec function click(required string link) {
+    public ColdBoxBaseSpec function click(required string link) {
         // First try to find using the argument as a selector
         var anchorTag = getParsedPage().select('#arguments.link#');
 
@@ -87,9 +87,9 @@ component extends='coldbox.system.testing.BaseTestCase' {
     * @text The value to type in the form field.
     * @element The element selector or name to type the value in to.
     *
-    * @returns Integrated.BaseSpec
+    * @return Integrated.BaseSpecs.ColdBoxBaseSpec
     */
-    public BaseSpec function type(required string text, required string element) {
+    public ColdBoxBaseSpec function type(required string text, required string element) {
         return storeInput(arguments.element, arguments.text);
     }
 
@@ -98,9 +98,9 @@ component extends='coldbox.system.testing.BaseTestCase' {
     *
     * @element The selector or name of the checkbox to check.
     *
-    * @returns Integrated.BaseSpec
+    * @return Integrated.BaseSpecs.ColdBoxBaseSpec
     */
-    public BaseSpec function check(required string element) {
+    public ColdBoxBaseSpec function check(required string element) {
         return storeInput(arguments.element, true);
     }
 
@@ -109,9 +109,9 @@ component extends='coldbox.system.testing.BaseTestCase' {
     *
     * @element The selector or name of the checkbox to uncheck.
     *
-    * @returns Integrated.BaseSpec
+    * @return Integrated.BaseSpecs.ColdBoxBaseSpec
     */
-    public BaseSpec function uncheck(required string element) {
+    public ColdBoxBaseSpec function uncheck(required string element) {
         return storeInput(arguments.element, false);
     }
 
@@ -121,9 +121,9 @@ component extends='coldbox.system.testing.BaseTestCase' {
     * @option The value or text to select.
     * @element The selector or name to choose the option in.
     *
-    * @returns Integrated.BaseSpec
+    * @return Integrated.BaseSpecs.ColdBoxBaseSpec
     */
-    public BaseSpec function select(required string option, required string element) {
+    public ColdBoxBaseSpec function select(required string option, required string element) {
         var value = findOption(arguments.option, arguments.element);
 
         return storeInput(arguments.element, value);
@@ -135,9 +135,9 @@ component extends='coldbox.system.testing.BaseTestCase' {
     * @button The selector or name of the button to press.
     * @overrideEvent Optional. The event to run instead of the form's default. Default: ''.
     *
-    * @returns Integrated.BaseSpec
+    * @return Integrated.BaseSpecs.ColdBoxBaseSpec
     */
-    public BaseSpec function press(required string button, string overrideEvent = '') {
+    public ColdBoxBaseSpec function press(required string button, string overrideEvent = '') {
         return this.submitForm(
             button = arguments.button,
             inputs = variables.inputs,
@@ -152,9 +152,9 @@ component extends='coldbox.system.testing.BaseTestCase' {
     * @inputs Optional. The form values to submit.  If not provided, uses the values stored in Integrated combined with any values on the current page. Default: {}.
     * @overrideEvent Optional. The event to run instead of the form's default. Defeault: ''.
     *
-    * @returns Integrated.BaseSpec
+    * @return Integrated.BaseSpecs.ColdBoxBaseSpec
     */
-    public BaseSpec function submitForm(
+    public ColdBoxBaseSpec function submitForm(
         required string button,
         struct inputs = {},
         string overrideEvent = ''
@@ -197,9 +197,9 @@ component extends='coldbox.system.testing.BaseTestCase' {
     *
     * @route The expected route.
     *
-    * @returns Integrated.BaseSpec
+    * @return Integrated.BaseSpecs.ColdBoxBaseSpec
     */
-    public BaseSpec function seePageIs(required string route) {
+    public ColdBoxBaseSpec function seePageIs(required string route) {
         if (variables.requestMethod == 'visitEvent') {
             throw(
                 type = 'TestBox.AssertionFailed',
@@ -222,9 +222,9 @@ component extends='coldbox.system.testing.BaseTestCase' {
     *
     * @title The expected title.
     *
-    * @returns Integrated.BaseSpec
+    * @return Integrated.BaseSpecs.ColdBoxBaseSpec
     */
-    public BaseSpec function seeTitleIs(required string title) {
+    public ColdBoxBaseSpec function seeTitleIs(required string title) {
         var actualTitle = getParsedPage().title();
 
         expect(arguments.title).toBe(actualTitle,
@@ -239,9 +239,9 @@ component extends='coldbox.system.testing.BaseTestCase' {
     *
     * @view The expected view.
     *
-    * @returns Integrated.BaseSpec
+    * @return Integrated.BaseSpecs.ColdBoxBaseSpec
     */
-    public BaseSpec function seeViewIs(required string view) {
+    public ColdBoxBaseSpec function seeViewIs(required string view) {
         var actualView = getEvent().getCurrentView();
         expect(actualView).toBe(
             arguments.view,
@@ -256,9 +256,9 @@ component extends='coldbox.system.testing.BaseTestCase' {
     *
     * @handler The expected handler.
     *
-    * @returns Integrated.BaseSpec
+    * @return Integrated.BaseSpecs.ColdBoxBaseSpec
     */
-    public BaseSpec function seeHandlerIs(required string handler) {
+    public ColdBoxBaseSpec function seeHandlerIs(required string handler) {
         var actualHandler = getEvent().getCurrentHandler();
         expect(actualHandler).toBe(
             arguments.handler,
@@ -273,9 +273,9 @@ component extends='coldbox.system.testing.BaseTestCase' {
     *
     * @action The expected action.
     *
-    * @returns Integrated.BaseSpec
+    * @return Integrated.BaseSpecs.ColdBoxBaseSpec
     */
-    public BaseSpec function seeActionIs(required string action) {
+    public ColdBoxBaseSpec function seeActionIs(required string action) {
         var actualAction = getEvent().getCurrentAction();
         expect(actualAction).toBe(
             arguments.action,
@@ -290,9 +290,9 @@ component extends='coldbox.system.testing.BaseTestCase' {
     *
     * @event The expected event.
     *
-    * @returns Integrated.BaseSpec
+    * @return Integrated.BaseSpecs.ColdBoxBaseSpec
     */
-    public BaseSpec function seeEventIs(required string event) {
+    public ColdBoxBaseSpec function seeEventIs(required string event) {
         var actualEvent = getEvent().getCurrentEvent();
         expect(actualEvent).toBe(
             arguments.event,
@@ -308,9 +308,9 @@ component extends='coldbox.system.testing.BaseTestCase' {
     * @text The expected text.
     * @negate Optional. If true, throw an exception if the text IS found on the current page. Default: false.
     *
-    * @returns Integrated.BaseSpec
+    * @return Integrated.BaseSpecs.ColdBoxBaseSpec
     */
-    public BaseSpec function see(required string text, boolean negate = false) {
+    public ColdBoxBaseSpec function see(required string text, boolean negate = false) {
         var elems = getParsedPage().select('*:contains(#arguments.text#)');
 
         if (!negate) {
@@ -328,9 +328,9 @@ component extends='coldbox.system.testing.BaseTestCase' {
     *
     * @text The text that should not appear.
     *
-    * @returns Integrated.BaseSpec
+    * @return Integrated.BaseSpecs.ColdBoxBaseSpec
     */
-    public BaseSpec function dontSee(required string text) {
+    public ColdBoxBaseSpec function dontSee(required string text) {
         return this.see(text = arguments.text, negate = true);
     }
 
@@ -341,9 +341,9 @@ component extends='coldbox.system.testing.BaseTestCase' {
     * @text The expected text.
     * @negate Optional. If true, throw an exception if the element DOES contain the given text on the current page. Default: false.
     *
-    * @returns Integrated.BaseSpec
+    * @return Integrated.BaseSpecs.ColdBoxBaseSpec
     */
-    public BaseSpec function seeInElement(
+    public ColdBoxBaseSpec function seeInElement(
         required string element,
         required string text,
         boolean negate = false
@@ -368,9 +368,9 @@ component extends='coldbox.system.testing.BaseTestCase' {
     * @element The provided element.
     * @text The text that should not be found.
     *
-    * @returns Integrated.BaseSpec
+    * @return Integrated.BaseSpecs.ColdBoxBaseSpec
     */
-    public BaseSpec function dontSeeInElement(
+    public ColdBoxBaseSpec function dontSeeInElement(
         required string element,
         required string text
     ) {
@@ -388,9 +388,9 @@ component extends='coldbox.system.testing.BaseTestCase' {
     * @text The expected text of the link.
     * @url Optional. The expected url of the link. Default: ''.
     *
-    * @returns Integrated.BaseSpec
+    * @return Integrated.BaseSpecs.ColdBoxBaseSpec
     */
-    public BaseSpec function seeLink(required string text, string url = '') {
+    public ColdBoxBaseSpec function seeLink(required string text, string url = '') {
         var errorMessage = 'No links were found matching the pattern [#arguments.text#]';
 
         if (arguments.url != '') {
@@ -411,9 +411,9 @@ component extends='coldbox.system.testing.BaseTestCase' {
     * @text The text of the link that should not be found.
     * @url Optional. The url that should not be found. Default: ''.
     *
-    * @returns Integrated.BaseSpec
+    * @return Integrated.BaseSpecs.ColdBoxBaseSpec
     */
-    public BaseSpec function dontSeeLink(required string text, string url = '') {
+    public ColdBoxBaseSpec function dontSeeLink(required string text, string url = '') {
         var errorMessage = 'A link was found with expected text [#arguments.text#]';
 
         if (arguments.url != '') {
@@ -431,12 +431,12 @@ component extends='coldbox.system.testing.BaseTestCase' {
     * Verifies that a field with the given value exists on the current page.
     *
     * @element The selector or name of the field.
-    * @text The expected value of the field.
+    * @value The expected value of the field.
     * @negate Optional. If true, throw an exception if the field DOES contain the given text on the current page. Default: false.
     *
-    * @returns Integrated.BaseSpec
+    * @return Integrated.BaseSpecs.ColdBoxBaseSpec
     */
-    public BaseSpec function seeInField(required string element, required string value, boolean negate = false) {
+    public ColdBoxBaseSpec function seeInField(required string element, required string value, boolean negate = false) {
         var inputs = findField(arguments.element);
 
         var inputsWithValue = inputs.select('[value=#arguments.value#');
@@ -455,11 +455,11 @@ component extends='coldbox.system.testing.BaseTestCase' {
     * Verifies that a field with the given value exists on the current page.
     *
     * @element The selector or name of the field.
-    * @negate Optional. If true, throw an exception if the field DOES contain the given text on the current page. Default: false.
+    * @value The value of the field to not find.
     *
-    * @returns Integrated.BaseSpec
+    * @return Integrated.BaseSpecs.ColdBoxBaseSpec
     */
-    public BaseSpec function dontSeeInField(required string element, required string value) {
+    public ColdBoxBaseSpec function dontSeeInField(required string element, required string value) {
         return this.seeInField(
             element = arguments.element,
             value = arguments.value,
@@ -473,9 +473,9 @@ component extends='coldbox.system.testing.BaseTestCase' {
     * @element The selector or name of the checkbox.
     * @negate Optional. If true, throw an exception if the checkbox IS checked on the current page. Default: false.
     *
-    * @returns Integrated.BaseSpec
+    * @return Integrated.BaseSpecs.ColdBoxBaseSpec
     */
-    public BaseSpec function seeIsChecked(required string element, boolean negate = false) {
+    public ColdBoxBaseSpec function seeIsChecked(required string element, boolean negate = false) {
         var checkboxes = findCheckbox(arguments.element);
 
         var checkedCheckboxes = checkboxes.select('[checked]');
@@ -495,9 +495,9 @@ component extends='coldbox.system.testing.BaseTestCase' {
     *
     * @element The selector or name of the field.
     *
-    * @returns Integrated.BaseSpec
+    * @return Integrated.BaseSpecs.ColdBoxBaseSpec
     */
-    public BaseSpec function dontSeeIsChecked(required string element) {
+    public ColdBoxBaseSpec function dontSeeIsChecked(required string element) {
         return this.seeIsChecked(
             element = arguments.element,
             negate = true
@@ -511,9 +511,9 @@ component extends='coldbox.system.testing.BaseTestCase' {
     * @value The value or text of the option that should exist.
     * @negate Optional. If true, throw an exception if the option IS selected in the given select field on the current page. Default: false.
     *
-    * @returns Integrated.BaseSpec
+    * @return Integrated.BaseSpecs.ColdBoxBaseSpec
     */
-    public BaseSpec function seeIsSelected(required string element, required string value, boolean negate = false) {
+    public ColdBoxBaseSpec function seeIsSelected(required string element, required string value, boolean negate = false) {
         var selectFields = findSelectField(arguments.element);
 
         var selectedOption = selectFields.select('option[selected]');
@@ -538,9 +538,9 @@ component extends='coldbox.system.testing.BaseTestCase' {
     * @element The selector or name of the select field.
     * @value The value or text of the option that should exist.
     *
-    * @returns Integrated.BaseSpec
+    * @return Integrated.BaseSpecs.ColdBoxBaseSpec
     */
-    public BaseSpec function dontSeeIsSelected(required string element, required string value) {
+    public ColdBoxBaseSpec function dontSeeIsSelected(required string element, required string value) {
         return this.seeIsSelected(
             element = arguments.element,
             value = arguments.value,
@@ -557,7 +557,7 @@ component extends='coldbox.system.testing.BaseTestCase' {
     * Throws an exception if there is no parsed page available.
     *
     * @throws TestBox.AssertionFailed
-    * @returns org.jsoup.nodes.Document
+    * @return org.jsoup.nodes.Document
     */    
     private function getParsedPage() {
         if (IsSimpleValue(variables.page)) {
@@ -575,7 +575,7 @@ component extends='coldbox.system.testing.BaseTestCase' {
     * Throws an exception if there is no event available.
     *
     * @throws TestBox.AssertionFailed
-    * @returns coldbox.system.web.context.RequestContext
+    * @return coldbox.system.web.context.RequestContext
     */
     private function getEvent() {
         if (IsSimpleValue(variables.event)) {
@@ -592,8 +592,11 @@ component extends='coldbox.system.testing.BaseTestCase' {
     * Returns true if the current page has a given link.
     * Throws an exception if there is no anchor tags available.
     *
+    * @value The value to search for in the link.
+    * @url Optional. The url to search for in the link. Default: ''.
+    *
     * @throws TestBox.AssertionFailed
-    * @returns boolean
+    * @return boolean
     */
     private boolean function hasLink(required string value, string url = '') {
         var anchorTags = getParsedPage().select('a');
@@ -618,8 +621,10 @@ component extends='coldbox.system.testing.BaseTestCase' {
     /**
     * Parses an html string.
     * If an empty string is passed in, the current page is set to an empty string instead of parsing the page.
+    *
+    * @htmlString The html string to parse.
     */
-    private function parse(htmlString) {
+    private void function parse(required string htmlString) {
         if (arguments.htmlString == '') {
             variables.page = arguments.htmlString;
             return;
@@ -633,7 +638,7 @@ component extends='coldbox.system.testing.BaseTestCase' {
     /**
     * Returns the html string from a ColdBox `execute()` call.
     *
-    * @returns string
+    * @return string
     */
     private string function getHTML(event) {
         var rc = event.getCollection();
@@ -652,9 +657,9 @@ component extends='coldbox.system.testing.BaseTestCase' {
     * @value The value to store in-memory.
     * @overwrite Optional. Specifies whether to overwrite any existing in-memory input values.  Default: true.
     *
-    * @returns Integrated.BaseSpec
+    * @return Integrated.BaseSpecs.ColdBoxBaseSpec
     */
-    private BaseSpec function storeInput(
+    private BaseSpecs.ColdBoxBaseSpec function storeInput(
         required string element,
         required string value,
         boolean overwrite = true
@@ -682,7 +687,7 @@ component extends='coldbox.system.testing.BaseTestCase' {
     *
     * @element The selector or name of an form field.
     *
-    * @returns string
+    * @return string
     */
     private string function generateInputKey(required string element) {
         return replace(arguments.element, '##', '', 'all');
@@ -691,9 +696,9 @@ component extends='coldbox.system.testing.BaseTestCase' {
     /**
     * Store values found in the parsed form in the in-memory input struct.
     *
-    * @pageForm org.jsoup.nodes.Element The form jsoup node.
+    * @pageForm The form jsoup node. [org.jsoup.nodes.Element]
     *
-    * @returns string
+    * @return string
     */
     private void function extractValuesFromForm(required pageForm) {
         var inputs = pageForm.select('[name]');
@@ -715,7 +720,7 @@ component extends='coldbox.system.testing.BaseTestCase' {
     *
     * @action The form action attribute
     *
-    * @returns string
+    * @return string
     */
     private string function parseActionFromForm(required string action) {
         var baseUrl = controller.getSetting('SESBaseUrl');
@@ -728,14 +733,14 @@ component extends='coldbox.system.testing.BaseTestCase' {
     * Either a route or an event must be passed in.
     *
     * @method The HTTP method to use for the request.
-    * @route Optional. The ColdBox route to execute.
-    * @event Optional. The ColdBox event to execute.
-    * @parameters Optional. A struct of parameters to attach to the request.  The parameters are attached to ColdBox's RequestContext collection.
+    * @route Optional. The ColdBox route to execute. Default: ''.
+    * @event Optional. The ColdBox event to execute. Default: ''.
+    * @parameters Optional. A struct of parameters to attach to the request.  The parameters are attached to ColdBox's RequestContext collection. Default: {}.
     *
     * @throws TestBox.AssertionFailed
-    * @returns Integrated.BaseSpec
+    * @return Integrated.BaseSpecs.ColdBoxBaseSpec
     */
-    private BaseSpec function makeRequest(
+    private BaseSpecs.ColdBoxBaseSpec function makeRequest(
         required string method,
         string route,
         string event,
@@ -828,7 +833,7 @@ component extends='coldbox.system.testing.BaseTestCase' {
     * @errorMessage The error message to throw if an assertion fails.
     *
     * @throws TestBox.AssertionFailed
-    * @returns org.jsoup.select.Elements
+    * @return org.jsoup.select.Elements
     */
     private function findSelectField(
         required string selectorOrName,
@@ -851,7 +856,7 @@ component extends='coldbox.system.testing.BaseTestCase' {
     * @errorMessage The error message to throw if an assertion fails.
     *
     * @throws TestBox.AssertionFailed
-    * @returns org.jsoup.select.Elements
+    * @return org.jsoup.select.Elements
     */
     private function findCheckbox(
         required string selectorOrName,
@@ -875,7 +880,7 @@ component extends='coldbox.system.testing.BaseTestCase' {
     * @errorMessage The error message to throw if an assertion fails.
     *
     * @throws TestBox.AssertionFailed
-    * @returns org.jsoup.select.Elements
+    * @return org.jsoup.select.Elements
     */
     private function findField(
         required string selectorOrName,
@@ -899,7 +904,7 @@ component extends='coldbox.system.testing.BaseTestCase' {
     * @errorMessage The error message to throw if an assertion fails.
     *
     * @throws TestBox.AssertionFailed
-    * @returns org.jsoup.select.Elements
+    * @return org.jsoup.select.Elements
     */
     private function findElement(
         required string selectorOrName,
@@ -924,9 +929,10 @@ component extends='coldbox.system.testing.BaseTestCase' {
     *
     * @value The option value or text to find.
     * @selectorOrName The select field selector or name to find the option in.
+    * @errorMessage The error message to throw if an assertion fails.
     *
     * @throws TestBox.AssertionFailed
-    * @returns org.jsoup.select.Elements
+    * @return org.jsoup.select.Elements
     */
     private function findOption(
         required string value,
@@ -958,7 +964,7 @@ component extends='coldbox.system.testing.BaseTestCase' {
     * @selectorOrText The selector or text of a submit button.
     *
     * @throws TestBox.AssertionFailed
-    * @returns org.jsoup.select.Elements
+    * @return org.jsoup.select.Elements
     */
     private function findForm(string selectorOrText = '') {
         if (selectorOrText != '') {
