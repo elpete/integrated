@@ -1,0 +1,1815 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>CacheFactory</title>
+	<meta name="keywords" content="Integrated.tests.resources.SampleApp.coldbox.system.cache.concurrent.Callable interface">
+	<!-- common assets -->
+	
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel ="stylesheet" type="text/css" href="../../../../../../../bootstrap/css/bootstrap.min.css">
+<link rel ="stylesheet" type="text/css" href="../../../../../../../stylesheet.css">
+	
+<link href='https://fonts.googleapis.com/css?family=Ubuntu:400,300,300italic,400italic,700,700italic|Ubuntu+Mono' rel='stylesheet' type='text/css' />
+	
+<script src="../../../../../../../bootstrap/js/jquery-2.1.0.min.js" type="text/javascript"></script>
+<script src="../../../../../../../bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+
+<script>
+$(document).ready(function() {
+	// Global Tool Tip Settings
+	$( '[title]' ).tooltip({
+		 animation: 'slide',
+		 delay: { show: 250, hide: 250 }
+	});
+});
+</script>
+	<!-- syntax highlighter -->
+	<link type="text/css" rel="stylesheet" href="../../../../../../../highlighter/styles/shCoreDefault.css">
+	<script src="../../../../../../../highlighter/scripts/shCore.js"></script>
+	<script src="../../../../../../../highlighter/scripts/shBrushColdFusion.js"></script>
+	<script src="../../../../../../../highlighter/scripts/shBrushXml.js"></script>
+	<script src="../../../../../../../highlighter/scripts/shBrushSql.js"></script>
+	<script src="../../../../../../../highlighter/scripts/shBrushJScript.js"></script>
+	<script src="../../../../../../../highlighter/scripts/shBrushJava.js"></script>
+	<script src="../../../../../../../highlighter/scripts/shBrushCss.js"></script>
+	<script type="text/javascript">SyntaxHighlighter.all();</script>
+</head>
+
+<body class="withNavbar">
+
+
+
+
+
+
+<!-- ========= START OF NAVBAR ======= -->
+<a name="navbar_top"></a>
+<a href="#skip-navbar_top" title="skip navigation links"></a>	
+
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container-fluid">
+    
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#class-navigation">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="#"><strong>Integrated</strong></a>
+		</div>
+
+	    <div class="collapse navbar-collapse" id="class-navigation">
+	    	<ul class="nav navbar-nav">
+				
+					
+					<li><a href="../../../../../../../overview-summary.html"><i class="glyphicon glyphicon-plane"></i> overview</a></li>
+					
+				
+
+				
+					<li><a href="package-summary.html"><i class="glyphicon glyphicon-folder-open"></i> &nbsp;package</a></li>
+				
+
+			  	
+					<li class="dropdown active">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-file"></i> class <b class="caret"></b></a>
+
+						<ul class="dropdown-menu">
+							<li><a href="#class">Class Definition</a></li>
+							<li><a href="#constructor_summary">Constructor Summary</a></li>
+							<li><a href="#constructor_detail">Constructor Detail</a></li>
+							<li><a href="#inherited_methods">Inherited Methods</a></li>
+							<li><a href="#method_summary">Method Summary</a></li>
+							<li><a href="#method_detail">Method Detail</a></li>
+							<li><a href="#property_summary">Property Summary</a></li>
+							<li><a href="#property_detail">Property Detail</a></li>
+							
+						</ul>
+					</li>
+				
+	      	</ul>
+
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="../../../../../../../index.html?Integrated/tests/resources/SampleApp/coldbox/system/cache/CacheFactory.html" target="_top">
+					<i class="glyphicon glyphicon-fullscreen"></i> Frames
+					</a>
+				</li>
+			</ul>
+	    </div>
+
+	</div>
+</nav>	
+
+<a name="skip-navbar_top"></a>
+<!-- ========= END OF NAVBAR ========= -->
+
+<!-- ======== start of class data ======== -->
+<a name="class"><!-- --></a>
+
+<!-- Package -->
+<div class="pull-right">
+	<a href="package-summary.html" title="Package: Integrated.tests.resources.SampleApp.coldbox.system.cache"><span class="label label-success">Integrated.tests.resources.SampleApp.coldbox.system.cache</span></a>
+</div>
+
+<h2>
+
+
+Class
+
+ CacheFactory</h2>
+
+
+
+
+
+
+
+
+	
+		
+	
+	
+
+	
+		
+		
+			
+		
+	
+	
+
+
+<!-- Inheritance Tree-->
+<pre style="background:white">lucee.Component
+    <img src="../../../../../../../resources/inherit.gif" alt="extended by ">Integrated.tests.resources.SampleApp.coldbox.system.cache.CacheFactory
+</pre>
+
+
+
+	
+	
+
+
+
+
+
+
+
+<div id="class-hint">
+	<p>The ColdBox CacheBox Factory</p>
+</div>
+
+
+<!-- Clas Attributes -->
+<div class="panel panel-info">
+	<div class="panel-heading"><strong>Class Attributes:</strong></div>
+		<div class="panel-body">
+		
+		
+			
+		
+			
+		
+			
+			
+			<li class="label label-danger label-annotations">
+				output 
+				
+				: false		
+				
+			</li>
+			&nbsp;
+			
+		
+			
+		
+			
+			
+			<li class="label label-danger label-annotations">
+				synchronized 
+				
+				: false		
+				
+			</li>
+			&nbsp;
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+			
+			<li class="label label-danger label-annotations">
+				accessors 
+				
+				: false		
+				
+			</li>
+			&nbsp;
+			
+		
+			
+		
+			
+			
+			<li class="label label-danger label-annotations">
+				persistent 
+				
+				: false		
+				
+			</li>
+			&nbsp;
+			
+		
+			
+			
+			<li class="label label-danger label-annotations">
+				serializable 
+				
+				: false		
+				
+			</li>
+			&nbsp;
+			
+		
+			
+		
+			
+		
+		
+	</div>
+</div>
+
+
+
+
+
+
+	
+	
+	<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+
+	<a name="constructor_summary"><!-- --></a>
+	<table class="table table-bordered table-hover">
+		<tr class="info">
+			<th align="left" colspan="2">
+				<strong>Constructor Summary</strong>
+			</th>
+		</tr>
+		<tr>
+			
+			<td>
+				<strong><a href="CacheFactory.html#init()">init</A></strong>([any config], [any coldbox], [any factoryID=''])
+				<br>
+				
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Constructor.
+				
+			</td>
+		</tr>
+	</table>
+
+
+
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+
+<a name="method_summary"><!-- --></a>
+<table class="table table-bordered table-hover">
+	<tr class="info">
+		<th align="left" colspan="2">
+			<strong>Method Summary</strong>
+		</th>
+	</tr>
+
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>void</code>
+		</td>
+		<td>
+			<strong><a href="CacheFactory.html#addCache()">addCache</A></strong>(any cache)
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Register a new instantiated cache with this cache factory.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="CacheFactory.html#addDefaultCache()">addDefaultCache</A></strong>(any name)
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Add a default named cache to our registry, create it, config it, register it and return it of type: coldbox.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="CacheFactory.html#cacheExists()">cacheExists</A></strong>(any name)
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Check if the passed in named cache is already registered in this factory or not.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>void</code>
+		</td>
+		<td>
+			<strong><a href="CacheFactory.html#clearAll()">clearAll</A></strong>()
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Clears all the elements in all the registered caches without de-registrations.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>void</code>
+		</td>
+		<td>
+			<strong><a href="CacheFactory.html#configure()">configure</A></strong>(any config)
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Configure the cache factory for operation, called by the init().
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>private&nbsp;void</code>
+		</td>
+		<td>
+			<strong><a href="CacheFactory.html#configureEventManager()">configureEventManager</A></strong>()
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Configure a standalone version of a ColdBox Event Manager.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>private&nbsp;void</code>
+		</td>
+		<td>
+			<strong><a href="CacheFactory.html#configureLogBox()">configureLogBox</A></strong>()
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Configure a standalone version of logBox for logging.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="CacheFactory.html#createCache()">createCache</A></strong>(any name, any provider, [any properties='[runtime expression]'])
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Create a new cache according the the arguments, register it and return it of type: coldbox.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>private&nbsp;void</code>
+		</td>
+		<td>
+			<strong><a href="CacheFactory.html#doScopeRegistration()">doScopeRegistration</A></strong>()
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Register this cachefactory on a user specified scope.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>void</code>
+		</td>
+		<td>
+			<strong><a href="CacheFactory.html#expireAll()">expireAll</A></strong>()
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Expires all the elements in all the registered caches without de-registrations.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="CacheFactory.html#getCache()">getCache</A></strong>(any name)
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Get a reference to a registered cache in this factory.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="CacheFactory.html#getCacheNames()">getCacheNames</A></strong>()
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Get the array of caches registered with this factory.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="CacheFactory.html#getCaches()">getCaches</A></strong>()
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Get a reference to all the registered caches in the cache factory as a structure.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="CacheFactory.html#getColdbox()">getColdbox</A></strong>()
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Get the instance of ColdBox linked in this cache factory.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="CacheFactory.html#getConfig()">getConfig</A></strong>()
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Get this LogBox's configuration object.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="CacheFactory.html#getDefaultCache()">getDefaultCache</A></strong>()
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Get the default cache provider of type coldbox.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="CacheFactory.html#getEventManager()">getEventManager</A></strong>()
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Get the cache factory's event manager.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="CacheFactory.html#getFactoryID()">getFactoryID</A></strong>()
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Get the unique ID of this cache factory.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="CacheFactory.html#getLogBox()">getLogBox</A></strong>()
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Get the instance of LogBox configured for this cache factory.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="CacheFactory.html#getScopeRegistration()">getScopeRegistration</A></strong>()
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Get the scope registration information.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>private&nbsp;any</code>
+		</td>
+		<td>
+			<strong><a href="CacheFactory.html#getUtil()">getUtil</A></strong>()
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Create and return a util object.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="CacheFactory.html#getVersion()">getVersion</A></strong>()
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Get the CacheBox version string.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="CacheFactory.html#isColdBoxLinked()">isColdBoxLinked</A></strong>()
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if Coldbox application controller is linked.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>void</code>
+		</td>
+		<td>
+			<strong><a href="CacheFactory.html#reapAll()">reapAll</A></strong>()
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A nice way to call reap on all registered caches.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>private&nbsp;void</code>
+		</td>
+		<td>
+			<strong><a href="CacheFactory.html#registerCache()">registerCache</A></strong>(any cache)
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Register a cache instance internaly.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>private&nbsp;void</code>
+		</td>
+		<td>
+			<strong><a href="CacheFactory.html#registerListeners()">registerListeners</A></strong>()
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Register all the configured listeners in the configuration file.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>void</code>
+		</td>
+		<td>
+			<strong><a href="CacheFactory.html#removeAll()">removeAll</A></strong>()
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Remove all the registered caches in this factory, this triggers individual cache shutdowns.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="CacheFactory.html#removeCache()">removeCache</A></strong>(any name)
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Try to remove a named cache from this factory, returns Boolean if successfull or not.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>void</code>
+		</td>
+		<td>
+			<strong><a href="CacheFactory.html#removeFromScope()">removeFromScope</A></strong>()
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Remove the cache factory from scope registration if enabled, else does nothing.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>void</code>
+		</td>
+		<td>
+			<strong><a href="CacheFactory.html#replaceCache()">replaceCache</A></strong>(any cache, any decoratedCache)
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Replace a registered named cache with a new decorated cache of the same name.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>void</code>
+		</td>
+		<td>
+			<strong><a href="CacheFactory.html#shutdown()">shutdown</A></strong>()
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Recursively sends shutdown commands to al registered caches and cleans up in preparation for shutdown.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>void</code>
+		</td>
+		<td>
+			<strong><a href="CacheFactory.html#shutdownCache()">shutdownCache</A></strong>(any name)
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Send a shutdown command to a specific cache provider to bring down gracefully.
+			
+		</td>
+	</tr>
+	
+</table>
+
+
+
+<a name="inherited_methods"><!-- --></a>
+
+
+	
+
+	
+
+	&nbsp;
+	<a name="methods_inherited_from_class_lucee.Component"><!-- --></a>
+	<table class="table table-hover table-bordered">
+		<tr class="info">
+			<th align="left">
+				<strong>Methods inherited from class <kbd>lucee.Component</kbd></strong>
+			</th>
+		</tr>
+		<tr>
+			<td>
+				
+				
+				
+				
+				
+					<span class="label label-warning"><em>None</em></span>
+				
+			</td>
+		</tr>
+	</table>
+
+
+<hr>
+
+<!-- ========= CONSTRUCTOR DETAIL ======== -->
+
+	<a name="constructor_detail"><!-- --></a>
+	<table class="table table-bordered">
+		<tr class="info">
+			<th colspan="1" align="left">
+				<strong>Constructor Detail</strong>
+			</th>
+		</tr>
+	</table>
+
+	<a name="init()"><!-- --></a><h3>
+	init</h3>
+	<kbd>public <strong>init</strong>([any config], [any coldbox], [any factoryID=''])</kbd>
+
+	<br><br>
+
+	
+	<p>Constructor</p>
+	
+
+	
+	<dl>
+		<dt><strong>Parameters:</strong></dt>
+		
+			<dd><code>config</code> - The CacheBoxConfig object or path to use to configure this instance of CacheBox. If not passed then CacheBox will instantiate the default configuration.</dd>
+		
+			<dd><code>coldbox</code> - A coldbox application that this instance of CacheBox can be linked to, if not using it, just ignore it.</dd>
+		
+			<dd><code>factoryID</code> - A unique ID or name for this factory. If not passed I will make one up for you.</dd>
+		
+	</dl>
+	
+	<hr>
+
+
+<!-- ============ PROPERTY DETAIL ========== -->
+
+
+
+
+
+
+
+
+
+<!-- ============ METHOD DETAIL ========== -->
+
+<a name="method_detail"><!-- --></a>
+<table class="table table-bordered">
+	<tr class="info">
+		<th colspan="1" align="left">
+			<strong>Method Detail</strong>
+		</th>
+	</tr>
+</table>
+
+
+	
+	<a name="addCache()"><!-- --></a>
+	<h3>addCache</h3>
+	
+	<kbd>public void <strong>addCache</strong>(any cache)</kbd>
+	
+	<br><br>
+
+	
+		<p>Register a new instantiated cache with this cache factory</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+		<dl>
+		<dt><strong>Parameters:</strong></dt>
+		
+		<dd><code>cache</code> - The cache instance to register with this factory of type: coldbox.system.cache.ICacheProvider</dd>
+		
+		</dl>
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="addDefaultCache()"><!-- --></a>
+	<h3>addDefaultCache</h3>
+	
+	<kbd>public any <strong>addDefaultCache</strong>(any name)</kbd>
+	
+	<br><br>
+
+	
+		<p>Add a default named cache to our registry, create it, config it, register it and return it of type: coldbox.system.cache.ICacheProvider</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+		<dl>
+		<dt><strong>Parameters:</strong></dt>
+		
+		<dd><code>name</code> - The name of the default cache to create</dd>
+		
+		</dl>
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="cacheExists()"><!-- --></a>
+	<h3>cacheExists</h3>
+	
+	<kbd>public any <strong>cacheExists</strong>(any name)</kbd>
+	
+	<br><br>
+
+	
+		<p>Check if the passed in named cache is already registered in this factory or not</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+		<dl>
+		<dt><strong>Parameters:</strong></dt>
+		
+		<dd><code>name</code> - The name of the cache to check</dd>
+		
+		</dl>
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="clearAll()"><!-- --></a>
+	<h3>clearAll</h3>
+	
+	<kbd>public void <strong>clearAll</strong>()</kbd>
+	
+	<br><br>
+
+	
+		<p>Clears all the elements in all the registered caches without de-registrations</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="configure()"><!-- --></a>
+	<h3>configure</h3>
+	
+	<kbd>public void <strong>configure</strong>(any config)</kbd>
+	
+	<br><br>
+
+	
+		<p>Configure the cache factory for operation, called by the init(). You can also re-configure CacheBox programmatically.</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+		<dl>
+		<dt><strong>Parameters:</strong></dt>
+		
+		<dd><code>config</code> - The CacheBoxConfig object to use to configure this instance of CacheBox</dd>
+		
+		</dl>
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="configureEventManager()"><!-- --></a>
+	<h3>configureEventManager</h3>
+	
+	<kbd>private void <strong>configureEventManager</strong>()</kbd>
+	
+	<br><br>
+
+	
+		<p>Configure a standalone version of a ColdBox Event Manager</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="configureLogBox()"><!-- --></a>
+	<h3>configureLogBox</h3>
+	
+	<kbd>private void <strong>configureLogBox</strong>()</kbd>
+	
+	<br><br>
+
+	
+		<p>Configure a standalone version of logBox for logging</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="createCache()"><!-- --></a>
+	<h3>createCache</h3>
+	
+	<kbd>public any <strong>createCache</strong>(any name, any provider, [any properties='[runtime expression]'])</kbd>
+	
+	<br><br>
+
+	
+		<p>Create a new cache according the the arguments, register it and return it of type: coldbox.system.cache.ICacheProvider</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+		<dl>
+		<dt><strong>Parameters:</strong></dt>
+		
+		<dd><code>name</code> - The name of the cache to add</dd>
+		
+		<dd><code>provider</code> - The provider class path of the cache to add</dd>
+		
+		<dd><code>properties</code> - The properties of the cache to configure with</dd>
+		
+		</dl>
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="doScopeRegistration()"><!-- --></a>
+	<h3>doScopeRegistration</h3>
+	
+	<kbd>private void <strong>doScopeRegistration</strong>()</kbd>
+	
+	<br><br>
+
+	
+		<p>Register this cachefactory on a user specified scope</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="expireAll()"><!-- --></a>
+	<h3>expireAll</h3>
+	
+	<kbd>public void <strong>expireAll</strong>()</kbd>
+	
+	<br><br>
+
+	
+		<p>Expires all the elements in all the registered caches without de-registrations</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="getCache()"><!-- --></a>
+	<h3>getCache</h3>
+	
+	<kbd>public any <strong>getCache</strong>(any name)</kbd>
+	
+	<br><br>
+
+	
+		<p>Get a reference to a registered cache in this factory.  If the cache does not exist it will return an exception. Type: coldbox.system.cache.ICacheProvider</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+		<dl>
+		<dt><strong>Parameters:</strong></dt>
+		
+		<dd><code>name</code> - The named cache to retrieve</dd>
+		
+		</dl>
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="getCacheNames()"><!-- --></a>
+	<h3>getCacheNames</h3>
+	
+	<kbd>public any <strong>getCacheNames</strong>()</kbd>
+	
+	<br><br>
+
+	
+		<p>Get the array of caches registered with this factory</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="getCaches()"><!-- --></a>
+	<h3>getCaches</h3>
+	
+	<kbd>public any <strong>getCaches</strong>()</kbd>
+	
+	<br><br>
+
+	
+		<p>Get a reference to all the registered caches in the cache factory as a structure</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="getColdbox()"><!-- --></a>
+	<h3>getColdbox</h3>
+	
+	<kbd>public any <strong>getColdbox</strong>()</kbd>
+	
+	<br><br>
+
+	
+		<p>Get the instance of ColdBox linked in this cache factory. Empty if using standalone version</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="getConfig()"><!-- --></a>
+	<h3>getConfig</h3>
+	
+	<kbd>public any <strong>getConfig</strong>()</kbd>
+	
+	<br><br>
+
+	
+		<p>Get this LogBox's configuration object.</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="getDefaultCache()"><!-- --></a>
+	<h3>getDefaultCache</h3>
+	
+	<kbd>public any <strong>getDefaultCache</strong>()</kbd>
+	
+	<br><br>
+
+	
+		<p>Get the default cache provider of type coldbox.system.cache.ICacheProvider</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="getEventManager()"><!-- --></a>
+	<h3>getEventManager</h3>
+	
+	<kbd>public any <strong>getEventManager</strong>()</kbd>
+	
+	<br><br>
+
+	
+		<p>Get the cache factory's event manager</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="getFactoryID()"><!-- --></a>
+	<h3>getFactoryID</h3>
+	
+	<kbd>public any <strong>getFactoryID</strong>()</kbd>
+	
+	<br><br>
+
+	
+		<p>Get the unique ID of this cache factory</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="getLogBox()"><!-- --></a>
+	<h3>getLogBox</h3>
+	
+	<kbd>public any <strong>getLogBox</strong>()</kbd>
+	
+	<br><br>
+
+	
+		<p>Get the instance of LogBox configured for this cache factory</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="getScopeRegistration()"><!-- --></a>
+	<h3>getScopeRegistration</h3>
+	
+	<kbd>public any <strong>getScopeRegistration</strong>()</kbd>
+	
+	<br><br>
+
+	
+		<p>Get the scope registration information</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="getUtil()"><!-- --></a>
+	<h3>getUtil</h3>
+	
+	<kbd>private any <strong>getUtil</strong>()</kbd>
+	
+	<br><br>
+
+	
+		<p>Create and return a util object</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="getVersion()"><!-- --></a>
+	<h3>getVersion</h3>
+	
+	<kbd>public any <strong>getVersion</strong>()</kbd>
+	
+	<br><br>
+
+	
+		<p>Get the CacheBox version string.</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="isColdBoxLinked()"><!-- --></a>
+	<h3>isColdBoxLinked</h3>
+	
+	<kbd>public any <strong>isColdBoxLinked</strong>()</kbd>
+	
+	<br><br>
+
+	
+		<p>Checks if Coldbox application controller is linked</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="reapAll()"><!-- --></a>
+	<h3>reapAll</h3>
+	
+	<kbd>public void <strong>reapAll</strong>()</kbd>
+	
+	<br><br>
+
+	
+		<p>A nice way to call reap on all registered caches</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="registerCache()"><!-- --></a>
+	<h3>registerCache</h3>
+	
+	<kbd>private void <strong>registerCache</strong>(any cache)</kbd>
+	
+	<br><br>
+
+	
+		<p>Register a cache instance internaly</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+		<dl>
+		<dt><strong>Parameters:</strong></dt>
+		
+		<dd><code>cache</code> - The cache instance to register with this factory of type: coldbox.system.cache.ICacheProvider</dd>
+		
+		</dl>
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="registerListeners()"><!-- --></a>
+	<h3>registerListeners</h3>
+	
+	<kbd>private void <strong>registerListeners</strong>()</kbd>
+	
+	<br><br>
+
+	
+		<p>Register all the configured listeners in the configuration file</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="removeAll()"><!-- --></a>
+	<h3>removeAll</h3>
+	
+	<kbd>public void <strong>removeAll</strong>()</kbd>
+	
+	<br><br>
+
+	
+		<p>Remove all the registered caches in this factory, this triggers individual cache shutdowns</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="removeCache()"><!-- --></a>
+	<h3>removeCache</h3>
+	
+	<kbd>public any <strong>removeCache</strong>(any name)</kbd>
+	
+	<br><br>
+
+	
+		<p>Try to remove a named cache from this factory, returns Boolean if successfull or not</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+		<dl>
+		<dt><strong>Parameters:</strong></dt>
+		
+		<dd><code>name</code> - The name of the cache to remove</dd>
+		
+		</dl>
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="removeFromScope()"><!-- --></a>
+	<h3>removeFromScope</h3>
+	
+	<kbd>public void <strong>removeFromScope</strong>()</kbd>
+	
+	<br><br>
+
+	
+		<p>Remove the cache factory from scope registration if enabled, else does nothing</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="replaceCache()"><!-- --></a>
+	<h3>replaceCache</h3>
+	
+	<kbd>public void <strong>replaceCache</strong>(any cache, any decoratedCache)</kbd>
+	
+	<br><br>
+
+	
+		<p>Replace a registered named cache with a new decorated cache of the same name.</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+		<dl>
+		<dt><strong>Parameters:</strong></dt>
+		
+		<dd><code>cache</code> - The name of the cache to replace or the actual instance of the cache to replace</dd>
+		
+		<dd><code>decoratedCache</code> - The decorated cache manager instance to replace with of type coldbox.system.cache.ICacheProvider</dd>
+		
+		</dl>
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="shutdown()"><!-- --></a>
+	<h3>shutdown</h3>
+	
+	<kbd>public void <strong>shutdown</strong>()</kbd>
+	
+	<br><br>
+
+	
+		<p>Recursively sends shutdown commands to al registered caches and cleans up in preparation for shutdown</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="shutdownCache()"><!-- --></a>
+	<h3>shutdownCache</h3>
+	
+	<kbd>public void <strong>shutdownCache</strong>(any name)</kbd>
+	
+	<br><br>
+
+	
+		<p>Send a shutdown command to a specific cache provider to bring down gracefully. It also removes it from the cache factory</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+		<dl>
+		<dt><strong>Parameters:</strong></dt>
+		
+		<dd><code>name</code> - The cache provider name to shutdown</dd>
+		
+		</dl>
+	
+
+	
+
+	</dl>
+	<hr>
+
+
+
+
+</body>
+</html>
+

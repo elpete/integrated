@@ -1,0 +1,1093 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Matcher</title>
+	<meta name="keywords" content="Integrated.tests.resources.SampleApp.coldbox.system.aop.concurrent.Callable interface">
+	<!-- common assets -->
+	
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel ="stylesheet" type="text/css" href="../../../../../../../bootstrap/css/bootstrap.min.css">
+<link rel ="stylesheet" type="text/css" href="../../../../../../../stylesheet.css">
+	
+<link href='https://fonts.googleapis.com/css?family=Ubuntu:400,300,300italic,400italic,700,700italic|Ubuntu+Mono' rel='stylesheet' type='text/css' />
+	
+<script src="../../../../../../../bootstrap/js/jquery-2.1.0.min.js" type="text/javascript"></script>
+<script src="../../../../../../../bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+
+<script>
+$(document).ready(function() {
+	// Global Tool Tip Settings
+	$( '[title]' ).tooltip({
+		 animation: 'slide',
+		 delay: { show: 250, hide: 250 }
+	});
+});
+</script>
+	<!-- syntax highlighter -->
+	<link type="text/css" rel="stylesheet" href="../../../../../../../highlighter/styles/shCoreDefault.css">
+	<script src="../../../../../../../highlighter/scripts/shCore.js"></script>
+	<script src="../../../../../../../highlighter/scripts/shBrushColdFusion.js"></script>
+	<script src="../../../../../../../highlighter/scripts/shBrushXml.js"></script>
+	<script src="../../../../../../../highlighter/scripts/shBrushSql.js"></script>
+	<script src="../../../../../../../highlighter/scripts/shBrushJScript.js"></script>
+	<script src="../../../../../../../highlighter/scripts/shBrushJava.js"></script>
+	<script src="../../../../../../../highlighter/scripts/shBrushCss.js"></script>
+	<script type="text/javascript">SyntaxHighlighter.all();</script>
+</head>
+
+<body class="withNavbar">
+
+
+
+
+
+
+<!-- ========= START OF NAVBAR ======= -->
+<a name="navbar_top"></a>
+<a href="#skip-navbar_top" title="skip navigation links"></a>	
+
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container-fluid">
+    
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#class-navigation">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="#"><strong>Integrated</strong></a>
+		</div>
+
+	    <div class="collapse navbar-collapse" id="class-navigation">
+	    	<ul class="nav navbar-nav">
+				
+					
+					<li><a href="../../../../../../../overview-summary.html"><i class="glyphicon glyphicon-plane"></i> overview</a></li>
+					
+				
+
+				
+					<li><a href="package-summary.html"><i class="glyphicon glyphicon-folder-open"></i> &nbsp;package</a></li>
+				
+
+			  	
+					<li class="dropdown active">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-file"></i> class <b class="caret"></b></a>
+
+						<ul class="dropdown-menu">
+							<li><a href="#class">Class Definition</a></li>
+							<li><a href="#constructor_summary">Constructor Summary</a></li>
+							<li><a href="#constructor_detail">Constructor Detail</a></li>
+							<li><a href="#inherited_methods">Inherited Methods</a></li>
+							<li><a href="#method_summary">Method Summary</a></li>
+							<li><a href="#method_detail">Method Detail</a></li>
+							<li><a href="#property_summary">Property Summary</a></li>
+							<li><a href="#property_detail">Property Detail</a></li>
+							
+						</ul>
+					</li>
+				
+	      	</ul>
+
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="../../../../../../../index.html?Integrated/tests/resources/SampleApp/coldbox/system/aop/Matcher.html" target="_top">
+					<i class="glyphicon glyphicon-fullscreen"></i> Frames
+					</a>
+				</li>
+			</ul>
+	    </div>
+
+	</div>
+</nav>	
+
+<a name="skip-navbar_top"></a>
+<!-- ========= END OF NAVBAR ========= -->
+
+<!-- ======== start of class data ======== -->
+<a name="class"><!-- --></a>
+
+<!-- Package -->
+<div class="pull-right">
+	<a href="package-summary.html" title="Package: Integrated.tests.resources.SampleApp.coldbox.system.aop"><span class="label label-success">Integrated.tests.resources.SampleApp.coldbox.system.aop</span></a>
+</div>
+
+<h2>
+
+
+Class
+
+ Matcher</h2>
+
+
+
+
+
+
+
+
+	
+		
+	
+	
+
+	
+		
+		
+			
+		
+	
+	
+
+
+<!-- Inheritance Tree-->
+<pre style="background:white">lucee.Component
+    <img src="../../../../../../../resources/inherit.gif" alt="extended by ">Integrated.tests.resources.SampleApp.coldbox.system.aop.Matcher
+</pre>
+
+
+
+	
+	
+
+
+
+
+
+
+
+<div id="class-hint">
+	<p>I match class and method names to data in this matcher</p>
+</div>
+
+
+<!-- Clas Attributes -->
+<div class="panel panel-info">
+	<div class="panel-heading"><strong>Class Attributes:</strong></div>
+		<div class="panel-body">
+		
+		
+			
+		
+			
+		
+			
+			
+			<li class="label label-danger label-annotations">
+				output 
+				
+				: false		
+				
+			</li>
+			&nbsp;
+			
+		
+			
+		
+			
+			
+			<li class="label label-danger label-annotations">
+				synchronized 
+				
+				: false		
+				
+			</li>
+			&nbsp;
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+			
+			<li class="label label-danger label-annotations">
+				accessors 
+				
+				: false		
+				
+			</li>
+			&nbsp;
+			
+		
+			
+		
+			
+			
+			<li class="label label-danger label-annotations">
+				persistent 
+				
+				: false		
+				
+			</li>
+			&nbsp;
+			
+		
+			
+		
+			
+		
+		
+	</div>
+</div>
+
+
+
+
+
+
+	
+	
+	<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+
+	<a name="constructor_summary"><!-- --></a>
+	<table class="table table-bordered table-hover">
+		<tr class="info">
+			<th align="left" colspan="2">
+				<strong>Constructor Summary</strong>
+			</th>
+		</tr>
+		<tr>
+			
+			<td>
+				<strong><a href="Matcher.html#init()">init</A></strong>()
+				<br>
+				
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Constructor.
+				
+			</td>
+		</tr>
+	</table>
+
+
+
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+
+<a name="method_summary"><!-- --></a>
+<table class="table table-bordered table-hover">
+	<tr class="info">
+		<th align="left" colspan="2">
+			<strong>Method Summary</strong>
+		</th>
+	</tr>
+
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="Matcher.html#andMatch()">andMatch</A></strong>(any matcher)
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND this matcher with another matcher.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="Matcher.html#annotatedWith()">annotatedWith</A></strong>(any annotation, [any value])
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Matches annotations on components or methods with or without a value.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="Matcher.html#any()">any</A></strong>()
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Match against any method name or class path.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="Matcher.html#getMemento()">getMemento</A></strong>()
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Get the matcher memento.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="Matcher.html#instanceOf()">instanceOf</A></strong>(any classPath)
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Matches against a family of components according to the passed classPath.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="Matcher.html#mappings()">mappings</A></strong>(any mappings)
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Match one, list or array of mapping names.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>boolean</code>
+		</td>
+		<td>
+			<strong><a href="Matcher.html#matchClass()">matchClass</A></strong>(any target, any mapping)
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Matches a class to this matcher according to its criteria.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>private&nbsp;boolean</code>
+		</td>
+		<td>
+			<strong><a href="Matcher.html#matchClassRules()">matchClassRules</A></strong>(any target, any mapping)
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Go through all the rules in this matcher and match.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>boolean</code>
+		</td>
+		<td>
+			<strong><a href="Matcher.html#matchMethod()">matchMethod</A></strong>(any metadata)
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Matches a method to this matcher according to its criteria.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>private&nbsp;boolean</code>
+		</td>
+		<td>
+			<strong><a href="Matcher.html#matchMethodRules()">matchMethodRules</A></strong>(any metadata)
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Go through all the rules in this matcher and match.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="Matcher.html#methods()">methods</A></strong>(any methods)
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A list, one or an array of methods to explicitly match.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="Matcher.html#orMatch()">orMatch</A></strong>(any matcher)
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OR this matcher with another matcher.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="Matcher.html#regex()">regex</A></strong>(any regex)
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Matches a class path or method name to this regular expression.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="Matcher.html#reset()">reset</A></strong>()
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reset the matcher memento to defaults.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="Matcher.html#returns()">returns</A></strong>(any type)
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Match against return types in methods only.
+			
+		</td>
+	</tr>
+	
+</table>
+
+
+
+<a name="inherited_methods"><!-- --></a>
+
+
+	
+
+	
+
+	&nbsp;
+	<a name="methods_inherited_from_class_lucee.Component"><!-- --></a>
+	<table class="table table-hover table-bordered">
+		<tr class="info">
+			<th align="left">
+				<strong>Methods inherited from class <kbd>lucee.Component</kbd></strong>
+			</th>
+		</tr>
+		<tr>
+			<td>
+				
+				
+				
+				
+				
+					<span class="label label-warning"><em>None</em></span>
+				
+			</td>
+		</tr>
+	</table>
+
+
+<hr>
+
+<!-- ========= CONSTRUCTOR DETAIL ======== -->
+
+	<a name="constructor_detail"><!-- --></a>
+	<table class="table table-bordered">
+		<tr class="info">
+			<th colspan="1" align="left">
+				<strong>Constructor Detail</strong>
+			</th>
+		</tr>
+	</table>
+
+	<a name="init()"><!-- --></a><h3>
+	init</h3>
+	<kbd>public <strong>init</strong>()</kbd>
+
+	<br><br>
+
+	
+	<p>Constructor</p>
+	
+
+	
+	<hr>
+
+
+<!-- ============ PROPERTY DETAIL ========== -->
+
+
+
+
+
+
+
+
+
+<!-- ============ METHOD DETAIL ========== -->
+
+<a name="method_detail"><!-- --></a>
+<table class="table table-bordered">
+	<tr class="info">
+		<th colspan="1" align="left">
+			<strong>Method Detail</strong>
+		</th>
+	</tr>
+</table>
+
+
+	
+	<a name="andMatch()"><!-- --></a>
+	<h3>andMatch</h3>
+	
+	<kbd>public any <strong>andMatch</strong>(any matcher)</kbd>
+	
+	<br><br>
+
+	
+		<p>AND this matcher with another matcher</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+		<dl>
+		<dt><strong>Parameters:</strong></dt>
+		
+		<dd><code>matcher</code> - The matcher to AND this matcher with</dd>
+		
+		</dl>
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="annotatedWith()"><!-- --></a>
+	<h3>annotatedWith</h3>
+	
+	<kbd>public any <strong>annotatedWith</strong>(any annotation, [any value])</kbd>
+	
+	<br><br>
+
+	
+		<p>Matches annotations on components or methods with or without a value</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+		<dl>
+		<dt><strong>Parameters:</strong></dt>
+		
+		<dd><code>annotation</code> - The annotation to discover</dd>
+		
+		<dd><code>value</code> - The value of the annotation that must match. OPTIONAL</dd>
+		
+		</dl>
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="any()"><!-- --></a>
+	<h3>any</h3>
+	
+	<kbd>public any <strong>any</strong>()</kbd>
+	
+	<br><br>
+
+	
+		<p>Match against any method name or class path</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="getMemento()"><!-- --></a>
+	<h3>getMemento</h3>
+	
+	<kbd>public any <strong>getMemento</strong>()</kbd>
+	
+	<br><br>
+
+	
+		<p>Get the matcher memento</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="instanceOf()"><!-- --></a>
+	<h3>instanceOf</h3>
+	
+	<kbd>public any <strong>instanceOf</strong>(any classPath)</kbd>
+	
+	<br><br>
+
+	
+		<p>Matches against a family of components according to the passed classPath. Class Matching Only.</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+		<dl>
+		<dt><strong>Parameters:</strong></dt>
+		
+		<dd><code>classPath</code> - The class path to verify instance of</dd>
+		
+		</dl>
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="mappings()"><!-- --></a>
+	<h3>mappings</h3>
+	
+	<kbd>public any <strong>mappings</strong>(any mappings)</kbd>
+	
+	<br><br>
+
+	
+		<p>Match one, list or array of mapping names. Class Matching Only.</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+		<dl>
+		<dt><strong>Parameters:</strong></dt>
+		
+		<dd><code>mappings</code> - One, list or array of mappings to match</dd>
+		
+		</dl>
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="matchClass()"><!-- --></a>
+	<h3>matchClass</h3>
+	
+	<kbd>public boolean <strong>matchClass</strong>(any target, any mapping)</kbd>
+	
+	<br><br>
+
+	
+		<p>Matches a class to this matcher according to its criteria</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+		<dl>
+		<dt><strong>Parameters:</strong></dt>
+		
+		<dd><code>target</code> - The target to match against to</dd>
+		
+		<dd><code>mapping</code> - The target mapping to match against to</dd>
+		
+		</dl>
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="matchClassRules()"><!-- --></a>
+	<h3>matchClassRules</h3>
+	
+	<kbd>private boolean <strong>matchClassRules</strong>(any target, any mapping)</kbd>
+	
+	<br><br>
+
+	
+		<p>Go through all the rules in this matcher and match</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+		<dl>
+		<dt><strong>Parameters:</strong></dt>
+		
+		<dd><code>target</code> - The target to match against to</dd>
+		
+		<dd><code>mapping</code> - The target mapping to match against to</dd>
+		
+		</dl>
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="matchMethod()"><!-- --></a>
+	<h3>matchMethod</h3>
+	
+	<kbd>public boolean <strong>matchMethod</strong>(any metadata)</kbd>
+	
+	<br><br>
+
+	
+		<p>Matches a method to this matcher according to its criteria</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+		<dl>
+		<dt><strong>Parameters:</strong></dt>
+		
+		<dd><code>metadata</code> - The UDF metadata to use for matching</dd>
+		
+		</dl>
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="matchMethodRules()"><!-- --></a>
+	<h3>matchMethodRules</h3>
+	
+	<kbd>private boolean <strong>matchMethodRules</strong>(any metadata)</kbd>
+	
+	<br><br>
+
+	
+		<p>Go through all the rules in this matcher and match</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+		<dl>
+		<dt><strong>Parameters:</strong></dt>
+		
+		<dd><code>metadata</code> - The UDF metadata to use for matching</dd>
+		
+		</dl>
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="methods()"><!-- --></a>
+	<h3>methods</h3>
+	
+	<kbd>public any <strong>methods</strong>(any methods)</kbd>
+	
+	<br><br>
+
+	
+		<p>A list, one or an array of methods to explicitly match</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+		<dl>
+		<dt><strong>Parameters:</strong></dt>
+		
+		<dd><code>methods</code> - One, list or array of methods to match</dd>
+		
+		</dl>
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="orMatch()"><!-- --></a>
+	<h3>orMatch</h3>
+	
+	<kbd>public any <strong>orMatch</strong>(any matcher)</kbd>
+	
+	<br><br>
+
+	
+		<p>OR this matcher with another matcher</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+		<dl>
+		<dt><strong>Parameters:</strong></dt>
+		
+		<dd><code>matcher</code> - The matcher to OR this matcher with</dd>
+		
+		</dl>
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="regex()"><!-- --></a>
+	<h3>regex</h3>
+	
+	<kbd>public any <strong>regex</strong>(any regex)</kbd>
+	
+	<br><br>
+
+	
+		<p>Matches a class path or method name to this regular expression</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+		<dl>
+		<dt><strong>Parameters:</strong></dt>
+		
+		<dd><code>regex</code> - The regular expression to match against</dd>
+		
+		</dl>
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="reset()"><!-- --></a>
+	<h3>reset</h3>
+	
+	<kbd>public any <strong>reset</strong>()</kbd>
+	
+	<br><br>
+
+	
+		<p>Reset the matcher memento to defaults</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="returns()"><!-- --></a>
+	<h3>returns</h3>
+	
+	<kbd>public any <strong>returns</strong>(any type)</kbd>
+	
+	<br><br>
+
+	
+		<p>Match against return types in methods only</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+		<dl>
+		<dt><strong>Parameters:</strong></dt>
+		
+		<dd><code>type</code> - The type of return to match against.  Only for method matching</dd>
+		
+		</dl>
+	
+
+	
+
+	</dl>
+	<hr>
+
+
+
+
+</body>
+</html>
+

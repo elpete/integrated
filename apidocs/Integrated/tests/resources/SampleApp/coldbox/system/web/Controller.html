@@ -1,0 +1,4052 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Controller</title>
+	<meta name="keywords" content="Integrated.tests.resources.SampleApp.coldbox.system.web.concurrent.Callable interface">
+	<!-- common assets -->
+	
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel ="stylesheet" type="text/css" href="../../../../../../../bootstrap/css/bootstrap.min.css">
+<link rel ="stylesheet" type="text/css" href="../../../../../../../stylesheet.css">
+	
+<link href='https://fonts.googleapis.com/css?family=Ubuntu:400,300,300italic,400italic,700,700italic|Ubuntu+Mono' rel='stylesheet' type='text/css' />
+	
+<script src="../../../../../../../bootstrap/js/jquery-2.1.0.min.js" type="text/javascript"></script>
+<script src="../../../../../../../bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+
+<script>
+$(document).ready(function() {
+	// Global Tool Tip Settings
+	$( '[title]' ).tooltip({
+		 animation: 'slide',
+		 delay: { show: 250, hide: 250 }
+	});
+});
+</script>
+	<!-- syntax highlighter -->
+	<link type="text/css" rel="stylesheet" href="../../../../../../../highlighter/styles/shCoreDefault.css">
+	<script src="../../../../../../../highlighter/scripts/shCore.js"></script>
+	<script src="../../../../../../../highlighter/scripts/shBrushColdFusion.js"></script>
+	<script src="../../../../../../../highlighter/scripts/shBrushXml.js"></script>
+	<script src="../../../../../../../highlighter/scripts/shBrushSql.js"></script>
+	<script src="../../../../../../../highlighter/scripts/shBrushJScript.js"></script>
+	<script src="../../../../../../../highlighter/scripts/shBrushJava.js"></script>
+	<script src="../../../../../../../highlighter/scripts/shBrushCss.js"></script>
+	<script type="text/javascript">SyntaxHighlighter.all();</script>
+</head>
+
+<body class="withNavbar">
+
+
+
+
+
+
+<!-- ========= START OF NAVBAR ======= -->
+<a name="navbar_top"></a>
+<a href="#skip-navbar_top" title="skip navigation links"></a>	
+
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container-fluid">
+    
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#class-navigation">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="#"><strong>Integrated</strong></a>
+		</div>
+
+	    <div class="collapse navbar-collapse" id="class-navigation">
+	    	<ul class="nav navbar-nav">
+				
+					
+					<li><a href="../../../../../../../overview-summary.html"><i class="glyphicon glyphicon-plane"></i> overview</a></li>
+					
+				
+
+				
+					<li><a href="package-summary.html"><i class="glyphicon glyphicon-folder-open"></i> &nbsp;package</a></li>
+				
+
+			  	
+					<li class="dropdown active">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-file"></i> class <b class="caret"></b></a>
+
+						<ul class="dropdown-menu">
+							<li><a href="#class">Class Definition</a></li>
+							<li><a href="#constructor_summary">Constructor Summary</a></li>
+							<li><a href="#constructor_detail">Constructor Detail</a></li>
+							<li><a href="#inherited_methods">Inherited Methods</a></li>
+							<li><a href="#method_summary">Method Summary</a></li>
+							<li><a href="#method_detail">Method Detail</a></li>
+							<li><a href="#property_summary">Property Summary</a></li>
+							<li><a href="#property_detail">Property Detail</a></li>
+							
+						</ul>
+					</li>
+				
+	      	</ul>
+
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="../../../../../../../index.html?Integrated/tests/resources/SampleApp/coldbox/system/web/Controller.html" target="_top">
+					<i class="glyphicon glyphicon-fullscreen"></i> Frames
+					</a>
+				</li>
+			</ul>
+	    </div>
+
+	</div>
+</nav>	
+
+<a name="skip-navbar_top"></a>
+<!-- ========= END OF NAVBAR ========= -->
+
+<!-- ======== start of class data ======== -->
+<a name="class"><!-- --></a>
+
+<!-- Package -->
+<div class="pull-right">
+	<a href="package-summary.html" title="Package: Integrated.tests.resources.SampleApp.coldbox.system.web"><span class="label label-success">Integrated.tests.resources.SampleApp.coldbox.system.web</span></a>
+</div>
+
+<h2>
+
+
+Class
+
+ Controller</h2>
+
+
+
+
+
+
+
+
+	
+		
+	
+	
+
+	
+		
+		
+			
+		
+	
+	
+
+
+<!-- Inheritance Tree-->
+<pre style="background:white">lucee.Component
+    <img src="../../../../../../../resources/inherit.gif" alt="extended by ">Integrated.tests.resources.SampleApp.coldbox.system.web.Controller
+</pre>
+
+
+
+	
+	
+
+
+
+
+
+
+
+<div id="class-hint">
+	<p>Copyright Since 2005 ColdBox Framework by Luis Majano and Ortus Solutions, Corp
+www.coldbox.org | www.luismajano.com | www.ortussolutions.com
+Manages a ColdBox application, dispatches events and acts as an overall front controller.</p>
+</div>
+
+
+<!-- Clas Attributes -->
+<div class="panel panel-info">
+	<div class="panel-heading"><strong>Class Attributes:</strong></div>
+		<div class="panel-body">
+		
+		
+			
+		
+			
+		
+			
+		
+			
+			
+			<li class="label label-danger label-annotations">
+				synchronized 
+				
+				: false		
+				
+			</li>
+			&nbsp;
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+			
+			<li class="label label-danger label-annotations">
+				accessors 
+				
+				: true		
+				
+			</li>
+			&nbsp;
+			
+		
+			
+		
+			
+			
+			<li class="label label-danger label-annotations">
+				persistent 
+				
+				: false		
+				
+			</li>
+			&nbsp;
+			
+		
+			
+			
+			<li class="label label-danger label-annotations">
+				serializable 
+				
+				: false		
+				
+			</li>
+			&nbsp;
+			
+		
+			
+		
+			
+		
+		
+	</div>
+</div>
+
+
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+
+<a name="property_summary"><!-- --></a>
+<table class="table table-bordered table-hover">
+	<tr class="info">
+		<th align="left" colspan="5">
+			<strong>Property Summary</strong>
+		</th>
+	</tr>
+	<tr class="info">
+		<th align="left">
+			<strong>type</strong>
+		</th>
+		<th align="left">
+			<strong>property</strong>
+		</th>
+		<th align="left">
+			<strong>default</strong>
+		</th>
+		<th align="left">
+			<strong>serializable</strong>
+		</th>
+		<th align="left">
+			<strong>required</strong>
+		</th>
+	</tr>
+
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="Controller.html#appHash()">appHash</A></strong> 
+			<br>
+			
+			<!-- only grab the first sentence of the hint -->
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ColdBox application unique hash key.
+			
+			<br><br>
+			<ul>
+			
+				
+			
+				
+				<li class="label label-default label-annotations">access = public</li>
+				
+			
+				
+			
+				
+			
+				
+				<li class="label label-default label-annotations">returntype = any</li>
+				
+			
+				
+			
+				
+			
+				
+			
+			</ul>
+
+		</td>
+		<td align="right" valign="top" width="1%">
+			
+		</td>
+		<td align="right" valign="top" width="1%">
+			<code>
+				true
+			</code>
+		</td>
+		<td align="right" valign="top" width="1%">
+			<code>
+				false
+			</code>
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="Controller.html#appKey()">appKey</A></strong> 
+			<br>
+			
+			<!-- only grab the first sentence of the hint -->
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ColdBox application key.
+			
+			<br><br>
+			<ul>
+			
+				
+			
+				
+				<li class="label label-default label-annotations">access = public</li>
+				
+			
+				
+			
+				
+			
+				
+				<li class="label label-default label-annotations">returntype = any</li>
+				
+			
+				
+			
+				
+			
+				
+			
+			</ul>
+
+		</td>
+		<td align="right" valign="top" width="1%">
+			
+		</td>
+		<td align="right" valign="top" width="1%">
+			<code>
+				true
+			</code>
+		</td>
+		<td align="right" valign="top" width="1%">
+			<code>
+				false
+			</code>
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="Controller.html#appRootPath()">appRootPath</A></strong> 
+			<br>
+			
+			<!-- only grab the first sentence of the hint -->
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ColdBox application root path.
+			
+			<br><br>
+			<ul>
+			
+				
+			
+				
+				<li class="label label-default label-annotations">access = public</li>
+				
+			
+				
+			
+				
+			
+				
+				<li class="label label-default label-annotations">returntype = any</li>
+				
+			
+				
+			
+				
+			
+				
+			
+			</ul>
+
+		</td>
+		<td align="right" valign="top" width="1%">
+			
+		</td>
+		<td align="right" valign="top" width="1%">
+			<code>
+				true
+			</code>
+		</td>
+		<td align="right" valign="top" width="1%">
+			<code>
+				false
+			</code>
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="Controller.html#cachebox()">cachebox</A></strong> 
+			<br>
+			
+			<!-- only grab the first sentence of the hint -->
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The reference to CacheBox.
+			
+			<br><br>
+			<ul>
+			
+				
+			
+				
+				<li class="label label-default label-annotations">access = public</li>
+				
+			
+				
+			
+				
+			
+				
+				<li class="label label-default label-annotations">returntype = any</li>
+				
+			
+				
+			
+				
+			
+				
+			
+			</ul>
+
+		</td>
+		<td align="right" valign="top" width="1%">
+			
+		</td>
+		<td align="right" valign="top" width="1%">
+			<code>
+				true
+			</code>
+		</td>
+		<td align="right" valign="top" width="1%">
+			<code>
+				false
+			</code>
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="Controller.html#CFMLEngine()">CFMLEngine</A></strong> 
+			<br>
+			
+			<!-- only grab the first sentence of the hint -->
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The CFML engine helper.
+			
+			<br><br>
+			<ul>
+			
+				
+			
+				
+				<li class="label label-default label-annotations">access = public</li>
+				
+			
+				
+			
+				
+			
+				
+				<li class="label label-default label-annotations">returntype = any</li>
+				
+			
+				
+			
+				
+			
+				
+			
+			</ul>
+
+		</td>
+		<td align="right" valign="top" width="1%">
+			
+		</td>
+		<td align="right" valign="top" width="1%">
+			<code>
+				true
+			</code>
+		</td>
+		<td align="right" valign="top" width="1%">
+			<code>
+				false
+			</code>
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>boolean</code>
+		</td>
+		<td>
+			<strong><a href="Controller.html#coldboxInitiated()">coldboxInitiated</A></strong> 
+			<br>
+			
+			<!-- only grab the first sentence of the hint -->
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ColdBox initiation flag.
+			
+			<br><br>
+			<ul>
+			
+				
+			
+				
+				<li class="label label-default label-annotations">access = public</li>
+				
+			
+				
+			
+				
+			
+				
+				<li class="label label-default label-annotations">returntype = any</li>
+				
+			
+				
+			
+				
+			
+				
+			
+			</ul>
+
+		</td>
+		<td align="right" valign="top" width="1%">
+			
+		</td>
+		<td align="right" valign="top" width="1%">
+			<code>
+				true
+			</code>
+		</td>
+		<td align="right" valign="top" width="1%">
+			<code>
+				false
+			</code>
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>struct</code>
+		</td>
+		<td>
+			<strong><a href="Controller.html#coldboxSettings()">coldboxSettings</A></strong> 
+			<br>
+			
+			<!-- only grab the first sentence of the hint -->
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The internal ColdBox settings structure.
+			
+			<br><br>
+			<ul>
+			
+				
+			
+				
+				<li class="label label-default label-annotations">access = public</li>
+				
+			
+				
+			
+				
+			
+				
+				<li class="label label-default label-annotations">returntype = any</li>
+				
+			
+				
+			
+				
+			
+				
+			
+			</ul>
+
+		</td>
+		<td align="right" valign="top" width="1%">
+			
+		</td>
+		<td align="right" valign="top" width="1%">
+			<code>
+				true
+			</code>
+		</td>
+		<td align="right" valign="top" width="1%">
+			<code>
+				false
+			</code>
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>struct</code>
+		</td>
+		<td>
+			<strong><a href="Controller.html#configSettings()">configSettings</A></strong> 
+			<br>
+			
+			<!-- only grab the first sentence of the hint -->
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The application configuration settings structure.
+			
+			<br><br>
+			<ul>
+			
+				
+			
+				
+				<li class="label label-default label-annotations">access = public</li>
+				
+			
+				
+			
+				
+			
+				
+				<li class="label label-default label-annotations">returntype = any</li>
+				
+			
+				
+			
+				
+			
+				
+			
+			</ul>
+
+		</td>
+		<td align="right" valign="top" width="1%">
+			
+		</td>
+		<td align="right" valign="top" width="1%">
+			<code>
+				true
+			</code>
+		</td>
+		<td align="right" valign="top" width="1%">
+			<code>
+				false
+			</code>
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="Controller.html#log()">log</A></strong> 
+			<br>
+			
+			<!-- only grab the first sentence of the hint -->
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The controller logger object.
+			
+			<br><br>
+			<ul>
+			
+				
+			
+				
+				<li class="label label-default label-annotations">access = public</li>
+				
+			
+				
+			
+				
+			
+				
+				<li class="label label-default label-annotations">returntype = any</li>
+				
+			
+				
+			
+				
+			
+				
+			
+			</ul>
+
+		</td>
+		<td align="right" valign="top" width="1%">
+			
+		</td>
+		<td align="right" valign="top" width="1%">
+			<code>
+				true
+			</code>
+		</td>
+		<td align="right" valign="top" width="1%">
+			<code>
+				false
+			</code>
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="Controller.html#logbox()">logbox</A></strong> 
+			<br>
+			
+			<!-- only grab the first sentence of the hint -->
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The reference to LogBox.
+			
+			<br><br>
+			<ul>
+			
+				
+			
+				
+				<li class="label label-default label-annotations">access = public</li>
+				
+			
+				
+			
+				
+			
+				
+				<li class="label label-default label-annotations">returntype = any</li>
+				
+			
+				
+			
+				
+			
+				
+			
+			</ul>
+
+		</td>
+		<td align="right" valign="top" width="1%">
+			
+		</td>
+		<td align="right" valign="top" width="1%">
+			<code>
+				true
+			</code>
+		</td>
+		<td align="right" valign="top" width="1%">
+			<code>
+				false
+			</code>
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="Controller.html#services()">services</A></strong> 
+			<br>
+			
+			<!-- only grab the first sentence of the hint -->
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Container for all internal services (LinkedHashMap).
+			
+			<br><br>
+			<ul>
+			
+				
+			
+				
+				<li class="label label-default label-annotations">access = public</li>
+				
+			
+				
+			
+				
+			
+				
+				<li class="label label-default label-annotations">returntype = any</li>
+				
+			
+				
+			
+				
+			
+				
+			
+			</ul>
+
+		</td>
+		<td align="right" valign="top" width="1%">
+			
+		</td>
+		<td align="right" valign="top" width="1%">
+			<code>
+				true
+			</code>
+		</td>
+		<td align="right" valign="top" width="1%">
+			<code>
+				false
+			</code>
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="Controller.html#util()">util</A></strong> 
+			<br>
+			
+			<!-- only grab the first sentence of the hint -->
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The system utility object.
+			
+			<br><br>
+			<ul>
+			
+				
+			
+				
+				<li class="label label-default label-annotations">access = public</li>
+				
+			
+				
+			
+				
+			
+				
+				<li class="label label-default label-annotations">returntype = any</li>
+				
+			
+				
+			
+				
+			
+				
+			
+			</ul>
+
+		</td>
+		<td align="right" valign="top" width="1%">
+			
+		</td>
+		<td align="right" valign="top" width="1%">
+			<code>
+				true
+			</code>
+		</td>
+		<td align="right" valign="top" width="1%">
+			<code>
+				false
+			</code>
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="Controller.html#wirebox()">wirebox</A></strong> 
+			<br>
+			
+			<!-- only grab the first sentence of the hint -->
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The reference to WireBox.
+			
+			<br><br>
+			<ul>
+			
+				
+			
+				
+				<li class="label label-default label-annotations">access = public</li>
+				
+			
+				
+			
+				
+			
+				
+				<li class="label label-default label-annotations">returntype = any</li>
+				
+			
+				
+			
+				
+			
+				
+			
+			</ul>
+
+		</td>
+		<td align="right" valign="top" width="1%">
+			
+		</td>
+		<td align="right" valign="top" width="1%">
+			<code>
+				true
+			</code>
+		</td>
+		<td align="right" valign="top" width="1%">
+			<code>
+				false
+			</code>
+		</td>
+	</tr>
+	
+	</tr>
+</table>
+
+
+
+	
+	
+	<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+
+	<a name="constructor_summary"><!-- --></a>
+	<table class="table table-bordered table-hover">
+		<tr class="info">
+			<th align="left" colspan="2">
+				<strong>Constructor Summary</strong>
+			</th>
+		</tr>
+		<tr>
+			
+			<td>
+				<strong><a href="Controller.html#init()">init</A></strong>(any appRootPath, [any appKey='cbController'])
+				<br>
+				
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Constructor.
+				
+			</td>
+		</tr>
+	</table>
+
+
+
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+
+<a name="method_summary"><!-- --></a>
+<table class="table table-bordered table-hover">
+	<tr class="info">
+		<th align="left" colspan="2">
+			<strong>Method Summary</strong>
+		</th>
+	</tr>
+
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>private&nbsp;any</code>
+		</td>
+		<td>
+			<strong><a href="Controller.html#_runEvent()">_runEvent</A></strong>([any event=''], [boolean prePostExempt='false'], [boolean private='false'], [boolean defaultEvent='false'], [struct eventArguments='[runtime expression]'])
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Executes events with full life-cycle methods and returns the event results if any were returned.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>string</code>
+		</td>
+		<td>
+			<strong><a href="Controller.html#getAppHash()">getAppHash</A></strong>()
+			<br>
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>string</code>
+		</td>
+		<td>
+			<strong><a href="Controller.html#getAppKey()">getAppKey</A></strong>()
+			<br>
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>string</code>
+		</td>
+		<td>
+			<strong><a href="Controller.html#getAppRootPath()">getAppRootPath</A></strong>()
+			<br>
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="Controller.html#getCache()">getCache</A></strong>(any cacheName='default')
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Get a Cache provider from CacheBox.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>string</code>
+		</td>
+		<td>
+			<strong><a href="Controller.html#getCachebox()">getCachebox</A></strong>()
+			<br>
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>string</code>
+		</td>
+		<td>
+			<strong><a href="Controller.html#getCFMLEngine()">getCFMLEngine</A></strong>()
+			<br>
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>string</code>
+		</td>
+		<td>
+			<strong><a href="Controller.html#getColdboxInitiated()">getColdboxInitiated</A></strong>()
+			<br>
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>string</code>
+		</td>
+		<td>
+			<strong><a href="Controller.html#getColdboxSettings()">getColdboxSettings</A></strong>()
+			<br>
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>string</code>
+		</td>
+		<td>
+			<strong><a href="Controller.html#getConfigSettings()">getConfigSettings</A></strong>()
+			<br>
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="Controller.html#getDataMarshaller()">getDataMarshaller</A></strong>()
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Get the system data marshaller, you can also retreive it from wirebox via dataMarshaller@coldbox.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="Controller.html#getHandlerService()">getHandlerService</A></strong>()
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Get the handler service.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="Controller.html#getInterceptorService()">getInterceptorService</A></strong>()
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Get the interceptor service.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="Controller.html#getLoaderService()">getLoaderService</A></strong>()
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Get the loader service.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>string</code>
+		</td>
+		<td>
+			<strong><a href="Controller.html#getLog()">getLog</A></strong>()
+			<br>
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>string</code>
+		</td>
+		<td>
+			<strong><a href="Controller.html#getLogbox()">getLogbox</A></strong>()
+			<br>
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="Controller.html#getMemento()">getMemento</A></strong>()
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Get controller memento, used only by decorator only.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="Controller.html#getModuleService()">getModuleService</A></strong>()
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Get the module service.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="Controller.html#getPlugin()">getPlugin</A></strong>()
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DEPRECATED.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="Controller.html#getRenderer()">getRenderer</A></strong>()
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Get the system web renderer, you can also retreive it from wirebox via renderer@coldbox.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="Controller.html#getRequestService()">getRequestService</A></strong>()
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Get the request service.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>string</code>
+		</td>
+		<td>
+			<strong><a href="Controller.html#getServices()">getServices</A></strong>()
+			<br>
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="Controller.html#getSetting()">getSetting</A></strong>(any name, [boolean fwSetting='false'], [any defaultValue])
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Get a setting from a configuration structure.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>struct</code>
+		</td>
+		<td>
+			<strong><a href="Controller.html#getSettingStructure()">getSettingStructure</A></strong>([boolean fwSetting='false'], [boolean deepCopyFlag='false'])
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DEPRECATED: Convenience method to retrieve the config or coldbox settings.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>string</code>
+		</td>
+		<td>
+			<strong><a href="Controller.html#getUtil()">getUtil</A></strong>()
+			<br>
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>string</code>
+		</td>
+		<td>
+			<strong><a href="Controller.html#getWirebox()">getWirebox</A></strong>()
+			<br>
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>private&nbsp;any</code>
+		</td>
+		<td>
+			<strong><a href="Controller.html#invoker()">invoker</A></strong>(any target, any method, [struct argCollection='[runtime expression]'], [boolean private='false'])
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Invoke private/public event handler methods.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>private&nbsp;any</code>
+		</td>
+		<td>
+			<strong><a href="Controller.html#loadColdBoxSettings()">loadColdBoxSettings</A></strong>()
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Load the internal ColdBox settings.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="Controller.html#locateDirectoryPath()">locateDirectoryPath</A></strong>(any pathToCheck)
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Locate the real path location of a directory in a coldbox application.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="Controller.html#locateFilePath()">locateFilePath</A></strong>(any pathToCheck)
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Locate the real path location of a file in a coldbox application.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>private&nbsp;any</code>
+		</td>
+		<td>
+			<strong><a href="Controller.html#persistVariables()">persistVariables</A></strong>([any persist=''], [struct persistStruct='[runtime expression]'])
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Internal helper to flash persist elements.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="Controller.html#runEvent()">runEvent</A></strong>([any event=''], [boolean prePostExempt='false'], [boolean private='false'], [boolean defaultEvent='false'], [struct eventArguments='[runtime expression]'], [boolean cache='false'], [any cacheTimeout=''], [any cacheLastAccessTimeout=''], [any cacheSuffix=''], [any cacheProvider='template'])
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Executes events with full life-cycle methods and returns the event results if any were returned.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>private&nbsp;any</code>
+		</td>
+		<td>
+			<strong><a href="Controller.html#sendRelocation()">sendRelocation</A></strong>(any URL, [boolean addToken='false'], [any statusCode='0'])
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Send a CF relocation.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="Controller.html#setAppHash()">setAppHash</A></strong>(any appHash)
+			<br>
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="Controller.html#setAppKey()">setAppKey</A></strong>(any appKey)
+			<br>
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="Controller.html#setAppRootPath()">setAppRootPath</A></strong>(any appRootPath)
+			<br>
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="Controller.html#setCachebox()">setCachebox</A></strong>(any cachebox)
+			<br>
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="Controller.html#setCFMLEngine()">setCFMLEngine</A></strong>(any CFMLEngine)
+			<br>
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="Controller.html#setColdboxInitiated()">setColdboxInitiated</A></strong>(boolean coldboxInitiated)
+			<br>
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="Controller.html#setColdboxSettings()">setColdboxSettings</A></strong>(struct coldboxSettings)
+			<br>
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="Controller.html#setConfigSettings()">setConfigSettings</A></strong>(struct configSettings)
+			<br>
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="Controller.html#setLog()">setLog</A></strong>(any log)
+			<br>
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="Controller.html#setLogbox()">setLogbox</A></strong>(any logbox)
+			<br>
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="Controller.html#setNextEvent()">setNextEvent</A></strong>([any event='[runtime expression]'], [any queryString=''], [boolean addToken='false'], [any persist=''], [struct persistStruct='[runtime expression]'], [any baseURL=''], [boolean postProcessExempt='false'], [any URL], [any URI], [numeric statusCode='0'])
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Set the next event to run and relocate the browser to that event.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="Controller.html#setServices()">setServices</A></strong>(any services)
+			<br>
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="Controller.html#setSetting()">setSetting</A></strong>(any name, any value)
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Set a value in the application configuration settings.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>boolean</code>
+		</td>
+		<td>
+			<strong><a href="Controller.html#settingExists()">settingExists</A></strong>(any name, [boolean fwSetting='false'])
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Check if a value exists in a configuration structure.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="Controller.html#setUtil()">setUtil</A></strong>(any util)
+			<br>
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="Controller.html#setWirebox()">setWirebox</A></strong>(any wirebox)
+			<br>
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>private&nbsp;string</code>
+		</td>
+		<td>
+			<strong><a href="Controller.html#updateSSL()">updateSSL</A></strong>(any inURL, any ssl)
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Update SSL or not on a request string.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>private&nbsp;boolean</code>
+		</td>
+		<td>
+			<strong><a href="Controller.html#validateAction()">validateAction</A></strong>(any action, [any inclusion=''], [any exclusion=''])
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if an action can be executed according to inclusion/exclusion lists.
+			
+		</td>
+	</tr>
+	
+</table>
+
+
+
+<a name="inherited_methods"><!-- --></a>
+
+
+	
+
+	
+
+	&nbsp;
+	<a name="methods_inherited_from_class_lucee.Component"><!-- --></a>
+	<table class="table table-hover table-bordered">
+		<tr class="info">
+			<th align="left">
+				<strong>Methods inherited from class <kbd>lucee.Component</kbd></strong>
+			</th>
+		</tr>
+		<tr>
+			<td>
+				
+				
+				
+				
+				
+					<span class="label label-warning"><em>None</em></span>
+				
+			</td>
+		</tr>
+	</table>
+
+
+<hr>
+
+<!-- ========= CONSTRUCTOR DETAIL ======== -->
+
+	<a name="constructor_detail"><!-- --></a>
+	<table class="table table-bordered">
+		<tr class="info">
+			<th colspan="1" align="left">
+				<strong>Constructor Detail</strong>
+			</th>
+		</tr>
+	</table>
+
+	<a name="init()"><!-- --></a><h3>
+	init</h3>
+	<kbd>public <strong>init</strong>(any appRootPath, [any appKey='cbController'])</kbd>
+
+	<br><br>
+
+	
+	<p>Constructor</p>
+	
+
+	
+	<dl>
+		<dt><strong>Parameters:</strong></dt>
+		
+			<dd><code>appRootPath</code> - The application root path</dd>
+		
+			<dd><code>appKey</code> - The application registered application key</dd>
+		
+	</dl>
+	
+	<hr>
+
+
+<!-- ============ PROPERTY DETAIL ========== -->
+
+	<a name="property_detail"><!-- --></a>
+	<table class="table table-bordered">
+		<tr class="info">
+			<th colspan="1" align="left">
+				<strong>Property Detail</strong>
+			</th>
+		</tr>
+	</table>
+
+	
+		
+		<a name="appHash()"><!-- --></a>
+		<h3>appHash</h3>
+
+		<kbd>
+			property any 
+			<strong>appHash</strong>
+			
+		</kbd>
+
+		<br><br>
+		
+			<p>ColdBox application unique hash key</p>
+		
+
+		<dl>
+		<dt><strong>Attributes:</strong></dt>
+		
+			
+		
+			
+			<dd><code>access</code> - public</dd>
+			
+		
+			
+			<dd><code>required</code> - false</dd>
+			
+		
+			
+		
+			
+			<dd><code>returntype</code> - any</dd>
+			
+		
+			
+		
+			
+		
+			
+			<dd><code>serializable</code> - true</dd>
+			
+		
+		</dl>
+
+		<hr>
+	
+		
+		<a name="appKey()"><!-- --></a>
+		<h3>appKey</h3>
+
+		<kbd>
+			property any 
+			<strong>appKey</strong>
+			
+		</kbd>
+
+		<br><br>
+		
+			<p>ColdBox application key</p>
+		
+
+		<dl>
+		<dt><strong>Attributes:</strong></dt>
+		
+			
+		
+			
+			<dd><code>access</code> - public</dd>
+			
+		
+			
+			<dd><code>required</code> - false</dd>
+			
+		
+			
+		
+			
+			<dd><code>returntype</code> - any</dd>
+			
+		
+			
+		
+			
+		
+			
+			<dd><code>serializable</code> - true</dd>
+			
+		
+		</dl>
+
+		<hr>
+	
+		
+		<a name="appRootPath()"><!-- --></a>
+		<h3>appRootPath</h3>
+
+		<kbd>
+			property any 
+			<strong>appRootPath</strong>
+			
+		</kbd>
+
+		<br><br>
+		
+			<p>ColdBox application root path</p>
+		
+
+		<dl>
+		<dt><strong>Attributes:</strong></dt>
+		
+			
+		
+			
+			<dd><code>access</code> - public</dd>
+			
+		
+			
+			<dd><code>required</code> - false</dd>
+			
+		
+			
+		
+			
+			<dd><code>returntype</code> - any</dd>
+			
+		
+			
+		
+			
+		
+			
+			<dd><code>serializable</code> - true</dd>
+			
+		
+		</dl>
+
+		<hr>
+	
+		
+		<a name="cachebox()"><!-- --></a>
+		<h3>cachebox</h3>
+
+		<kbd>
+			property any 
+			<strong>cachebox</strong>
+			
+		</kbd>
+
+		<br><br>
+		
+			<p>The reference to CacheBox</p>
+		
+
+		<dl>
+		<dt><strong>Attributes:</strong></dt>
+		
+			
+		
+			
+			<dd><code>access</code> - public</dd>
+			
+		
+			
+			<dd><code>required</code> - false</dd>
+			
+		
+			
+		
+			
+			<dd><code>returntype</code> - any</dd>
+			
+		
+			
+		
+			
+		
+			
+			<dd><code>serializable</code> - true</dd>
+			
+		
+		</dl>
+
+		<hr>
+	
+		
+		<a name="CFMLEngine()"><!-- --></a>
+		<h3>CFMLEngine</h3>
+
+		<kbd>
+			property any 
+			<strong>CFMLEngine</strong>
+			
+		</kbd>
+
+		<br><br>
+		
+			<p>The CFML engine helper</p>
+		
+
+		<dl>
+		<dt><strong>Attributes:</strong></dt>
+		
+			
+		
+			
+			<dd><code>access</code> - public</dd>
+			
+		
+			
+			<dd><code>required</code> - false</dd>
+			
+		
+			
+		
+			
+			<dd><code>returntype</code> - any</dd>
+			
+		
+			
+		
+			
+		
+			
+			<dd><code>serializable</code> - true</dd>
+			
+		
+		</dl>
+
+		<hr>
+	
+		
+		<a name="coldboxInitiated()"><!-- --></a>
+		<h3>coldboxInitiated</h3>
+
+		<kbd>
+			property boolean 
+			<strong>coldboxInitiated</strong>
+			
+		</kbd>
+
+		<br><br>
+		
+			<p>ColdBox initiation flag</p>
+		
+
+		<dl>
+		<dt><strong>Attributes:</strong></dt>
+		
+			
+		
+			
+			<dd><code>access</code> - public</dd>
+			
+		
+			
+			<dd><code>required</code> - false</dd>
+			
+		
+			
+		
+			
+			<dd><code>returntype</code> - any</dd>
+			
+		
+			
+		
+			
+		
+			
+			<dd><code>serializable</code> - true</dd>
+			
+		
+		</dl>
+
+		<hr>
+	
+		
+		<a name="coldboxSettings()"><!-- --></a>
+		<h3>coldboxSettings</h3>
+
+		<kbd>
+			property struct 
+			<strong>coldboxSettings</strong>
+			
+		</kbd>
+
+		<br><br>
+		
+			<p>The internal ColdBox settings structure</p>
+		
+
+		<dl>
+		<dt><strong>Attributes:</strong></dt>
+		
+			
+		
+			
+			<dd><code>access</code> - public</dd>
+			
+		
+			
+			<dd><code>required</code> - false</dd>
+			
+		
+			
+		
+			
+			<dd><code>returntype</code> - any</dd>
+			
+		
+			
+		
+			
+		
+			
+			<dd><code>serializable</code> - true</dd>
+			
+		
+		</dl>
+
+		<hr>
+	
+		
+		<a name="configSettings()"><!-- --></a>
+		<h3>configSettings</h3>
+
+		<kbd>
+			property struct 
+			<strong>configSettings</strong>
+			
+		</kbd>
+
+		<br><br>
+		
+			<p>The application configuration settings structure</p>
+		
+
+		<dl>
+		<dt><strong>Attributes:</strong></dt>
+		
+			
+		
+			
+			<dd><code>access</code> - public</dd>
+			
+		
+			
+			<dd><code>required</code> - false</dd>
+			
+		
+			
+		
+			
+			<dd><code>returntype</code> - any</dd>
+			
+		
+			
+		
+			
+		
+			
+			<dd><code>serializable</code> - true</dd>
+			
+		
+		</dl>
+
+		<hr>
+	
+		
+		<a name="log()"><!-- --></a>
+		<h3>log</h3>
+
+		<kbd>
+			property any 
+			<strong>log</strong>
+			
+		</kbd>
+
+		<br><br>
+		
+			<p>The controller logger object</p>
+		
+
+		<dl>
+		<dt><strong>Attributes:</strong></dt>
+		
+			
+		
+			
+			<dd><code>access</code> - public</dd>
+			
+		
+			
+			<dd><code>required</code> - false</dd>
+			
+		
+			
+		
+			
+			<dd><code>returntype</code> - any</dd>
+			
+		
+			
+		
+			
+		
+			
+			<dd><code>serializable</code> - true</dd>
+			
+		
+		</dl>
+
+		<hr>
+	
+		
+		<a name="logbox()"><!-- --></a>
+		<h3>logbox</h3>
+
+		<kbd>
+			property any 
+			<strong>logbox</strong>
+			
+		</kbd>
+
+		<br><br>
+		
+			<p>The reference to LogBox</p>
+		
+
+		<dl>
+		<dt><strong>Attributes:</strong></dt>
+		
+			
+		
+			
+			<dd><code>access</code> - public</dd>
+			
+		
+			
+			<dd><code>required</code> - false</dd>
+			
+		
+			
+		
+			
+			<dd><code>returntype</code> - any</dd>
+			
+		
+			
+		
+			
+		
+			
+			<dd><code>serializable</code> - true</dd>
+			
+		
+		</dl>
+
+		<hr>
+	
+		
+		<a name="services()"><!-- --></a>
+		<h3>services</h3>
+
+		<kbd>
+			property any 
+			<strong>services</strong>
+			
+		</kbd>
+
+		<br><br>
+		
+			<p>Container for all internal services (LinkedHashMap)</p>
+		
+
+		<dl>
+		<dt><strong>Attributes:</strong></dt>
+		
+			
+		
+			
+			<dd><code>access</code> - public</dd>
+			
+		
+			
+			<dd><code>required</code> - false</dd>
+			
+		
+			
+		
+			
+			<dd><code>returntype</code> - any</dd>
+			
+		
+			
+		
+			
+		
+			
+			<dd><code>serializable</code> - true</dd>
+			
+		
+		</dl>
+
+		<hr>
+	
+		
+		<a name="util()"><!-- --></a>
+		<h3>util</h3>
+
+		<kbd>
+			property any 
+			<strong>util</strong>
+			
+		</kbd>
+
+		<br><br>
+		
+			<p>The system utility object</p>
+		
+
+		<dl>
+		<dt><strong>Attributes:</strong></dt>
+		
+			
+		
+			
+			<dd><code>access</code> - public</dd>
+			
+		
+			
+			<dd><code>required</code> - false</dd>
+			
+		
+			
+		
+			
+			<dd><code>returntype</code> - any</dd>
+			
+		
+			
+		
+			
+		
+			
+			<dd><code>serializable</code> - true</dd>
+			
+		
+		</dl>
+
+		<hr>
+	
+		
+		<a name="wirebox()"><!-- --></a>
+		<h3>wirebox</h3>
+
+		<kbd>
+			property any 
+			<strong>wirebox</strong>
+			
+		</kbd>
+
+		<br><br>
+		
+			<p>The reference to WireBox</p>
+		
+
+		<dl>
+		<dt><strong>Attributes:</strong></dt>
+		
+			
+		
+			
+			<dd><code>access</code> - public</dd>
+			
+		
+			
+			<dd><code>required</code> - false</dd>
+			
+		
+			
+		
+			
+			<dd><code>returntype</code> - any</dd>
+			
+		
+			
+		
+			
+		
+			
+			<dd><code>serializable</code> - true</dd>
+			
+		
+		</dl>
+
+		<hr>
+	
+
+
+
+
+
+
+
+
+
+<!-- ============ METHOD DETAIL ========== -->
+
+<a name="method_detail"><!-- --></a>
+<table class="table table-bordered">
+	<tr class="info">
+		<th colspan="1" align="left">
+			<strong>Method Detail</strong>
+		</th>
+	</tr>
+</table>
+
+
+	
+	<a name="_runEvent()"><!-- --></a>
+	<h3>_runEvent</h3>
+	
+	<kbd>private any <strong>_runEvent</strong>([any event=''], [boolean prePostExempt='false'], [boolean private='false'], [boolean defaultEvent='false'], [struct eventArguments='[runtime expression]'])</kbd>
+	
+	<br><br>
+
+	
+		<p>Executes events with full life-cycle methods and returns the event results if any were returned</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+		<dl>
+		<dt><strong>Parameters:</strong></dt>
+		
+		<dd><code>event</code> - The event string to execute, if nothing is passed we will execute the application's default event.</dd>
+		
+		<dd><code>prePostExempt</code> - If true, pre/post handlers will not be fired. Defaults to false</dd>
+		
+		<dd><code>private</code> - Execute a private event if set, else defaults to public events</dd>
+		
+		<dd><code>defaultEvent</code> - The flag that let's this service now if it is the default event running or not. USED BY THE FRAMEWORK ONLY</dd>
+		
+		<dd><code>eventArguments</code> - A collection of arguments to passthrough to the calling event handler method</dd>
+		
+		</dl>
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="getAppHash()"><!-- --></a>
+	<h3>getAppHash</h3>
+	
+	<kbd>public string <strong>getAppHash</strong>()</kbd>
+	
+	<br><br>
+
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="getAppKey()"><!-- --></a>
+	<h3>getAppKey</h3>
+	
+	<kbd>public string <strong>getAppKey</strong>()</kbd>
+	
+	<br><br>
+
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="getAppRootPath()"><!-- --></a>
+	<h3>getAppRootPath</h3>
+	
+	<kbd>public string <strong>getAppRootPath</strong>()</kbd>
+	
+	<br><br>
+
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="getCache()"><!-- --></a>
+	<h3>getCache</h3>
+	
+	<kbd>public any <strong>getCache</strong>(any cacheName='default')</kbd>
+	
+	<br><br>
+
+	
+		<p>Get a Cache provider from CacheBox</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+		<dl>
+		<dt><strong>Parameters:</strong></dt>
+		
+		<dd><code>cacheName</code> - The name of the cache to retrieve, or it defaults to the 'default' cache.</dd>
+		
+		</dl>
+	
+
+	
+		<dl>
+			<dt><strong>Returns:</strong></dt>
+			<dd>coldbox.system.cache.IColdboxApplicationCache</dd>
+		</dl>
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="getCachebox()"><!-- --></a>
+	<h3>getCachebox</h3>
+	
+	<kbd>public string <strong>getCachebox</strong>()</kbd>
+	
+	<br><br>
+
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="getCFMLEngine()"><!-- --></a>
+	<h3>getCFMLEngine</h3>
+	
+	<kbd>public string <strong>getCFMLEngine</strong>()</kbd>
+	
+	<br><br>
+
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="getColdboxInitiated()"><!-- --></a>
+	<h3>getColdboxInitiated</h3>
+	
+	<kbd>public string <strong>getColdboxInitiated</strong>()</kbd>
+	
+	<br><br>
+
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="getColdboxSettings()"><!-- --></a>
+	<h3>getColdboxSettings</h3>
+	
+	<kbd>public string <strong>getColdboxSettings</strong>()</kbd>
+	
+	<br><br>
+
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="getConfigSettings()"><!-- --></a>
+	<h3>getConfigSettings</h3>
+	
+	<kbd>public string <strong>getConfigSettings</strong>()</kbd>
+	
+	<br><br>
+
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="getDataMarshaller()"><!-- --></a>
+	<h3>getDataMarshaller</h3>
+	
+	<kbd>public any <strong>getDataMarshaller</strong>()</kbd>
+	
+	<br><br>
+
+	
+		<p>Get the system data marshaller, you can also retreive it from wirebox via dataMarshaller@coldbox</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="getHandlerService()"><!-- --></a>
+	<h3>getHandlerService</h3>
+	
+	<kbd>public any <strong>getHandlerService</strong>()</kbd>
+	
+	<br><br>
+
+	
+		<p>Get the handler service</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="getInterceptorService()"><!-- --></a>
+	<h3>getInterceptorService</h3>
+	
+	<kbd>public any <strong>getInterceptorService</strong>()</kbd>
+	
+	<br><br>
+
+	
+		<p>Get the interceptor service</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="getLoaderService()"><!-- --></a>
+	<h3>getLoaderService</h3>
+	
+	<kbd>public any <strong>getLoaderService</strong>()</kbd>
+	
+	<br><br>
+
+	
+		<p>Get the loader service</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="getLog()"><!-- --></a>
+	<h3>getLog</h3>
+	
+	<kbd>public string <strong>getLog</strong>()</kbd>
+	
+	<br><br>
+
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="getLogbox()"><!-- --></a>
+	<h3>getLogbox</h3>
+	
+	<kbd>public string <strong>getLogbox</strong>()</kbd>
+	
+	<br><br>
+
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="getMemento()"><!-- --></a>
+	<h3>getMemento</h3>
+	
+	<kbd>public any <strong>getMemento</strong>()</kbd>
+	
+	<br><br>
+
+	
+		<p>Get controller memento, used only by decorator only.</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="getModuleService()"><!-- --></a>
+	<h3>getModuleService</h3>
+	
+	<kbd>public any <strong>getModuleService</strong>()</kbd>
+	
+	<br><br>
+
+	
+		<p>Get the module service</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="getPlugin()"><!-- --></a>
+	<h3>getPlugin</h3>
+	
+	<kbd>public any <strong>getPlugin</strong>()</kbd>
+	
+	<br><br>
+
+	
+		<p>DEPRECATED</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="getRenderer()"><!-- --></a>
+	<h3>getRenderer</h3>
+	
+	<kbd>public any <strong>getRenderer</strong>()</kbd>
+	
+	<br><br>
+
+	
+		<p>Get the system web renderer, you can also retreive it from wirebox via renderer@coldbox</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="getRequestService()"><!-- --></a>
+	<h3>getRequestService</h3>
+	
+	<kbd>public any <strong>getRequestService</strong>()</kbd>
+	
+	<br><br>
+
+	
+		<p>Get the request service</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="getServices()"><!-- --></a>
+	<h3>getServices</h3>
+	
+	<kbd>public string <strong>getServices</strong>()</kbd>
+	
+	<br><br>
+
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="getSetting()"><!-- --></a>
+	<h3>getSetting</h3>
+	
+	<kbd>public any <strong>getSetting</strong>(any name, [boolean fwSetting='false'], [any defaultValue])</kbd>
+	
+	<br><br>
+
+	
+		<p>Get a setting from a configuration structure</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+		<dl>
+		<dt><strong>Parameters:</strong></dt>
+		
+		<dd><code>name</code> - The name of the setting</dd>
+		
+		<dd><code>fwSetting</code> - Switch to get the coldbox or config settings, defaults to config settings</dd>
+		
+		<dd><code>defaultValue</code> - The default value to use if setting does not exist</dd>
+		
+		</dl>
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="getSettingStructure()"><!-- --></a>
+	<h3>getSettingStructure</h3>
+	
+	<kbd>public struct <strong>getSettingStructure</strong>([boolean fwSetting='false'], [boolean deepCopyFlag='false'])</kbd>
+	
+	<br><br>
+
+	
+		<p>DEPRECATED: Convenience method to retrieve the config or coldbox settings.</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+		<dl>
+		<dt><strong>Parameters:</strong></dt>
+		
+		<dd><code>fwSetting</code> - Switch to get the coldbox or config settings, defaults to config settings</dd>
+		
+		<dd><code>deepCopyFlag</code> - Do a deep or reference return</dd>
+		
+		</dl>
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="getUtil()"><!-- --></a>
+	<h3>getUtil</h3>
+	
+	<kbd>public string <strong>getUtil</strong>()</kbd>
+	
+	<br><br>
+
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="getWirebox()"><!-- --></a>
+	<h3>getWirebox</h3>
+	
+	<kbd>public string <strong>getWirebox</strong>()</kbd>
+	
+	<br><br>
+
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="invoker()"><!-- --></a>
+	<h3>invoker</h3>
+	
+	<kbd>private any <strong>invoker</strong>(any target, any method, [struct argCollection='[runtime expression]'], [boolean private='false'])</kbd>
+	
+	<br><br>
+
+	
+		<p>Invoke private/public event handler methods</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+		<dl>
+		<dt><strong>Parameters:</strong></dt>
+		
+		<dd><code>target</code></dd>
+		
+		<dd><code>method</code></dd>
+		
+		<dd><code>argCollection</code></dd>
+		
+		<dd><code>private</code></dd>
+		
+		</dl>
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="loadColdBoxSettings()"><!-- --></a>
+	<h3>loadColdBoxSettings</h3>
+	
+	<kbd>private any <strong>loadColdBoxSettings</strong>()</kbd>
+	
+	<br><br>
+
+	
+		<p>Load the internal ColdBox settings</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="locateDirectoryPath()"><!-- --></a>
+	<h3>locateDirectoryPath</h3>
+	
+	<kbd>public any <strong>locateDirectoryPath</strong>(any pathToCheck)</kbd>
+	
+	<br><br>
+
+	
+		<p>Locate the real path location of a directory in a coldbox application. 3 checks: 1) inside of coldbox app, 2) expand the path, 3) Absolute location. If path not found, it returns an empty path</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+		<dl>
+		<dt><strong>Parameters:</strong></dt>
+		
+		<dd><code>pathToCheck</code> - The relative or absolute directory path to verify and locate</dd>
+		
+		</dl>
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="locateFilePath()"><!-- --></a>
+	<h3>locateFilePath</h3>
+	
+	<kbd>public any <strong>locateFilePath</strong>(any pathToCheck)</kbd>
+	
+	<br><br>
+
+	
+		<p>Locate the real path location of a file in a coldbox application. 3 checks: 1) inside of coldbox app, 2) expand the path, 3) Absolute location. If path not found, it returns an empty path</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+		<dl>
+		<dt><strong>Parameters:</strong></dt>
+		
+		<dd><code>pathToCheck</code> - The relative or absolute file path to verify and locate</dd>
+		
+		</dl>
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="persistVariables()"><!-- --></a>
+	<h3>persistVariables</h3>
+	
+	<kbd>private any <strong>persistVariables</strong>([any persist=''], [struct persistStruct='[runtime expression]'])</kbd>
+	
+	<br><br>
+
+	
+		<p>Internal helper to flash persist elements</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+		<dl>
+		<dt><strong>Parameters:</strong></dt>
+		
+		<dd><code>persist</code></dd>
+		
+		<dd><code>persistStruct</code></dd>
+		
+		</dl>
+	
+
+	
+		<dl>
+			<dt><strong>Returns:</strong></dt>
+			<dd>Controller</dd>
+		</dl>
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="runEvent()"><!-- --></a>
+	<h3>runEvent</h3>
+	
+	<kbd>public any <strong>runEvent</strong>([any event=''], [boolean prePostExempt='false'], [boolean private='false'], [boolean defaultEvent='false'], [struct eventArguments='[runtime expression]'], [boolean cache='false'], [any cacheTimeout=''], [any cacheLastAccessTimeout=''], [any cacheSuffix=''], [any cacheProvider='template'])</kbd>
+	
+	<br><br>
+
+	
+		<p>Executes events with full life-cycle methods and returns the event results if any were returned.</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+		<dl>
+		<dt><strong>Parameters:</strong></dt>
+		
+		<dd><code>event</code> - The event string to execute, if nothing is passed we will execute the application's default event.</dd>
+		
+		<dd><code>prePostExempt</code> - If true, pre/post handlers will not be fired. Defaults to false</dd>
+		
+		<dd><code>private</code> - Execute a private event if set, else defaults to public events</dd>
+		
+		<dd><code>defaultEvent</code> - The flag that let's this service now if it is the default event running or not. USED BY THE FRAMEWORK ONLY</dd>
+		
+		<dd><code>eventArguments</code> - A collection of arguments to passthrough to the calling event handler method</dd>
+		
+		<dd><code>cache</code> - Cached the output of the runnable execution, defaults to false. A unique key will be created according to event string + arguments.</dd>
+		
+		<dd><code>cacheTimeout</code> - The time in minutes to cache the results</dd>
+		
+		<dd><code>cacheLastAccessTimeout</code> - The time in minutes the results will be removed from cache if idle or requested</dd>
+		
+		<dd><code>cacheSuffix</code> - The suffix to add into the cache entry for this event rendering</dd>
+		
+		<dd><code>cacheProvider</code> - The provider to cache this event rendering in, defaults to 'template'</dd>
+		
+		</dl>
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="sendRelocation()"><!-- --></a>
+	<h3>sendRelocation</h3>
+	
+	<kbd>private any <strong>sendRelocation</strong>(any URL, [boolean addToken='false'], [any statusCode='0'])</kbd>
+	
+	<br><br>
+
+	
+		<p>Send a CF relocation</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+		<dl>
+		<dt><strong>Parameters:</strong></dt>
+		
+		<dd><code>URL</code></dd>
+		
+		<dd><code>addToken</code></dd>
+		
+		<dd><code>statusCode</code></dd>
+		
+		</dl>
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="setAppHash()"><!-- --></a>
+	<h3>setAppHash</h3>
+	
+	<kbd>public any <strong>setAppHash</strong>(any appHash)</kbd>
+	
+	<br><br>
+
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+		<dl>
+		<dt><strong>Parameters:</strong></dt>
+		
+		<dd><code>appHash</code></dd>
+		
+		</dl>
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="setAppKey()"><!-- --></a>
+	<h3>setAppKey</h3>
+	
+	<kbd>public any <strong>setAppKey</strong>(any appKey)</kbd>
+	
+	<br><br>
+
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+		<dl>
+		<dt><strong>Parameters:</strong></dt>
+		
+		<dd><code>appKey</code></dd>
+		
+		</dl>
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="setAppRootPath()"><!-- --></a>
+	<h3>setAppRootPath</h3>
+	
+	<kbd>public any <strong>setAppRootPath</strong>(any appRootPath)</kbd>
+	
+	<br><br>
+
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+		<dl>
+		<dt><strong>Parameters:</strong></dt>
+		
+		<dd><code>appRootPath</code></dd>
+		
+		</dl>
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="setCachebox()"><!-- --></a>
+	<h3>setCachebox</h3>
+	
+	<kbd>public any <strong>setCachebox</strong>(any cachebox)</kbd>
+	
+	<br><br>
+
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+		<dl>
+		<dt><strong>Parameters:</strong></dt>
+		
+		<dd><code>cachebox</code></dd>
+		
+		</dl>
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="setCFMLEngine()"><!-- --></a>
+	<h3>setCFMLEngine</h3>
+	
+	<kbd>public any <strong>setCFMLEngine</strong>(any CFMLEngine)</kbd>
+	
+	<br><br>
+
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+		<dl>
+		<dt><strong>Parameters:</strong></dt>
+		
+		<dd><code>CFMLEngine</code></dd>
+		
+		</dl>
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="setColdboxInitiated()"><!-- --></a>
+	<h3>setColdboxInitiated</h3>
+	
+	<kbd>public any <strong>setColdboxInitiated</strong>(boolean coldboxInitiated)</kbd>
+	
+	<br><br>
+
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+		<dl>
+		<dt><strong>Parameters:</strong></dt>
+		
+		<dd><code>coldboxInitiated</code></dd>
+		
+		</dl>
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="setColdboxSettings()"><!-- --></a>
+	<h3>setColdboxSettings</h3>
+	
+	<kbd>public any <strong>setColdboxSettings</strong>(struct coldboxSettings)</kbd>
+	
+	<br><br>
+
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+		<dl>
+		<dt><strong>Parameters:</strong></dt>
+		
+		<dd><code>coldboxSettings</code></dd>
+		
+		</dl>
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="setConfigSettings()"><!-- --></a>
+	<h3>setConfigSettings</h3>
+	
+	<kbd>public any <strong>setConfigSettings</strong>(struct configSettings)</kbd>
+	
+	<br><br>
+
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+		<dl>
+		<dt><strong>Parameters:</strong></dt>
+		
+		<dd><code>configSettings</code></dd>
+		
+		</dl>
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="setLog()"><!-- --></a>
+	<h3>setLog</h3>
+	
+	<kbd>public any <strong>setLog</strong>(any log)</kbd>
+	
+	<br><br>
+
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+		<dl>
+		<dt><strong>Parameters:</strong></dt>
+		
+		<dd><code>log</code></dd>
+		
+		</dl>
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="setLogbox()"><!-- --></a>
+	<h3>setLogbox</h3>
+	
+	<kbd>public any <strong>setLogbox</strong>(any logbox)</kbd>
+	
+	<br><br>
+
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+		<dl>
+		<dt><strong>Parameters:</strong></dt>
+		
+		<dd><code>logbox</code></dd>
+		
+		</dl>
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="setNextEvent()"><!-- --></a>
+	<h3>setNextEvent</h3>
+	
+	<kbd>public any <strong>setNextEvent</strong>([any event='[runtime expression]'], [any queryString=''], [boolean addToken='false'], [any persist=''], [struct persistStruct='[runtime expression]'], [any baseURL=''], [boolean postProcessExempt='false'], [any URL], [any URI], [numeric statusCode='0'])</kbd>
+	
+	<br><br>
+
+	
+		<p>Set the next event to run and relocate the browser to that event. If you are in SES mode, this method will use routing instead. You can also use this method to relocate to an absolute URL or a relative URI</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+		<dl>
+		<dt><strong>Parameters:</strong></dt>
+		
+		<dd><code>event</code> - The name of the event to relocate to, if not passed, then it will use the default event found in your configuration file.</dd>
+		
+		<dd><code>queryString</code> - The query string to append, if needed. If in SES mode it will be translated to convention name value pairs</dd>
+		
+		<dd><code>addToken</code> - Wether to add the tokens or not to the relocation. Default is false</dd>
+		
+		<dd><code>persist</code> - What request collection keys to persist in flash RAM automatically for you</dd>
+		
+		<dd><code>persistStruct</code> - A structure of key-value pairs to persist in flash RAM automatically for you</dd>
+		
+		<dd><code>baseURL</code> - Use this baseURL instead of the index.cfm that is used by default. You can use this for SSL or any full base url you would like to use. Ex: https://mysite.com/index.cfm</dd>
+		
+		<dd><code>postProcessExempt</code> - Do not fire the postProcess interceptors, by default it does</dd>
+		
+		<dd><code>URL</code> - The full URL you would like to relocate to instead of an event: ex: URL='http://www.google.com'</dd>
+		
+		<dd><code>URI</code> - The relative URI you would like to relocate to instead of an event: ex: URI='/mypath/awesome/here'</dd>
+		
+		<dd><code>statusCode</code> - The status code to use in the relocation</dd>
+		
+		</dl>
+	
+
+	
+		<dl>
+			<dt><strong>Returns:</strong></dt>
+			<dd>Controller</dd>
+		</dl>
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="setServices()"><!-- --></a>
+	<h3>setServices</h3>
+	
+	<kbd>public any <strong>setServices</strong>(any services)</kbd>
+	
+	<br><br>
+
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+		<dl>
+		<dt><strong>Parameters:</strong></dt>
+		
+		<dd><code>services</code></dd>
+		
+		</dl>
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="setSetting()"><!-- --></a>
+	<h3>setSetting</h3>
+	
+	<kbd>public any <strong>setSetting</strong>(any name, any value)</kbd>
+	
+	<br><br>
+
+	
+		<p>Set a value in the application configuration settings</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+		<dl>
+		<dt><strong>Parameters:</strong></dt>
+		
+		<dd><code>name</code> - The name of the setting</dd>
+		
+		<dd><code>value</code> - The value to set</dd>
+		
+		</dl>
+	
+
+	
+		<dl>
+			<dt><strong>Returns:</strong></dt>
+			<dd>Controller</dd>
+		</dl>
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="settingExists()"><!-- --></a>
+	<h3>settingExists</h3>
+	
+	<kbd>public boolean <strong>settingExists</strong>(any name, [boolean fwSetting='false'])</kbd>
+	
+	<br><br>
+
+	
+		<p>Check if a value exists in a configuration structure</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+		<dl>
+		<dt><strong>Parameters:</strong></dt>
+		
+		<dd><code>name</code> - The name of the setting</dd>
+		
+		<dd><code>fwSetting</code> - Switch to get the coldbox or config settings, defaults to config settings</dd>
+		
+		</dl>
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="setUtil()"><!-- --></a>
+	<h3>setUtil</h3>
+	
+	<kbd>public any <strong>setUtil</strong>(any util)</kbd>
+	
+	<br><br>
+
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+		<dl>
+		<dt><strong>Parameters:</strong></dt>
+		
+		<dd><code>util</code></dd>
+		
+		</dl>
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="setWirebox()"><!-- --></a>
+	<h3>setWirebox</h3>
+	
+	<kbd>public any <strong>setWirebox</strong>(any wirebox)</kbd>
+	
+	<br><br>
+
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+		<dl>
+		<dt><strong>Parameters:</strong></dt>
+		
+		<dd><code>wirebox</code></dd>
+		
+		</dl>
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="updateSSL()"><!-- --></a>
+	<h3>updateSSL</h3>
+	
+	<kbd>private string <strong>updateSSL</strong>(any inURL, any ssl)</kbd>
+	
+	<br><br>
+
+	
+		<p>Update SSL or not on a request string</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+		<dl>
+		<dt><strong>Parameters:</strong></dt>
+		
+		<dd><code>inURL</code></dd>
+		
+		<dd><code>ssl</code></dd>
+		
+		</dl>
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="validateAction()"><!-- --></a>
+	<h3>validateAction</h3>
+	
+	<kbd>private boolean <strong>validateAction</strong>(any action, [any inclusion=''], [any exclusion=''])</kbd>
+	
+	<br><br>
+
+	
+		<p>Checks if an action can be executed according to inclusion/exclusion lists</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+		<dl>
+		<dt><strong>Parameters:</strong></dt>
+		
+		<dd><code>action</code> - The action to validate</dd>
+		
+		<dd><code>inclusion</code> - The list of inclusions</dd>
+		
+		<dd><code>exclusion</code> - The list of exclusions</dd>
+		
+		</dl>
+	
+
+	
+
+	</dl>
+	<hr>
+
+
+
+
+</body>
+</html>
+
