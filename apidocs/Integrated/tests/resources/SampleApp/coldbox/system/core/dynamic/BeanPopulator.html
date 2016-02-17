@@ -1,0 +1,876 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>BeanPopulator</title>
+	<meta name="keywords" content="Integrated.tests.resources.SampleApp.coldbox.system.core.dynamic.concurrent.Callable interface">
+	<!-- common assets -->
+	
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel ="stylesheet" type="text/css" href="../../../../../../../../bootstrap/css/bootstrap.min.css">
+<link rel ="stylesheet" type="text/css" href="../../../../../../../../stylesheet.css">
+	
+<link href='https://fonts.googleapis.com/css?family=Ubuntu:400,300,300italic,400italic,700,700italic|Ubuntu+Mono' rel='stylesheet' type='text/css' />
+	
+<script src="../../../../../../../../bootstrap/js/jquery-2.1.0.min.js" type="text/javascript"></script>
+<script src="../../../../../../../../bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+
+<script>
+$(document).ready(function() {
+	// Global Tool Tip Settings
+	$( '[title]' ).tooltip({
+		 animation: 'slide',
+		 delay: { show: 250, hide: 250 }
+	});
+});
+</script>
+	<!-- syntax highlighter -->
+	<link type="text/css" rel="stylesheet" href="../../../../../../../../highlighter/styles/shCoreDefault.css">
+	<script src="../../../../../../../../highlighter/scripts/shCore.js"></script>
+	<script src="../../../../../../../../highlighter/scripts/shBrushColdFusion.js"></script>
+	<script src="../../../../../../../../highlighter/scripts/shBrushXml.js"></script>
+	<script src="../../../../../../../../highlighter/scripts/shBrushSql.js"></script>
+	<script src="../../../../../../../../highlighter/scripts/shBrushJScript.js"></script>
+	<script src="../../../../../../../../highlighter/scripts/shBrushJava.js"></script>
+	<script src="../../../../../../../../highlighter/scripts/shBrushCss.js"></script>
+	<script type="text/javascript">SyntaxHighlighter.all();</script>
+</head>
+
+<body class="withNavbar">
+
+
+
+
+
+
+<!-- ========= START OF NAVBAR ======= -->
+<a name="navbar_top"></a>
+<a href="#skip-navbar_top" title="skip navigation links"></a>	
+
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container-fluid">
+    
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#class-navigation">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="#"><strong>Integrated</strong></a>
+		</div>
+
+	    <div class="collapse navbar-collapse" id="class-navigation">
+	    	<ul class="nav navbar-nav">
+				
+					
+					<li><a href="../../../../../../../../overview-summary.html"><i class="glyphicon glyphicon-plane"></i> overview</a></li>
+					
+				
+
+				
+					<li><a href="package-summary.html"><i class="glyphicon glyphicon-folder-open"></i> &nbsp;package</a></li>
+				
+
+			  	
+					<li class="dropdown active">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-file"></i> class <b class="caret"></b></a>
+
+						<ul class="dropdown-menu">
+							<li><a href="#class">Class Definition</a></li>
+							<li><a href="#constructor_summary">Constructor Summary</a></li>
+							<li><a href="#constructor_detail">Constructor Detail</a></li>
+							<li><a href="#inherited_methods">Inherited Methods</a></li>
+							<li><a href="#method_summary">Method Summary</a></li>
+							<li><a href="#method_detail">Method Detail</a></li>
+							<li><a href="#property_summary">Property Summary</a></li>
+							<li><a href="#property_detail">Property Detail</a></li>
+							
+						</ul>
+					</li>
+				
+	      	</ul>
+
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="../../../../../../../../index.html?Integrated/tests/resources/SampleApp/coldbox/system/core/dynamic/BeanPopulator.html" target="_top">
+					<i class="glyphicon glyphicon-fullscreen"></i> Frames
+					</a>
+				</li>
+			</ul>
+	    </div>
+
+	</div>
+</nav>	
+
+<a name="skip-navbar_top"></a>
+<!-- ========= END OF NAVBAR ========= -->
+
+<!-- ======== start of class data ======== -->
+<a name="class"><!-- --></a>
+
+<!-- Package -->
+<div class="pull-right">
+	<a href="package-summary.html" title="Package: Integrated.tests.resources.SampleApp.coldbox.system.core.dynamic"><span class="label label-success">Integrated.tests.resources.SampleApp.coldbox.system.core.dynamic</span></a>
+</div>
+
+<h2>
+
+
+Class
+
+ BeanPopulator</h2>
+
+
+
+
+
+
+
+
+	
+		
+	
+	
+
+	
+		
+		
+			
+		
+	
+	
+
+
+<!-- Inheritance Tree-->
+<pre style="background:white">lucee.Component
+    <img src="../../../../../../../../resources/inherit.gif" alt="extended by ">Integrated.tests.resources.SampleApp.coldbox.system.core.dynamic.BeanPopulator
+</pre>
+
+
+
+	
+	
+
+
+
+
+
+
+
+<div id="class-hint">
+	<p>This is a bean populator that binds different types of data to a bean.</p>
+</div>
+
+
+<!-- Clas Attributes -->
+<div class="panel panel-info">
+	<div class="panel-heading"><strong>Class Attributes:</strong></div>
+		<div class="panel-body">
+		
+		
+			
+		
+			
+		
+			
+			
+			<li class="label label-danger label-annotations">
+				output 
+				
+				: false		
+				
+			</li>
+			&nbsp;
+			
+		
+			
+		
+			
+			
+			<li class="label label-danger label-annotations">
+				synchronized 
+				
+				: false		
+				
+			</li>
+			&nbsp;
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+			
+			<li class="label label-danger label-annotations">
+				accessors 
+				
+				: false		
+				
+			</li>
+			&nbsp;
+			
+		
+			
+		
+			
+			
+			<li class="label label-danger label-annotations">
+				persistent 
+				
+				: false		
+				
+			</li>
+			&nbsp;
+			
+		
+			
+		
+			
+		
+		
+	</div>
+</div>
+
+
+
+
+
+
+	
+	
+	<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+
+	<a name="constructor_summary"><!-- --></a>
+	<table class="table table-bordered table-hover">
+		<tr class="info">
+			<th align="left" colspan="2">
+				<strong>Constructor Summary</strong>
+			</th>
+		</tr>
+		<tr>
+			
+			<td>
+				<strong><a href="BeanPopulator.html#init()">init</A></strong>()
+				<br>
+				
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Constructor.
+				
+			</td>
+		</tr>
+	</table>
+
+
+
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+
+<a name="method_summary"><!-- --></a>
+<table class="table table-bordered table-hover">
+	<tr class="info">
+		<th align="left" colspan="2">
+			<strong>Method Summary</strong>
+		</th>
+	</tr>
+
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>private&nbsp;struct</code>
+		</td>
+		<td>
+			<strong><a href="BeanPopulator.html#getRelationshipMetaData()">getRelationshipMetaData</A></strong>(any target)
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Prepares a structure of target relational meta data.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>private&nbsp;coldbox.system.core.util.Util</code>
+		</td>
+		<td>
+			<strong><a href="BeanPopulator.html#getUtil()">getUtil</A></strong>()
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Create and return a util object.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="BeanPopulator.html#populateFromJSON()">populateFromJSON</A></strong>(any target, string JSONString, [string scope=''], [boolean trustedSetter='false'], [string include=''], [string exclude=''], [boolean ignoreEmpty='false'], [string nullEmptyInclude=''], [string nullEmptyExclude=''], [boolean composeRelationships='false'])
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Populate a named or instantiated bean from a json string.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="BeanPopulator.html#populateFromQuery()">populateFromQuery</A></strong>(any target, query qry, [Numeric rowNumber='1'], [string scope=''], [boolean trustedSetter='false'], [string include=''], [string exclude=''], [boolean ignoreEmpty='false'], [string nullEmptyInclude=''], [string nullEmptyExclude=''], [boolean composeRelationships='false'])
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Populate a named or instantiated bean from query.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="BeanPopulator.html#populateFromQueryWithPrefix()">populateFromQueryWithPrefix</A></strong>(any target, query qry, [Numeric rowNumber='1'], [string scope=''], [boolean trustedSetter='false'], [string include=''], [string exclude=''], string prefix, [boolean ignoreEmpty='false'], [string nullEmptyInclude=''], [string nullEmptyExclude=''], [boolean composeRelationships='false'])
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Populates an Object using only specific columns from a query.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="BeanPopulator.html#populateFromStruct()">populateFromStruct</A></strong>(any target, struct memento, [string scope], [boolean trustedSetter='false'], [string include=''], [string exclude=''], [boolean ignoreEmpty='false'], [string nullEmptyInclude=''], [string nullEmptyExclude=''], [boolean composeRelationships='false'])
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Populate a named or instantiated bean from a structure.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="BeanPopulator.html#populateFromStructWithPrefix()">populateFromStructWithPrefix</A></strong>(any target, struct memento, [string scope], [boolean trustedSetter='false'], [string include=''], [string exclude=''], [boolean ignoreEmpty='false'], [string nullEmptyInclude=''], [string nullEmptyExclude=''], [boolean composeRelationships='false'], string prefix)
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Populate a named or instantiated bean from a structure.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="BeanPopulator.html#populateFromXML()">populateFromXML</A></strong>(any target, any xml, [string root=''], [string scope=''], [boolean trustedSetter='false'], [string include=''], [string exclude=''], [boolean ignoreEmpty='false'], [string nullEmptyInclude=''], [string nullEmptyExclude=''], [boolean composeRelationships='false'])
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Populate a named or instantiated bean from an XML packet.
+			
+		</td>
+	</tr>
+	
+</table>
+
+
+
+<a name="inherited_methods"><!-- --></a>
+
+
+	
+
+	
+
+	&nbsp;
+	<a name="methods_inherited_from_class_lucee.Component"><!-- --></a>
+	<table class="table table-hover table-bordered">
+		<tr class="info">
+			<th align="left">
+				<strong>Methods inherited from class <kbd>lucee.Component</kbd></strong>
+			</th>
+		</tr>
+		<tr>
+			<td>
+				
+				
+				
+				
+				
+					<span class="label label-warning"><em>None</em></span>
+				
+			</td>
+		</tr>
+	</table>
+
+
+<hr>
+
+<!-- ========= CONSTRUCTOR DETAIL ======== -->
+
+	<a name="constructor_detail"><!-- --></a>
+	<table class="table table-bordered">
+		<tr class="info">
+			<th colspan="1" align="left">
+				<strong>Constructor Detail</strong>
+			</th>
+		</tr>
+	</table>
+
+	<a name="init()"><!-- --></a><h3>
+	init</h3>
+	<kbd>public <strong>init</strong>()</kbd>
+
+	<br><br>
+
+	
+	<p>Constructor</p>
+	
+
+	
+	<hr>
+
+
+<!-- ============ PROPERTY DETAIL ========== -->
+
+
+
+
+
+
+
+
+
+<!-- ============ METHOD DETAIL ========== -->
+
+<a name="method_detail"><!-- --></a>
+<table class="table table-bordered">
+	<tr class="info">
+		<th colspan="1" align="left">
+			<strong>Method Detail</strong>
+		</th>
+	</tr>
+</table>
+
+
+	
+	<a name="getRelationshipMetaData()"><!-- --></a>
+	<h3>getRelationshipMetaData</h3>
+	
+	<kbd>private struct <strong>getRelationshipMetaData</strong>(any target)</kbd>
+	
+	<br><br>
+
+	
+		<p>Prepares a structure of target relational meta data</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+		<dl>
+		<dt><strong>Parameters:</strong></dt>
+		
+		<dd><code>target</code></dd>
+		
+		</dl>
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="getUtil()"><!-- --></a>
+	<h3>getUtil</h3>
+	
+	<kbd>private coldbox.system.core.util.Util <strong>getUtil</strong>()</kbd>
+	
+	<br><br>
+
+	
+		<p>Create and return a util object</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="populateFromJSON()"><!-- --></a>
+	<h3>populateFromJSON</h3>
+	
+	<kbd>public any <strong>populateFromJSON</strong>(any target, string JSONString, [string scope=''], [boolean trustedSetter='false'], [string include=''], [string exclude=''], [boolean ignoreEmpty='false'], [string nullEmptyInclude=''], [string nullEmptyExclude=''], [boolean composeRelationships='false'])</kbd>
+	
+	<br><br>
+
+	
+		<p>Populate a named or instantiated bean from a json string</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+		<dl>
+		<dt><strong>Parameters:</strong></dt>
+		
+		<dd><code>target</code> - The target to populate</dd>
+		
+		<dd><code>JSONString</code> - The JSON string to populate the object with. It has to be valid JSON and also a structure with name-key value pairs. </dd>
+		
+		<dd><code>scope</code> - Use scope injection instead of setters population. Ex: scope=variables.instance.</dd>
+		
+		<dd><code>trustedSetter</code> - If set to true, the setter method will be called even if it does not exist in the bean</dd>
+		
+		<dd><code>include</code> - A list of keys to include in the population</dd>
+		
+		<dd><code>exclude</code> - A list of keys to exclude in the population</dd>
+		
+		<dd><code>ignoreEmpty</code> - Ignore empty values on populations, great for ORM population</dd>
+		
+		<dd><code>nullEmptyInclude</code> - A list of keys to NULL when empty</dd>
+		
+		<dd><code>nullEmptyExclude</code> - A list of keys to NOT NULL when empty</dd>
+		
+		<dd><code>composeRelationships</code> - Automatically attempt to compose relationships from memento</dd>
+		
+		</dl>
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="populateFromQuery()"><!-- --></a>
+	<h3>populateFromQuery</h3>
+	
+	<kbd>public any <strong>populateFromQuery</strong>(any target, query qry, [Numeric rowNumber='1'], [string scope=''], [boolean trustedSetter='false'], [string include=''], [string exclude=''], [boolean ignoreEmpty='false'], [string nullEmptyInclude=''], [string nullEmptyExclude=''], [boolean composeRelationships='false'])</kbd>
+	
+	<br><br>
+
+	
+		<p>Populate a named or instantiated bean from query</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+		<dl>
+		<dt><strong>Parameters:</strong></dt>
+		
+		<dd><code>target</code> - The target to populate</dd>
+		
+		<dd><code>qry</code> - The query to popluate the bean object with</dd>
+		
+		<dd><code>rowNumber</code> - The query row number to use for population</dd>
+		
+		<dd><code>scope</code> - Use scope injection instead of setters population. Ex: scope=variables.instance.</dd>
+		
+		<dd><code>trustedSetter</code> - If set to true, the setter method will be called even if it does not exist in the bean</dd>
+		
+		<dd><code>include</code> - A list of keys to include in the population</dd>
+		
+		<dd><code>exclude</code> - A list of keys to exclude in the population</dd>
+		
+		<dd><code>ignoreEmpty</code> - Ignore empty values on populations, great for ORM population</dd>
+		
+		<dd><code>nullEmptyInclude</code> - A list of keys to NULL when empty</dd>
+		
+		<dd><code>nullEmptyExclude</code> - A list of keys to NOT NULL when empty</dd>
+		
+		<dd><code>composeRelationships</code> - Automatically attempt to compose relationships from memento</dd>
+		
+		</dl>
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="populateFromQueryWithPrefix()"><!-- --></a>
+	<h3>populateFromQueryWithPrefix</h3>
+	
+	<kbd>public any <strong>populateFromQueryWithPrefix</strong>(any target, query qry, [Numeric rowNumber='1'], [string scope=''], [boolean trustedSetter='false'], [string include=''], [string exclude=''], string prefix, [boolean ignoreEmpty='false'], [string nullEmptyInclude=''], [string nullEmptyExclude=''], [boolean composeRelationships='false'])</kbd>
+	
+	<br><br>
+
+	
+		<p>Populates an Object using only specific columns from a query. Useful for performing a query with joins that needs to populate multiple objects.</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+		<dl>
+		<dt><strong>Parameters:</strong></dt>
+		
+		<dd><code>target</code> - This can be an instantiated bean object or a bean instantitation path as a string. If you pass an instantiation path and the bean has an 'init' method. It will be executed. This method follows the bean contract (set{property_name}). Example: setUsername(), setfname()</dd>
+		
+		<dd><code>qry</code> - The query to popluate the bean object with</dd>
+		
+		<dd><code>rowNumber</code> - The query row number to use for population</dd>
+		
+		<dd><code>scope</code> - Use scope injection instead of setters population. Ex: scope=variables.instance.</dd>
+		
+		<dd><code>trustedSetter</code> - If set to true, the setter method will be called even if it does not exist in the bean</dd>
+		
+		<dd><code>include</code> - A list of keys to include in the population</dd>
+		
+		<dd><code>exclude</code> - A list of keys to exclude in the population</dd>
+		
+		<dd><code>prefix</code> - The prefix used to filter, Example: 'user_' would apply to the following columns: 'user_id' and 'user_name' but not 'address_id'.</dd>
+		
+		<dd><code>ignoreEmpty</code> - Ignore empty values on populations, great for ORM population</dd>
+		
+		<dd><code>nullEmptyInclude</code> - A list of keys to NULL when empty</dd>
+		
+		<dd><code>nullEmptyExclude</code> - A list of keys to NOT NULL when empty</dd>
+		
+		<dd><code>composeRelationships</code> - Automatically attempt to compose relationships from memento</dd>
+		
+		</dl>
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="populateFromStruct()"><!-- --></a>
+	<h3>populateFromStruct</h3>
+	
+	<kbd>public any <strong>populateFromStruct</strong>(any target, struct memento, [string scope], [boolean trustedSetter='false'], [string include=''], [string exclude=''], [boolean ignoreEmpty='false'], [string nullEmptyInclude=''], [string nullEmptyExclude=''], [boolean composeRelationships='false'])</kbd>
+	
+	<br><br>
+
+	
+		<p>Populate a named or instantiated bean from a structure</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+		<dl>
+		<dt><strong>Parameters:</strong></dt>
+		
+		<dd><code>target</code> - The target to populate</dd>
+		
+		<dd><code>memento</code> - The structure to populate the object with.</dd>
+		
+		<dd><code>scope</code> - Use scope injection instead of setters population.</dd>
+		
+		<dd><code>trustedSetter</code> - If set to true, the setter method will be called even if it does not exist in the bean</dd>
+		
+		<dd><code>include</code> - A list of keys to include in the population</dd>
+		
+		<dd><code>exclude</code> - A list of keys to exclude in the population</dd>
+		
+		<dd><code>ignoreEmpty</code> - Ignore empty values on populations, great for ORM population</dd>
+		
+		<dd><code>nullEmptyInclude</code> - A list of keys to NULL when empty</dd>
+		
+		<dd><code>nullEmptyExclude</code> - A list of keys to NOT NULL when empty</dd>
+		
+		<dd><code>composeRelationships</code> - Automatically attempt to compose relationships from memento</dd>
+		
+		</dl>
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="populateFromStructWithPrefix()"><!-- --></a>
+	<h3>populateFromStructWithPrefix</h3>
+	
+	<kbd>public any <strong>populateFromStructWithPrefix</strong>(any target, struct memento, [string scope], [boolean trustedSetter='false'], [string include=''], [string exclude=''], [boolean ignoreEmpty='false'], [string nullEmptyInclude=''], [string nullEmptyExclude=''], [boolean composeRelationships='false'], string prefix)</kbd>
+	
+	<br><br>
+
+	
+		<p>Populate a named or instantiated bean from a structure</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+		<dl>
+		<dt><strong>Parameters:</strong></dt>
+		
+		<dd><code>target</code> - The target to populate</dd>
+		
+		<dd><code>memento</code> - The structure to populate the object with.</dd>
+		
+		<dd><code>scope</code> - Use scope injection instead of setters population.</dd>
+		
+		<dd><code>trustedSetter</code> - If set to true, the setter method will be called even if it does not exist in the bean</dd>
+		
+		<dd><code>include</code> - A list of keys to include in the population</dd>
+		
+		<dd><code>exclude</code> - A list of keys to exclude in the population</dd>
+		
+		<dd><code>ignoreEmpty</code> - Ignore empty values on populations, great for ORM population</dd>
+		
+		<dd><code>nullEmptyInclude</code> - A list of keys to NULL when empty</dd>
+		
+		<dd><code>nullEmptyExclude</code> - A list of keys to NOT NULL when empty</dd>
+		
+		<dd><code>composeRelationships</code> - Automatically attempt to compose relationships from memento</dd>
+		
+		<dd><code>prefix</code> - The prefix used to filter, Example: 'user' would apply to the following formfield: 'user_id' and 'user_name' but not 'address_id'.</dd>
+		
+		</dl>
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="populateFromXML()"><!-- --></a>
+	<h3>populateFromXML</h3>
+	
+	<kbd>public any <strong>populateFromXML</strong>(any target, any xml, [string root=''], [string scope=''], [boolean trustedSetter='false'], [string include=''], [string exclude=''], [boolean ignoreEmpty='false'], [string nullEmptyInclude=''], [string nullEmptyExclude=''], [boolean composeRelationships='false'])</kbd>
+	
+	<br><br>
+
+	
+		<p>Populate a named or instantiated bean from an XML packet</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+		<dl>
+		<dt><strong>Parameters:</strong></dt>
+		
+		<dd><code>target</code> - The target to populate</dd>
+		
+		<dd><code>xml</code> - The XML string or packet</dd>
+		
+		<dd><code>root</code> - The XML root element to start from</dd>
+		
+		<dd><code>scope</code> - Use scope injection instead of setters population. Ex: scope=variables.instance.</dd>
+		
+		<dd><code>trustedSetter</code> - If set to true, the setter method will be called even if it does not exist in the bean</dd>
+		
+		<dd><code>include</code> - A list of keys to include in the population</dd>
+		
+		<dd><code>exclude</code> - A list of keys to exclude in the population</dd>
+		
+		<dd><code>ignoreEmpty</code> - Ignore empty values on populations, great for ORM population</dd>
+		
+		<dd><code>nullEmptyInclude</code> - A list of keys to NULL when empty</dd>
+		
+		<dd><code>nullEmptyExclude</code> - A list of keys to NOT NULL when empty</dd>
+		
+		<dd><code>composeRelationships</code> - Automatically attempt to compose relationships from memento</dd>
+		
+		</dl>
+	
+
+	
+
+	</dl>
+	<hr>
+
+
+
+
+</body>
+</html>
+

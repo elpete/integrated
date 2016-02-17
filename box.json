@@ -32,7 +32,8 @@
         }
     ],
     "dependencies":{
-        
+        "docbox":"2.0.5",
+        "testbox":"2.2.0"
     },
     "devDependencies":{
         "coldbox":"4.1.0+00002",
@@ -45,6 +46,7 @@
     ],
     "installPaths":{
         "testbox":"testbox",
-        "coldbox":"tests/resources/SampleApp/coldbox"
+        "coldbox":"tests/resources/SampleApp/coldbox",
+        "docbox":"docbox"
     }
 }
