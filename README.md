@@ -49,4 +49,4 @@ function run() {
 }
 ```
 
-You can see all the different methods you can call in the [API docs]().
+You can see all the different methods you can call in the [API docs](http://elpete.github.io/integrated/).
