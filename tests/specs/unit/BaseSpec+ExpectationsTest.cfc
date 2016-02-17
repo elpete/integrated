@@ -300,7 +300,7 @@ component extends='testbox.system.BaseSpec' {
                         this.CUT.dontSeeInElement('span', 'Email');
                     }).toThrow(
                         type = 'TestBox.AssertionFailed',
-                        regex = 'Element \[span\] does not exist on the page\.'
+                        regex = 'Failed to find a \[span\] element on the page\.'
                     );
                 });
 
@@ -335,7 +335,7 @@ component extends='testbox.system.BaseSpec' {
                         this.CUT.dontSeeInElement('span', 'Email');
                     }).toThrow(
                         type = 'TestBox.AssertionFailed',
-                        regex = 'Element \[span\] does not exist on the page\.'
+                        regex = 'Failed to find a \[span\] element on the page\.'
                     );
                 });
 
@@ -467,7 +467,7 @@ component extends='testbox.system.BaseSpec' {
                         this.CUT.seeInField('##email', 'random');
                     }).toThrow(
                         type = 'TestBox.AssertionFailed',
-                        regex = 'Failed asserting that \[random\] appears in a \[##email\] input on the page\.'
+                        regex = 'Failed asserting that \[random\] appears in a \[##email\] input or textarea on the page\.'
                     );
                 });
 
@@ -476,7 +476,7 @@ component extends='testbox.system.BaseSpec' {
                         this.CUT.seeInField('##doesntExist', 'random');
                     }).toThrow(
                         type = 'TestBox.AssertionFailed',
-                        regex = 'Failed to find a \[##doesntExist\] input on the page\.'
+                        regex = 'Failed to find a \[##doesntExist\] input or textarea on the page\.'
                     );
                 });
 
@@ -502,7 +502,7 @@ component extends='testbox.system.BaseSpec' {
                         this.CUT.dontSeeInField('##email', 'sample');
                     }).toThrow(
                         type = 'TestBox.AssertionFailed',
-                        regex = 'Failed asserting that \[sample\] does not appear in a \[##email\] input on the page\.'
+                        regex = 'Failed asserting that \[sample\] does not appear in a \[##email\] input or textarea on the page\.'
                     );
                 });
 
