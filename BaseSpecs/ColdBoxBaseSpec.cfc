@@ -140,7 +140,6 @@ component extends='coldbox.system.testing.BaseTestCase' {
     public ColdBoxBaseSpec function press(required string button, string overrideEvent = '') {
         return this.submitForm(
             button = arguments.button,
-            inputs = variables.inputs,
             overrideEvent = arguments.overrideEvent
         );
     }
@@ -659,7 +658,7 @@ component extends='coldbox.system.testing.BaseTestCase' {
     *
     * @return Integrated.BaseSpecs.ColdBoxBaseSpec
     */
-    private BaseSpecs.ColdBoxBaseSpec function storeInput(
+    private ColdBoxBaseSpec function storeInput(
         required string element,
         required string value,
         boolean overwrite = true
@@ -740,7 +739,7 @@ component extends='coldbox.system.testing.BaseTestCase' {
     * @throws TestBox.AssertionFailed
     * @return Integrated.BaseSpecs.ColdBoxBaseSpec
     */
-    private BaseSpecs.ColdBoxBaseSpec function makeRequest(
+    private ColdBoxBaseSpec function makeRequest(
         required string method,
         string route,
         string event,
