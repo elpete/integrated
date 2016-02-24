@@ -21,10 +21,10 @@ this.javaSettings = { loadPaths = [ "Integrated/lib" ], reloadOnChange = false }
 
 ### Usage
 
-Change your Integration tests to extend from `Integration.BaseSpec`. (Make sure to call the parent class's `beforeAll` method.)
+Change your Integration tests to extend from `Integration.BaseSpecs.ColdBoxBaseSpec`. (Make sure to call the parent class's `beforeAll` method.)
 
 ```cfc
-component extends="Integrated.BaseSpec" {
+component extends="Integrated.BaseSpecs.ColdBoxBaseSpec" {
     function beforeAll() {
         // Make sure to call the parent class's beforeAll() method.
         super.beforeAll();
