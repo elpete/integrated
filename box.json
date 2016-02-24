@@ -31,13 +31,11 @@
             "URL":"http://opensource.org/licenses/MIT"
         }
     ],
-    "dependencies":{
-        "docbox":"2.0.5",
-        "testbox":"2.2.0"
-    },
+    "dependencies":{},
     "devDependencies":{
         "coldbox":"4.1.0+00002",
-        "testbox":"2.2.0"
+        "testbox":"2.2.0",
+        "docbox":"2.0.5"
     },
     "ignore":[
         "**/.*",
