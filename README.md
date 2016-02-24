@@ -42,7 +42,7 @@ function run() {
                 .type('Eric', 'name')
                 .type('mYAw$someP2ssw0rd!', 'password')
                 .press('Register')
-                .seePageIs('/')
+                .seeTitleIs('Home')
                 .seeOnPage('Welcome, Eric!');
         });
     });
