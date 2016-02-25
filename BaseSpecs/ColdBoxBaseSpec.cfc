@@ -689,7 +689,7 @@ component extends='coldbox.system.testing.BaseTestCase' {
     * @return string
     */
     private string function generateInputKey(required string element) {
-        return replace(arguments.element, '##', '', 'all');
+        return replaceNoCase(arguments.element, '##', '', 'all');
     }
 
     /**
@@ -724,7 +724,7 @@ component extends='coldbox.system.testing.BaseTestCase' {
     private string function parseActionFromForm(required string action) {
         var baseUrl = controller.getSetting('SESBaseUrl');
 
-        return replace(arguments.action, baseUrl, '');
+        return replaceNoCase(arguments.action, baseUrl, '');
     }
 
     /**
@@ -749,7 +749,7 @@ component extends='coldbox.system.testing.BaseTestCase' {
         arguments.method = UCase(arguments.method);
 
         // Must pass in a route or an event.
-        if (!IsDefined('arguments.route') && !IsDefined('arguments.event')) {
+        if (!StructKeyExists(arguments, 'route') && !StructKeyExists(arguments, 'event')) {
             throw(
                 type = 'TestBox.AssertionFailed',
                 message = 'Must pass either a route or an event to the makeRequest() method.'
@@ -779,7 +779,7 @@ component extends='coldbox.system.testing.BaseTestCase' {
         }
 
         try {
-            if (IsDefined('arguments.route')) {
+            if (StructKeyExists(arguments, 'route')) {
                 variables.event = execute(route = arguments.route, renderResults = true);
             }
             else {
@@ -787,7 +787,7 @@ component extends='coldbox.system.testing.BaseTestCase' {
             }
         }
         catch (HandlerService.EventHandlerNotRegisteredException e) {
-            if (IsDefined('arguments.route')) {
+            if (StructKeyExists(arguments, 'route')) {
                 throw(
                     type = 'TestBox.AssertionFailed',
                     message = 'Could not find any route called [#arguments.route#].',
@@ -807,7 +807,7 @@ component extends='coldbox.system.testing.BaseTestCase' {
         variables.inputs = {};
 
         // Set the requestMethod now that we've finished the request.
-        if (IsDefined('arguments.route')) {
+        if (StructKeyExists(arguments, 'route')) {
             variables.requestMethod = 'visit';
         }
         else {
