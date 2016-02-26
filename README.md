@@ -50,3 +50,8 @@ function run() {
 ```
 
 You can see all the different methods you can call in the [API docs](http://elpete.github.io/integrated/).
+
+### Credits
+
+This package is **heavily** inspired by [Jeffrey Way's Integrated package for Laravel](https://github.com/laracasts/Integrated).
+I learned about it at [Laracasts](https://laracasts.com/), which I consider my best programming resource *regardless* of the fact that I have never deployed a line of PHP code.
