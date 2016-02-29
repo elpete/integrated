@@ -229,6 +229,59 @@ component extends="testbox.system.compat.framework.TestCase" {
 	    return this;
 	}
 
+	/**
+	* Makes a request internally through ColdBox using `execute()`.
+	* Either a route or an event must be passed in.
+	*
+	* @method The HTTP method to use for the request.
+	* @route Optional. The ColdBox route to execute. Default: ''.
+	* @event Optional. The ColdBox event to execute. Default: ''.
+	* @parameters Optional. A struct of parameters to attach to the request.  The parameters are attached to ColdBox's RequestContext collection. Default: {}.
+	*
+	* @throws TestBox.AssertionFailed
+	* @return Integrated.BaseSpecs.AbstractBaseSpec
+	*/
+	public AbstractBaseSpec function makeRequest(
+	    required string method,
+	    string route,
+	    string event,
+	    struct parameters = {}
+	) {
+	    // Make sure the method is always all caps
+	    arguments.method = UCase(arguments.method);
+
+	    // Must pass in a route or an event.
+	    if (!StructKeyExists(arguments, 'route') && !StructKeyExists(arguments, 'event')) {
+	        throw(
+	            type = 'TestBox.AssertionFailed',
+	            message = 'Must pass either a route or an event to the makeRequest() method.'
+	        );
+	    }
+
+	    // Clear out the requestMethod in case the call fails
+	    variables.requestMethod = '';
+
+	    // Make a framework-specific request
+	    variables.event = makeFrameworkRequest(argumentCollection = arguments);
+
+	    // Clear out the inputs for the next request.
+	    variables.inputs = {};
+
+	    // Set the requestMethod now that we've finished the request.
+	    if (StructKeyExists(arguments, 'route')) {
+	        variables.requestMethod = 'visit';
+	    }
+	    else {
+	        variables.requestMethod = 'visitEvent';   
+	    }
+
+	    // Parse the html and set it to the current page
+	    var html = getHTML(variables.event);
+	    parse(html);
+
+	    return this;
+	}
+
 
 	/***************************** Expectations *******************************/
 
@@ -742,61 +795,24 @@ component extends="testbox.system.compat.framework.TestCase" {
 	}
 
 
+	/**************************** Debug Methods ******************************/
 
-	/**
-	* Makes a request internally through ColdBox using `execute()`.
-	* Either a route or an event must be passed in.
-	*
-	* @method The HTTP method to use for the request.
-	* @route Optional. The ColdBox route to execute. Default: ''.
-	* @event Optional. The ColdBox event to execute. Default: ''.
-	* @parameters Optional. A struct of parameters to attach to the request.  The parameters are attached to ColdBox's RequestContext collection. Default: {}.
-	*
-	* @throws TestBox.AssertionFailed
-	* @return Integrated.BaseSpecs.AbstractBaseSpec
-	*/
-	private AbstractBaseSpec function makeRequest(
-	    required string method,
-	    string route,
-	    string event,
-	    struct parameters = {}
-	) {
-	    // Make sure the method is always all caps
-	    arguments.method = UCase(arguments.method);
 
-	    // Must pass in a route or an event.
-	    if (!StructKeyExists(arguments, 'route') && !StructKeyExists(arguments, 'event')) {
-	        throw(
-	            type = 'TestBox.AssertionFailed',
-	            message = 'Must pass either a route or an event to the makeRequest() method.'
-	        );
-	    }
+	public AbstractBaseSpec function debugPage() {
+		debug(variables.page.html());
 
-	    // Clear out the requestMethod in case the call fails
-	    variables.requestMethod = '';
-
-	    // Make a framework-specific request
-	    variables.event = makeFrameworkRequest(argumentCollection = arguments);
-
-	    // Clear out the inputs for the next request.
-	    variables.inputs = {};
-
-	    // Set the requestMethod now that we've finished the request.
-	    if (StructKeyExists(arguments, 'route')) {
-	        variables.requestMethod = 'visit';
-	    }
-	    else {
-	        variables.requestMethod = 'visitEvent';   
-	    }
-
-	    // Parse the html and set it to the current page
-	    var html = getHTML(variables.event);
-	    parse(html);
-
-	    return this;
+		return this;
 	}
 
+	public AbstractBaseSpec function debugEvent() {
+		debug(variables.event);
+
+		return this;
+	}
+
+
 	/**************************** Finder Methods ******************************/
+
 
     /**
     * Returns the select fields found with a given selector or name.

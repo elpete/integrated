@@ -102,6 +102,19 @@ component extends='BaseSpecs.AbstractBaseSpec' {
         return '';
     }
 
-    
+    /**************************** Debug Methods ******************************/
+
+
+    public AbstractBaseSpec function debugCollection() {
+        debug(variables.event.getCollection());
+
+        return this;
+    }
+
+    public AbstractBaseSpec function debugPrivateCollection() {
+        debug(variables.event.getPrivateCollection());
+
+        return this;
+    }
 
 }
