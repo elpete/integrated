@@ -31,7 +31,9 @@
             "URL":"http://opensource.org/licenses/MIT"
         }
     ],
-    "dependencies":{},
+    "dependencies":{
+        
+    },
     "devDependencies":{
         "coldbox":"4.1.0+00002",
         "testbox":"2.2.0",

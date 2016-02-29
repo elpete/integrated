@@ -1,3 +1,6 @@
+/**
+* Easily do integration tests by using ColdBox's internal request system.
+*/
 component extends='BaseSpecs.AbstractBaseSpec' {
 
     property name="baseTestCase" type="coldbox.system.testing.BaseTestCase";

@@ -1,4 +1,7 @@
 /**
+* Abstract component for fluent integration tests.
+* Needs to be implemented for each framework it targets.
+*
 * @doc_abstract true
 */
 component extends="testbox.system.compat.framework.TestCase" {
