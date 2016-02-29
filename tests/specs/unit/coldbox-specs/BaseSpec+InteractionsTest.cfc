@@ -3,12 +3,15 @@ component extends='testbox.system.BaseSpec' {
     function beforeAll() {
         this.CUT = new BaseSpecs.ColdBoxBaseSpec();
         getMockBox().prepareMock(this.CUT);
-        
-        // Set the appMapping for testing
-        this.CUT.$property(propertyName = 'appMapping', mock = '/SampleApp');
 
         // Set up the parent ColdBox BaseTestCase
         this.CUT.beforeAll();
+        
+        // Set the appMapping for testing
+        variables.mockBaseTestCase = getMockBox().createMock('coldbox.system.testing.BaseTestCase');
+        this.CUT.$property(propertyName = 'baseTestCase', mock = mockBaseTestCase);
+        variables.mockBaseTestCase.$property(propertyName = 'appMapping', mock = '/SampleApp');
+        variables.mockBaseTestCase.beforeAll();
     }
 
     function run() {
@@ -28,9 +31,7 @@ component extends='testbox.system.BaseSpec' {
                         var html = fileRead(expandPath('/tests/resources/login-page.html'));
                         mockEvent.$(method = 'getCollection', returns = { cbox_rendered_content = html });
 
-                        variables.mockBaseTestCase = getMockBox().createMock('coldbox.system.testing.BaseTestCase');
-                        this.CUT.$property(propertyName = 'baseTestCase', mock = mockBaseTestCase);
-                        mockBaseTestCase.$('execute').$args(route = '/login', renderResults = true).$results(mockEvent);
+                        variables.mockBaseTestCase.$('execute').$args(route = '/login', renderResults = true).$results(mockEvent);
                     });
 
                     it('visits a ColdBox event', function() {
@@ -92,8 +93,6 @@ component extends='testbox.system.BaseSpec' {
                         var html = fileRead(expandPath('/tests/resources/login-page.html'));
                         mockEvent.$(method = 'getCollection', returns = { cbox_rendered_content = html });
 
-                        variables.mockBaseTestCase = getMockBox().createMock('coldbox.system.testing.BaseTestCase');
-                        this.CUT.$property(propertyName = 'baseTestCase', mock = mockBaseTestCase);
                         mockBaseTestCase.$('execute').$args(event = 'Main.index', renderResults = true).$results(mockEvent);
                     });
 
@@ -155,7 +154,7 @@ component extends='testbox.system.BaseSpec' {
                 beforeEach(setUpRequests);
 
                 feature('click', function() {
-                    xit('clicks on links (anchor tags)', function() {
+                    it('clicks on links (anchor tags)', function() {
                         this.CUT.visit('/login')
                                 .seeTitleIs('Login Page')
                                 .click('About')
@@ -399,9 +398,6 @@ component extends='testbox.system.BaseSpec' {
     }
 
     private function setUpRequests() {
-        variables.mockBaseTestCase = getMockBox().createMock('coldbox.system.testing.BaseTestCase');
-        this.CUT.$property(propertyName = 'baseTestCase', mock = mockBaseTestCase);
-
         setUpLoginPage();
         setUpAboutPage();
         setUpSecuredPage();

@@ -62,9 +62,9 @@ component extends="testbox.system.compat.framework.TestCase" {
 	*
 	* @parser Optional. A Jsoup parser. It is provided here so it can be overridden for testing. Default: createObject('java', 'org.jsoup.Jsoup').
 	*
-	* @return Integrated.BaseSpecs.ColdBoxBaseSpec
+	* @return Integrated.BaseSpecs.AbstractBaseSpec
 	*/
-	public ColdBoxBaseSpec function beforeAll(parser = createObject('java', 'org.jsoup.Jsoup')) {
+	public AbstractBaseSpec function beforeAll(parser = createObject('java', 'org.jsoup.Jsoup')) {
 	    // Initialize all component variables
 	    variables.parser = arguments.parser;
 	    variables.page = '';
@@ -84,9 +84,9 @@ component extends="testbox.system.compat.framework.TestCase" {
 	*
 	* @route The ColdBox route to visit, e.g. `/login` or `/posts/4`. Integrated will build the full url based on ColdBox settings (including `index.cfm`, if needed).
 	*
-	* @return Integrated.BaseSpecs.ColdBoxBaseSpec
+	* @return Integrated.BaseSpecs.AbstractBaseSpec
 	*/
-	public ColdBoxBaseSpec function visit(required string route) {
+	public AbstractBaseSpec function visit(required string route) {
 	    return makeRequest(method = 'GET', route = arguments.route);
 	}
 
@@ -95,9 +95,9 @@ component extends="testbox.system.compat.framework.TestCase" {
 	*
 	* @event The ColdBox event to visit, e.g. `Main.index` or `Posts.4`.
 	*
-	* @return Integrated.BaseSpecs.ColdBoxBaseSpec
+	* @return Integrated.BaseSpecs.AbstractBaseSpec
 	*/
-	public ColdBoxBaseSpec function visitEvent(required string event) {
+	public AbstractBaseSpec function visitEvent(required string event) {
 	    return makeRequest(method = 'GET', event = arguments.event);
 	}
 
@@ -106,9 +106,9 @@ component extends="testbox.system.compat.framework.TestCase" {
 	*
 	* @link A selector of a link or the text of the link to click.
 	*
-	* @return Integrated.BaseSpecs.ColdBoxBaseSpec
+	* @return Integrated.BaseSpecs.AbstractBaseSpec
 	*/
-	public ColdBoxBaseSpec function click(required string link) {
+	public AbstractBaseSpec function click(required string link) {
 	    // First try to find using the argument as a selector
 	    var anchorTag = getParsedPage().select('#arguments.link#');
 
@@ -130,9 +130,9 @@ component extends="testbox.system.compat.framework.TestCase" {
 	* @text The value to type in the form field.
 	* @element The element selector or name to type the value in to.
 	*
-	* @return Integrated.BaseSpecs.ColdBoxBaseSpec
+	* @return Integrated.BaseSpecs.AbstractBaseSpec
 	*/
-	public ColdBoxBaseSpec function type(required string text, required string element) {
+	public AbstractBaseSpec function type(required string text, required string element) {
 	    return storeInput(arguments.element, arguments.text);
 	}
 
@@ -141,9 +141,9 @@ component extends="testbox.system.compat.framework.TestCase" {
 	*
 	* @element The selector or name of the checkbox to check.
 	*
-	* @return Integrated.BaseSpecs.ColdBoxBaseSpec
+	* @return Integrated.BaseSpecs.AbstractBaseSpec
 	*/
-	public ColdBoxBaseSpec function check(required string element) {
+	public AbstractBaseSpec function check(required string element) {
 	    return storeInput(arguments.element, true);
 	}
 
@@ -152,9 +152,9 @@ component extends="testbox.system.compat.framework.TestCase" {
 	*
 	* @element The selector or name of the checkbox to uncheck.
 	*
-	* @return Integrated.BaseSpecs.ColdBoxBaseSpec
+	* @return Integrated.BaseSpecs.AbstractBaseSpec
 	*/
-	public ColdBoxBaseSpec function uncheck(required string element) {
+	public AbstractBaseSpec function uncheck(required string element) {
 	    return storeInput(arguments.element, false);
 	}
 
@@ -164,9 +164,9 @@ component extends="testbox.system.compat.framework.TestCase" {
 	* @option The value or text to select.
 	* @element The selector or name to choose the option in.
 	*
-	* @return Integrated.BaseSpecs.ColdBoxBaseSpec
+	* @return Integrated.BaseSpecs.AbstractBaseSpec
 	*/
-	public ColdBoxBaseSpec function select(required string option, required string element) {
+	public AbstractBaseSpec function select(required string option, required string element) {
 	    var value = findOption(arguments.option, arguments.element);
 
 	    return storeInput(arguments.element, value);
@@ -178,9 +178,9 @@ component extends="testbox.system.compat.framework.TestCase" {
 	* @button The selector or name of the button to press.
 	* @overrideEvent Optional. The event to run instead of the form's default. Default: ''.
 	*
-	* @return Integrated.BaseSpecs.ColdBoxBaseSpec
+	* @return Integrated.BaseSpecs.AbstractBaseSpec
 	*/
-	public ColdBoxBaseSpec function press(required string button, string overrideEvent = '') {
+	public AbstractBaseSpec function press(required string button, string overrideEvent = '') {
 	    return this.submitForm(
 	        button = arguments.button,
 	        overrideEvent = arguments.overrideEvent
@@ -194,9 +194,9 @@ component extends="testbox.system.compat.framework.TestCase" {
 	* @inputs Optional. The form values to submit.  If not provided, uses the values stored in Integrated combined with any values on the current page. Default: {}.
 	* @overrideEvent Optional. The event to run instead of the form's default. Defeault: ''.
 	*
-	* @return Integrated.BaseSpecs.ColdBoxBaseSpec
+	* @return Integrated.BaseSpecs.AbstractBaseSpec
 	*/
-	public ColdBoxBaseSpec function submitForm(
+	public AbstractBaseSpec function submitForm(
 	    required string button,
 	    struct inputs = {},
 	    string overrideEvent = ''
@@ -239,9 +239,9 @@ component extends="testbox.system.compat.framework.TestCase" {
 	*
 	* @route The expected route.
 	*
-	* @return Integrated.BaseSpecs.ColdBoxBaseSpec
+	* @return Integrated.BaseSpecs.AbstractBaseSpec
 	*/
-	public ColdBoxBaseSpec function seePageIs(required string route) {
+	public AbstractBaseSpec function seePageIs(required string route) {
 	    if (variables.requestMethod == 'visitEvent') {
 	        throw(
 	            type = 'TestBox.AssertionFailed',
@@ -264,9 +264,9 @@ component extends="testbox.system.compat.framework.TestCase" {
 	*
 	* @title The expected title.
 	*
-	* @return Integrated.BaseSpecs.ColdBoxBaseSpec
+	* @return Integrated.BaseSpecs.AbstractBaseSpec
 	*/
-	public ColdBoxBaseSpec function seeTitleIs(required string title) {
+	public AbstractBaseSpec function seeTitleIs(required string title) {
 	    var actualTitle = getParsedPage().title();
 
 	    expect(arguments.title).toBe(actualTitle,
@@ -281,9 +281,9 @@ component extends="testbox.system.compat.framework.TestCase" {
 	*
 	* @view The expected view.
 	*
-	* @return Integrated.BaseSpecs.ColdBoxBaseSpec
+	* @return Integrated.BaseSpecs.AbstractBaseSpec
 	*/
-	public ColdBoxBaseSpec function seeViewIs(required string view) {
+	public AbstractBaseSpec function seeViewIs(required string view) {
 	    var actualView = getEvent().getCurrentView();
 	    expect(actualView).toBe(
 	        arguments.view,
@@ -298,9 +298,9 @@ component extends="testbox.system.compat.framework.TestCase" {
 	*
 	* @handler The expected handler.
 	*
-	* @return Integrated.BaseSpecs.ColdBoxBaseSpec
+	* @return Integrated.BaseSpecs.AbstractBaseSpec
 	*/
-	public ColdBoxBaseSpec function seeHandlerIs(required string handler) {
+	public AbstractBaseSpec function seeHandlerIs(required string handler) {
 	    var actualHandler = getEvent().getCurrentHandler();
 	    expect(actualHandler).toBe(
 	        arguments.handler,
@@ -315,9 +315,9 @@ component extends="testbox.system.compat.framework.TestCase" {
 	*
 	* @action The expected action.
 	*
-	* @return Integrated.BaseSpecs.ColdBoxBaseSpec
+	* @return Integrated.BaseSpecs.AbstractBaseSpec
 	*/
-	public ColdBoxBaseSpec function seeActionIs(required string action) {
+	public AbstractBaseSpec function seeActionIs(required string action) {
 	    var actualAction = getEvent().getCurrentAction();
 	    expect(actualAction).toBe(
 	        arguments.action,
@@ -332,9 +332,9 @@ component extends="testbox.system.compat.framework.TestCase" {
 	*
 	* @event The expected event.
 	*
-	* @return Integrated.BaseSpecs.ColdBoxBaseSpec
+	* @return Integrated.BaseSpecs.AbstractBaseSpec
 	*/
-	public ColdBoxBaseSpec function seeEventIs(required string event) {
+	public AbstractBaseSpec function seeEventIs(required string event) {
 	    var actualEvent = getEvent().getCurrentEvent();
 	    expect(actualEvent).toBe(
 	        arguments.event,
@@ -350,9 +350,9 @@ component extends="testbox.system.compat.framework.TestCase" {
 	* @text The expected text.
 	* @negate Optional. If true, throw an exception if the text IS found on the current page. Default: false.
 	*
-	* @return Integrated.BaseSpecs.ColdBoxBaseSpec
+	* @return Integrated.BaseSpecs.AbstractBaseSpec
 	*/
-	public ColdBoxBaseSpec function see(required string text, boolean negate = false) {
+	public AbstractBaseSpec function see(required string text, boolean negate = false) {
 	    var elems = getParsedPage().select('*:contains(#arguments.text#)');
 
 	    if (!negate) {
@@ -370,9 +370,9 @@ component extends="testbox.system.compat.framework.TestCase" {
 	*
 	* @text The text that should not appear.
 	*
-	* @return Integrated.BaseSpecs.ColdBoxBaseSpec
+	* @return Integrated.BaseSpecs.AbstractBaseSpec
 	*/
-	public ColdBoxBaseSpec function dontSee(required string text) {
+	public AbstractBaseSpec function dontSee(required string text) {
 	    return this.see(text = arguments.text, negate = true);
 	}
 
@@ -383,9 +383,9 @@ component extends="testbox.system.compat.framework.TestCase" {
 	* @text The expected text.
 	* @negate Optional. If true, throw an exception if the element DOES contain the given text on the current page. Default: false.
 	*
-	* @return Integrated.BaseSpecs.ColdBoxBaseSpec
+	* @return Integrated.BaseSpecs.AbstractBaseSpec
 	*/
-	public ColdBoxBaseSpec function seeInElement(
+	public AbstractBaseSpec function seeInElement(
 	    required string element,
 	    required string text,
 	    boolean negate = false
@@ -410,9 +410,9 @@ component extends="testbox.system.compat.framework.TestCase" {
 	* @element The provided element.
 	* @text The text that should not be found.
 	*
-	* @return Integrated.BaseSpecs.ColdBoxBaseSpec
+	* @return Integrated.BaseSpecs.AbstractBaseSpec
 	*/
-	public ColdBoxBaseSpec function dontSeeInElement(
+	public AbstractBaseSpec function dontSeeInElement(
 	    required string element,
 	    required string text
 	) {
@@ -430,9 +430,9 @@ component extends="testbox.system.compat.framework.TestCase" {
 	* @text The expected text of the link.
 	* @url Optional. The expected url of the link. Default: ''.
 	*
-	* @return Integrated.BaseSpecs.ColdBoxBaseSpec
+	* @return Integrated.BaseSpecs.AbstractBaseSpec
 	*/
-	public ColdBoxBaseSpec function seeLink(required string text, string url = '') {
+	public AbstractBaseSpec function seeLink(required string text, string url = '') {
 	    var errorMessage = 'No links were found matching the pattern [#arguments.text#]';
 
 	    if (arguments.url != '') {
@@ -453,9 +453,9 @@ component extends="testbox.system.compat.framework.TestCase" {
 	* @text The text of the link that should not be found.
 	* @url Optional. The url that should not be found. Default: ''.
 	*
-	* @return Integrated.BaseSpecs.ColdBoxBaseSpec
+	* @return Integrated.BaseSpecs.AbstractBaseSpec
 	*/
-	public ColdBoxBaseSpec function dontSeeLink(required string text, string url = '') {
+	public AbstractBaseSpec function dontSeeLink(required string text, string url = '') {
 	    var errorMessage = 'A link was found with expected text [#arguments.text#]';
 
 	    if (arguments.url != '') {
@@ -476,9 +476,9 @@ component extends="testbox.system.compat.framework.TestCase" {
 	* @value The expected value of the field.
 	* @negate Optional. If true, throw an exception if the field DOES contain the given text on the current page. Default: false.
 	*
-	* @return Integrated.BaseSpecs.ColdBoxBaseSpec
+	* @return Integrated.BaseSpecs.AbstractBaseSpec
 	*/
-	public ColdBoxBaseSpec function seeInField(required string element, required string value, boolean negate = false) {
+	public AbstractBaseSpec function seeInField(required string element, required string value, boolean negate = false) {
 	    var inputs = findField(arguments.element);
 
 	    var inputsWithValue = inputs.select('[value=#arguments.value#');
@@ -499,9 +499,9 @@ component extends="testbox.system.compat.framework.TestCase" {
 	* @element The selector or name of the field.
 	* @value The value of the field to not find.
 	*
-	* @return Integrated.BaseSpecs.ColdBoxBaseSpec
+	* @return Integrated.BaseSpecs.AbstractBaseSpec
 	*/
-	public ColdBoxBaseSpec function dontSeeInField(required string element, required string value) {
+	public AbstractBaseSpec function dontSeeInField(required string element, required string value) {
 	    return this.seeInField(
 	        element = arguments.element,
 	        value = arguments.value,
@@ -515,9 +515,9 @@ component extends="testbox.system.compat.framework.TestCase" {
 	* @element The selector or name of the checkbox.
 	* @negate Optional. If true, throw an exception if the checkbox IS checked on the current page. Default: false.
 	*
-	* @return Integrated.BaseSpecs.ColdBoxBaseSpec
+	* @return Integrated.BaseSpecs.AbstractBaseSpec
 	*/
-	public ColdBoxBaseSpec function seeIsChecked(required string element, boolean negate = false) {
+	public AbstractBaseSpec function seeIsChecked(required string element, boolean negate = false) {
 	    var checkboxes = findCheckbox(arguments.element);
 
 	    var checkedCheckboxes = checkboxes.select('[checked]');
@@ -537,9 +537,9 @@ component extends="testbox.system.compat.framework.TestCase" {
 	*
 	* @element The selector or name of the field.
 	*
-	* @return Integrated.BaseSpecs.ColdBoxBaseSpec
+	* @return Integrated.BaseSpecs.AbstractBaseSpec
 	*/
-	public ColdBoxBaseSpec function dontSeeIsChecked(required string element) {
+	public AbstractBaseSpec function dontSeeIsChecked(required string element) {
 	    return this.seeIsChecked(
 	        element = arguments.element,
 	        negate = true
@@ -553,9 +553,9 @@ component extends="testbox.system.compat.framework.TestCase" {
 	* @value The value or text of the option that should exist.
 	* @negate Optional. If true, throw an exception if the option IS selected in the given select field on the current page. Default: false.
 	*
-	* @return Integrated.BaseSpecs.ColdBoxBaseSpec
+	* @return Integrated.BaseSpecs.AbstractBaseSpec
 	*/
-	public ColdBoxBaseSpec function seeIsSelected(required string element, required string value, boolean negate = false) {
+	public AbstractBaseSpec function seeIsSelected(required string element, required string value, boolean negate = false) {
 	    var selectFields = findSelectField(arguments.element);
 
 	    var selectedOption = selectFields.select('option[selected]');
@@ -580,9 +580,9 @@ component extends="testbox.system.compat.framework.TestCase" {
 	* @element The selector or name of the select field.
 	* @value The value or text of the option that should exist.
 	*
-	* @return Integrated.BaseSpecs.ColdBoxBaseSpec
+	* @return Integrated.BaseSpecs.AbstractBaseSpec
 	*/
-	public ColdBoxBaseSpec function dontSeeIsSelected(required string element, required string value) {
+	public AbstractBaseSpec function dontSeeIsSelected(required string element, required string value) {
 	    return this.seeIsSelected(
 	        element = arguments.element,
 	        value = arguments.value,
@@ -684,9 +684,9 @@ component extends="testbox.system.compat.framework.TestCase" {
 	* @value The value to store in-memory.
 	* @overwrite Optional. Specifies whether to overwrite any existing in-memory input values.  Default: true.
 	*
-	* @return Integrated.BaseSpecs.ColdBoxBaseSpec
+	* @return Integrated.BaseSpecs.AbstractBaseSpec
 	*/
-	private ColdBoxBaseSpec function storeInput(
+	private AbstractBaseSpec function storeInput(
 	    required string element,
 	    required string value,
 	    boolean overwrite = true
@@ -753,9 +753,9 @@ component extends="testbox.system.compat.framework.TestCase" {
 	* @parameters Optional. A struct of parameters to attach to the request.  The parameters are attached to ColdBox's RequestContext collection. Default: {}.
 	*
 	* @throws TestBox.AssertionFailed
-	* @return Integrated.BaseSpecs.ColdBoxBaseSpec
+	* @return Integrated.BaseSpecs.AbstractBaseSpec
 	*/
-	private ColdBoxBaseSpec function makeRequest(
+	private AbstractBaseSpec function makeRequest(
 	    required string method,
 	    string route,
 	    string event,

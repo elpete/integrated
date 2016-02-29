@@ -5,7 +5,10 @@ component extends='testbox.system.BaseSpec' {
         getMockBox().prepareMock(this.CUT);
 
         // Set the appMapping for testing
-        this.CUT.$property(propertyName = 'appMapping', mock = '/SampleApp');
+        variables.mockBaseTestCase = getMockBox().createMock('coldbox.system.testing.BaseTestCase');
+        this.CUT.$property(propertyName = 'baseTestCase', mock = mockBaseTestCase);
+        variables.mockBaseTestCase.$property(propertyName = 'appMapping', mock = '/SampleApp');
+        variables.mockBaseTestCase.beforeAll();
 
         // Set up the parent ColdBox BaseTestCase
         this.CUT.beforeAll();

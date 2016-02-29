@@ -1,6 +1,6 @@
 component extends='BaseSpecs.AbstractBaseSpec' {
 
-    property name="coldboxBaseTestCase" type="coldbox.system.testing.BaseTestCase";
+    property name="baseTestCase" type="coldbox.system.testing.BaseTestCase";
 
     function beforeAll() {
         super.beforeAll();
