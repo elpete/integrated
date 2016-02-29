@@ -798,12 +798,22 @@ component extends="testbox.system.compat.framework.TestCase" {
 	/**************************** Debug Methods ******************************/
 
 
+	/**
+	* Pipes the html of the page to the debug() output
+	*
+	* @return Integrated.BaseSpecs.AbstractBaseSpec
+	*/
 	public AbstractBaseSpec function debugPage() {
 		debug(variables.page.html());
 
 		return this;
 	}
 
+	/**
+	* Pipes the framework event to the debug() output
+	*
+	* @return Integrated.BaseSpecs.AbstractBaseSpec
+	*/
 	public AbstractBaseSpec function debugEvent() {
 		debug(variables.event);
 

@@ -108,7 +108,16 @@ component extends='BaseSpecs.AbstractBaseSpec' {
 
     /***************************** Additional Expectations *******************************/
 
-
+    /**
+    * Verifies that the given key and optional value exists in the ColdBox request collection.
+    *
+    * @key The key to find in the collection.
+    * @value The value to find in the collection with the given key.
+    * @private If true, use the private collection instead of the default collection. Default: false.
+    * @negate If true, verify that the key and value is not found in the collection. Default: false.
+    *
+    * @return string
+    */
     public ColdBoxBaseSpec function seeInCollection(
         required string key,
         string value,
@@ -143,6 +152,15 @@ component extends='BaseSpecs.AbstractBaseSpec' {
         return this;
     }
 
+    /**
+    * Verifies that the given key and optional value does not exist in the ColdBox request collection.
+    *
+    * @key The key that should not be found in the collection.
+    * @value The value that should not be founc in the collection with the given key.
+    * @private If true, use the private collection instead of the default collection. Default: false.
+    *
+    * @return string
+    */
     public ColdBoxBaseSpec function dontSeeInCollection(
         required string key,
         string value,
@@ -160,12 +178,22 @@ component extends='BaseSpecs.AbstractBaseSpec' {
     /**************************** Additional Debug Methods ******************************/
 
 
+    /**
+    * Pipes the request collection (rc) to the debug() output
+    *
+    * @return Integrated.BaseSpecs.ColdBoxBaseSpec
+    */
     public ColdBoxBaseSpec function debugCollection() {
         debug(variables.event.getCollection());
 
         return this;
     }
 
+    /**
+    * Pipes the private request collection (prc) to the debug() output
+    *
+    * @return Integrated.BaseSpecs.ColdBoxBaseSpec
+    */
     public ColdBoxBaseSpec function debugPrivateCollection() {
         debug(variables.event.getPrivateCollection());
 
@@ -176,6 +204,16 @@ component extends='BaseSpecs.AbstractBaseSpec' {
     /**************************** Additional Helper Methods ******************************/
 
 
+    /**
+    * Generates the failure message string for the `seeInCollection` function.
+    *
+    * @key The key to find in the collection.
+    * @value The value to find in the collection with the given key.
+    * @private If true, use the private collection instead of the default collection. Default: false.
+    * @negate If true, verify that the key and value is not found in the collection. Default: false.
+    *
+    * @return string
+    */
     private string function generateCollectionFailureMessage(
         required string key,
         string value,
