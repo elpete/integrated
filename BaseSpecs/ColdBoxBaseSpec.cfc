@@ -108,6 +108,50 @@ component extends='BaseSpecs.AbstractBaseSpec' {
         return '';
     }
 
+    /**
+    * @doc_abstract true
+    *
+    * Returns true if the response is a redirect
+    *
+    * @event The ColdBox event object (coldbox.system.web.context.RequestContext)
+    *
+    * @return boolean
+    */
+    private boolean function isRedirect(event) {
+        return event.valueExists('setNextEvent_event')
+    }
+
+    /**
+    * Returns the redirect event name
+    *
+    * @event The ColdBox event object (coldbox.system.web.context.RequestContext)
+    *
+    * @return string
+    */
+    private string function getRedirectEvent(event) {
+        return event.getValue('setNextEvent_event');
+    }
+
+    /**
+    * Returns the inputs for the redirect event, if any.
+    *
+    * @event The ColdBox event object (coldbox.system.web.context.RequestContext)
+    *
+    * @return struct
+    */
+    private struct function getRedirectInputs(event) {
+        var persistKeys = ListToArray(event.getValue('setNextEvent_persist', ''));
+
+        var persistStruct = ArrayReduce(persistKeys, function(acc, key) {
+            acc[key] = event.getValue(key);
+            return acc;
+        }, {});
+
+        structAppend(persistStruct, event.getValue('setNextEvent_persistStruct', {}));
+
+        return persistStruct;
+    }
+
 
     /***************************** Additional Expectations *******************************/
 

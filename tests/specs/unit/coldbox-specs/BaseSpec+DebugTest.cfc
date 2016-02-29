@@ -15,7 +15,7 @@ component extends='testbox.system.BaseSpec' {
     }
 
     function run() {
-        describe('BaseSpec — Expectations', function() {
+        describe('BaseSpec — Debugging', function() {
 
             beforeEach(function() {
                 // Read in a sample html page

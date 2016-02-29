@@ -52,13 +52,58 @@ component extends="testbox.system.compat.framework.TestCase" {
 	/**
 	* @doc_abstract true
 	*
-	* Returns the html string from a ColdBox `execute()` call.
+	* Returns the html string from a Framework-specific event object.
+	*
+	* @event The Framework-specific event object.
 	*
 	* @return string
 	*/
 	private string function getHTML(event) {
-		throw('Method is abstract and must be implemented in a concrete component.');	
+		throw('Method is abstract and must be implemented in a concrete component.');
 	}
+
+	/**
+	* @doc_abstract true
+	*
+	* Returns true if the response is a redirect
+	*
+	* @event The Framework-specific event object.
+	*
+	* @return boolean
+	*/
+	private boolean function isRedirect(event) {
+		throw('Method is abstract and must be implemented in a concrete component.');   
+	}
+
+	/**
+	* @doc_abstract true
+	*
+	* Returns the redirect event name
+	*
+	* @event The Framework-specific event object.
+	*
+	* @return string
+	*/
+	private string function getRedirectEvent(event) {
+		throw('Method is abstract and must be implemented in a concrete component.');   
+	}
+
+	/**
+	* @doc_abstract true
+	*
+	* Returns the inputs for the redirect event, if any.
+	*
+	* @event The Framework-specific event object.
+	*
+	* @return struct
+	*/
+	private struct function getRedirectInputs(event) {
+		throw('Method is abstract and must be implemented in a concrete component.');   
+	}
+
+
+	/***************************** Set Up *******************************/
+
 
 	/**
 	* Sets up the needed dependancies for Integrated.
@@ -276,6 +321,24 @@ component extends="testbox.system.compat.framework.TestCase" {
 	    }
 	    else {
 	        variables.requestMethod = 'visitEvent';   
+	    }
+
+	    // Follow any redirects found
+	    if (isRedirect(variables.event)) {
+	    	if (variables.requestMethod == 'visit') {
+	    		return makeRequest(
+		    		method = arguments.method,
+		    		route = getRedirectEvent(variables.event),
+		    		parameters = getRedirectInputs(variables.event)
+		    	);
+	    	}
+	    	else {
+		    	return makeRequest(
+		    		method = arguments.method,
+		    		event = getRedirectEvent(variables.event),
+		    		parameters = getRedirectInputs(variables.event)
+		    	);
+	    	}
 	    }
 
 	    // Parse the html and set it to the current page

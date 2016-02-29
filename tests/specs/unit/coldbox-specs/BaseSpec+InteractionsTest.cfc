@@ -29,6 +29,7 @@ component extends='testbox.system.BaseSpec' {
                     beforeEach(function() {
                         mockEvent = getMockBox().createMock('coldbox.system.web.context.RequestContext');
                         var html = fileRead(expandPath('/tests/resources/login-page.html'));
+                        mockEvent.$('valueExists').$args('setNextEvent_event').$results(false);
                         mockEvent.$(method = 'getCollection', returns = { cbox_rendered_content = html });
 
                         variables.mockBaseTestCase.$('execute').$args(route = '/login', renderResults = true).$results(mockEvent);
@@ -91,6 +92,7 @@ component extends='testbox.system.BaseSpec' {
                     beforeEach(function() {
                         mockEvent = getMockBox().createMock('coldbox.system.web.context.RequestContext');
                         var html = fileRead(expandPath('/tests/resources/login-page.html'));
+                        mockEvent.$('valueExists').$args('setNextEvent_event').$results(false);
                         mockEvent.$(method = 'getCollection', returns = { cbox_rendered_content = html });
 
                         mockBaseTestCase.$('execute').$args(event = 'Main.index', renderResults = true).$results(mockEvent);
@@ -408,6 +410,7 @@ component extends='testbox.system.BaseSpec' {
         var loginPage = fileRead(expandPath('/tests/resources/login-page.html'));
 
         mockLoginEvent = getMockBox().createMock('coldbox.system.web.context.RequestContext');
+        mockLoginEvent.$('valueExists').$args('setNextEvent_event').$results(false);
         mockLoginEvent.$(method = 'getCollection', returns = { cbox_rendered_content = loginPage });
         variables.mockBaseTestCase.$('execute').$args(route = '/login', renderResults = true).$results(mockLoginEvent);
     }
@@ -416,6 +419,7 @@ component extends='testbox.system.BaseSpec' {
         var aboutPage = fileRead(expandPath('/tests/resources/about-page.html'));
 
         mockAboutEvent = getMockBox().createMock('coldbox.system.web.context.RequestContext');
+        mockAboutEvent.$('valueExists').$args('setNextEvent_event').$results(false);
         mockAboutEvent.$(method = 'getCollection', returns = { cbox_rendered_content = aboutPage });
 
         variables.mockBaseTestCase.$('execute').$args(event = 'about', renderResults = true).$results(mockAboutEvent);
@@ -426,6 +430,7 @@ component extends='testbox.system.BaseSpec' {
         var securedPage = fileRead(expandPath('/tests/resources/secured-page.html'));
 
         mockSecuredEvent = getMockBox().createMock('coldbox.system.web.context.RequestContext');
+        mockSecuredEvent.$('valueExists').$args('setNextEvent_event').$results(false);
         mockSecuredEvent.$(method = 'getCollection', returns = { cbox_rendered_content = securedPage });
 
         variables.mockBaseTestCase.$('execute').$args(route = '/secured', renderResults = true).$results(mockSecuredEvent);
