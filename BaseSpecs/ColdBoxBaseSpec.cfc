@@ -9,6 +9,9 @@ component extends='BaseSpecs.AbstractBaseSpec' {
         baseTestCase.beforeAll();
     }
 
+    /***************************** Abstract Method Implementations *******************************/
+
+
     /**
     * Make a ColdBox specifc request
     *
@@ -102,19 +105,98 @@ component extends='BaseSpecs.AbstractBaseSpec' {
         return '';
     }
 
-    /**************************** Debug Methods ******************************/
+
+    /***************************** Additional Expectations *******************************/
 
 
-    public AbstractBaseSpec function debugCollection() {
+    public ColdBoxBaseSpec function seeInCollection(
+        required string key,
+        string value,
+        boolean private = false,
+        boolean negate = false
+    ) {
+        var collection = getEvent().getCollection(private = arguments.private);
+
+        var failureMessage = generateCollectionFailureMessage(argumentCollection = arguments);
+
+        if (!negate) {
+            // If a value was provided and the key exists...
+            if (StructKeyExists(arguments, 'value') && StructKeyExists(collection, arguments.key)) {
+                expect(collection[arguments.key]).toBe(arguments.value, failureMessage);
+            }
+            // Otherwise, just verify the existance of the key
+            else {
+                expect(collection).toHaveKey(arguments.key, failureMessage);    
+            }
+        }
+        else {
+            // If a value was provided and the key exists...
+            if (StructKeyExists(arguments, 'value') && StructKeyExists(collection, arguments.key)) {
+                expect(collection[arguments.key]).notToBe(arguments.value, failureMessage);
+            }
+            // Otherwise, just verify the existance of the key
+            else {
+                expect(collection).notToHaveKey(arguments.key, failureMessage);    
+            }
+        }
+
+        return this;
+    }
+
+    public ColdBoxBaseSpec function dontSeeInCollection(
+        required string key,
+        string value,
+        boolean private = false
+    ) {
+        return seeInCollection(
+            key = arguments.key,
+            value = arguments.value,
+            private = arguments.private,
+            negate = true
+        );
+    }
+
+
+    /**************************** Additional Debug Methods ******************************/
+
+
+    public ColdBoxBaseSpec function debugCollection() {
         debug(variables.event.getCollection());
 
         return this;
     }
 
-    public AbstractBaseSpec function debugPrivateCollection() {
+    public ColdBoxBaseSpec function debugPrivateCollection() {
         debug(variables.event.getPrivateCollection());
 
         return this;
+    }
+
+
+    /**************************** Additional Helper Methods ******************************/
+
+
+    private string function generateCollectionFailureMessage(
+        required string key,
+        string value,
+        boolean private = false,
+        boolean negate = false
+    ) {
+        var failureMessage = 'Failed asserting that the key [#arguments.key#]';
+        var existancePhrase = arguments.negate ? 'does not exist' : 'exists';
+
+        if (StructKeyExists(arguments, 'value')) {
+            failureMessage &= ' with the value [#arguments.value#]';
+        }
+
+        if (arguments.private) {
+            failureMessage &= ' #existancePhrase# in the private request collection.';
+        }
+        else {
+            failureMessage &= ' #existancePhrase# in the request collection.';   
+        }
+
+        return failureMessage
     }
 
 }

@@ -27,6 +27,10 @@ component extends='testbox.system.BaseSpec' {
 
                 // Add a mock ColdBox request context
                 mockEvent = getMockBox().createMock('coldbox.system.web.context.RequestContext');
+                variables.rc = { email = 'john@example.com' };
+                variables.prc = { birthday = '01/01/1980' };
+                mockEvent.$('getCollection').$args(private = false).$results(rc);
+                mockEvent.$('getCollection').$args(private = true).$results(prc);
                 this.CUT.$property(propertyName = 'event', mock = mockEvent);
 
                 // Set the default request method to 'visit'
@@ -661,6 +665,174 @@ component extends='testbox.system.BaseSpec' {
 
                     expect(function() {
                         this.CUT.dontSeeIsSelected('##country', 'Canada');
+                    }).toThrow(
+                        type = 'TestBox.AssertionFailed',
+                        regex = 'Cannot make assertions until you visit a page\.  Make sure to run visit\(\) or visitEvent\(\) first\.'
+                    );
+                });
+            });
+
+            feature('seeInCollection', function() {
+                it('verifies that a key exists in the request collection', function() {
+                    expect(function() {
+                        this.CUT.seeInCollection('email');
+                    }).notToThrow();
+
+                    expect(function() {
+                        this.CUT.seeInCollection('username');
+                    }).toThrow(
+                        type = 'TestBox.AssertionFailed',
+                        regex = 'Failed asserting that the key \[username\] exists in the request collection\.'
+                    );
+                });
+
+                it('verifies that a key exists in the private request collection', function() {
+                    expect(function() {
+                        this.CUT.seeInCollection(key = 'birthday', private = true);
+                    }).notToThrow();
+
+                    expect(function() {
+                        this.CUT.seeInCollection(key = 'username', private = true);
+                    }).toThrow(
+                        type = 'TestBox.AssertionFailed',
+                        regex = 'Failed asserting that the key \[username\] exists in the private request collection\.'
+                    );
+                });
+
+                it('verifies that a key with a given value exists in the request collection', function() {
+                    expect(function() {
+                        this.CUT.seeInCollection('email', 'john@example.com');
+                    }).notToThrow();
+
+                    expect(function() {
+                        this.CUT.seeInCollection('username', 'johnny_boy');
+                    }).toThrow(
+                        type = 'TestBox.AssertionFailed',
+                        regex = 'Failed asserting that the key \[username\] with the value \[johnny\_boy\] exists in the request collection\.'
+                    );
+                });
+
+                it('verifies that a key with a given value exists in the private request collection', function() {
+                    expect(function() {
+                        this.CUT.seeInCollection(key = 'birthday', value = '01/01/1980', private = true);
+                    }).notToThrow();
+
+                    expect(function() {
+                        this.CUT.seeInCollection(key = 'username', value = 'johnny_boy', private = true);
+                    }).toThrow(
+                        type = 'TestBox.AssertionFailed',
+                        regex = 'Failed asserting that the key \[username\] with the value \[johnny_boy\] exists in the private request collection\.'
+                    );
+                });
+
+                it('fails if the key does exist but not with the given value in the request collection', function() {
+                    expect(function() {
+                        this.CUT.seeInCollection('email', 'john@example.com');
+                    }).notToThrow();
+
+                    expect(function() {
+                        this.CUT.seeInCollection('email', 'johnny_boy@example.com');
+                    }).toThrow(
+                        type = 'TestBox.AssertionFailed',
+                        regex = 'Failed asserting that the key \[email\] with the value \[johnny\_boy\@example\.com\] exists in the request collection\.'
+                    );
+                });
+
+                it('fails if the key does exist but not with the given value in the private request collection', function() {
+                    expect(function() {
+                        this.CUT.seeInCollection(key = 'birthday', value = '01/01/1980', private = true);
+                    }).notToThrow();
+
+                    expect(function() {
+                        this.CUT.seeInCollection(key = 'birthday', value = '02/29/2016', private = true);
+                    }).toThrow(
+                        type = 'TestBox.AssertionFailed',
+                        regex = 'Failed asserting that the key \[birthday\] with the value \[02\/29\/2016\] exists in the private request collection\.'
+                    );
+                });
+
+                it('throws an exception if there is no parsed document', function() {
+                    this.CUT.$property(propertyName = 'event', mock = '');
+
+                    expect(function() {
+                        this.CUT.seeInCollection('email');
+                    }).toThrow(
+                        type = 'TestBox.AssertionFailed',
+                        regex = 'Cannot make assertions until you visit a page\.  Make sure to run visit\(\) or visitEvent\(\) first\.'
+                    );
+                });
+            });
+
+            feature('dontSeeInCollection', function() {
+                it('verifies that a key does not exist in the request collection', function() {
+                    expect(function() {
+                        this.CUT.dontSeeInCollection('username');
+                    }).notToThrow();
+
+                    expect(function() {
+                        this.CUT.dontSeeInCollection('email');
+                    }).toThrow(
+                        type = 'TestBox.AssertionFailed',
+                        regex = 'Failed asserting that the key \[email\] does not exist in the request collection\.'
+                    );
+                });
+
+                it('verifies that a key does not exist in the private request collection', function() {
+                    expect(function() {
+                        this.CUT.dontSeeInCollection(key = 'username', private = true);
+                    }).notToThrow();
+
+                    expect(function() {
+                        this.CUT.dontSeeInCollection(key = 'birthday', private = true);
+                    }).toThrow(
+                        type = 'TestBox.AssertionFailed',
+                        regex = 'Failed asserting that the key \[birthday\] does not exist in the private request collection\.'
+                    );
+                });
+
+                it('verifies that a key with a given value does not exist in the request collection', function() {
+                    expect(function() {
+                        this.CUT.dontSeeInCollection('username', 'johnny_boy');
+                    }).notToThrow();
+
+                    expect(function() {
+                        this.CUT.dontSeeInCollection('email', 'john@example.com');
+                    }).toThrow(
+                        type = 'TestBox.AssertionFailed',
+                        regex = 'Failed asserting that the key \[email\] with the value \[john\@example\.com\] does not exist in the request collection\.'
+                    );
+                });
+
+                it('verifies that a key with a given value does not exist in the private request collection', function() {
+                    expect(function() {
+                        this.CUT.dontSeeInCollection(key = 'username', value = 'johnny_boy', private = true);
+                    }).notToThrow();
+
+                    expect(function() {
+                        this.CUT.dontSeeInCollection(key = 'birthday', value = '01/01/1980', private = true);
+                    }).toThrow(
+                        type = 'TestBox.AssertionFailed',
+                        regex = 'Failed asserting that the key \[birthday\] with the value \[01\/01\/1980\] does not exist in the private request collection\.'
+                    );
+                });
+
+                it('does not fail if the key does exist but not with the given value in the request collection', function() {
+                    expect(function() {
+                        this.CUT.dontSeeInCollection('email', 'johnny_boy@example.com');
+                    }).notToThrow();
+                });
+
+                it('does not fail if the key does exist but not with the given value in the private request collection', function() {
+                    expect(function() {
+                        this.CUT.dontSeeInCollection(key = 'birthday', value = '02/29/2016', private = true);
+                    }).notToThrow();
+                });
+
+                it('throws an exception if there is no parsed document', function() {
+                    this.CUT.$property(propertyName = 'event', mock = '');
+
+                    expect(function() {
+                        this.CUT.dontSeeInCollection('email');
                     }).toThrow(
                         type = 'TestBox.AssertionFailed',
                         regex = 'Cannot make assertions until you visit a page\.  Make sure to run visit\(\) or visitEvent\(\) first\.'
