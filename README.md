@@ -51,6 +51,28 @@ function run() {
 
 You can see all the different methods you can call in the [API docs](http://elpete.github.io/integrated/).
 
+### Creating Framework-specific BaseSpecs
+
+To create your own framework specific BaseSpec, first extend the `Integrated.BaseSpecs.AbstractBaseSpec` component.
+
+```cfc
+component extends="Integrated.BaseSpecs.AbstractBaseSpec" {
+    function beforeAll() {
+        super.beforeAll(); // IMPORTANT!  Don't forget to call `beforeAll()`!
+
+        // Your specific setup here.
+    }
+}
+```
+
+There are three abstract methods that you need to implement:
+
+1. `makeFrameworkRequest` — makes a request specifically for your framework.  Return whatever event object your framework uses.  That object will be passed to the `getHTML` method you implement.
+2. `getHTML` — returns the html string from your framework's event object.  This html string is then parsed and available for your tests.
+3. `parseActionFromForm` — returns just the route portion of a full uri.  For example, `http://localhost:8500/index.cfm/login` should return just `/login` in ColdBox.
+
+You can look at [`Integrated.BaseSpecs.ColdBoxBaseSpec`](https://github.com/elpete/integrated/blob/master/BaseSpecs/ColdBoxBaseSpec.cfc) for how this is done for ColdBox.
+
 ### Credits
 
 This package is **heavily** inspired by [Jeffrey Way's Integrated package for Laravel](https://github.com/laracasts/Integrated).
