@@ -116,15 +116,12 @@ component extends="testbox.system.compat.framework.TestCase" {
 	*/
 	public AbstractBaseSpec function beforeAll(
 		parser = createObject('java', 'org.jsoup.Jsoup'),
-		dbUtils = new BaseSpecs.DBUtils()
+		additionalMatchers = 'BaseSpecs.DBMatchers'
 	) {
+	    addMatchers(arguments.additionalMatchers);
+
 	    // Initialize all component variables
 	    variables.parser = arguments.parser;
-
-	    variables.dbUtils = arguments.dbUtils;
-	    variables.dbUtils.beforeAll();
-	    addMatchers(variables.dbUtils.getMatchers());
-
 	    variables.page = '';
 	    variables.event = '';
 	    variables.requestMethod = '';

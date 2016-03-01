@@ -1,13 +1,13 @@
 component {
 
-	function beforeAll() {}
-
-	public struct function getMatchers() {
-		return {
-			toBeInTable: toBeInTable
-		};
-	}
-
+	/**
+	* Verifies that a row with specified values exists in a given table.
+	*
+	* @expectation TestBox Expectation object. (testbox.system.Expectation)
+	* @args A struct of arguments passed to the `toBeInTable` function
+	*
+	* @throws TestBox.AssertionFailed
+	*/
 	function toBeInTable(expectation, args = {}) {
 		var noArgs = StructCount(arguments.args) == 0;
 
