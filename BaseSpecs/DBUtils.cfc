@@ -61,7 +61,28 @@ component {
 		";
 
 		for (var key in fields) {
-	        sqlString &= " AND #key# = '#fields[key]#'";
+			// defaults
+			var value = fields[key];
+			var type = 'CF_SQL_VARCHAR';
+			var list = false;
+			var seperator = ',';
+
+			if (isStruct(value)) {
+				if (!StructKeyExists(value, 'value')) {
+					throw(
+						type = 'TestBox.AssertionFailed',
+						message = 'Must pass a value key if assigning a struct to a fields key.'
+					);
+				}
+				type = StructKeyExists(value, 'type') ? value.type : 'CF_SQL_VARCHAR';
+				list = StructKeyExists(value, 'list') ? value.list : false;
+				seperator = StructKeyExists(value, 'seperator') ? value.seperator : ',';
+				value = value.value;
+			}
+			// Can't use hyphens in params
+			var uniqueKey = '#key#_#replace(createUUID(), '-', '_', 'all')#';
+			verifyQuery.addParam(name = uniqueKey, value = value, type = type, list = list, seperator = seperator);
+	        sqlString &= " AND #key# = :#uniqueKey#";
 		}
 
 		verifyQuery.setSQL(sqlString);
