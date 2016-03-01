@@ -8,6 +8,8 @@ component extends="testbox.system.compat.framework.TestCase" {
 
 	// The jsoup parser object
     property name='parser' type='org.jsoup.parser.Parser';
+    // A database testing helper library
+    property name='dbUtils' type='Integrated.BaseSpecs.DBUtils';
     // The parsed jsoup document object
     property name='page' type='org.jsoup.nodes.Document';
     // The ColdBox event object
@@ -112,9 +114,17 @@ component extends="testbox.system.compat.framework.TestCase" {
 	*
 	* @return Integrated.BaseSpecs.AbstractBaseSpec
 	*/
-	public AbstractBaseSpec function beforeAll(parser = createObject('java', 'org.jsoup.Jsoup')) {
+	public AbstractBaseSpec function beforeAll(
+		parser = createObject('java', 'org.jsoup.Jsoup'),
+		dbUtils = new BaseSpecs.DBUtils()
+	) {
 	    // Initialize all component variables
 	    variables.parser = arguments.parser;
+
+	    variables.dbUtils = arguments.dbUtils;
+	    variables.dbUtils.beforeAll();
+	    addMatchers(variables.dbUtils.getMatchers());
+
 	    variables.page = '';
 	    variables.event = '';
 	    variables.requestMethod = '';
