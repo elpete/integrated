@@ -57,11 +57,7 @@ component {
 			verifyQuery.setDatasource(datasource);
 		}
 
-		var sqlString = "
-		    SELECT 1
-		      FROM #table#
-		     WHERE 1 = 1
-		";
+		var sqlString = "SELECT 1 FROM #table# WHERE 1 = 1";
 
 		for (var key in fields) {
 			// Can't use hyphens in params
@@ -78,8 +74,7 @@ component {
 			
 			verifyQuery.addParam(argumentCollection = args);
 
-			var eq = StructKeyExists(args, 'list') && args.list == true ? 'IN (:#uniqueKey#)' : '= :#uniqueKey#';
-	        sqlString &= " AND #key# #eq#";
+	        sqlString &= " AND #key# IN (:#uniqueKey#)";
 		}
 
 		verifyQuery.setSQL(sqlString);
