@@ -840,6 +840,55 @@ component extends='testbox.system.BaseSpec' {
                 });
             });
 
+            feature('seeInTable', function() {
+                it('verifies that a row exists in a table', function() {
+                    var mockUsersTable = queryNew(
+                        'id,username,email,last_logged_in',
+                        'integer,varchar,varchar,timestamp',
+                        [
+                            { id = 1, username = 'johnny_boy', email ='john@example.com', last_logged_in = createDateTime(2016, 01, 01, 12, 01, 33) },
+                            { id = 2, username = 'lady_jo', email ='josephene@example.com', last_logged_in = createDateTime(2016, 01, 02, 15, 01, 33) },
+                            { id = 3, username = 'jack', email ='jack@example.com', last_logged_in = createDateTime(2016, 01, 05, 08, 01, 33) }
+                        ]
+                    );
+
+                    expect(function() {
+                        this.CUT.seeInTable(table = 'users', data = { email = 'john@example.com' }, query = mockUsersTable);
+                    }).notToThrow();
+
+                    expect(function() {
+                        this.CUT.seeInTable(table = 'users', data = { email = 'jane@example.com' }, query = mockUsersTable);
+                    }).toThrow(
+                        type = 'TestBox.AssertionFailed',
+                        regex = 'Unable to find row in database table \[users\] that matched attributes \[\{\"EMAIL\"\:\"jane\@example\.com\"\}\]\.'
+                    );
+                });
+            });
+
+            feature('dontSeeInTable', function() {
+                it('verifies that a row does not exist in a table', function() {
+                    var mockUsersTable = queryNew(
+                        'id,username,email,last_logged_in',
+                        'integer,varchar,varchar,timestamp',
+                        [
+                            { id = 1, username = 'johnny_boy', email ='john@example.com', last_logged_in = createDateTime(2016, 01, 01, 12, 01, 33) },
+                            { id = 2, username = 'lady_jo', email ='josephene@example.com', last_logged_in = createDateTime(2016, 01, 02, 15, 01, 33) },
+                            { id = 3, username = 'jack', email ='jack@example.com', last_logged_in = createDateTime(2016, 01, 05, 08, 01, 33) }
+                        ]
+                    );
+
+                    expect(function() {
+                        this.CUT.dontSeeInTable(table = 'users', data = { email = 'jane@example.com' }, query = mockUsersTable);
+                    }).notToThrow();
+
+                    expect(function() {
+                        this.CUT.dontSeeInTable(table = 'users', data = { email = 'john@example.com' }, query = mockUsersTable);
+                    }).toThrow(
+                        type = 'TestBox.AssertionFailed',
+                        regex = 'Found unexpected records in database table \[users\] that matched attributes \[\{\"EMAIL\"\:\"john\@example\.com\"\}\]\.'
+                    );
+                });
+            });
 
         });
     }

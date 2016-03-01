@@ -716,6 +716,67 @@ component extends="testbox.system.compat.framework.TestCase" {
 	    );
 	}
 
+	/**
+	* Verifies that a given struct of keys and values exists in a row in a given table.
+	*
+	* @table The table name to look for the data in.
+	* @data A struct of data to verify exists in a row in the given table.
+	* @datasource Optional. A datasource to use instead of the default datasource. Default: ''.
+	* @query Optional. A query to use for a query of queries.  Mostly useful for testing. Default: ''.
+	* @negate Optional. If true, throw an exception if the data DOES exist in the given table. Default: false.
+	*
+	* @return Integrated.BaseSpecs.AbstractBaseSpec
+	*/
+	public AbstractBaseSpec function seeInTable(
+		required string table,
+		required struct data,
+		string datasource = '',
+		any query = '',
+		boolean negate = false
+	) {
+		if (negate) {
+			expect(arguments.data).notToBeInTable(
+				table = arguments.table,
+				datasource = arguments.datasource,
+				query = arguments.query
+			);
+		}
+		else {
+			expect(arguments.data).toBeInTable(
+				table = arguments.table,
+				datasource = arguments.datasource,
+				query = arguments.query
+			);
+		}
+
+		return this;
+	}
+
+	/**
+	* Verifies that a given struct of keys and values does not exist in a row in a given table.
+	*
+	* @table The table name to look for the data in.
+	* @data A struct of data to verify exists in a row in the given table.
+	* @datasource Optional. A datasource to use instead of the default datasource. Default: ''.
+	* @query Optional. A query to use for a query of queries.  Mostly useful for testing. Default: ''.
+	*
+	* @return Integrated.BaseSpecs.AbstractBaseSpec
+	*/
+	public AbstractBaseSpec function dontSeeInTable(
+		required string table,
+		required struct data,
+		string datasource = '',
+		any query = ''
+	) {
+		return this.seeInTable(
+			table = arguments.table,
+			data = arguments.data,
+			datasource = arguments.datasource,
+			query = arguments.query,
+			negate = true
+		);
+	}
+
 
 	/**************************** Helper Methods ******************************/
 
