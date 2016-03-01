@@ -1,3 +1,6 @@
+/**
+* Custom TestBox matchers for making expectations against the database
+*/
 component {
 
 	/**
