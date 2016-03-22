@@ -115,6 +115,8 @@ component extends="testbox.system.compat.framework.TestCase" {
 	* @parser Optional. A Jsoup parser. It is provided here so it can be overridden for testing. Default: createObject('java', 'org.jsoup.Jsoup').
 	*
 	* @return Integrated.BaseSpecs.AbstractBaseSpec
+	*
+	* @beforeAll
 	*/
 	public AbstractBaseSpec function beforeAll(
 		parser = createObject('java', 'org.jsoup.Jsoup'),
