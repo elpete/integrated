@@ -18,6 +18,8 @@ component extends="testbox.system.compat.framework.TestCase" {
     property name='requestMethod' type='string';
     // The struct of form input values
     property name='inputs' type='struct' default='{}';
+    // Boolean flag to turn on automatic database transactions
+    property name='useDatabaseTransactions' type='boolean' default=false;
 
 	/***************************** Abstract Methods *******************************/
 
@@ -126,8 +128,35 @@ component extends="testbox.system.compat.framework.TestCase" {
 	    variables.event = '';
 	    variables.requestMethod = '';
 	    variables.inputs = {};
+	    this.useDatabaseTransactions = false;
 
 	    return this;
+	}
+
+	/**
+	* @aroundEach
+	*/
+	public void function shouldUseDatabaseTransactions(spec) {
+		if (this.useDatabaseTransactions) {
+			wrapInDatabaseTransaction(arguments.spec);
+		}
+		else {
+			arguments.spec.body();
+		}
+	}
+
+	private void function wrapInDatabaseTransaction(spec) {
+		transaction action="begin" {
+			try {
+				arguments.spec.body();
+			}
+			catch (any e) {
+				rethrow;
+			}
+			finally {
+				transaction action="rollback";
+			}
+		}
 	}
 
 

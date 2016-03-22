@@ -116,6 +116,20 @@ component extends='testbox.system.BaseSpec' {
                 });
             });
 
+            feature('automatic database transactions', function() {
+                it('has opt in database transactions', function() {
+                    var specStub = createStub().$('body');
+                    this.CUT.$('wrapInDatabaseTransaction');
+
+                    this.CUT.shouldUseDatabaseTransactions(specStub);
+                    expect(this.CUT.$never('wrapInDatabaseTransaction')).toBeTrue();
+                    
+                    this.CUT.useDatabaseTransactions = true;
+                    this.CUT.shouldUseDatabaseTransactions(specStub);
+                    expect(this.CUT.$once('wrapInDatabaseTransaction')).toBeTrue();
+                });
+            });
+
         });
     }
 }
