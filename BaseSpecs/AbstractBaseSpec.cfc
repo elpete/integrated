@@ -134,6 +134,11 @@ component extends="testbox.system.compat.framework.TestCase" {
 	}
 
 	/**
+	* Wraps each spec in a database transaction, if desired.
+	* Automatically runs around each TestBox spec.
+	*
+	* @spec The TestBox spec to execute.
+	*
 	* @aroundEach
 	*/
 	public void function shouldUseDatabaseTransactions(spec) {
@@ -145,6 +150,11 @@ component extends="testbox.system.compat.framework.TestCase" {
 		}
 	}
 
+	/**
+	* Wraps each spec in a database transaction.
+	*
+	* @spec The TestBox spec to execute.
+	*/
 	private void function wrapInDatabaseTransaction(spec) {
 		transaction action="begin" {
 			try {

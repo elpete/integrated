@@ -123,6 +123,7 @@ component extends='testbox.system.BaseSpec' {
 
                     this.CUT.shouldUseDatabaseTransactions(specStub);
                     expect(this.CUT.$never('wrapInDatabaseTransaction')).toBeTrue();
+                    expect(specStub.$times(1, 'body')).toBeTrue();
                     
                     this.CUT.useDatabaseTransactions = true;
                     this.CUT.shouldUseDatabaseTransactions(specStub);
