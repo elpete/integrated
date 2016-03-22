@@ -118,7 +118,7 @@ component extends="testbox.system.compat.framework.TestCase" {
 	*/
 	public AbstractBaseSpec function beforeAll(
 		parser = createObject('java', 'org.jsoup.Jsoup'),
-		additionalMatchers = 'BaseSpecs.DBMatchers'
+		additionalMatchers = 'Integrated.BaseSpecs.DBMatchers'
 	) {
 	    addMatchers(arguments.additionalMatchers);
 
@@ -131,6 +131,10 @@ component extends="testbox.system.compat.framework.TestCase" {
 	    this.useDatabaseTransactions = false;
 
 	    return this;
+	}
+
+	public void function afterAll() {
+		super.afterAll();
 	}
 
 	/**

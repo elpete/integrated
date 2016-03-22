@@ -19,6 +19,7 @@ component{
 	// Map back to its root
 	rootPath = REReplaceNoCase( this.mappings[ "/tests" ], "tests(\\|/)", "" );
 	this.mappings["/root"] = rootPath;
+	this.mappings["/Integrated"] = rootPath;
 
 	// Map to the SampleApp
 	this.mappings["/SampleApp"] = testsPath & "resources/SampleApp";
