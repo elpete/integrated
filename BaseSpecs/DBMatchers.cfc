@@ -51,7 +51,8 @@ component {
 
 		if (IsQuery(query)) {
 			verifyQuery.setDBType('query');
-			verifyQuery.setAttributes("#table#" = query);
+			// This is a strange syntax, but it is needed to make ACF (<= 11) happy
+			verifyQuery.setAttributes(argumentCollection = { "#table#" = query });
 		}
 		else if (datasource != '') {
 			verifyQuery.setDatasource(datasource);
@@ -62,17 +63,17 @@ component {
 		for (var key in fields) {
 			// Can't use hyphens in params
 			var uniqueKey = '#key#_#replace(createUUID(), '-', '_', 'all')#';
-			var args = isStruct(fields[key]) ? fields[key] : { value = fields[key] };
-			args.name = uniqueKey;
+			var paramArgs = isStruct(fields[key]) ? fields[key] : { value = fields[key] };
+			paramArgs.name = uniqueKey;
 
-			if (!StructKeyExists(args, 'value')) {
+			if (!StructKeyExists(paramArgs, 'value')) {
 				throw(
 					type = 'TestBox.AssertionFailed',
 					message = 'Must pass a value key if assigning a struct to a fields key.'
 				);
 			}
 			
-			verifyQuery.addParam(argumentCollection = args);
+			verifyQuery.addParam(argumentCollection = paramArgs);
 
 	        sqlString &= " AND #key# IN (:#uniqueKey#)";
 		}

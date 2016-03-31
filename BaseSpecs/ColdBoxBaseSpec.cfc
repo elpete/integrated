@@ -12,6 +12,10 @@ component extends='Integrated.BaseSpecs.AbstractBaseSpec' {
         baseTestCase.beforeAll();
     }
 
+    function afterAll() {
+        super.afterAll();
+    }
+
     /***************************** Abstract Method Implementations *******************************/
 
 
@@ -118,7 +122,7 @@ component extends='Integrated.BaseSpecs.AbstractBaseSpec' {
     * @return boolean
     */
     private boolean function isRedirect(event) {
-        return event.valueExists('setNextEvent_event')
+        return event.valueExists('setNextEvent_event');
     }
 
     /**
@@ -281,7 +285,7 @@ component extends='Integrated.BaseSpecs.AbstractBaseSpec' {
             failureMessage &= ' #existancePhrase# in the request collection.';   
         }
 
-        return failureMessage
+        return failureMessage;
     }
 
 }

@@ -135,9 +135,7 @@ component extends="testbox.system.compat.framework.TestCase" {
 	    return this;
 	}
 
-	public void function afterAll() {
-		super.afterAll();
-	}
+	public void function afterAll() {}
 
 	/**
 	* Wraps each spec in a database transaction, if desired.
