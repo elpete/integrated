@@ -14,6 +14,7 @@ component extends='Integrated.BaseSpecs.AbstractBaseSpec' {
 
     function afterAll() {
         super.afterAll();
+        baseTestCase.afterAll();
     }
 
     /***************************** Abstract Method Implementations *******************************/
