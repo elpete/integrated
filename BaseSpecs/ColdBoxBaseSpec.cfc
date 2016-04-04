@@ -9,6 +9,7 @@ component extends='Integrated.BaseSpecs.AbstractBaseSpec' {
         super.beforeAll();
 
         variables.baseTestCase = new coldbox.system.testing.BaseTestCase();
+        passOnMetadata(baseTestCase);
         baseTestCase.beforeAll();
     }
 
@@ -288,5 +289,30 @@ component extends='Integrated.BaseSpecs.AbstractBaseSpec' {
 
         return failureMessage;
     }
+
+    private function passOnMetadata(baseTestCase) {
+        var md = getMetadata(this);
+        // Inspect for appMapping annotation
+        if (structKeyExists(md, "appMapping")) {
+            arguments.baseTestCase.setAppMapping(md.appMapping);
+        }
+        // Configuration File mapping
+        if (structKeyExists(md, "configMapping")) {
+            arguments.baseTestCase.setConfigMapping(md.configMapping);
+        }
+        // ColdBox App Key
+        if (structKeyExists(md, "coldboxAppKey")) {
+            arguments.baseTestCase.setColdboxAppKey(md.coldboxAppKey);
+        }
+        // Load coldBox annotation
+        if (structKeyExists(md, "loadColdbox")) {
+            arguments.baseTestCase.loadColdbox = md.loadColdbox;
+        }
+        // unLoad coldBox annotation
+        if (structKeyExists(md, "unLoadColdbox")) {
+            arguments.baseTestCase.unLoadColdbox = md.unLoadColdbox;
+        }
+    }
+
 
 }
