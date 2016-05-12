@@ -76,14 +76,30 @@ component extends='testbox.system.BaseSpec' {
                         .seePageIs('/login');
 
                 var callLog = inputSpy.$callLog().setValue;
-                var emailArg = callLog[1];
-                var birthdayArg = callLog[2];
+                debug(callLog);
 
-                expect(birthdayArg[1]).toBe('birthday');
-                expect(birthdayArg[2]).toBe('01/01/1980');
+                var argOne = callLog[1];
+                var argTwo = callLog[2];
 
-                expect(emailArg[1]).toBe('email');
-                expect(emailArg[2]).toBe('john@example.com');
+                if (argOne[1] == 'birthday') {
+                    expect(argOne[1]).toBe('birthday');
+                    expect(argOne[2]).toBe('01/01/1980');
+
+                    expect(argTwo[1]).toBe('email');
+                    expect(argTwo[2]).toBe('john@example.com');
+                }
+                else if (argOne[1] == 'email') {
+                    expect(argOne[1]).toBe('email');
+                    expect(argOne[2]).toBe('john@example.com');
+
+                    expect(argTwo[1]).toBe('birthday');
+                    expect(argTwo[2]).toBe('01/01/1980');
+                }
+                else {
+                    fail('Unknown key returned #argOne[1]#');
+                }
+
+
             });
         });
     }
