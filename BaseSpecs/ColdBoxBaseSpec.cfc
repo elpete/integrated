@@ -148,10 +148,10 @@ component extends='Integrated.BaseSpecs.AbstractBaseSpec' {
     private struct function getRedirectInputs(event) {
         var persistKeys = ListToArray(event.getValue('setNextEvent_persist', ''));
 
-        var persistStruct = ArrayReduce(persistKeys, function(acc, key) {
-            acc[key] = event.getValue(key);
-            return acc;
-        }, {});
+        var persistStruct = {};
+        for (var key in persistKeys) {
+            persistStruct[key] = event.getValue(key);
+        }
 
         structAppend(persistStruct, event.getValue('setNextEvent_persistStruct', {}));
 
@@ -219,12 +219,8 @@ component extends='Integrated.BaseSpecs.AbstractBaseSpec' {
         string value,
         boolean private = false
     ) {
-        return seeInCollection(
-            key = arguments.key,
-            value = arguments.value,
-            private = arguments.private,
-            negate = true
-        );
+        arguments.negate = true;
+        return seeInCollection(argumentCollection = arguments);
     }
 
 

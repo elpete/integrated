@@ -52,11 +52,11 @@ component extends='testbox.system.BaseSpec' {
 
                 it('matches multiple fields in a single row', function() {
                     expect(function() {
-                        this.CUT.expect({ id = 1, email = 'john@example.com'}).toBeInTable(table = 'users', query = variables.mockUsersTable);
+                        this.CUT.expect({ id = '1', email = 'john@example.com'}).toBeInTable(table = 'users', query = variables.mockUsersTable);
                     }).notToThrow();
 
                     expect(function() {
-                        this.CUT.expect({ id = 2, email = 'john@example.com'}).toBeInTable(table = 'users', query = variables.mockUsersTable);
+                        this.CUT.expect({ id = '2', email = 'john@example.com'}).toBeInTable(table = 'users', query = variables.mockUsersTable);
                     }).toThrow('TestBox.AssertionFailed');
                 });
 
@@ -102,13 +102,13 @@ component extends='testbox.system.BaseSpec' {
 
                 it('can pass an optional field struct for each field key', function() {
                     expect(function() {
-                        this.CUT.expect({ last_logged_in = { value = createDateTime(2016, 01, 02, 15, 01, 33), type = 'CF_SQL_TIMESTAMP' } }).toBeInTable(table = 'users', query = variables.mockUsersTable);
+                        this.CUT.expect({ last_logged_in = { value = createDateTime(2016, 01, 02, 15, 01, 33), cfsqltype = 'CF_SQL_TIMESTAMP' } }).toBeInTable(table = 'users', query = variables.mockUsersTable);
                     }).notToThrow();
                 });
 
                 it('fails if a value key is not provided with the optional field struct', function() {
                     expect(function() {
-                        this.CUT.expect({ id = { type = 'CF_SQL_INTEGER' } }).toBeInTable(table = 'users', query = variables.mockUsersTable);
+                        this.CUT.expect({ id = { cfsqltype = 'CF_SQL_INTEGER' } }).toBeInTable(table = 'users', query = variables.mockUsersTable);
                     }).toThrow(
                         type = 'TestBox.AssertionFailed',
                         regex = 'Must pass a value key if assigning a struct to a fields key\.'

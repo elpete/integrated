@@ -72,12 +72,11 @@ component {
 					message = 'Must pass a value key if assigning a struct to a fields key.'
 				);
 			}
-			
 			verifyQuery.addParam(argumentCollection = paramArgs);
 
-	        sqlString &= " AND #key# IN (:#uniqueKey#)";
+	        sqlString &= " AND CAST(#key# AS varchar) IN (:#uniqueKey#)";
 		}
-
+		
 		verifyQuery.setSQL(sqlString);
 
 		var result = verifyQuery.execute().getResult();

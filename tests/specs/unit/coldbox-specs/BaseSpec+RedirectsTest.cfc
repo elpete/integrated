@@ -76,8 +76,8 @@ component extends='testbox.system.BaseSpec' {
                         .seePageIs('/login');
 
                 var callLog = inputSpy.$callLog().setValue;
-                var birthdayArg = callLog[1];
-                var emailArg = callLog[2];
+                var emailArg = callLog[1];
+                var birthdayArg = callLog[2];
 
                 expect(birthdayArg[1]).toBe('birthday');
                 expect(birthdayArg[2]).toBe('01/01/1980');

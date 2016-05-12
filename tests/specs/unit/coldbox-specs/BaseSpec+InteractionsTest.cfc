@@ -37,7 +37,7 @@ component extends='testbox.system.BaseSpec' {
 
                     it('visits a ColdBox event', function() {
                         expect(
-                            function() { this.CUT.visit('/login') }
+                            function() { this.CUT.visit('/login'); }
                         ).notToThrow();
                     });
 
@@ -51,7 +51,7 @@ component extends='testbox.system.BaseSpec' {
                             .$args(route = '/contact', renderResults = true);
 
                         expect(
-                            function() { this.CUT.visit('/contact') }
+                            function() { this.CUT.visit('/contact'); }
                         ).toThrow(
                             type = 'TestBox.AssertionFailed',
                             regex = 'Could not find any route called \[\/contact\]\.'
@@ -76,7 +76,7 @@ component extends='testbox.system.BaseSpec' {
                             .$args(route = '/contact', renderResults = true);
 
                         expect(
-                            function() { this.CUT.visit('/contact') }
+                            function() { this.CUT.visit('/contact'); }
                         ).toThrow(
                             type = 'TestBox.AssertionFailed',
                             regex = 'Could not find any route called \[\/contact\]\.'
@@ -100,7 +100,7 @@ component extends='testbox.system.BaseSpec' {
 
                     it('visits a ColdBox event', function() {
                         expect(
-                            function() { this.CUT.visitEvent('Main.index') }
+                            function() { this.CUT.visitEvent('Main.index'); }
                         ).notToThrow();
                     });
 
@@ -114,7 +114,7 @@ component extends='testbox.system.BaseSpec' {
                             .$args(event = 'Main.doesntExist', renderResults = true);
 
                         expect(
-                            function() { this.CUT.visitEvent('Main.doesntExist') }
+                            function() { this.CUT.visitEvent('Main.doesntExist'); }
                         ).toThrow(
                             type = 'TestBox.AssertionFailed',
                             regex = 'Could not find any event called \[Main\.doesntExist\]\.'
@@ -139,7 +139,7 @@ component extends='testbox.system.BaseSpec' {
                             .$args(event = 'Main.doesntExist', renderResults = true);
 
                         expect(
-                            function() { this.CUT.visitEvent('Main.doesntExist') }
+                            function() { this.CUT.visitEvent('Main.doesntExist'); }
                         ).toThrow(
                             type = 'TestBox.AssertionFailed',
                             regex = 'Could not find any event called \[Main\.doesntExist\]\.'
@@ -293,17 +293,18 @@ component extends='testbox.system.BaseSpec' {
 
                         var setValueCallLog = mockEvent.$callLog().setValue;
 
-                        // convert the strange array of arrays into a struct
-                        setValueCallLog = ArrayReduce(setValueCallLog, function(callLog, call) {
-                            callLog[call[1]] = call[2];
-                            
-                            return callLog;
-                        }, {});
+                        debug(setValueCallLog);
 
-                        expect(setValueCallLog).toHaveKey('email');
-                        expect(setValueCallLog.email).toBe('john@example.com');
-                        expect(setValueCallLog).toHaveKey('password');
-                        expect(setValueCallLog.password).toBe('mY@wes0mep2ssw0rD');
+                        // convert the strange array of arrays into a struct
+                        var setValueCallLogStruct = {};
+                        for (var call in setValueCallLog) {
+                            setValueCallLogStruct[call[1]] = call[2];
+                        }
+
+                        expect(setValueCallLogStruct).toHaveKey('email');
+                        expect(setValueCallLogStruct.email).toBe('john@example.com');
+                        expect(setValueCallLogStruct).toHaveKey('password');
+                        expect(setValueCallLogStruct.password).toBe('mY@wes0mep2ssw0rD');
                     });
 
                     it('can take an optional override event', function() {
@@ -320,16 +321,15 @@ component extends='testbox.system.BaseSpec' {
                         var setValueCallLog = mockEvent.$callLog().setValue;
 
                         // convert the strange array of arrays into a struct
-                        setValueCallLog = ArrayReduce(setValueCallLog, function(callLog, call) {
-                            callLog[call[1]] = call[2];
-                            
-                            return callLog;
-                        }, {});
+                        var setValueCallLogStruct = {};
+                        for (var call in setValueCallLog) {
+                            setValueCallLogStruct[call[1]] = call[2];
+                        }
 
-                        expect(setValueCallLog).toHaveKey('email');
-                        expect(setValueCallLog.email).toBe('john@example.com');
-                        expect(setValueCallLog).toHaveKey('password');
-                        expect(setValueCallLog.password).toBe('mY@wes0mep2ssw0rD');
+                        expect(setValueCallLogStruct).toHaveKey('email');
+                        expect(setValueCallLogStruct.email).toBe('john@example.com');
+                        expect(setValueCallLogStruct).toHaveKey('password');
+                        expect(setValueCallLogStruct.password).toBe('mY@wes0mep2ssw0rD');
                     });
                 });
 
@@ -355,16 +355,15 @@ component extends='testbox.system.BaseSpec' {
                         var setValueCallLog = mockEvent.$callLog().setValue;
 
                         // convert the strange array of arrays into a struct
-                        setValueCallLog = ArrayReduce(setValueCallLog, function(callLog, call) {
-                            callLog[call[1]] = call[2];
-                            
-                            return callLog;
-                        }, {});
+                        var setValueCallLogStruct = {};
+                        for (var call in setValueCallLog) {
+                            setValueCallLogStruct[call[1]] = call[2];
+                        }
 
-                        expect(setValueCallLog).toHaveKey('email');
-                        expect(setValueCallLog.email).toBe('john@example.com');
-                        expect(setValueCallLog).toHaveKey('password');
-                        expect(setValueCallLog.password).toBe('mY@wes0mep2ssw0rD');
+                        expect(setValueCallLogStruct).toHaveKey('email');
+                        expect(setValueCallLogStruct.email).toBe('john@example.com');
+                        expect(setValueCallLogStruct).toHaveKey('password');
+                        expect(setValueCallLogStruct.password).toBe('mY@wes0mep2ssw0rD');
                     });
 
                     it('can take an optional override event', function() {
@@ -382,16 +381,15 @@ component extends='testbox.system.BaseSpec' {
                         var setValueCallLog = mockEvent.$callLog().setValue;
 
                         // convert the strange array of arrays into a struct
-                        setValueCallLog = ArrayReduce(setValueCallLog, function(callLog, call) {
-                            callLog[call[1]] = call[2];
-                            
-                            return callLog;
-                        }, {});
+                        var setValueCallLogStruct = {};
+                        for (var call in setValueCallLog) {
+                            setValueCallLogStruct[call[1]] = call[2];
+                        }
 
-                        expect(setValueCallLog).toHaveKey('email');
-                        expect(setValueCallLog.email).toBe('john@example.com');
-                        expect(setValueCallLog).toHaveKey('password');
-                        expect(setValueCallLog.password).toBe('mY@wes0mep2ssw0rD');
+                        expect(setValueCallLogStruct).toHaveKey('email');
+                        expect(setValueCallLogStruct.email).toBe('john@example.com');
+                        expect(setValueCallLogStruct).toHaveKey('password');
+                        expect(setValueCallLogStruct.password).toBe('mY@wes0mep2ssw0rD');
                     });
                 });
             });
