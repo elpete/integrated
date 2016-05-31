@@ -77,6 +77,12 @@ component extends="Integrated.BaseSpecs.ColdBoxBaseSpec" {
 }
 ```
 
+Easily add database transactions around your tests by adding this one property to your test:
+
+```cfc
+this.useDatabaseTransactions = true;
+```
+
 ### Creating Framework-specific BaseSpecs
 
 To create your own framework specific BaseSpec, first extend the `Integrated.BaseSpecs.AbstractBaseSpec` component.
