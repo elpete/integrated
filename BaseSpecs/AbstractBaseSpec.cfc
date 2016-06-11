@@ -20,6 +20,8 @@ component extends="testbox.system.compat.framework.TestCase" {
     property name='inputs' type='struct' default='{}';
     // Boolean flag to turn on automatic database transactions
     property name='useDatabaseTransactions' type='boolean' default=false;
+    // Boolean flag to turn on persisting of the session scope between specs
+    property name='persistSessionScope' type='boolean' default=false;
 
 	/***************************** Abstract Methods *******************************/
 
@@ -131,6 +133,7 @@ component extends="testbox.system.compat.framework.TestCase" {
 	    variables.requestMethod = '';
 	    variables.inputs = {};
 	    this.useDatabaseTransactions = false;
+	    this.persistSessionScope = false;
 
 	    return this;
 	}
@@ -171,6 +174,29 @@ component extends="testbox.system.compat.framework.TestCase" {
 				transaction action="rollback";
 			}
 		}
+	}
+
+	/**
+	* Clears the session scope before each spec, if desired.
+	* Automatically runs around each TestBox spec.
+	*
+	* @spec The TestBox spec to execute.
+	*
+	* @aroundEach
+	*/
+	public void function shouldPersistSessionScope(spec) {
+		if (! this.persistSessionScope) {
+			clearSessionScope();
+		}
+
+		arguments.spec.body();
+	}
+
+	/**
+	* Clears the session scope
+	*/
+	private void function clearSessionScope() {
+		structClear(session);
 	}
 
 
