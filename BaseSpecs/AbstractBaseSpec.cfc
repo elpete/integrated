@@ -45,13 +45,13 @@ component extends="testbox.system.compat.framework.TestCase" {
 	/**
 	* @doc_abstract true
 	*
-	* Returns the route portion of a form action.
+	* Returns the framework route portion of a url.
 	*
-	* @action The form action attribute
+	* @url A full url
 	*
 	* @return string
 	*/
-	private string function parseActionFromForm(required string action) {
+	private string function parseFrameworkRoute(required string url) {
 		throw('Method is abstract and must be implemented in a concrete component.');
 	}
 
@@ -180,16 +180,12 @@ component extends="testbox.system.compat.framework.TestCase" {
 	* Clears the session scope before each spec, if desired.
 	* Automatically runs around each TestBox spec.
 	*
-	* @spec The TestBox spec to execute.
-	*
-	* @aroundEach
+	* @beforeEach
 	*/
-	public void function shouldPersistSessionScope(spec) {
+	public void function shouldPersistSessionScope() {
 		if (! this.persistSessionScope) {
 			clearSessionScope();
 		}
-
-		arguments.spec.body();
 	}
 
 	/**
@@ -345,7 +341,7 @@ component extends="testbox.system.compat.framework.TestCase" {
 	    else {
 	        makeRequest(
 	            method = pageForm.attr('method'),
-	            route = parseActionFromForm(pageForm.attr('action')),
+	            route = parseFrameworkRoute(pageForm.attr('action')),
 	            parameters = arguments.inputs
 	        );
 	    }

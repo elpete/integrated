@@ -84,17 +84,17 @@ component extends='Integrated.BaseSpecs.AbstractBaseSpec' {
     }
 
     /**
-    * Returns the route portion of a form action.
+    * Returns the framework route portion of a url.
     * Removes the SESBaseUrl from the form action.
     *
-    * @action The form action attribute
+    * @url A full url
     *
     * @return string
     */
-    private string function parseActionFromForm(required string action) {
+    private string function parseFrameworkRoute(required string url) {
         var baseUrl = variables.baseTestCase.getController().getSetting('SESBaseUrl');
 
-        return replaceNoCase(arguments.action, baseUrl, '');
+        return replaceNoCase(arguments.url, baseUrl, '');
     }
 
     /**
