@@ -237,7 +237,7 @@ component extends="testbox.system.compat.framework.TestCase" {
 	        anchorTag = getParsedPage().select('a:contains(#arguments.link#)');
 	    }
 
-	    var route = anchorTag.attr('href');
+	    var route = parseFrameworkRoute(anchorTag.attr('href'));
 
 	    this.visit(route);
 
