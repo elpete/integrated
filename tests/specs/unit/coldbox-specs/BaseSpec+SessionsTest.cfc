@@ -22,9 +22,9 @@ component extends='testbox.system.BaseSpec' {
                     var specStub = createStub().$('body');
                     this.CUT.$('clearSessionScope');
 
+                    this.CUT.persistSessionScope = false;
                     this.CUT.shouldPersistSessionScope(specStub);
                     expect(this.CUT.$once('clearSessionScope')).toBeTrue();
-                    expect(specStub.$times(1, 'body')).toBeTrue();
                 });
 
                 it('lets you persist the session scope across specs', function() {
@@ -34,7 +34,6 @@ component extends='testbox.system.BaseSpec' {
                     this.CUT.persistSessionScope = true;
                     this.CUT.shouldPersistSessionScope(specStub);
                     expect(this.CUT.$never('clearSessionScope')).toBeTrue();
-                    expect(specStub.$times(1, 'body')).toBeTrue();
                 });
             });
 
