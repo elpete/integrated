@@ -86,4 +86,11 @@ interface displayname="FrameworkAssertionEngine" {
     * @return Integrated.Engines.FrameworkAssertionEngine
     */
     public FrameworkAssertionEngine function dontSeeInCollection(required string key, string value, boolean private);
+
+    /**
+    * Pipes the framework event to the debug() output
+    *
+    * @return Integrated.Engines.DOMAssertionEngine
+    */
+    public FrameworkAssertionEngine function debugEvent();
 }

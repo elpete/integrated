@@ -240,4 +240,15 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Frame
 
         return failureMessage;
     }
+
+    /**
+    * Pipes the framework event to the debug() output
+    *
+    * @return Integrated.Engines.FrameworkAssertionEngine
+    */
+    public FrameworkAssertionEngine function debugEvent() {
+        debug( variables.event );
+
+        return this;
+    }
 }

@@ -101,7 +101,7 @@ component extends='testbox.system.BaseSpec' {
 
                 it('throws an exception if there is no parsed document', function() {
                     this.CUT.parsePublic('');
-                    this.CUT.$property(propertyName = 'event', mock = '');
+                    this.CUT.setEventPublic('');
 
                     expect(function() {
                         this.CUT.seeTitleIs('Login Page');
@@ -130,7 +130,7 @@ component extends='testbox.system.BaseSpec' {
 
                 it('throws an exception if there is no parsed document', function() {
                     this.CUT.parsePublic('');
-                    this.CUT.$property(propertyName = 'event', mock = '');
+                    this.CUT.setEventPublic('');
 
                     expect(function() {
                         this.CUT.seeViewIs('main.index');
@@ -159,7 +159,7 @@ component extends='testbox.system.BaseSpec' {
 
                 it('throws an exception if there is no parsed document', function() {
                     this.CUT.parsePublic('');
-                    this.CUT.$property(propertyName = 'event', mock = '');
+                    this.CUT.setEventPublic('');
 
                     expect(function() {
                         this.CUT.seeHandlerIs('Main');
@@ -188,7 +188,7 @@ component extends='testbox.system.BaseSpec' {
 
                 it('throws an exception if there is no parsed document', function() {
                     this.CUT.parsePublic('');
-                    this.CUT.$property(propertyName = 'event', mock = '');
+                    this.CUT.setEventPublic('');
 
                     expect(function() {
                         this.CUT.seeActionIs('index');
@@ -217,7 +217,7 @@ component extends='testbox.system.BaseSpec' {
 
                 it('throws an exception if there is no parsed document', function() {
                     this.CUT.parsePublic('');
-                    this.CUT.$property(propertyName = 'event', mock = '');
+                    this.CUT.setEventPublic('');
 
                     expect(function() {
                         this.CUT.seeEventIs('Main.index');
@@ -759,7 +759,7 @@ component extends='testbox.system.BaseSpec' {
                 });
 
                 it('throws an exception if there is no parsed document', function() {
-                    this.CUT.$property(propertyName = 'event', mock = '');
+                    this.CUT.setEventPublic('');
 
                     expect(function() {
                         this.CUT.seeInCollection('email');
@@ -836,7 +836,7 @@ component extends='testbox.system.BaseSpec' {
                 });
 
                 it('throws an exception if there is no parsed document', function() {
-                    this.CUT.$property(propertyName = 'event', mock = '');
+                    this.CUT.setEventPublic('');
 
                     expect(function() {
                         this.CUT.dontSeeInCollection('email');

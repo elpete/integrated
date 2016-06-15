@@ -342,6 +342,19 @@ component extends='testbox.system.BaseSpec' {
                     );
                 });
             });
+
+            feature('debugEvent', function() {
+                it("should call TestBox's debug method with the current event object", function() {
+                    this.CUT.$('debug').$args(mockEvent);
+
+                    this.CUT.debugEvent();
+
+                    var callLog = this.CUT.$callLog().debug;
+
+                    expect(ArrayLen(callLog)).toBe(1);
+                    expect(callLog[1][1]).toBe(mockEvent);
+                });
+            });
         } );
     }
 }

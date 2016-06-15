@@ -468,11 +468,7 @@ component extends="testbox.system.compat.framework.TestCase" {
     * @return Integrated.BaseSpecs.AbstractBaseSpec
     */
     public AbstractBaseSpec function seeViewIs(required string view) {
-        var actualView = getEvent().getCurrentView();
-        expect(actualView).toBe(
-            arguments.view,
-            'Failed asserting that view [#actualView#] (actual) equalled [#arguments.view#] (expected).'
-        );
+        variables.frameworkAssertionEngine.seeViewIs(argumentCollection = arguments);
 
         return this;
     }
@@ -485,11 +481,7 @@ component extends="testbox.system.compat.framework.TestCase" {
     * @return Integrated.BaseSpecs.AbstractBaseSpec
     */
     public AbstractBaseSpec function seeHandlerIs(required string handler) {
-        var actualHandler = getEvent().getCurrentHandler();
-        expect(actualHandler).toBe(
-            arguments.handler,
-            'Failed asserting that handler [#actualHandler#] (actual) equalled [#arguments.handler#] (expected).'
-        );
+        variables.frameworkAssertionEngine.seeHandlerIs(argumentCollection = arguments);
 
         return this;
     }
@@ -502,11 +494,7 @@ component extends="testbox.system.compat.framework.TestCase" {
     * @return Integrated.BaseSpecs.AbstractBaseSpec
     */
     public AbstractBaseSpec function seeActionIs(required string action) {
-        var actualAction = getEvent().getCurrentAction();
-        expect(actualAction).toBe(
-            arguments.action,
-            'Failed asserting that action [#actualAction#] (actual) equalled [#arguments.action#] (expected).'
-        );
+        variables.frameworkAssertionEngine.seeActionIs(argumentCollection = arguments);
 
         return this;
     }
@@ -519,11 +507,7 @@ component extends="testbox.system.compat.framework.TestCase" {
     * @return Integrated.BaseSpecs.AbstractBaseSpec
     */
     public AbstractBaseSpec function seeEventIs(required string event) {
-        var actualEvent = getEvent().getCurrentEvent();
-        expect(actualEvent).toBe(
-            arguments.event,
-            'Failed asserting that event [#actualEvent#] (actual) equalled [#arguments.event#] (expected).'
-        );
+        variables.frameworkAssertionEngine.seeEventIs(argumentCollection = arguments);
 
         return this;
     }
@@ -801,6 +785,11 @@ component extends="testbox.system.compat.framework.TestCase" {
         return;
     }
 
+    /**
+    * Sets the request method
+    *
+    * @event The request method
+    */
     private void function setRequestMethod( required string requestMethod ) {
         variables.requestMethod = arguments.requestMethod;
         variables.frameworkAssertionEngine.setRequestMethod( arguments.requestMethod );
@@ -946,7 +935,7 @@ component extends="testbox.system.compat.framework.TestCase" {
     * @return Integrated.BaseSpecs.AbstractBaseSpec
     */
     public AbstractBaseSpec function debugEvent() {
-        debug(variables.event);
+        variables.frameworkAssertionEngine.debugEvent();
 
         return this;
     }
