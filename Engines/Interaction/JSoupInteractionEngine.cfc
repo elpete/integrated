@@ -96,7 +96,7 @@ component implements="Integrated.Engines.Interaction.Contracts.InteractionEngine
     *
     * @return Integrated.Engines.Interaction.Contracts.InteractionEngine
     */
-    private InteractionEngine function storeInput(
+    public InteractionEngine function storeInput(
         required string element,
         required string value,
         boolean overwrite = true
@@ -128,5 +128,9 @@ component implements="Integrated.Engines.Interaction.Contracts.InteractionEngine
     */
     private string function generateInputKey(required string element) {
         return replaceNoCase(arguments.element, '##', '', 'all');
+    }
+
+    public struct function getInputs() {
+        return variables.inputs;
     }
 }

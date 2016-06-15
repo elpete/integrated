@@ -9,9 +9,11 @@ component extends="testbox.system.compat.framework.TestCase" {
     // The jsoup parser object
     property name='parser' type='org.jsoup.parser.Parser';
     // The DOM-specific assertion engine
-    property name='DOMAssertionEngine' type='Integrated.Engines.DOMAssertionEngine';
+    property name='DOMAssertionEngine' type='Integrated.Engines.Assertion.Contracts.DOMAssertionEngine';
     // The Framework-specific assertion engine
-    property name='frameworkAssertionEngine' type='Integrated.Engines.FrameworkAssertionEngine';
+    property name='frameworkAssertionEngine' type='Integrated.Engines.Assertion.Contracts.FrameworkAssertionEngine';
+    // The interaction engine
+    property name='interactionEngine' type='Integrated.Engines.Interaction.Contracts.FrameworkAssertionEngine';
     // A database testing helper library
     property name='dbUtils' type='Integrated.BaseSpecs.DBUtils';
     // The parsed jsoup document object
@@ -41,6 +43,7 @@ component extends="testbox.system.compat.framework.TestCase" {
         parser = createObject('java', 'org.jsoup.Jsoup'),
         DOMAssertionEngine DOMAssertionEngine = new Integrated.Engines.Assertion.JSoupAssertionEngine(),
         required FrameworkAssertionEngine frameworkAssertionEngine,
+        InteractionEngine interactionEngine = new Integrated.Engines.Interaction.JSoupInteractionEngine(),
         additionalMatchers = 'Integrated.BaseSpecs.DBMatchers'
     ) {
         addMatchers(arguments.additionalMatchers);
@@ -48,6 +51,8 @@ component extends="testbox.system.compat.framework.TestCase" {
         // Initialize all component variables
         variables.DOMAssertionEngine = arguments.DOMAssertionEngine;
         variables.frameworkAssertionEngine = arguments.frameworkAssertionEngine;
+        variables.interactionEngine = arguments.interactionEngine;
+        variables.interactionEngine.setDOMAssertionEngine(variables.DOMAssertionEngine);
         variables.parser = arguments.parser;
         variables.page = '';
         setEvent( '' );
@@ -263,7 +268,9 @@ component extends="testbox.system.compat.framework.TestCase" {
     * @return Integrated.BaseSpecs.AbstractBaseSpec
     */
     public AbstractBaseSpec function type(required string text, required string element) {
-        return storeInput(arguments.element, arguments.text);
+        variables.interactionEngine.type(argumentCollection = arguments);
+
+        return this;
     }
 
     /**
@@ -274,7 +281,9 @@ component extends="testbox.system.compat.framework.TestCase" {
     * @return Integrated.BaseSpecs.AbstractBaseSpec
     */
     public AbstractBaseSpec function check(required string element) {
-        return storeInput(arguments.element, true);
+        variables.interactionEngine.check(argumentCollection = arguments);
+
+        return this;
     }
 
     /**
@@ -285,7 +294,9 @@ component extends="testbox.system.compat.framework.TestCase" {
     * @return Integrated.BaseSpecs.AbstractBaseSpec
     */
     public AbstractBaseSpec function uncheck(required string element) {
-        return storeInput(arguments.element, false);
+        variables.interactionEngine.uncheck(argumentCollection = arguments);
+
+        return this;
     }
 
     /**
@@ -297,9 +308,9 @@ component extends="testbox.system.compat.framework.TestCase" {
     * @return Integrated.BaseSpecs.AbstractBaseSpec
     */
     public AbstractBaseSpec function select(required string option, required string element) {
-        var value = findOption(arguments.option, arguments.element);
+        variables.interactionEngine.select(argumentCollection = arguments);
 
-        return storeInput(arguments.element, value);
+        return this;
     }
 
     /**
@@ -338,7 +349,7 @@ component extends="testbox.system.compat.framework.TestCase" {
             // Put the form values from the current page in to the variables.input struct
             extractValuesFromForm(pageForm);
 
-            arguments.inputs = variables.inputs;
+            arguments.inputs = variables.interactionEngine.getInputs();
         }
 
         if (arguments.overrideEvent != '') {
@@ -882,6 +893,10 @@ component extends="testbox.system.compat.framework.TestCase" {
         return this;
     }
 
+    public struct function getInputs() {
+        return variables.interactionEngine.getInputs();
+    }
+
     /**
     * Returns a normalized key name for a form field selector or name.
     * Removes pound signs (#) from selectors.
@@ -905,7 +920,7 @@ component extends="testbox.system.compat.framework.TestCase" {
         var inputs = pageForm.select('[name]');
 
         for (var input in inputs) {
-            storeInput(
+            variables.interactionEngine.storeInput(
                 element = input.attr('name'),
                 value = input.val(),
                 overwrite = false

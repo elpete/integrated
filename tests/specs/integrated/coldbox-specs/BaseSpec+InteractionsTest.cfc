@@ -25,7 +25,7 @@ component extends='testbox.system.BaseSpec' {
                                 .dontSeeInField('##email', 'john@example.com')
                                 .type('john@example.com', '##email');
 
-                        var inputs = this.CUT.$getProperty('inputs');
+                        var inputs = this.CUT.getInputs();
 
                         expect(inputs.email).toBe('john@example.com');
                     });
@@ -46,7 +46,7 @@ component extends='testbox.system.BaseSpec' {
                                 .dontSeeIsChecked('spam-me')
                                 .check('##spam-me');
 
-                        var inputs = this.CUT.$getProperty('inputs');
+                        var inputs = this.CUT.getInputs();
 
                         expect(inputs['spam-me']).toBe(true);
                     });
@@ -67,7 +67,7 @@ component extends='testbox.system.BaseSpec' {
                                 .seeIsChecked('remember-me')
                                 .uncheck('##remember-me');
 
-                        var inputs = this.CUT.$getProperty('inputs');
+                        var inputs = this.CUT.getInputs();
 
                         expect(inputs['remember-me']).toBe(false);
                     });
@@ -88,7 +88,7 @@ component extends='testbox.system.BaseSpec' {
                                 .seeIsSelected('##country', 'USA')
                                 .select('CA', '##country');
 
-                        var inputs = this.CUT.$getProperty('inputs');
+                        var inputs = this.CUT.getInputs();
 
                         expect(inputs['country']).toBe('CA');
                     });
@@ -98,7 +98,7 @@ component extends='testbox.system.BaseSpec' {
                                 .seeIsSelected('##country', 'USA')
                                 .select('Canada', '##country');
 
-                        var inputs = this.CUT.$getProperty('inputs');
+                        var inputs = this.CUT.getInputs();
 
                         expect(inputs['country']).toBe('CA');
                     });
