@@ -7,7 +7,7 @@ component extends='testbox.system.BaseSpec' {
     function run() {
         describe( "JSoup Parser", function() {
             it( "adheres to the FrameworkAssertionEngine interface", function() {
-                expect( this.CUT ).toBeInstanceOf( "Integrated.Engines.FrameworkAssertionEngine" );
+                expect( this.CUT ).toBeInstanceOf( "Integrated.Engines.Contracts.FrameworkAssertionEngine" );
             } );
 
             beforeEach(function() {

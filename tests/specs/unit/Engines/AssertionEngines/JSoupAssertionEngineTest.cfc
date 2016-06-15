@@ -7,7 +7,7 @@ component extends='testbox.system.BaseSpec' {
     function run() {
         describe( "JSoup Parser", function() {
             it( "adheres to the DOMAssertionEngine interface", function() {
-                expect( this.CUT ).toBeInstanceOf( "Integrated.Engines.DOMAssertionEngine" );
+                expect( this.CUT ).toBeInstanceOf( "Integrated.Engines.Contracts.DOMAssertionEngine" );
             } );
 
             beforeEach(function() {
