@@ -819,26 +819,6 @@ component extends="testbox.system.compat.framework.TestCase" {
         return variables.frameworkAssertionEngine.getRequestMethod();
     }
 
-
-
-    /**
-    * Retrives the last parsed page.
-    * Throws an exception if there is no parsed page available.
-    *
-    * @throws TestBox.AssertionFailed
-    * @return org.jsoup.nodes.Document
-    */    
-    private function getParsedPage() {
-        if (IsSimpleValue(variables.page)) {
-            throw(
-                type = 'TestBox.AssertionFailed',
-                message = 'Cannot make assertions until you visit a page.  Make sure to run visit() or visitEvent() first.'
-            );
-        }
-
-        return variables.page;
-    }
-
     /**
     * Retrives the last ColdBox request context (event) ran.
     * Throws an exception if there is no event available.
@@ -865,31 +845,15 @@ component extends="testbox.system.compat.framework.TestCase" {
     */
     private void function parse(required string htmlString) {
         variables.DOMAssertionEngine.parse(argumentCollection = arguments);
-
-        if (arguments.htmlString == '') {
-            variables.page = arguments.htmlString;
-            return;
-        }
-
-        variables.page = variables.parser.parse(htmlString);
-
-        return;
-    }
-
-    public struct function getInputs() {
-        return variables.interactionEngine.getInputs();
     }
 
     /**
-    * Returns a normalized key name for a form field selector or name.
-    * Removes pound signs (#) from selectors.
+    * Returns the inputs current on the page
     *
-    * @element The selector or name of an form field.
-    *
-    * @return string
+    * @return struct
     */
-    private string function generateInputKey(required string element) {
-        return replaceNoCase(arguments.element, '##', '', 'all');
+    public struct function getInputs() {
+        return variables.interactionEngine.getInputs();
     }
 
     /**
@@ -913,80 +877,4 @@ component extends="testbox.system.compat.framework.TestCase" {
         return;
     }
 
-
-    /**************************** Debug Methods ******************************/
-
-
-    /**
-    * Pipes the html of the page to the debug() output
-    *
-    * @return Integrated.BaseSpecs.AbstractBaseSpec
-    */
-    public AbstractBaseSpec function debugPage() {
-        variables.DOMAssertionEngine.debugPage();
-
-        return this;
-    }
-
-    /**
-    * Pipes the framework event to the debug() output
-    *
-    * @return Integrated.BaseSpecs.AbstractBaseSpec
-    */
-    public AbstractBaseSpec function debugEvent() {
-        variables.frameworkAssertionEngine.debugEvent();
-
-        return this;
-    }
-
-
-    /**************************** Finder Methods ******************************/
-
-
-    /**
-    * Returns the select fields found with a given selector or name.
-    * Throws if no select elements are found with the given selector or name.
-    *
-    * @selectorOrName The selector or name for which to search.
-    * @errorMessage The error message to throw if an assertion fails.
-    *
-    * @throws TestBox.AssertionFailed
-    * @return org.jsoup.select.Elements
-    */
-    private function findSelectField(
-        required string selectorOrName,
-        string errorMessage = 'Failed to find a [#arguments.selectorOrName#] select field on the page.'
-    ) {
-        var elements = findElement(arguments.selectorOrName, arguments.errorMessage);
-
-        var selectFields = elements.select('select');
-
-        expect(selectFields).notToBeEmpty(arguments.errorMessage);
-
-        return selectFields;
-    }
-
-    /**
-    * Returns the checkboxes found with a given selector or name.
-    * Throws if no checkboxes are found with the given selector or name.
-    *
-    * @selectorOrName The selector or name for which to search.
-    * @errorMessage The error message to throw if an assertion fails.
-    *
-    * @throws TestBox.AssertionFailed
-    * @return org.jsoup.select.Elements
-    */
-    private function findCheckbox(
-        required string selectorOrName,
-        string errorMessage = 'Failed to find a [#arguments.selectorOrName#] checkbox on the page.'
-    ) {
-        var fields = findElement(arguments.selectorOrName, arguments.errorMessage);
-
-        // Filter down to checkboxes
-        var checkboxes = fields.select('[type=checkbox]');
-
-        expect(checkboxes).notToBeEmpty(arguments.errorMessage);
-
-        return checkboxes;
-    }
 }
