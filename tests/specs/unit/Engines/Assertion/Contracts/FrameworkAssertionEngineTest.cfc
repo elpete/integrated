@@ -7,6 +7,10 @@ component extends="testbox.system.BaseSpec" {
         throw('Method is abstract and must be implemented in a concrete test component. Return the component from this method.');
     }
 
+    function setUpEvent() {
+        throw('Method is abstract and must be implemented in a concrete test component. Return the event object from this method.');
+    }
+
     function beforeAll() {
         if (isAbstractSpec()) {
             return;
@@ -33,16 +37,11 @@ component extends="testbox.system.BaseSpec" {
             } );
 
             beforeEach(function() {
-                // Add a mock ColdBox request context
-                mockEvent = getMockBox().createMock('coldbox.system.web.context.RequestContext');
-                variables.rc = { email = 'john@example.com' };
-                variables.prc = { birthday = '01/01/1980' };
-                mockEvent.$('getCollection').$args(private = false).$results(rc);
-                mockEvent.$('getCollection').$args(private = true).$results(prc);
-                this.CUT.$property(propertyName = 'event', mock = mockEvent);
-
                 // Set the default request method to 'visit'
                 this.CUT.$property(propertyName = 'requestMethod', mock = 'visit');
+                // Add a mock request context
+                variables.mockEvent = setUpEvent();
+                this.CUT.$property( propertyName = 'event', mock = mockEvent );
             });
 
             feature('seePageIs', function() {
@@ -377,6 +376,32 @@ component extends="testbox.system.BaseSpec" {
                     expect(callLog[1][1]).toBe(mockEvent);
                 });
             });
+
+            feature('debugCollection', function() {
+                it("should call TestBox's debug method with the current request collection object", function() {
+                    this.CUT.$('debug').$args(variables.rc);
+
+                    this.CUT.debugCollection();
+
+                    var callLog = this.CUT.$callLog().debug;
+
+                    expect(ArrayLen(callLog)).toBe(1);
+                    expect(callLog[1][1]).toBe(variables.rc);
+                });
+            });
+
+            feature('debugPrivateCollection', function() {
+                it("should call TestBox's debug method with the current private request collection object", function() {
+                    this.CUT.$('debug').$args(variables.prc);
+
+                    this.CUT.debugPrivateCollection();
+
+                    var callLog = this.CUT.$callLog().debug;
+
+                    expect(ArrayLen(callLog)).toBe(1);
+                    expect(callLog[1][1]).toBe(variables.prc);
+                });
+            });     
         } );
     }
 }
