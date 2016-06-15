@@ -1,5 +1,6 @@
 interface displayname="DOMAssertionEngine" {
     public DOMAssertionEngine function init();
+    public void function parse(required string htmlString);
     public DOMAssertionEngine function seeTitleIs(required string title);
     public DOMAssertionEngine function seeEventIs(required string event);
     public DOMAssertionEngine function see(required string text, boolean negate);
