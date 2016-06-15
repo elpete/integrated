@@ -53,23 +53,6 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.DOMAs
     }
 
     /**
-    * Verifies the ColdBox event of the current page.
-    *
-    * @event The expected event.
-    *
-    * @return Integrated.Engines.DOMAssertionEngine
-    */
-    public DOMAssertionEngine function seeEventIs(required string event) {
-        var actualEvent = getEvent().getCurrentEvent();
-        expect(actualEvent).toBe(
-            arguments.event,
-            'Failed asserting that event [#actualEvent#] (actual) equalled [#arguments.event#] (expected).'
-        );
-
-        return this;
-    }
-
-    /**
     * Verifies that the given text exists in any element on the current page.
     *
     * @text The expected text.
