@@ -126,13 +126,15 @@ component extends="testbox.system.compat.framework.TestCase" {
 	*/
 	public AbstractBaseSpec function beforeAll(
 		parser = createObject('java', 'org.jsoup.Jsoup'),
-		Integrated.Engines.DOMAssertionEngine DOMAssertionEngine = new Integrated.Engines.JSoupAssertionEngine(),
+		DOMAssertionEngine DOMAssertionEngine = new Integrated.Engines.JSoupAssertionEngine(),
+		required FrameworkAssertionEngine frameworkAssertionEngine,
 		additionalMatchers = 'Integrated.BaseSpecs.DBMatchers'
 	) {
 	    addMatchers(arguments.additionalMatchers);
 
 	    // Initialize all component variables
 	    variables.DOMAssertionEngine = arguments.DOMAssertionEngine;
+	    variables.frameworkAssertionEngine = arguments.frameworkAssertionEngine;
 	    variables.parser = arguments.parser;
 	    variables.page = '';
 	    variables.event = '';
