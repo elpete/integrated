@@ -1,7 +1,5 @@
 component implements="Integrated.Engines.Interaction.Contracts.InteractionEngine" {
     
-    // The parsed jsoup document object
-    property name='page' type='org.jsoup.nodes.Document';
     // The struct of form input values
     property name='inputs' type='struct' default='{}';
 

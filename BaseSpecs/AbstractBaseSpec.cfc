@@ -416,7 +416,7 @@ component extends="testbox.system.compat.framework.TestCase" {
 
         // Follow any redirects found
         if (isRedirect(variables.event)) {
-            if (variables.requestMethod == 'visit') {
+            if (StructKeyExists(arguments, 'route')) {
                 return makeRequest(
                     method = arguments.method,
                     route = getRedirectEvent(variables.event),
