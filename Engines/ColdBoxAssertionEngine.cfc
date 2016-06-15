@@ -6,10 +6,10 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Frame
     /**
     * Sets the current framework event
     *
-    * @event The ColdBox RequestContext.
+    * @event The framework event object.
     *
     * @return Integrated.Engines.FrameworkAssertionEngine
-    */    
+    */
     public FrameworkAssertionEngine function setEvent(required event) {
         variables.event = arguments.event;
 
@@ -43,7 +43,7 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Frame
     }
 
     /**
-    * Verifies the ColdBox view of the current page.
+    * Verifies the framework view of the current page.
     *
     * @view The expected view.
     *
@@ -60,7 +60,7 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Frame
     }
 
     /**
-    * Verifies the ColdBox handler of the current page.
+    * Verifies the framework handler of the current page.
     *
     * @handler The expected handler.
     *
@@ -77,7 +77,7 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Frame
     }
 
     /**
-    * Verifies the ColdBox action of the current page.
+    * Verifies the framework action of the current page.
     *
     * @action The expected action.
     *
@@ -94,7 +94,7 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Frame
     }
 
     /**
-    * Verifies the ColdBox event of the current page.
+    * Verifies the framework event of the current page.
     *
     * @event The expected event.
     *
@@ -111,7 +111,7 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Frame
     }
 
     /**
-    * Verifies that the given key and optional value exists in the ColdBox request collection.
+    * Verifies that the given key and optional value exists in the framework request collection.
     *
     * @key The key to find in the collection.
     * @value The value to find in the collection with the given key.
@@ -155,7 +155,7 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Frame
     }
 
     /**
-    * Verifies that the given key and optional value does not exist in the ColdBox request collection.
+    * Verifies that the given key and optional value does not exist in the framework request collection.
     *
     * @key The key that should not be found in the collection.
     * @value The value that should not be founc in the collection with the given key.
