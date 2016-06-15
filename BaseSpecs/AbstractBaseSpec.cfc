@@ -8,6 +8,10 @@ component extends="testbox.system.compat.framework.TestCase" {
 
 	// The jsoup parser object
     property name='parser' type='org.jsoup.parser.Parser';
+    // The DOM-specific assertion engine
+    property name='DOMAssertionEngine' type='Integrated.Engines.DOMAssertionEngine';
+    // The Framework-specific assertion engine
+    property name='frameworkAssertionEngine' type='Integrated.Engines.FrameworkAssertionEngine';
     // A database testing helper library
     property name='dbUtils' type='Integrated.BaseSpecs.DBUtils';
     // The parsed jsoup document object
