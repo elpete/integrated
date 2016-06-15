@@ -827,6 +827,8 @@ component extends="testbox.system.compat.framework.TestCase" {
 
     /**
     * Gets the request method
+    *
+    * @return string
     */
     public string function getRequestMethod() {
         return variables.frameworkAssertionEngine.getRequestMethod();
