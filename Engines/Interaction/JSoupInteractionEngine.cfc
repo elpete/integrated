@@ -133,4 +133,10 @@ component implements="Integrated.Engines.Interaction.Contracts.InteractionEngine
     public struct function getInputs() {
         return variables.inputs;
     }
+
+    public InteractionEngine function reset() {
+        variables.inputs = {};
+
+        return this;
+    }
 }

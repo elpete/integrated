@@ -22,8 +22,7 @@ component extends="testbox.system.compat.framework.TestCase" {
     property name='event' type='coldbox.system.web.context.RequestContext';
     // The way we last made a request
     property name='requestMethod' type='string';
-    // The struct of form input values
-    property name='inputs' type='struct' default='{}';
+
     // Boolean flag to turn on automatic database transactions
     property name='useDatabaseTransactions' type='boolean' default=false;
     // Boolean flag to turn on persisting of the session scope between specs
@@ -57,7 +56,6 @@ component extends="testbox.system.compat.framework.TestCase" {
         variables.page = '';
         setEvent( '' );
         setRequestMethod( '' );
-        variables.inputs = {};
         this.useDatabaseTransactions = false;
         this.persistSessionScope = false;
 
@@ -406,7 +404,7 @@ component extends="testbox.system.compat.framework.TestCase" {
         setEvent(makeFrameworkRequest(argumentCollection = arguments));
 
         // Clear out the inputs for the next request.
-        variables.inputs = {};
+        variables.interactionEngine.reset();
 
         // Set the requestMethod now that we've finished the request.
         if (StructKeyExists(arguments, 'route')) {
@@ -860,37 +858,6 @@ component extends="testbox.system.compat.framework.TestCase" {
         variables.page = variables.parser.parse(htmlString);
 
         return;
-    }
-
-    /**
-    * Stores a value in an in-memory input struct with the element name as the key.
-    *
-    * @element The selector or name of an form field.
-    * @value The value to store in-memory.
-    * @overwrite Optional. Specifies whether to overwrite any existing in-memory input values.  Default: true.
-    *
-    * @return Integrated.BaseSpecs.AbstractBaseSpec
-    */
-    private AbstractBaseSpec function storeInput(
-        required string element,
-        required string value,
-        boolean overwrite = true
-    ) {
-        // First verify that the given element exists
-        findElement(arguments.element);
-
-        var key = generateInputKey(arguments.element);
-
-        if (StructKeyExists(variables.inputs, key)) {
-            if (arguments.overwrite) {
-                variables.inputs[key] = arguments.value;
-            }
-        }
-        else {
-            variables.inputs[key] = arguments.value;
-        }
-
-        return this;
     }
 
     public struct function getInputs() {
