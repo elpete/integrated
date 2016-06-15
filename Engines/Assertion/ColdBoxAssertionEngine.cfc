@@ -280,4 +280,21 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
 
         return this;
     }
+
+    /**
+    * Returns the html string from a framework event.
+    *
+    * @event The framework event object
+    *
+    * @return string
+    */
+    public string function getHTML(event = variables.event) {
+        var rc = event.getCollection();
+
+        if (StructKeyExists(rc, 'cbox_rendered_content')) {
+            return rc.cbox_rendered_content;
+        }
+
+        return '';
+    }
 }

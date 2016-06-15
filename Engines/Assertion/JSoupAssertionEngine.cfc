@@ -498,4 +498,35 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
         // If the option does not have a value attribute, return the option text
         return options.val() != '' ? options.val() : options.text();
     }
+
+    /**
+    * Finds a form on the current page.
+    * If a button selector or text is provided, only find the form for the given button.
+    * Throws if no form is found with a button with the given selector or text.
+    * Throws if no button selector or text is provided and no form is found on the entire page.
+    *
+    * @selectorOrText The selector or text of a submit button.
+    *
+    * @throws TestBox.AssertionFailed
+    * @return org.jsoup.select.Elements
+    */
+    public function findForm(string selectorOrText = '') {
+        if (selectorOrText != '') {
+            var pageForm = getParsedPage().select('form:has(button#arguments.selectorOrText#)');
+
+            if (ArrayIsEmpty(pageForm)) {
+                pageForm = getParsedPage().select('form:has(button:contains(#arguments.selectorOrText#))');
+            }
+
+            expect(pageForm).notToBeEmpty('Failed to find a form with a button [#arguments.selectorOrText#].');
+
+            return pageForm;
+        }
+
+        var pageForm = getParsedPage().select('form');
+
+        expect(pageForm).notToBeEmpty('Failed to find a form on the current page.');
+
+        return pageForm;
+    }
 }

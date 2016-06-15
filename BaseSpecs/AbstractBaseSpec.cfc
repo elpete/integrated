@@ -219,7 +219,9 @@ component extends="testbox.system.compat.framework.TestCase" {
     * @return Integrated.BaseSpecs.AbstractBaseSpec
     */
     public AbstractBaseSpec function visit(required string route) {
-        return makeRequest(method = 'GET', route = arguments.route);
+        makeRequest(method = 'GET', route = arguments.route);
+
+        return this;
     }
 
     /**
@@ -230,7 +232,9 @@ component extends="testbox.system.compat.framework.TestCase" {
     * @return Integrated.BaseSpecs.AbstractBaseSpec
     */
     public AbstractBaseSpec function visitEvent(required string event) {
-        return makeRequest(method = 'GET', event = arguments.event);
+        makeRequest(method = 'GET', event = arguments.event);
+
+        return this;
     }
 
     /**
@@ -340,8 +344,8 @@ component extends="testbox.system.compat.framework.TestCase" {
         struct inputs = {},
         string overrideEvent = ''
     ) {
-        // Find the form for this button
-        var pageForm = findForm(arguments.button);
+        // Send to the interactionEngine and get back the inputs
+        var pageForm = variables.DOMAssertionEngine.findForm(arguments.button);
 
         if (StructIsEmpty(arguments.inputs)) {
             // Put the form values from the current page in to the variables.input struct
@@ -350,20 +354,29 @@ component extends="testbox.system.compat.framework.TestCase" {
             arguments.inputs = variables.interactionEngine.getInputs();
         }
 
+        // Send to the requestEngine and get back the event
+        var event = '';
         if (arguments.overrideEvent != '') {
-            makeRequest(
+            event = makeRequest(
                 method = pageForm.attr('method'),
                 event = arguments.overrideEvent,
                 parameters = arguments.inputs
             );
         }
         else {
-            makeRequest(
+            event = makeRequest(
                 method = pageForm.attr('method'),
                 route = parseFrameworkRoute(pageForm.attr('action')),
                 parameters = arguments.inputs
             );
         }
+
+        // Send the event to the frameworkAssertionEngine
+        variables.frameworkAssertionEngine.setEvent(event);
+        // Send the html to the DOMAssertionEngine
+        variables.DOMAssertionEngine.parse(
+            variables.frameworkAssertionEngine.getHTML()
+        );
 
         return this;
     }
@@ -380,7 +393,7 @@ component extends="testbox.system.compat.framework.TestCase" {
     * @throws TestBox.AssertionFailed
     * @return Integrated.BaseSpecs.AbstractBaseSpec
     */
-    public AbstractBaseSpec function makeRequest(
+    public function makeRequest(
         required string method,
         string route,
         string event,
@@ -401,7 +414,8 @@ component extends="testbox.system.compat.framework.TestCase" {
         setRequestMethod('');
 
         // Make a framework-specific request
-        setEvent(makeFrameworkRequest(argumentCollection = arguments));
+        var event = makeFrameworkRequest(argumentCollection = arguments);
+        setEvent(event);
 
         // Clear out the inputs for the next request.
         variables.interactionEngine.reset();
@@ -436,7 +450,7 @@ component extends="testbox.system.compat.framework.TestCase" {
         var html = getHTML(variables.event);
         parse(html);
 
-        return this;
+        return event;
     }
 
 
@@ -980,36 +994,5 @@ component extends="testbox.system.compat.framework.TestCase" {
         expect(checkboxes).notToBeEmpty(arguments.errorMessage);
 
         return checkboxes;
-    }
-
-    /**
-    * Finds a form on the current page.
-    * If a button selector or text is provided, only find the form for the given button.
-    * Throws if no form is found with a button with the given selector or text.
-    * Throws if no button selector or text is provided and no form is found on the entire page.
-    *
-    * @selectorOrText The selector or text of a submit button.
-    *
-    * @throws TestBox.AssertionFailed
-    * @return org.jsoup.select.Elements
-    */
-    private function findForm(string selectorOrText = '') {
-        if (selectorOrText != '') {
-            var pageForm = getParsedPage().select('form:has(button#arguments.selectorOrText#)');
-
-            if (ArrayIsEmpty(pageForm)) {
-                pageForm = getParsedPage().select('form:has(button:contains(#arguments.selectorOrText#))');
-            }
-
-            expect(pageForm).notToBeEmpty('Failed to find a form with a button [#arguments.selectorOrText#].');
-
-            return pageForm;
-        }
-
-        var pageForm = getParsedPage().select('form');
-
-        expect(pageForm).notToBeEmpty('Failed to find a form on the current page.');
-
-        return pageForm;
     }
 }
