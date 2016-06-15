@@ -15,7 +15,7 @@ component extends='testbox.system.BaseSpec' {
                     it('types a value in to a form field', function() {
                         this.CUT.type('john@example.com', '##email');
 
-                        var inputs = this.CUT.$getProperty('inputs');
+                        var inputs = this.CUT.getInputs();
 
                         expect(inputs.email).toBe('john@example.com');
                     });
@@ -34,7 +34,7 @@ component extends='testbox.system.BaseSpec' {
                     it('checks a checkbox', function() {
                         this.CUT.check('##spam-me');
 
-                        var inputs = this.CUT.$getProperty('inputs');
+                        var inputs = this.CUT.getInputs();
 
                         expect(inputs['spam-me']).toBe(true);
                     });
@@ -53,7 +53,7 @@ component extends='testbox.system.BaseSpec' {
                     it('unchecks a checkbox', function() {
                         this.CUT.uncheck('##remember-me');
 
-                        var inputs = this.CUT.$getProperty('inputs');
+                        var inputs = this.CUT.getInputs();
 
                         expect(inputs['remember-me']).toBe(false);
                     });
@@ -73,7 +73,7 @@ component extends='testbox.system.BaseSpec' {
                         engine.$("findOption").$args("CA", "##country").$results("CA");
                         this.CUT.select('CA', '##country');
 
-                        var inputs = this.CUT.$getProperty('inputs');
+                        var inputs = this.CUT.getInputs();
 
                         expect(inputs['country']).toBe('CA');
                     });
@@ -82,7 +82,7 @@ component extends='testbox.system.BaseSpec' {
                         engine.$("findOption").$args("Canada", "##country").$results("CA");
                         this.CUT.select('Canada', '##country');
 
-                        var inputs = this.CUT.$getProperty('inputs');
+                        var inputs = this.CUT.getInputs();
 
                         expect(inputs['country']).toBe('CA');
                     });
