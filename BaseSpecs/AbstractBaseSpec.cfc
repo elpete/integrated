@@ -122,11 +122,13 @@ component extends="testbox.system.compat.framework.TestCase" {
 	*/
 	public AbstractBaseSpec function beforeAll(
 		parser = createObject('java', 'org.jsoup.Jsoup'),
+		Integrated.Engines.DOMAssertionEngine DOMAssertionEngine = new Integrated.Engines.JSoupAssertionEngine(),
 		additionalMatchers = 'Integrated.BaseSpecs.DBMatchers'
 	) {
 	    addMatchers(arguments.additionalMatchers);
 
 	    // Initialize all component variables
+	    variables.DOMAssertionEngine = arguments.DOMAssertionEngine;
 	    variables.parser = arguments.parser;
 	    variables.page = '';
 	    variables.event = '';
@@ -458,13 +460,9 @@ component extends="testbox.system.compat.framework.TestCase" {
 	* @return Integrated.BaseSpecs.AbstractBaseSpec
 	*/
 	public AbstractBaseSpec function seeTitleIs(required string title) {
-	    var actualTitle = getParsedPage().title();
+		variables.DOMAssertionEngine.seeTitleIs(argumentCollection = arguments);
 
-	    expect(arguments.title).toBe(actualTitle,
-	        'Failed asserting that [#actualTitle#] (actual) equalled [#arguments.title#] (expected).'
-	    );
-
-	    return this;
+		return this;
 	}
 
 	/**
@@ -544,16 +542,9 @@ component extends="testbox.system.compat.framework.TestCase" {
 	* @return Integrated.BaseSpecs.AbstractBaseSpec
 	*/
 	public AbstractBaseSpec function see(required string text, boolean negate = false) {
-	    var elems = getParsedPage().select('*:contains(#arguments.text#)');
+		variables.DOMAssertionEngine.see(argumentCollection = arguments);
 
-	    if (!negate) {
-	        expect(elems).notToBeEmpty('Failed asserting that [#arguments.text#] was found on the page.');
-	    }
-	    else {
-	        expect(elems).toBeEmpty('Failed asserting that [#arguments.text#] was not found on the page.');
-	    }
-
-	    return this;
+		return this;
 	}
 
 	/**
@@ -581,18 +572,9 @@ component extends="testbox.system.compat.framework.TestCase" {
 	    required string text,
 	    boolean negate = false
 	) {
-	    var elems = findElement(arguments.element);
+		variables.DOMAssertionEngine.seeInElement(argumentCollection = arguments);
 
-	    var elemsWithText = elems.select(':contains(#arguments.text#)');
-
-	    if (!negate) {
-	        expect(elemsWithText).notToBeEmpty('Failed asserting that [#arguments.text#] appears in a [#arguments.element#] on the page.');
-	    }
-	    else {
-	        expect(elemsWithText).toBeEmpty('Failed asserting that [#arguments.text#] did not appear in a [#arguments.element#] on the page.');
-	    }
-
-	    return this;
+		return this;
 	}
 
 	/**
@@ -624,17 +606,9 @@ component extends="testbox.system.compat.framework.TestCase" {
 	* @return Integrated.BaseSpecs.AbstractBaseSpec
 	*/
 	public AbstractBaseSpec function seeLink(required string text, string url = '') {
-	    var errorMessage = 'No links were found matching the pattern [#arguments.text#]';
+		variables.DOMAssertionEngine.seeLink(argumentCollection = arguments);
 
-	    if (arguments.url != '') {
-	        errorMessage &= ' and URL [#arguments.url#]';
-	    }
-
-	    errorMessage &= '.';
-
-	    expect(hasLink(arguments.text, arguments.url)).toBeTrue(errorMessage);
-
-	    return this;
+		return this;
 	}
 
 	/**
@@ -647,17 +621,9 @@ component extends="testbox.system.compat.framework.TestCase" {
 	* @return Integrated.BaseSpecs.AbstractBaseSpec
 	*/
 	public AbstractBaseSpec function dontSeeLink(required string text, string url = '') {
-	    var errorMessage = 'A link was found with expected text [#arguments.text#]';
+		variables.DOMAssertionEngine.dontSeeLink(argumentCollection = arguments);
 
-	    if (arguments.url != '') {
-	        errorMessage &= ' and URL [#arguments.url#]';
-	    }
-
-	    errorMessage &= '.';
-
-	    expect(hasLink(arguments.text, arguments.url)).toBeFalse(errorMessage);
-
-	    return this;
+		return this;
 	}
 
 	/**
@@ -669,19 +635,14 @@ component extends="testbox.system.compat.framework.TestCase" {
 	*
 	* @return Integrated.BaseSpecs.AbstractBaseSpec
 	*/
-	public AbstractBaseSpec function seeInField(required string element, required string value, boolean negate = false) {
-	    var inputs = findField(arguments.element);
+	public AbstractBaseSpec function seeInField(
+		required string element,
+		required string value,
+		boolean negate = false
+	) {
+	    variables.DOMAssertionEngine.seeInField(argumentCollection = arguments);
 
-	    var inputsWithValue = inputs.select('[value=#arguments.value#');
-
-	    if (!negate) {
-	        expect(inputsWithValue).notToBeEmpty('Failed asserting that [#arguments.value#] appears in a [#arguments.element#] input or textarea on the page.');
-	    }
-	    else {
-	        expect(inputsWithValue).toBeEmpty('Failed asserting that [#arguments.value#] does not appear in a [#arguments.element#] input or textarea on the page.');
-	    }
-
-	    return this;
+		return this;
 	}
 
 	/**
@@ -708,19 +669,13 @@ component extends="testbox.system.compat.framework.TestCase" {
 	*
 	* @return Integrated.BaseSpecs.AbstractBaseSpec
 	*/
-	public AbstractBaseSpec function seeIsChecked(required string element, boolean negate = false) {
-	    var checkboxes = findCheckbox(arguments.element);
+	public AbstractBaseSpec function seeIsChecked(
+		required string element,
+		boolean negate = false
+	) {
+	    variables.DOMAssertionEngine.seeIsChecked(argumentCollection = arguments);
 
-	    var checkedCheckboxes = checkboxes.select('[checked]');
-
-	    if (!negate) {
-	        expect(checkedCheckboxes).notToBeEmpty('Failed asserting that [#arguments.element#] is checked on the page.');
-	    }
-	    else {
-	        expect(checkedCheckboxes).toBeEmpty('Failed asserting that [#arguments.element#] is not checked on the page.');
-	    }
-
-	    return this;
+		return this;
 	}
 
 	/**
@@ -746,23 +701,14 @@ component extends="testbox.system.compat.framework.TestCase" {
 	*
 	* @return Integrated.BaseSpecs.AbstractBaseSpec
 	*/
-	public AbstractBaseSpec function seeIsSelected(required string element, required string value, boolean negate = false) {
-	    var selectFields = findSelectField(arguments.element);
+	public AbstractBaseSpec function seeIsSelected(
+		required string element,
+		required string value,
+		boolean negate = false
+	) {
+	    variables.DOMAssertionEngine.seeIsSelected(argumentCollection = arguments);
 
-	    var selectedOption = selectFields.select('option[selected]');
-
-	    expect(selectedOption).notToBeEmpty('Failed to find any selected options in [#arguments.element#] select field on the page.');
-
-	    if (!negate) {
-	        var isValue = selectedOption.val() == arguments.value || selectedOption.html() == arguments.value;
-	        expect(isValue).toBeTrue('Failed asserting that [#arguments.value#] is selected in a [#arguments.element#] input on the page.');
-	    }
-	    else {
-	        var isNotValue = selectedOption.val() != arguments.value && selectedOption.html() != arguments.value;
-	        expect(isNotValue).toBeTrue('Failed asserting that [#arguments.value#] is not selected in a [#arguments.element#] input on the page.');
-	    }
-
-	    return this;
+		return this;
 	}
 
 	/**
@@ -773,7 +719,10 @@ component extends="testbox.system.compat.framework.TestCase" {
 	*
 	* @return Integrated.BaseSpecs.AbstractBaseSpec
 	*/
-	public AbstractBaseSpec function dontSeeIsSelected(required string element, required string value) {
+	public AbstractBaseSpec function dontSeeIsSelected(
+		required string element,
+		required string value
+	) {
 	    return this.seeIsSelected(
 	        element = arguments.element,
 	        value = arguments.value,
@@ -883,42 +832,14 @@ component extends="testbox.system.compat.framework.TestCase" {
 	}
 
 	/**
-	* Returns true if the current page has a given link.
-	* Throws an exception if there is no anchor tags available.
-	*
-	* @value The value to search for in the link.
-	* @url Optional. The url to search for in the link. Default: ''.
-	*
-	* @throws TestBox.AssertionFailed
-	* @return boolean
-	*/
-	private boolean function hasLink(required string value, string url = '') {
-	    var anchorTags = getParsedPage().select('a');
-
-	    expect(anchorTags).notToBeEmpty('No links found on the page.');
-
-	    // First try to find the link by selector
-	    var linksWithTextAndUrl = anchorTags.select('#arguments.value#');
-
-	    // If we didn't find any by selector, try by text
-	    if (ArrayIsEmpty(linksWithTextAndUrl)) {
-	        linksWithTextAndUrl = anchorTags.select(':contains(#arguments.value#)');
-	    }
-
-	    if (arguments.url != '') {
-	        linksWithTextAndUrl = anchorTags.select('[href="#arguments.url#"]');
-	    }
-
-	    return ! ArrayIsEmpty(linksWithTextAndUrl);
-	}
-
-	/**
 	* Parses an html string.
 	* If an empty string is passed in, the current page is set to an empty string instead of parsing the page.
 	*
 	* @htmlString The html string to parse.
 	*/
 	private void function parse(required string htmlString) {
+		variables.DOMAssertionEngine.parse(argumentCollection = arguments);
+
 	    if (arguments.htmlString == '') {
 	        variables.page = arguments.htmlString;
 	        return;
@@ -1003,7 +924,7 @@ component extends="testbox.system.compat.framework.TestCase" {
 	* @return Integrated.BaseSpecs.AbstractBaseSpec
 	*/
 	public AbstractBaseSpec function debugPage() {
-		debug(variables.page.html());
+		variables.DOMAssertionEngine.debugPage();
 
 		return this;
 	}
