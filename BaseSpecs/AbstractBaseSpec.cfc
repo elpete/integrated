@@ -245,15 +245,9 @@ component extends="testbox.system.compat.framework.TestCase" {
     * @return Integrated.BaseSpecs.AbstractBaseSpec
     */
     public AbstractBaseSpec function click(required string link) {
-        // First try to find using the argument as a selector
-        var anchorTag = getParsedPage().select('#arguments.link#');
+        var href = variables.DOMAssertionEngine.findLink(argumentCollection = arguments);
 
-        // If there is no value, try to find the link by text
-        if (ArrayIsEmpty(anchorTag)) {
-            anchorTag = getParsedPage().select('a:contains(#arguments.link#)');
-        }
-
-        var route = parseFrameworkRoute(anchorTag.attr('href'));
+        var route = parseFrameworkRoute(href);
         route = isNull(route) ? '' : route;
 
         this.visit(route);

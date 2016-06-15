@@ -529,4 +529,23 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
 
         return pageForm;
     }
+
+    /**
+    * Finds the href of a link in the current page.
+    *
+    * @link A selector of a link or the text of the link to find.
+    *
+    * @return string
+    */
+    public string function findLink(required string link) {
+        // First try to find using the argument as a selector
+        var anchorTag = getParsedPage().select('#arguments.link#');
+
+        // If there is no value, try to find the link by text
+        if (ArrayIsEmpty(anchorTag)) {
+            anchorTag = getParsedPage().select('a:contains(#arguments.link#)');
+        }
+
+        return anchorTag.attr('href');
+    }
 }
