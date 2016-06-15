@@ -246,6 +246,7 @@ component extends="testbox.system.compat.framework.TestCase" {
         }
 
         var route = parseFrameworkRoute(anchorTag.attr('href'));
+        route = isNull(route) ? '' : route;
 
         this.visit(route);
 

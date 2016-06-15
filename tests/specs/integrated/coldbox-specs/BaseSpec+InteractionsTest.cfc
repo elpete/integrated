@@ -416,6 +416,10 @@ component extends='testbox.system.BaseSpec' {
     private function setUpAboutPage() {
         var aboutPage = fileRead(expandPath('/tests/resources/about-page.html'));
 
+        this.CUT.$('parseFrameworkRoute')
+            .$args("/about")
+            .$results("/about");
+
         mockAboutEvent = getMockBox().createMock('coldbox.system.web.context.RequestContext');
         mockAboutEvent.$('valueExists').$args('setNextEvent_event').$results(false);
         mockAboutEvent.$(method = 'getCollection', returns = { cbox_rendered_content = aboutPage });
@@ -426,6 +430,10 @@ component extends='testbox.system.BaseSpec' {
 
     private function setUpSecuredPage() {
         var securedPage = fileRead(expandPath('/tests/resources/secured-page.html'));
+
+        this.CUT.$('parseFrameworkRoute')
+            .$args("http://127.0.0.1:12121/SampleApp/index.cfm/secured")
+            .$results("/secured");
 
         mockSecuredEvent = getMockBox().createMock('coldbox.system.web.context.RequestContext');
         mockSecuredEvent.$('valueExists').$args('setNextEvent_event').$results(false);
