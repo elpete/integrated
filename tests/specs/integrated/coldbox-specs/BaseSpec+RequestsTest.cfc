@@ -61,7 +61,7 @@ component extends='testbox.system.BaseSpec' {
                     it('correctly sets the requestMethod', function() {
                         this.CUT.visit('/login');
 
-                        var actualRequestMethod = this.CUT.$getProperty('requestMethod');
+                        var actualRequestMethod = this.CUT.getRequestMethod();
 
                         expect(actualRequestMethod).toBe('visit');
                     });
@@ -82,7 +82,7 @@ component extends='testbox.system.BaseSpec' {
                             regex = 'Could not find any route called \[\/contact\]\.'
                         );
 
-                        var actualRequestMethod = this.CUT.$getProperty('requestMethod');
+                        var actualRequestMethod = this.CUT.getRequestMethod();
 
                         expect(actualRequestMethod).toBe('');
                     });
@@ -124,7 +124,7 @@ component extends='testbox.system.BaseSpec' {
                     it('correctly sets the requestMethod', function() {
                         this.CUT.visitEvent('Main.index');
 
-                        var actualRequestMethod = this.CUT.$getProperty('requestMethod');
+                        var actualRequestMethod = this.CUT.getRequestMethod();
 
                         expect(actualRequestMethod).toBe('visitEvent');
                     });
@@ -145,7 +145,7 @@ component extends='testbox.system.BaseSpec' {
                             regex = 'Could not find any event called \[Main\.doesntExist\]\.'
                         );
 
-                        var actualRequestMethod = this.CUT.$getProperty('requestMethod');
+                        var actualRequestMethod = this.CUT.getRequestMethod();
 
                         expect(actualRequestMethod).toBe('');
                     });

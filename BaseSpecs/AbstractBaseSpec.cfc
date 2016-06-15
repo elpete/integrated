@@ -801,9 +801,17 @@ component extends="testbox.system.compat.framework.TestCase" {
     * @event The request method
     */
     private void function setRequestMethod( required string requestMethod ) {
-        variables.requestMethod = arguments.requestMethod;
         variables.frameworkAssertionEngine.setRequestMethod( arguments.requestMethod );
     }
+
+    /**
+    * Gets the request method
+    */
+    public string function getRequestMethod() {
+        return variables.frameworkAssertionEngine.getRequestMethod();
+    }
+
+
 
     /**
     * Retrives the last parsed page.

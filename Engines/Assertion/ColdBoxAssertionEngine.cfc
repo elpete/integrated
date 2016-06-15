@@ -19,6 +19,13 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
     }
 
     /**
+    * Gets the request method
+    */
+    public string function getRequestMethod() {
+        return variables.requestMethod;
+    }
+
+    /**
     * Sets the current framework event
     *
     * @event The framework event object.
