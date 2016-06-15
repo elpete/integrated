@@ -1,11 +1,33 @@
+/**
+* @doc_abstract true
+*/
 component extends='testbox.system.BaseSpec' {
+
+    function getCUT() {
+        throw('Method is abstract and must be implemented in a concrete test component. Return the component from this method.');
+    }
+
     function beforeAll() {
-        this.CUT = new Integrated.Engines.Assertion.JSoupAssertionEngine();
+        if (isAbstractSpec()) {
+            return;
+        }
+
+        this.CUT = getCUT();
         getMockBox().prepareMock( this.CUT );
     }
 
+    function isAbstractSpec() {
+        var md = getMetadata(this);
+        return structKeyExists( md, 'doc_abstract' ) && md.doc_abstract == true;
+    }
+
     function run() {
-        describe( "JSoup Parser", function() {
+        if (isAbstractSpec()) {
+            debug( "This spec is not run directly.  To run these tests, extend this class from a concrete component." );
+            return;
+        }
+
+        describe( "DOM Assertion Engine Tests — #getMetadata(this).fullname#", function() {
             it( "adheres to the DOMAssertionEngine interface", function() {
                 expect( this.CUT ).toBeInstanceOf( "Integrated.Engines.Assertion.Contracts.DOMAssertionEngine" );
             } );
