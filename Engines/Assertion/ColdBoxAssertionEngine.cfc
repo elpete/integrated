@@ -251,4 +251,26 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
 
         return this;
     }
+
+    /**
+    * Pipes the framework request collection to the debug() output
+    *
+    * @return Integrated.Engines.FrameworkAssertionEngine
+    */
+    public FrameworkAssertionEngine function debugCollection() {
+        debug( variables.event.getCollection( private = false ) );
+
+        return this;
+    }
+
+    /**
+    * Pipes the framework private request collection to the debug() output
+    *
+    * @return Integrated.Engines.FrameworkAssertionEngine
+    */
+    public FrameworkAssertionEngine function debugPrivateCollection() {
+        debug( variables.event.getCollection( private = true ) );
+
+        return this;
+    }
 }

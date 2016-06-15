@@ -93,4 +93,18 @@ interface displayname="FrameworkAssertionEngine" {
     * @return Integrated.Engines.DOMAssertionEngine
     */
     public FrameworkAssertionEngine function debugEvent();
+
+    /**
+    * Pipes the framework request collection to the debug() output
+    *
+    * @return Integrated.Engines.FrameworkAssertionEngine
+    */
+    public FrameworkAssertionEngine function debugCollection();
+
+    /**
+    * Pipes the framework request collection to the debug() output
+    *
+    * @return Integrated.Engines.FrameworkAssertionEngine
+    */
+    public FrameworkAssertionEngine function debugPrivateCollection();
 }
