@@ -1,4 +1,4 @@
-component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Contracts.DOMAssertionEngine" {
+component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Assertion.Contracts.DOMAssertionEngine" {
 
     // The jsoup parser object
     property name='jsoup' type='org.jsoup.parser.Parser';

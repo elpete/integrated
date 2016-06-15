@@ -6,7 +6,7 @@ component extends='Integrated.BaseSpecs.AbstractBaseSpec' {
     property name="baseTestCase" type="coldbox.system.testing.BaseTestCase";
 
     function beforeAll() {
-        super.beforeAll(frameworkAssertionEngine = new Integrated.Engines.ColdBoxAssertionEngine());
+        super.beforeAll(frameworkAssertionEngine = new Integrated.Engines.Assertion.ColdBoxAssertionEngine());
 
         variables.baseTestCase = new coldbox.system.testing.BaseTestCase();
         passOnMetadata(baseTestCase);

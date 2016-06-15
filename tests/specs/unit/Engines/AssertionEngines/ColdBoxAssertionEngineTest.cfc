@@ -1,13 +1,13 @@
 component extends='testbox.system.BaseSpec' {
     function beforeAll() {
-        this.CUT = new Integrated.Engines.ColdBoxAssertionEngine();
+        this.CUT = new Integrated.Engines.Assertion.ColdBoxAssertionEngine();
         getMockBox().prepareMock( this.CUT );
     }
 
     function run() {
         describe( "JSoup Parser", function() {
             it( "adheres to the FrameworkAssertionEngine interface", function() {
-                expect( this.CUT ).toBeInstanceOf( "Integrated.Engines.Contracts.FrameworkAssertionEngine" );
+                expect( this.CUT ).toBeInstanceOf( "Integrated.Engines.Assertion.Contracts.FrameworkAssertionEngine" );
             } );
 
             beforeEach(function() {

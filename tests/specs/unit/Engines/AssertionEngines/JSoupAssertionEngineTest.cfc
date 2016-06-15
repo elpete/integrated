@@ -1,13 +1,13 @@
 component extends='testbox.system.BaseSpec' {
     function beforeAll() {
-        this.CUT = new Integrated.Engines.JSoupAssertionEngine();
+        this.CUT = new Integrated.Engines.Assertion.JSoupAssertionEngine();
         getMockBox().prepareMock( this.CUT );
     }
 
     function run() {
         describe( "JSoup Parser", function() {
             it( "adheres to the DOMAssertionEngine interface", function() {
-                expect( this.CUT ).toBeInstanceOf( "Integrated.Engines.Contracts.DOMAssertionEngine" );
+                expect( this.CUT ).toBeInstanceOf( "Integrated.Engines.Assertion.Contracts.DOMAssertionEngine" );
             } );
 
             beforeEach(function() {

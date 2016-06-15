@@ -1,4 +1,4 @@
-component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Contracts.FrameworkAssertionEngine" {
+component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Assertion.Contracts.FrameworkAssertionEngine" {
 
     // The ColdBox RequestContext
     property name="event";

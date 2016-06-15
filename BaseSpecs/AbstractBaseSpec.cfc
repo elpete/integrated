@@ -39,7 +39,7 @@ component extends="testbox.system.compat.framework.TestCase" {
     */
     public AbstractBaseSpec function beforeAll(
         parser = createObject('java', 'org.jsoup.Jsoup'),
-        DOMAssertionEngine DOMAssertionEngine = new Integrated.Engines.JSoupAssertionEngine(),
+        DOMAssertionEngine DOMAssertionEngine = new Integrated.Engines.Assertion.JSoupAssertionEngine(),
         required FrameworkAssertionEngine frameworkAssertionEngine,
         additionalMatchers = 'Integrated.BaseSpecs.DBMatchers'
     ) {
