@@ -98,23 +98,6 @@ component extends='Integrated.BaseSpecs.AbstractBaseSpec' {
     }
 
     /**
-    * Returns the html string from a ColdBox `execute()` call.
-    *
-    * @event The ColdBox event object (coldbox.system.web.context.RequestContext)
-    *
-    * @return string
-    */
-    private string function getHTML(event) {
-        var rc = event.getCollection();
-
-        if (StructKeyExists(rc, 'cbox_rendered_content')) {
-            return rc.cbox_rendered_content;
-        }
-
-        return '';
-    }
-
-    /**
     * @doc_abstract true
     *
     * Returns true if the response is a redirect
@@ -159,132 +142,8 @@ component extends='Integrated.BaseSpecs.AbstractBaseSpec' {
     }
 
 
-    /***************************** Additional Expectations *******************************/
-
-    /**
-    * Verifies that the given key and optional value exists in the ColdBox request collection.
-    *
-    * @key The key to find in the collection.
-    * @value The value to find in the collection with the given key.
-    * @private If true, use the private collection instead of the default collection. Default: false.
-    * @negate If true, verify that the key and value is not found in the collection. Default: false.
-    *
-    * @return string
-    */
-    public ColdBoxBaseSpec function seeInCollection(
-        required string key,
-        string value,
-        boolean private = false,
-        boolean negate = false
-    ) {
-        var collection = getEvent().getCollection(private = arguments.private);
-
-        var failureMessage = generateCollectionFailureMessage(argumentCollection = arguments);
-
-        if (!negate) {
-            // If a value was provided and the key exists...
-            if (StructKeyExists(arguments, 'value') && StructKeyExists(collection, arguments.key)) {
-                expect(collection[arguments.key]).toBe(arguments.value, failureMessage);
-            }
-            // Otherwise, just verify the existance of the key
-            else {
-                expect(collection).toHaveKey(arguments.key, failureMessage);    
-            }
-        }
-        else {
-            // If a value was provided and the key exists...
-            if (StructKeyExists(arguments, 'value') && StructKeyExists(collection, arguments.key)) {
-                expect(collection[arguments.key]).notToBe(arguments.value, failureMessage);
-            }
-            // Otherwise, just verify the existance of the key
-            else {
-                expect(collection).notToHaveKey(arguments.key, failureMessage);    
-            }
-        }
-
-        return this;
-    }
-
-    /**
-    * Verifies that the given key and optional value does not exist in the ColdBox request collection.
-    *
-    * @key The key that should not be found in the collection.
-    * @value The value that should not be founc in the collection with the given key.
-    * @private If true, use the private collection instead of the default collection. Default: false.
-    *
-    * @return string
-    */
-    public ColdBoxBaseSpec function dontSeeInCollection(
-        required string key,
-        string value,
-        boolean private = false
-    ) {
-        arguments.negate = true;
-        return seeInCollection(argumentCollection = arguments);
-    }
-
-
-    /**************************** Additional Debug Methods ******************************/
-
-
-    /**
-    * Pipes the request collection (rc) to the debug() output
-    *
-    * @return Integrated.BaseSpecs.ColdBoxBaseSpec
-    */
-    public ColdBoxBaseSpec function debugCollection() {
-        debug(variables.event.getCollection());
-
-        return this;
-    }
-
-    /**
-    * Pipes the private request collection (prc) to the debug() output
-    *
-    * @return Integrated.BaseSpecs.ColdBoxBaseSpec
-    */
-    public ColdBoxBaseSpec function debugPrivateCollection() {
-        debug(variables.event.getPrivateCollection());
-
-        return this;
-    }
-
-
     /**************************** Additional Helper Methods ******************************/
 
-
-    /**
-    * Generates the failure message string for the `seeInCollection` function.
-    *
-    * @key The key to find in the collection.
-    * @value The value to find in the collection with the given key.
-    * @private If true, use the private collection instead of the default collection. Default: false.
-    * @negate If true, verify that the key and value is not found in the collection. Default: false.
-    *
-    * @return string
-    */
-    private string function generateCollectionFailureMessage(
-        required string key,
-        string value,
-        boolean private = false,
-        boolean negate = false
-    ) {
-        var failureMessage = 'Failed asserting that the key [#arguments.key#]';
-        var existancePhrase = arguments.negate ? 'does not exist' : 'exists';
-
-        if (StructKeyExists(arguments, 'value')) {
-            failureMessage &= ' with the value [#arguments.value#]';
-        }
-
-        if (arguments.private) {
-            failureMessage &= ' #existancePhrase# in the private request collection.';
-        }
-        else {
-            failureMessage &= ' #existancePhrase# in the request collection.';   
-        }
-
-        return failureMessage;
-    }
 
     private function passOnMetadata(baseTestCase) {
         var md = getMetadata(this);

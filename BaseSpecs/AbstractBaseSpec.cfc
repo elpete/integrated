@@ -6,27 +6,17 @@
 */
 component extends="testbox.system.compat.framework.TestCase" {
 
-    // The jsoup parser object
-    property name='parser' type='org.jsoup.parser.Parser';
     // The DOM-specific assertion engine
     property name='DOMAssertionEngine' type='Integrated.Engines.Assertion.Contracts.DOMAssertionEngine';
     // The Framework-specific assertion engine
     property name='frameworkAssertionEngine' type='Integrated.Engines.Assertion.Contracts.FrameworkAssertionEngine';
     // The interaction engine
     property name='interactionEngine' type='Integrated.Engines.Interaction.Contracts.FrameworkAssertionEngine';
-    // A database testing helper library
-    property name='dbUtils' type='Integrated.BaseSpecs.DBUtils';
-    // The parsed jsoup document object
-    property name='page' type='org.jsoup.nodes.Document';
-    // The ColdBox event object
-    property name='event' type='coldbox.system.web.context.RequestContext';
-    // The way we last made a request
-    property name='requestMethod' type='string';
 
     // Boolean flag to turn on automatic database transactions
-    property name='useDatabaseTransactions' type='boolean' default=false;
+    this.useDatabaseTransactions = false;
     // Boolean flag to turn on persisting of the session scope between specs
-    property name='persistSessionScope' type='boolean' default=false;
+    this.persistSessionScope = false;
 
 
     /***************************** Set Up *******************************/
@@ -45,19 +35,18 @@ component extends="testbox.system.compat.framework.TestCase" {
         InteractionEngine interactionEngine = new Integrated.Engines.Interaction.JSoupInteractionEngine(),
         additionalMatchers = 'Integrated.BaseSpecs.DBMatchers'
     ) {
-        addMatchers(arguments.additionalMatchers);
-
-        // Initialize all component variables
+        // Prime the engines
         variables.DOMAssertionEngine = arguments.DOMAssertionEngine;
         variables.frameworkAssertionEngine = arguments.frameworkAssertionEngine;
         variables.interactionEngine = arguments.interactionEngine;
         variables.interactionEngine.setDOMAssertionEngine(variables.DOMAssertionEngine);
-        variables.parser = arguments.parser;
-        variables.page = '';
-        setEvent( '' );
+
+        // Add the database matchers
+        addMatchers(arguments.additionalMatchers);
+
+        // Start with an empty request 
         setRequestMethod( '' );
-        this.useDatabaseTransactions = false;
-        this.persistSessionScope = false;
+        setEvent( '' );
 
         return this;
     }
@@ -94,19 +83,6 @@ component extends="testbox.system.compat.framework.TestCase" {
     * @return string
     */
     private string function parseFrameworkRoute(required string url) {
-        throw('Method is abstract and must be implemented in a concrete component.');
-    }
-
-    /**
-    * @doc_abstract true
-    *
-    * Returns the html string from a Framework-specific event object.
-    *
-    * @event The Framework-specific event object.
-    *
-    * @return string
-    */
-    private string function getHTML(event) {
         throw('Method is abstract and must be implemented in a concrete component.');
     }
 
@@ -365,13 +341,6 @@ component extends="testbox.system.compat.framework.TestCase" {
             );
         }
 
-        // Send the event to the frameworkAssertionEngine
-        variables.frameworkAssertionEngine.setEvent(event);
-        // Send the html to the DOMAssertionEngine
-        variables.DOMAssertionEngine.parse(
-            variables.frameworkAssertionEngine.getHTML()
-        );
-
         return this;
     }
 
@@ -440,9 +409,14 @@ component extends="testbox.system.compat.framework.TestCase" {
             }
         }
 
-        // Parse the html and set it to the current page
-        var html = getHTML(variables.event);
-        parse(html);
+        // Make the request using the request driver;
+        // var event = variables.requestEngine.makeRequest();
+        // Send the event to the frameworkAssertionEngine
+        variables.frameworkAssertionEngine.setEvent(event);
+        // Send the html to the DOMAssertionEngine
+        variables.DOMAssertionEngine.parse(
+            variables.frameworkAssertionEngine.getHTML()
+        );
 
         return event;
     }
@@ -725,6 +699,45 @@ component extends="testbox.system.compat.framework.TestCase" {
             value = arguments.value,
             negate = true
         );
+    }
+
+    /**
+    * Verifies that the given key and optional value exists in the ColdBox request collection.
+    *
+    * @key The key to find in the collection.
+    * @value The value to find in the collection with the given key.
+    * @private If true, use the private collection instead of the default collection. Default: false.
+    * @negate If true, verify that the key and value is not found in the collection. Default: false.
+    *
+    * @return string
+    */
+    public AbstractBaseSpec function seeInCollection(
+        required string key,
+        string value,
+        boolean private = false,
+        boolean negate = false
+    ) {
+        variables.frameworkAssertionEngine.seeInCollection(argumentCollection = arguments);
+
+        return this;
+    }
+
+    /**
+    * Verifies that the given key and optional value does not exist in the ColdBox request collection.
+    *
+    * @key The key that should not be found in the collection.
+    * @value The value that should not be founc in the collection with the given key.
+    * @private If true, use the private collection instead of the default collection. Default: false.
+    *
+    * @return string
+    */
+    public AbstractBaseSpec function dontSeeInCollection(
+        required string key,
+        string value,
+        boolean private = false
+    ) {
+        arguments.negate = true;
+        return seeInCollection(argumentCollection = arguments);
     }
 
     /**
