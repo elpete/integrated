@@ -27,6 +27,41 @@ component extends="testbox.system.compat.framework.TestCase" {
     // Boolean flag to turn on persisting of the session scope between specs
     property name='persistSessionScope' type='boolean' default=false;
 
+
+    /***************************** Set Up *******************************/
+
+    /**
+    * Sets up the needed dependancies for Integrated.
+    *
+    * @return Integrated.BaseSpecs.AbstractBaseSpec
+    *
+    * @beforeAll
+    */
+    public AbstractBaseSpec function beforeAll(
+        parser = createObject('java', 'org.jsoup.Jsoup'),
+        DOMAssertionEngine DOMAssertionEngine = new Integrated.Engines.JSoupAssertionEngine(),
+        required FrameworkAssertionEngine frameworkAssertionEngine,
+        additionalMatchers = 'Integrated.BaseSpecs.DBMatchers'
+    ) {
+        addMatchers(arguments.additionalMatchers);
+
+        // Initialize all component variables
+        variables.DOMAssertionEngine = arguments.DOMAssertionEngine;
+        variables.frameworkAssertionEngine = arguments.frameworkAssertionEngine;
+        variables.parser = arguments.parser;
+        variables.page = '';
+        setEvent( '' );
+        setRequestMethod( '' );
+        variables.inputs = {};
+        this.useDatabaseTransactions = false;
+        this.persistSessionScope = false;
+
+        return this;
+    }
+
+    public void function afterAll() {}
+
+
     /***************************** Abstract Methods *******************************/
 
     /**
@@ -112,41 +147,7 @@ component extends="testbox.system.compat.framework.TestCase" {
     }
 
 
-    /***************************** Set Up *******************************/
-
-
-    /**
-    * Sets up the needed dependancies for Integrated.
-    *
-    * @parser Optional. A Jsoup parser. It is provided here so it can be overridden for testing. Default: createObject('java', 'org.jsoup.Jsoup').
-    *
-    * @return Integrated.BaseSpecs.AbstractBaseSpec
-    *
-    * @beforeAll
-    */
-    public AbstractBaseSpec function beforeAll(
-        parser = createObject('java', 'org.jsoup.Jsoup'),
-        DOMAssertionEngine DOMAssertionEngine = new Integrated.Engines.JSoupAssertionEngine(),
-        required FrameworkAssertionEngine frameworkAssertionEngine,
-        additionalMatchers = 'Integrated.BaseSpecs.DBMatchers'
-    ) {
-        addMatchers(arguments.additionalMatchers);
-
-        // Initialize all component variables
-        variables.DOMAssertionEngine = arguments.DOMAssertionEngine;
-        variables.frameworkAssertionEngine = arguments.frameworkAssertionEngine;
-        variables.parser = arguments.parser;
-        variables.page = '';
-        setEvent( '' );
-        setRequestMethod( '' );
-        variables.inputs = {};
-        this.useDatabaseTransactions = false;
-        this.persistSessionScope = false;
-
-        return this;
-    }
-
-    public void function afterAll() {}
+    /***************************** Lifecycle Methods *******************************/
 
     /**
     * Wraps each spec in a database transaction, if desired.
