@@ -137,8 +137,8 @@ component extends="testbox.system.compat.framework.TestCase" {
         variables.frameworkAssertionEngine = arguments.frameworkAssertionEngine;
         variables.parser = arguments.parser;
         variables.page = '';
-        variables.event = '';
-        variables.requestMethod = '';
+        setEvent( '' );
+        setRequestMethod( '' );
         variables.inputs = {};
         this.useDatabaseTransactions = false;
         this.persistSessionScope = false;
@@ -388,7 +388,7 @@ component extends="testbox.system.compat.framework.TestCase" {
         }
 
         // Clear out the requestMethod in case the call fails
-        variables.requestMethod = '';
+        setRequestMethod('');
 
         // Make a framework-specific request
         setEvent(makeFrameworkRequest(argumentCollection = arguments));
@@ -398,10 +398,10 @@ component extends="testbox.system.compat.framework.TestCase" {
 
         // Set the requestMethod now that we've finished the request.
         if (StructKeyExists(arguments, 'route')) {
-            variables.requestMethod = 'visit';
+            setRequestMethod( 'visit' );
         }
         else {
-            variables.requestMethod = 'visitEvent';   
+            setRequestMethod( 'visitEvent' );
         }
 
         // Follow any redirects found
@@ -442,6 +442,10 @@ component extends="testbox.system.compat.framework.TestCase" {
     * @return Integrated.BaseSpecs.AbstractBaseSpec
     */
     public AbstractBaseSpec function seePageIs(required string route) {
+        // variables.frameworkAssertionEngine.seePageIs(argumentCollection = arguments);
+
+        // return this;
+
         if (variables.requestMethod == 'visitEvent') {
             throw(
                 type = 'TestBox.AssertionFailed',
@@ -811,6 +815,11 @@ component extends="testbox.system.compat.framework.TestCase" {
         variables.frameworkAssertionEngine.setEvent(arguments.event);
 
         return;
+    }
+
+    private void function setRequestMethod( required string requestMethod ) {
+        variables.requestMethod = arguments.requestMethod;
+        variables.frameworkAssertionEngine.setRequestMethod( arguments.requestMethod );
     }
 
     /**

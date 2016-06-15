@@ -1,6 +1,15 @@
 interface displayname="FrameworkAssertionEngine" {
 
     /**
+    * Sets the current request method
+    *
+    * @event The current request method.
+    *
+    * @return Integrated.Engines.FrameworkAssertionEngine
+    */
+    public FrameworkAssertionEngine function setRequestMethod(required string requestMethod);
+
+    /**
     * Sets the current framework event
     *
     * @event The framework event object.

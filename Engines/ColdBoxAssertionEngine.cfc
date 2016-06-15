@@ -2,6 +2,21 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Frame
 
     // The ColdBox RequestContext
     property name="event";
+    // The current request method
+    property name="requestMethod";
+
+    /**
+    * Sets the current request method
+    *
+    * @event The current request method.
+    *
+    * @return Integrated.Engines.FrameworkAssertionEngine
+    */
+    public FrameworkAssertionEngine function setRequestMethod(required string requestMethod) {
+        variables.requestMethod = arguments.requestMethod;
+
+        return this;
+    }
 
     /**
     * Sets the current framework event
