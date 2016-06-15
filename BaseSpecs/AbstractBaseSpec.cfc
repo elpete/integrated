@@ -392,6 +392,7 @@ component extends="testbox.system.compat.framework.TestCase" {
 
         // Make a framework-specific request
         variables.event = makeFrameworkRequest(argumentCollection = arguments);
+        variables.frameworkAssertionEngine.setEvent( variables.event );
 
         // Clear out the inputs for the next request.
         variables.inputs = {};

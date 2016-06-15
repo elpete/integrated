@@ -1,4 +1,5 @@
 interface displayname="FrameworkAssertionEngine" {
+    public FrameworkAssertionEngine function setEvent(required event);
     public FrameworkAssertionEngine function seePageIs(required string route);
     public FrameworkAssertionEngine function seeViewIs(required string view);
     public FrameworkAssertionEngine function seeHandlerIs(required string handler);

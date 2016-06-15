@@ -1,5 +1,21 @@
 component extends="testbox.system.BaseSpec" implements="Integrated.Engines.FrameworkAssertionEngine" {
 
+    // The ColdBox RequestContext
+    property name="event";
+
+    /**
+    * Sets the current framework event
+    *
+    * @event The ColdBox RequestContext.
+    *
+    * @return Integrated.Engines.FrameworkAssertionEngine
+    */    
+    public FrameworkAssertionEngine function setEvent(required event) {
+        variables.event = arguments.event;
+
+        return this;
+    }
+
     /**
     * Verifies the route of the current page.
     * This method cannot be used after visiting a page using an event.
