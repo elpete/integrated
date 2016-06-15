@@ -85,7 +85,7 @@ component extends="testbox.system.BaseSpec" {
             });
 
             feature('seeViewIs', function() {
-                it('verifies the currently routed ColdBox view', function() {
+                it('verifies the currently routed framework view', function() {
                     mockEvent.$('getCurrentView').$results('main.index');
 
                     expect(function() {
@@ -113,7 +113,7 @@ component extends="testbox.system.BaseSpec" {
             });
 
             feature('seeHandlerIs', function() {
-                it('verifies the currently routed ColdBox handler', function() {
+                it('verifies the currently routed framework handler', function() {
                     mockEvent.$('getCurrentHandler').$results('Main');
 
                     expect(function() {
@@ -141,7 +141,7 @@ component extends="testbox.system.BaseSpec" {
             });
 
             feature('seeActionIs', function() {
-                it('verifies the currently routed ColdBox action', function() {
+                it('verifies the currently routed framework action', function() {
                     mockEvent.$('getCurrentAction').$results('index');
 
                     expect(function() {
@@ -169,7 +169,7 @@ component extends="testbox.system.BaseSpec" {
             });
 
             feature('seeEventIs', function() {
-                it('verifies the currently routed ColdBox event', function() {
+                it('verifies the currently routed framework event', function() {
                     mockEvent.$('getCurrentEvent').$results('Main.index');
 
                     expect(function() {
