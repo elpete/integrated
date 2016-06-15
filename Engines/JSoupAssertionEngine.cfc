@@ -24,7 +24,7 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.DOMAs
     *
     * @htmlString The html string to parse.
     */
-    private void function parse(required string htmlString) {
+    public void function parse(required string htmlString) {
         if (arguments.htmlString == '') {
             variables.page = arguments.htmlString;
             return;
