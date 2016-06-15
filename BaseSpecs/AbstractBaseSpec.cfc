@@ -391,8 +391,7 @@ component extends="testbox.system.compat.framework.TestCase" {
         variables.requestMethod = '';
 
         // Make a framework-specific request
-        variables.event = makeFrameworkRequest(argumentCollection = arguments);
-        variables.frameworkAssertionEngine.setEvent( variables.event );
+        setEvent(makeFrameworkRequest(argumentCollection = arguments));
 
         // Clear out the inputs for the next request.
         variables.inputs = {};
@@ -802,6 +801,17 @@ component extends="testbox.system.compat.framework.TestCase" {
 
     /**************************** Helper Methods ******************************/
 
+    /**
+    * Sets the framework event
+    *
+    * @event The framework event
+    */
+    private void function setEvent( required event ) {
+        variables.event = arguments.event;
+        variables.frameworkAssertionEngine.setEvent(arguments.event);
+
+        return;
+    }
 
     /**
     * Retrives the last parsed page.
