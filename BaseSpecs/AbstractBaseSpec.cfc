@@ -442,23 +442,7 @@ component extends="testbox.system.compat.framework.TestCase" {
     * @return Integrated.BaseSpecs.AbstractBaseSpec
     */
     public AbstractBaseSpec function seePageIs(required string route) {
-        // variables.frameworkAssertionEngine.seePageIs(argumentCollection = arguments);
-
-        // return this;
-
-        if (variables.requestMethod == 'visitEvent') {
-            throw(
-                type = 'TestBox.AssertionFailed',
-                message = 'You cannot assert the page when you visited using the visitEvent() method. Please use visit() instead.'
-            );
-        }
-
-        var actualUrl = getEvent().getCurrentRoutedUrl();
-
-        expect(actualUrl).toBe(
-            arguments.route,
-            "Failed asserting that the url [#actualUrl#] (actual) equalled [#arguments.route#] (expected)."
-        );
+        variables.frameworkAssertionEngine.seePageIs(argumentCollection = arguments);
 
         return this;
     }

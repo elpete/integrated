@@ -32,14 +32,21 @@ component extends='testbox.system.BaseSpec' {
                 mockEvent.$('getCollection').$args(private = false).$results(rc);
                 mockEvent.$('getCollection').$args(private = true).$results(prc);
                 this.CUT.$property(propertyName = 'event', mock = mockEvent);
+            
+                // Parse the event in
+                makePublic(this.CUT, 'setEvent', 'setEventPublic');
+                this.CUT.setEventPublic(mockEvent);
 
                 // Set the default request method to 'visit'
-                this.CUT.$property(propertyName = 'requestMethod', mock = 'visit');
+                makePublic(this.CUT, 'setRequestMethod', 'setRequestMethodPublic');
+                this.CUT.setRequestMethodPublic('visit');
             });
 
             feature('seePageIs', function() {
+
                 it('verifies the url of the page', function() {
                     mockEvent.$('getCurrentRoutedUrl').$results('/login-page.html');
+                    this.CUT.setEventPublic(mockEvent);
 
                     expect(function() {
                         this.CUT.seePageIs('/login-page.html');
@@ -55,7 +62,7 @@ component extends='testbox.system.BaseSpec' {
 
                 it('throws an exception if trying to verify the url of a page visited by `visitEvent`', function() {
                     mockEvent.$('getCurrentRoutedUrl').$results('');
-                    this.CUT.$property(propertyName = 'requestMethod', mock = 'visitEvent');
+                    this.CUT.setRequestMethodPublic('visitEvent');
 
                     expect(function() {
                         this.CUT.seePageIs('/sample-page.html');
@@ -67,7 +74,7 @@ component extends='testbox.system.BaseSpec' {
 
                 it('throws an exception if there is no parsed document', function() {
                     this.CUT.parsePublic('');
-                    this.CUT.$property(propertyName = 'event', mock = '');
+                    this.CUT.setEventPublic('');
 
                     expect(function() {
                         this.CUT.seePageIs('/sample-page.html');
