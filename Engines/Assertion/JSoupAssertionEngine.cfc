@@ -450,7 +450,7 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
     * @throws TestBox.AssertionFailed
     * @return org.jsoup.select.Elements
     */
-    private function findElement(
+    public function findElement(
         required string selectorOrName,
         string errorMessage = 'Failed to find a [#arguments.selectorOrName#] element on the page.'
     ) {
@@ -465,5 +465,37 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
         expect(elements).notToBeEmpty(arguments.errorMessage);
 
         return elements;
+    }
+
+    /**
+    * Returns the select fields found with a given selector or name.
+    * Throws if the given option is not found in the select field found with the given selector or name.
+    *
+    * @value The option value or text to find.
+    * @selectorOrName The select field selector or name to find the option in.
+    * @errorMessage The error message to throw if an assertion fails.
+    *
+    * @throws TestBox.AssertionFailed
+    * @return org.jsoup.select.Elements
+    */
+    public function findOption(
+        required string value,
+        required string selectorOrName,
+        string errorMessage = 'Failed to find an option with value or text [#arguments.value#] in [#arguments.selectorOrName#].'
+    ) {
+        var selectFields = findSelectField(arguments.selectorOrName, arguments.errorMessage);
+
+        // First try to find the field by value
+        var options = selectFields.select('option[value=#arguments.value#]');
+
+        // If we couldn't find it by selector, try by text
+        if (ArrayIsEmpty(options)) {
+            options = selectFields.select('option:contains(#arguments.value#)');
+        }
+
+        expect(options).notToBeEmpty(arguments.errorMessage);
+
+        // If the option does not have a value attribute, return the option text
+        return options.val() != '' ? options.val() : options.text();
     }
 }
