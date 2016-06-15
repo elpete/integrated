@@ -496,6 +496,16 @@ component extends='testbox.system.BaseSpec' {
                     );
                 });
             });
+
+            feature('debugPage', function() {
+                it("should call TestBox's debug method with the current page html", function() {
+                    this.CUT.$('debug');
+
+                    this.CUT.debugPage();
+
+                    expect(this.CUT.$once('debug')).toBeTrue();
+                });
+            });
         } );
     }
 }
