@@ -37,16 +37,6 @@ component extends='testbox.system.BaseSpec' {
                 this.CUT.$property(propertyName = 'requestMethod', mock = 'visit');
             });
 
-            feature('debugPage', function() {
-                it("should call TestBox's debug method with the current page html", function() {
-                    this.CUT.$('debug').$args(mockEvent);
-
-                    this.CUT.debugPage();
-
-                    expect(this.CUT.$once('debug')).toBeTrue();
-                });
-            });
-
             feature('debugEvent', function() {
                 it("should call TestBox's debug method with the current event object", function() {
                     this.CUT.$('debug').$args(mockEvent);
