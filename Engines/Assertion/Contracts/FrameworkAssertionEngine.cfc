@@ -10,6 +10,13 @@ interface displayname="FrameworkAssertionEngine" {
     public FrameworkAssertionEngine function setRequestMethod(required string requestMethod);
 
     /**
+    * Gets the request method
+    *
+    * @return string
+    */
+    public string function getRequestMethod();
+
+    /**
     * Sets the current framework event
     *
     * @event The framework event object.
@@ -17,6 +24,50 @@ interface displayname="FrameworkAssertionEngine" {
     * @return Integrated.Engines.FrameworkAssertionEngine
     */
     public FrameworkAssertionEngine function setEvent(required event);
+
+    /**
+    * Retrives the current framework event object.
+    *
+    * Throws an exception if there is no event available.
+    *
+    * @throws TestBox.AssertionFailed
+    * @return coldbox.system.web.context.RequestContext
+    */
+    public any function getEvent();
+
+    /**
+    * Returns the html string from a framework event.
+    *
+    * @return string
+    */
+    public string function getHTML();
+
+    /**
+    * Returns true if the response is a redirect
+    *
+    * @event The ColdBox event object (coldbox.system.web.context.RequestContext)
+    *
+    * @return boolean
+    */
+    public boolean function isRedirect();
+
+    /**
+    * Returns the redirect event name
+    *
+    * @event The ColdBox event object (coldbox.system.web.context.RequestContext)
+    *
+    * @return string
+    */
+    public string function getRedirectEvent();
+
+    /**
+    * Returns the inputs for the redirect event, if any.
+    *
+    * @event The ColdBox event object (coldbox.system.web.context.RequestContext)
+    *
+    * @return struct
+    */
+    public struct function getRedirectInputs();
 
     /**
     * Verifies the route of the current page.
@@ -107,4 +158,5 @@ interface displayname="FrameworkAssertionEngine" {
     * @return Integrated.Engines.FrameworkAssertionEngine
     */
     public FrameworkAssertionEngine function debugPrivateCollection();
+
 }

@@ -35,7 +35,7 @@ component extends='testbox.system.BaseSpec' {
                         requestEngine.$('execute').$args(route = '/login', renderResults = true).$results(mockEvent);
                     });
 
-                    it('visits a ColdBox event', function() {
+                    it('visits a url', function() {
                         expect(
                             function() { this.CUT.visit('/login'); }
                         ).notToThrow();

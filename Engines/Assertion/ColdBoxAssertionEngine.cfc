@@ -1,6 +1,6 @@
 component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Assertion.Contracts.FrameworkAssertionEngine" {
 
-    // The ColdBox RequestContext
+    // The framework event object
     property name="event";
     // The current request method
     property name="requestMethod";
@@ -20,6 +20,8 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
 
     /**
     * Gets the request method
+    *
+    * @return string
     */
     public string function getRequestMethod() {
         return variables.requestMethod;
@@ -39,15 +41,48 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
     }
 
     /**
-    * @doc_abstract true
+    * Retrives the current framework event object.
     *
+    * Throws an exception if there is no event available.
+    *
+    * @throws TestBox.AssertionFailed
+    * @return coldbox.system.web.context.RequestContext
+    */
+    public any function getEvent() {
+        if (IsSimpleValue(variables.event)) {
+            throw(
+                type = 'TestBox.AssertionFailed',
+                message = 'Cannot make assertions until you visit a page.  Make sure to run visit() or visitEvent() first.'
+            );
+        }
+
+        return variables.event;
+    }
+
+    /**
+    * Returns the html string from a framework event.
+    *
+    * @return string
+    */
+    public string function getHTML() {
+        var rc = getEvent().getCollection();
+
+        if (StructKeyExists(rc, 'cbox_rendered_content')) {
+            return rc.cbox_rendered_content;
+        }
+
+        return '';
+    }
+
+
+    /**
     * Returns true if the response is a redirect
     *
     * @event The ColdBox event object (coldbox.system.web.context.RequestContext)
     *
     * @return boolean
     */
-    public boolean function isRedirect(event) {
+    public boolean function isRedirect() {
         return getEvent().valueExists('setNextEvent_event');
     }
 
@@ -58,7 +93,7 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
     *
     * @return string
     */
-    public string function getRedirectEvent(event) {
+    public string function getRedirectEvent() {
         return getEvent().getValue('setNextEvent_event');
     }
 
@@ -69,7 +104,7 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
     *
     * @return struct
     */
-    public struct function getRedirectInputs(event) {
+    public struct function getRedirectInputs() {
         var persistKeys = ListToArray(getEvent().getValue('setNextEvent_persist', ''));
 
         var persistStruct = {};
@@ -238,26 +273,41 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
         return seeInCollection(argumentCollection = arguments);
     }
 
+    /**
+    * Pipes the framework event to the debug() output
+    *
+    * @return Integrated.Engines.FrameworkAssertionEngine
+    */
+    public FrameworkAssertionEngine function debugEvent() {
+        debug( getEvent() );
 
-    /************************ HELPERS **************************/
+        return this;
+    }
 
     /**
-    * Retrives the last ColdBox request context (event) ran.
-    * Throws an exception if there is no event available.
+    * Pipes the framework request collection to the debug() output
     *
-    * @throws TestBox.AssertionFailed
-    * @return coldbox.system.web.context.RequestContext
+    * @return Integrated.Engines.FrameworkAssertionEngine
     */
-    private function getEvent() {
-        if (IsSimpleValue(variables.event)) {
-            throw(
-                type = 'TestBox.AssertionFailed',
-                message = 'Cannot make assertions until you visit a page.  Make sure to run visit() or visitEvent() first.'
-            );
-        }
+    public FrameworkAssertionEngine function debugCollection() {
+        debug( getEvent().getCollection( private = false ) );
 
-        return variables.event;
+        return this;
     }
+
+    /**
+    * Pipes the framework private request collection to the debug() output
+    *
+    * @return Integrated.Engines.FrameworkAssertionEngine
+    */
+    public FrameworkAssertionEngine function debugPrivateCollection() {
+        debug( getEvent().getCollection( private = true ) );
+
+        return this;
+    }
+
+
+    /************************ HELPERS **************************/
 
     /**
     * Generates the failure message string for the `seeInCollection` function.
@@ -292,53 +342,4 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
         return failureMessage;
     }
 
-    /**
-    * Pipes the framework event to the debug() output
-    *
-    * @return Integrated.Engines.FrameworkAssertionEngine
-    */
-    public FrameworkAssertionEngine function debugEvent() {
-        debug( variables.event );
-
-        return this;
-    }
-
-    /**
-    * Pipes the framework request collection to the debug() output
-    *
-    * @return Integrated.Engines.FrameworkAssertionEngine
-    */
-    public FrameworkAssertionEngine function debugCollection() {
-        debug( variables.event.getCollection( private = false ) );
-
-        return this;
-    }
-
-    /**
-    * Pipes the framework private request collection to the debug() output
-    *
-    * @return Integrated.Engines.FrameworkAssertionEngine
-    */
-    public FrameworkAssertionEngine function debugPrivateCollection() {
-        debug( variables.event.getCollection( private = true ) );
-
-        return this;
-    }
-
-    /**
-    * Returns the html string from a framework event.
-    *
-    * @event The framework event object
-    *
-    * @return string
-    */
-    public string function getHTML(event = variables.event) {
-        var rc = event.getCollection();
-
-        if (StructKeyExists(rc, 'cbox_rendered_content')) {
-            return rc.cbox_rendered_content;
-        }
-
-        return '';
-    }
 }

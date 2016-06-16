@@ -148,7 +148,6 @@ interface displayname="DOMAssertionEngine" {
     public DOMAssertionEngine function debugPage();
 
     /**
-    * Returns the elements found with a given selector or name.
     * Throws if no elements are found with the given selector or name.
     *
     * @selectorOrName The selector or name for which to search.
@@ -157,10 +156,10 @@ interface displayname="DOMAssertionEngine" {
     * @throws TestBox.AssertionFailed
     * @return org.jsoup.select.Elements
     */
-    public function findElement(required string selectorOrName, string errorMessage);
+    public DOMAssertionEngine function seeElement(required string selectorOrName, string errorMessage);
 
     /**
-    * Returns the select fields found with a given selector or name.
+    * Returns the option value found with a given value or name in a select field with a given selector or name.
     * Throws if the given option is not found in the select field found with the given selector or name.
     *
     * @value The option value or text to find.
@@ -170,5 +169,57 @@ interface displayname="DOMAssertionEngine" {
     * @throws TestBox.AssertionFailed
     * @return org.jsoup.select.Elements
     */
-    public function findOption(required string value, required string selectorOrName, string errorMessage);
+    public any function findOptionValue(required string value, required string selectorOrName, string errorMessage);
+
+    /**
+    * Finds the href of a link in the current page.
+    *
+    * @link A selector of a link or the text of the link to find.
+    *
+    * @return string
+    */
+    public string function findLinkHref(required string link);
+
+    /**
+    * Finds a form on the current page and returns the inputs as an array.
+    *
+    * If a button selector or text is provided, only find the form for the given button.
+    * Throws if no form is found with a button with the given selector or text.
+    * Throws if no button selector or text is provided and no form is found on the entire page.
+    *
+    * @selectorOrText The selector or text of a submit button.
+    *
+    * @throws TestBox.AssertionFailed
+    * @return org.jsoup.select.Elements
+    */
+    public array function getFormInputs(string selectorOrText);
+
+    /**
+    * Finds a form on the current page and returns the form method.
+    * 
+    * If a button selector or text is provided, only find the form for the given button.
+    * Throws if no form is found with a button with the given selector or text.
+    * Throws if no button selector or text is provided and no form is found on the entire page.
+    *
+    * @selectorOrText The selector or text of a submit button.
+    *
+    * @throws TestBox.AssertionFailed
+    * @return string
+    */
+    public string function getFormMethod(string selectorOrText);
+
+    /**
+    * Finds a form on the current page and returns the form action.
+    *
+    * If a button selector or text is provided, only find the form for the given button.
+    * Throws if no form is found with a button with the given selector or text.
+    * Throws if no button selector or text is provided and no form is found on the entire page.
+    *
+    * @selectorOrText The selector or text of a submit button.
+    *
+    * @throws TestBox.AssertionFailed
+    * @return org.jsoup.select.Elements
+    */
+    public string function getFormAction(string selectorOrText);
+
 }

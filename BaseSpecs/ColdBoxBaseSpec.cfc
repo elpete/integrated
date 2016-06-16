@@ -22,10 +22,6 @@ component extends='Integrated.BaseSpecs.AbstractBaseSpec' {
         requestEngine.afterAll();
     }
 
-
-    /**************************** Additional Helper Methods ******************************/
-
-
     private function passOnMetadata(baseTestCase, overrideMetadata) {
         var md = IsDefined("overrideMetadata") ? overrideMetadata : getMetadata(this);
         // Inspect for appMapping annotation

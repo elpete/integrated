@@ -1,18 +1,21 @@
 component extends="coldbox.system.testing.BaseTestCase" implements="Integrated.Engines.Request.Contracts.RequestEngine" {
 
-    property name="baseTestCase" type="coldbox.system.testing.BaseTestCase";
-
-    function beforeAll() {
+    /**
+    * Set up the request engine
+    */
+    public void function beforeAll() {
         super.beforeAll();
     }
 
-    function afterAll() {
+    /**
+    * Clean up the request engine
+    */
+    public void function afterAll() {
         super.afterAll();
     }
 
     /**
     * Returns the framework route portion of a url.
-    * Removes the SESBaseUrl from the form action.
     *
     * @url A full url
     *
@@ -30,7 +33,7 @@ component extends="coldbox.system.testing.BaseTestCase" implements="Integrated.E
     * @method The HTTP method to use for the request.
     * @route Optional. The route to execute. Default: ''.
     * @event Optional. The event to execute. Default: ''.
-    * @parameters Optional. A struct of parameters to attach to the request collection (rc) Default: {}.
+    * @parameters Optional. A struct of parameters to submit with the request. Default: {}.
     *
     * @throws TestBox.AssertionFailed
     * @returns framework event (if any)

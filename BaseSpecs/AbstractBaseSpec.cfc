@@ -153,7 +153,7 @@ component extends="testbox.system.compat.framework.TestCase" {
     * @return Integrated.BaseSpecs.AbstractBaseSpec
     */
     public AbstractBaseSpec function click(required string link) {
-        var href = variables.domEngine.findLink(argumentCollection = arguments);
+        var href = variables.domEngine.findLinkHref(argumentCollection = arguments);
 
         var route = parseFrameworkRoute(href);
         route = isNull(route) ? '' : route;

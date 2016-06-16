@@ -12,8 +12,10 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
     *
     * @return Integrated.Engines.DOMAssertionEngine
     */
-    public DOMAssertionEngine function init() {
-        variables.jsoup =  createObject( "java", "org.jsoup.Jsoup" ) ;
+    public DOMAssertionEngine function init(
+        jsoup = createObject( "java", "org.jsoup.Jsoup" )
+    ) {
+        variables.jsoup = arguments.jsoup;
 
         return this;
     }
@@ -298,6 +300,131 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
         );
     }
 
+    /**
+    * Pipes the html of the page to the debug() output
+    *
+    * @return Integrated.Engines.DOMAssertionEngine
+    */
+    public DOMAssertionEngine function debugPage() {
+        debug(variables.page.html());
+
+        return this;
+    }
+
+    /**
+    * Throws if no elements are found with the given selector or name.
+    *
+    * @selectorOrName The selector or name for which to search.
+    * @errorMessage The error message to throw if an assertion fails.
+    *
+    * @throws TestBox.AssertionFailed
+    * @return org.jsoup.select.Elements
+    */
+    public DOMAssertionEngine function seeElement(
+        required string selectorOrName,
+        string errorMessage = 'Failed to find a [#arguments.selectorOrName#] element on the page.'
+    ) {
+        findElement(argumentCollection = arguments);
+
+        return this;
+    }
+
+    /**
+    * Returns the select fields found with a given selector or name.
+    * Throws if the given option is not found in the select field found with the given selector or name.
+    *
+    * @value The option value or text to find.
+    * @selectorOrName The select field selector or name to find the option in.
+    * @errorMessage The error message to throw if an assertion fails.
+    *
+    * @throws TestBox.AssertionFailed
+    * @return org.jsoup.select.Elements
+    */
+    public function findOptionValue(
+        required string value,
+        required string selectorOrName,
+        string errorMessage = 'Failed to find an option with value or text [#arguments.value#] in [#arguments.selectorOrName#].'
+    ) {
+        var options = findOption(argumentCollection = arguments);
+
+        // If the option does not have a value attribute, return the option text
+        return options.val() != '' ? options.val() : options.text();
+    }
+
+    /**
+    * Finds the href of a link in the current page.
+    *
+    * @link A selector of a link or the text of the link to find.
+    *
+    * @return string
+    */
+    public string function findLinkHref(required string link) {
+        var anchorTag = findLink(argumentCollection = arguments);
+
+        return anchorTag.attr('href');
+    }
+
+    /**
+    * Finds a form on the current page and returns the inputs as an array.
+    *
+    * If a button selector or text is provided, only find the form for the given button.
+    * Throws if no form is found with a button with the given selector or text.
+    * Throws if no button selector or text is provided and no form is found on the entire page.
+    *
+    * @selectorOrText The selector or text of a submit button.
+    *
+    * @throws TestBox.AssertionFailed
+    * @return org.jsoup.select.Elements
+    */
+    public array function getFormInputs(string selectorOrText = '') {
+        var pageForm = findForm(argumentCollection  = arguments);
+        
+        var inputs = pageForm.select('[name]');
+        var returnInputs = [];
+        for (var input in inputs) {
+            arrayAppend( returnInputs, {
+                name = input.attr( "name" ),
+                value = input.val()
+            } );
+        }
+
+        return returnInputs;
+    }
+
+    /**
+    * Finds a form on the current page and returns the form method.
+    * 
+    * If a button selector or text is provided, only find the form for the given button.
+    * Throws if no form is found with a button with the given selector or text.
+    * Throws if no button selector or text is provided and no form is found on the entire page.
+    *
+    * @selectorOrText The selector or text of a submit button.
+    *
+    * @throws TestBox.AssertionFailed
+    * @return string
+    */
+    public string function getFormMethod(string selectorOrText = '') {
+        var pageForm = findForm(argumentCollection  = arguments);
+        return pageForm.attr( "method" );
+    }
+
+    /**
+    * Finds a form on the current page and returns the form action.
+    *
+    * If a button selector or text is provided, only find the form for the given button.
+    * Throws if no form is found with a button with the given selector or text.
+    * Throws if no button selector or text is provided and no form is found on the entire page.
+    *
+    * @selectorOrText The selector or text of a submit button.
+    *
+    * @throws TestBox.AssertionFailed
+    * @return org.jsoup.select.Elements
+    */
+    public string function getFormAction(string selectorOrText = '') {
+        var pageForm = findForm(argumentCollection  = arguments);
+        return pageForm.attr( "action" );
+    }
+
 
     /**************************** Helper Methods ******************************/
 
@@ -350,24 +477,24 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
         return ! ArrayIsEmpty(linksWithTextAndUrl);
     }
 
-
-    /**************************** Debug Methods ******************************/
-
-
     /**
-    * Pipes the html of the page to the debug() output
+    * Finds a link in the current page.
     *
-    * @return Integrated.Engines.DOMAssertionEngine
+    * @link A selector of a link or the text of the link to find.
+    *
+    * @return string
     */
-    public DOMAssertionEngine function debugPage() {
-        debug(variables.page.html());
+    private function findLink(required string link) {
+        // First try to find using the argument as a selector
+        var anchorTag = getParsedPage().select('#arguments.link#');
 
-        return this;
+        // If there is no value, try to find the link by text
+        if (ArrayIsEmpty(anchorTag)) {
+            anchorTag = getParsedPage().select('a:contains(#arguments.link#)');
+        }
+
+        return anchorTag;
     }
-
-
-    /**************************** Finder Methods ******************************/
-
 
     /**
     * Returns the select fields found with a given selector or name.
@@ -441,33 +568,6 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
     }
 
     /**
-    * Returns the elements found with a given selector or name.
-    * Throws if no elements are found with the given selector or name.
-    *
-    * @selectorOrName The selector or name for which to search.
-    * @errorMessage The error message to throw if an assertion fails.
-    *
-    * @throws TestBox.AssertionFailed
-    * @return org.jsoup.select.Elements
-    */
-    public function findElement(
-        required string selectorOrName,
-        string errorMessage = 'Failed to find a [#arguments.selectorOrName#] element on the page.'
-    ) {
-        // First try to find the field by selector
-        var elements = getParsedPage().select('#arguments.selectorOrName#');
-
-        // If we couldn't find it by selector, try by name
-        if (ArrayIsEmpty(elements)) {
-            elements = getParsedPage().select('[name=#arguments.selectorOrName#]');
-        }
-
-        expect(elements).notToBeEmpty(arguments.errorMessage);
-
-        return elements;
-    }
-
-    /**
     * Returns the select fields found with a given selector or name.
     * Throws if the given option is not found in the select field found with the given selector or name.
     *
@@ -478,7 +578,7 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
     * @throws TestBox.AssertionFailed
     * @return org.jsoup.select.Elements
     */
-    public function findOption(
+    private function findOption(
         required string value,
         required string selectorOrName,
         string errorMessage = 'Failed to find an option with value or text [#arguments.value#] in [#arguments.selectorOrName#].'
@@ -495,8 +595,7 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
 
         expect(options).notToBeEmpty(arguments.errorMessage);
 
-        // If the option does not have a value attribute, return the option text
-        return options.val() != '' ? options.val() : options.text();
+        return options;
     }
 
     /**
@@ -510,7 +609,7 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
     * @throws TestBox.AssertionFailed
     * @return org.jsoup.select.Elements
     */
-    public function findForm(string selectorOrText = '') {
+    private function findForm(string selectorOrText = '') {
         if (selectorOrText != '') {
             var pageForm = getParsedPage().select('form:has(button#arguments.selectorOrText#)');
 
@@ -531,82 +630,30 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
     }
 
     /**
-    * Finds a form on the current page and returns the inputs as an array.
+    * Returns the elements found with a given selector or name.
+    * Throws if no elements are found with the given selector or name.
     *
-    * If a button selector or text is provided, only find the form for the given button.
-    * Throws if no form is found with a button with the given selector or text.
-    * Throws if no button selector or text is provided and no form is found on the entire page.
-    *
-    * @selectorOrText The selector or text of a submit button.
+    * @selectorOrName The selector or name for which to search.
+    * @errorMessage The error message to throw if an assertion fails.
     *
     * @throws TestBox.AssertionFailed
     * @return org.jsoup.select.Elements
     */
-    public array function getFormInputs(string selectorOrText = '') {
-        var pageForm = findForm(argumentCollection  = arguments);
-        
-        var inputs = pageForm.select('[name]');
-        var returnInputs = [];
-        for (var input in inputs) {
-            arrayAppend( returnInputs, {
-                name = input.attr( "name" ),
-                value = input.val()
-            } );
+    private any function findElement(
+        required string selectorOrName,
+        string errorMessage = 'Failed to find a [#arguments.selectorOrName#] element on the page.'
+    ) {
+        // First try to find the field by selector
+        var elements = getParsedPage().select('#arguments.selectorOrName#');
+
+        // If we couldn't find it by selector, try by name
+        if (ArrayIsEmpty(elements)) {
+            elements = getParsedPage().select('[name=#arguments.selectorOrName#]');
         }
 
-        return returnInputs;
+        expect(elements).notToBeEmpty(arguments.errorMessage);
+
+        return elements;
     }
 
-    /**
-    * Finds a form on the current page and returns the form method.
-    * 
-    * If a button selector or text is provided, only find the form for the given button.
-    * Throws if no form is found with a button with the given selector or text.
-    * Throws if no button selector or text is provided and no form is found on the entire page.
-    *
-    * @selectorOrText The selector or text of a submit button.
-    *
-    * @throws TestBox.AssertionFailed
-    * @return string
-    */
-    public string function getFormMethod(string selectorOrText = '') {
-        var pageForm = findForm(argumentCollection  = arguments);
-        return pageForm.attr( "method" );
-    }
-
-    /**
-    * Finds a form on the current page and returns the form action.
-    *
-    * If a button selector or text is provided, only find the form for the given button.
-    * Throws if no form is found with a button with the given selector or text.
-    * Throws if no button selector or text is provided and no form is found on the entire page.
-    *
-    * @selectorOrText The selector or text of a submit button.
-    *
-    * @throws TestBox.AssertionFailed
-    * @return org.jsoup.select.Elements
-    */
-    public string function getFormAction(string selectorOrText = '') {
-        var pageForm = findForm(argumentCollection  = arguments);
-        return pageForm.attr( "action" );
-    }
-
-    /**
-    * Finds the href of a link in the current page.
-    *
-    * @link A selector of a link or the text of the link to find.
-    *
-    * @return string
-    */
-    public string function findLink(required string link) {
-        // First try to find using the argument as a selector
-        var anchorTag = getParsedPage().select('#arguments.link#');
-
-        // If there is no value, try to find the link by text
-        if (ArrayIsEmpty(anchorTag)) {
-            anchorTag = getParsedPage().select('a:contains(#arguments.link#)');
-        }
-
-        return anchorTag.attr('href');
-    }
 }

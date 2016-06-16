@@ -4,16 +4,24 @@ component implements="Integrated.Engines.Interaction.Contracts.InteractionEngine
     property name='inputs' type='struct' default='{}';
 
     public InteractionEngine function init(
-        DOMAssertionEngine DOMAssertionEngine = new Integrated.Engines.Assertion.JSoupAssertionEngine()
+        DOMAssertionEngine engine = new Integrated.Engines.Assertion.JSoupAssertionEngine()
     ) {
-        variables.DOMAssertionEngine = arguments.DOMAssertionEngine;
+        variables.domEngine = arguments.engine;
         variables.inputs = {};
 
         return this;
     }
 
-    public InteractionEngine function setDOMAssertionEngine(required DOMAssertionEngine DOMAssertionEngine) {
-        variables.DOMAssertionEngine = arguments.DOMAssertionEngine;
+    /**
+    * Sets the DOMAssertionEngine as a collaborator.
+    * This can also be passed in as a constructor argument.
+    *
+    * @engine Integrated.Engines.Assertion.Contracts.DOMAssertionEngine
+    *
+    * @return Integrated.Engines.Interaction.Contracts.InteractionEngine
+    */
+    public InteractionEngine function setDOMAssertionEngine(required DOMAssertionEngine engine) {
+        variables.domEngine = arguments.engine;
 
         return this;
     }
@@ -61,7 +69,7 @@ component implements="Integrated.Engines.Interaction.Contracts.InteractionEngine
     * @return Integrated.Engines.Interaction.Contracts.InteractionEngine
     */
     public InteractionEngine function select(required string option, required string element) {
-        var value = variables.DOMAssertionEngine.findOption(arguments.option, arguments.element);
+        var value = variables.domEngine.findOptionValue(arguments.option, arguments.element);
 
         return storeInput(arguments.element, value);
     }
@@ -81,10 +89,6 @@ component implements="Integrated.Engines.Interaction.Contracts.InteractionEngine
         );
     }
 
-
-    /******************* HELPER METHODS *******************/
-
-
     /**
     * Stores a value in an in-memory input struct with the element name as the key.
     *
@@ -100,7 +104,7 @@ component implements="Integrated.Engines.Interaction.Contracts.InteractionEngine
         boolean overwrite = true
     ) {
         // First verify that the given element exists
-        variables.DOMAssertionEngine.findElement(arguments.element);
+        variables.domEngine.seeElement(arguments.element);
 
         var key = generateInputKey(arguments.element);
 
@@ -117,6 +121,28 @@ component implements="Integrated.Engines.Interaction.Contracts.InteractionEngine
     }
 
     /**
+    * Returns the currently stored inputs
+    *
+    * @return struct
+    */
+    public struct function getInputs() {
+        return variables.inputs;
+    }
+
+    /**
+    * Resets the inputs to empty
+    *
+    * @return Integrated.Engines.Interaction.Contracts.InteractionEngine
+    */
+    public InteractionEngine function reset() {
+        variables.inputs = {};
+
+        return this;
+    }
+
+    /******************* HELPER METHODS *******************/
+
+    /**
     * Returns a normalized key name for a form field selector or name.
     * Removes pound signs (#) from selectors.
     *
@@ -128,13 +154,4 @@ component implements="Integrated.Engines.Interaction.Contracts.InteractionEngine
         return replaceNoCase(arguments.element, '##', '', 'all');
     }
 
-    public struct function getInputs() {
-        return variables.inputs;
-    }
-
-    public InteractionEngine function reset() {
-        variables.inputs = {};
-
-        return this;
-    }
 }
