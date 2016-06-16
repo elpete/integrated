@@ -33,6 +33,7 @@ component extends="testbox.system.compat.framework.TestCase" {
         DOMAssertionEngine DOMAssertionEngine = new Integrated.Engines.Assertion.JSoupAssertionEngine(),
         required FrameworkAssertionEngine frameworkAssertionEngine,
         InteractionEngine interactionEngine = new Integrated.Engines.Interaction.JSoupInteractionEngine(),
+        required RequestEngine requestEngine,
         additionalMatchers = 'Integrated.BaseSpecs.DBMatchers'
     ) {
         // Prime the engines
@@ -40,6 +41,7 @@ component extends="testbox.system.compat.framework.TestCase" {
         variables.frameworkAssertionEngine = arguments.frameworkAssertionEngine;
         variables.interactionEngine = arguments.interactionEngine;
         variables.interactionEngine.setDOMAssertionEngine(variables.DOMAssertionEngine);
+        variables.requestEngine = arguments.requestEngine;
 
         // Add the database matchers
         addMatchers(arguments.additionalMatchers);
@@ -377,8 +379,8 @@ component extends="testbox.system.compat.framework.TestCase" {
         setRequestMethod('');
 
         // Make a framework-specific request
-        // var event = variables.requestEngine.makeRequest(argumentCollection = arguments);
-        var event = makeFrameworkRequest(argumentCollection = arguments);
+        var event = variables.requestEngine.makeRequest(argumentCollection = arguments);
+        // var event = makeFrameworkRequest(argumentCollection = arguments);
         setEvent(event);
 
         // Clear out the inputs for the next request.

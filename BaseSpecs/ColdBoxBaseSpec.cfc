@@ -5,12 +5,17 @@ component extends='Integrated.BaseSpecs.AbstractBaseSpec' {
 
     property name="baseTestCase" type="coldbox.system.testing.BaseTestCase";
 
-    function beforeAll() {
-        super.beforeAll(frameworkAssertionEngine = new Integrated.Engines.Assertion.ColdBoxAssertionEngine());
+    function beforeAll(
+        requestEngine = new Integrated.Engines.Request.ColdBoxRequestEngine(),
+        overrideMetadata
+    ) {
+        passOnMetadata( arguments.requestEngine, arguments.overrideMetadata );
+        requestEngine.beforeAll();
 
-        variables.baseTestCase = new coldbox.system.testing.BaseTestCase();
-        passOnMetadata(baseTestCase);
-        baseTestCase.beforeAll();
+        super.beforeAll(
+            frameworkAssertionEngine = new Integrated.Engines.Assertion.ColdBoxAssertionEngine(),
+            requestEngine = arguments.requestEngine
+        );
     }
 
     function afterAll() {
@@ -145,8 +150,8 @@ component extends='Integrated.BaseSpecs.AbstractBaseSpec' {
     /**************************** Additional Helper Methods ******************************/
 
 
-    private function passOnMetadata(baseTestCase) {
-        var md = getMetadata(this);
+    private function passOnMetadata(baseTestCase, overrideMetadata) {
+        var md = IsDefined("overrideMetadata") ? overrideMetadata : getMetadata(this);
         // Inspect for appMapping annotation
         if (structKeyExists(md, "appMapping")) {
             arguments.baseTestCase.setAppMapping(md.appMapping);

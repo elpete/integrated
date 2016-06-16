@@ -3,14 +3,11 @@ component extends="coldbox.system.testing.BaseTestCase" implements="Integrated.E
     property name="baseTestCase" type="coldbox.system.testing.BaseTestCase";
 
     function beforeAll() {
-        variables.baseTestCase = new coldbox.system.testing.BaseTestCase();
-
-        baseTestCase.beforeAll();
+        super.beforeAll();
     }
 
     function afterAll() {
         super.afterAll();
-        baseTestCase.afterAll();
     }
  
     /**

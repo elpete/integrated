@@ -3,15 +3,14 @@ component extends='testbox.system.BaseSpec' {
     function beforeAll() {
         this.CUT = new BaseSpecs.ColdBoxBaseSpec();
         getMockBox().prepareMock(this.CUT);
-
-        // Set up the parent ColdBox BaseTestCase
-        this.CUT.beforeAll();
+        variables.requestEngine = getMockBox().createMock("Integrated.Engines.Request.ColdBoxRequestEngine");
         
-        // Set the appMapping for testing
-        variables.mockBaseTestCase = getMockBox().createMock('coldbox.system.testing.BaseTestCase');
-        this.CUT.$property(propertyName = 'baseTestCase', mock = mockBaseTestCase);
-        variables.mockBaseTestCase.$property(propertyName = 'appMapping', mock = '/SampleApp');
-        variables.mockBaseTestCase.beforeAll();
+        this.CUT.beforeAll(
+            variables.requestEngine,
+            {
+                "appMapping" = "/SampleApp"
+            }
+        );
     }
 
     function run() {
@@ -138,7 +137,7 @@ component extends='testbox.system.BaseSpec' {
         mockLoginEvent = getMockBox().createMock('coldbox.system.web.context.RequestContext');
         mockLoginEvent.$('valueExists').$args('setNextEvent_event').$results(false);
         mockLoginEvent.$(method = 'getCollection', returns = { cbox_rendered_content = loginPage });
-        variables.mockBaseTestCase.$('execute').$args(route = '/login', renderResults = true).$results(mockLoginEvent);
+        variables.requestEngine.$('execute').$args(route = '/login', renderResults = true).$results(mockLoginEvent);
     }
 
     private function setUpAboutPage() {
@@ -152,8 +151,8 @@ component extends='testbox.system.BaseSpec' {
         mockAboutEvent.$('valueExists').$args('setNextEvent_event').$results(false);
         mockAboutEvent.$(method = 'getCollection', returns = { cbox_rendered_content = aboutPage });
 
-        variables.mockBaseTestCase.$('execute').$args(event = 'about', renderResults = true).$results(mockAboutEvent);
-        variables.mockBaseTestCase.$('execute').$args(route = '/about', renderResults = true).$results(mockAboutEvent);
+        variables.requestEngine.$('execute').$args(event = 'about', renderResults = true).$results(mockAboutEvent);
+        variables.requestEngine.$('execute').$args(route = '/about', renderResults = true).$results(mockAboutEvent);
     }
 
     private function setUpSecuredPage() {
@@ -167,11 +166,11 @@ component extends='testbox.system.BaseSpec' {
         mockSecuredEvent.$('valueExists').$args('setNextEvent_event').$results(false);
         mockSecuredEvent.$(method = 'getCollection', returns = { cbox_rendered_content = securedPage });
 
-        variables.mockBaseTestCase.$('execute').$args(route = '/secured', renderResults = true).$results(mockSecuredEvent);
+        variables.requestEngine.$('execute').$args(route = '/secured', renderResults = true).$results(mockSecuredEvent);
     }
 
     private function throwOnOtherRequests() {
-        variables.mockBaseTestCase.$(
+        variables.requestEngine.$(
             method = 'execute',
             callback = function() {
                 throw(type = 'HandlerService.EventHandlerNotRegisteredException');
