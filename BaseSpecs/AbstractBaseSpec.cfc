@@ -31,18 +31,18 @@ component extends="testbox.system.compat.framework.TestCase" {
     * @beforeAll
     */
     public AbstractBaseSpec function beforeAll(
-        DOMAssertionEngine domEngine = new Integrated.Engines.Assertion.JSoupAssertionEngine(),
-        required FrameworkAssertionEngine frameworkEngine,
-        InteractionEngine interactionEngine = new Integrated.Engines.Interaction.JSoupInteractionEngine(),
         required RequestEngine requestEngine,
+        required FrameworkAssertionEngine frameworkEngine,
+        DOMAssertionEngine domEngine = new Integrated.Engines.Assertion.JSoupAssertionEngine(),
+        InteractionEngine interactionEngine = new Integrated.Engines.Interaction.JSoupInteractionEngine(),
         additionalMatchers = 'Integrated.BaseSpecs.DBMatchers'
     ) {
         // Prime the engines
-        variables.domEngine = arguments.domEngine;
+        variables.requestEngine = arguments.requestEngine;
         variables.frameworkEngine = arguments.frameworkEngine;
+        variables.domEngine = arguments.domEngine;
         variables.interactionEngine = arguments.interactionEngine;
         variables.interactionEngine.setDOMAssertionEngine(variables.domEngine);
-        variables.requestEngine = arguments.requestEngine;
 
         // Add the database matchers
         addMatchers(arguments.additionalMatchers);
@@ -55,17 +55,6 @@ component extends="testbox.system.compat.framework.TestCase" {
     }
 
     public void function afterAll() {}
-
-    /**
-    * Returns the framework route portion of a url.
-    *
-    * @url A full url
-    *
-    * @return string
-    */
-    private string function parseFrameworkRoute(required string url) {
-        return variables.requestEngine.parseFrameworkRoute(argumentCollection = arguments);
-    }
 
 
     /***************************** Lifecycle Methods *******************************/
@@ -802,24 +791,14 @@ component extends="testbox.system.compat.framework.TestCase" {
     }
 
     /**
-    * Store values found in the parsed form in the in-memory input struct.
+    * Returns the framework route portion of a url.
     *
-    * @pageForm The form jsoup node. [org.jsoup.nodes.Element]
+    * @url A full url
     *
     * @return string
     */
-    private void function extractValuesFromForm(required pageForm) {
-        var inputs = pageForm.select('[name]');
-
-        for (var input in inputs) {
-            variables.interactionEngine.storeInput(
-                element = input.attr('name'),
-                value = input.val(),
-                overwrite = false
-            );
-        }
-
-        return;
+    private string function parseFrameworkRoute(required string url) {
+        return variables.requestEngine.parseFrameworkRoute(argumentCollection = arguments);
     }
 
 }
