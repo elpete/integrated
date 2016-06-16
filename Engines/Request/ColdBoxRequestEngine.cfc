@@ -9,6 +9,20 @@ component extends="coldbox.system.testing.BaseTestCase" implements="Integrated.E
     function afterAll() {
         super.afterAll();
     }
+
+    /**
+    * Returns the framework route portion of a url.
+    * Removes the SESBaseUrl from the form action.
+    *
+    * @url A full url
+    *
+    * @return string
+    */
+    public string function parseFrameworkRoute(required string url) {
+        var baseUrl = getController().getSetting('SESBaseUrl');
+
+        return replaceNoCase(arguments.url, baseUrl, '');
+    }
  
     /**
     * Make a request

@@ -3,8 +3,6 @@
 */
 component extends='Integrated.BaseSpecs.AbstractBaseSpec' {
 
-    property name="baseTestCase" type="coldbox.system.testing.BaseTestCase";
-
     function beforeAll(
         requestEngine = new Integrated.Engines.Request.ColdBoxRequestEngine(),
         overrideMetadata
@@ -20,86 +18,6 @@ component extends='Integrated.BaseSpecs.AbstractBaseSpec' {
 
     function afterAll() {
         super.afterAll();
-        baseTestCase.afterAll();
-    }
-
-    /***************************** Abstract Method Implementations *******************************/
-
-
-    /**
-    * Make a ColdBox specifc request
-    *
-    * @method The HTTP method to use for the request.
-    * @route Optional. The route to execute. Default: ''.
-    * @event Optional. The event to execute. Default: ''.
-    * @parameters Optional. A struct of parameters to attach to the request collection (rc) Default: {}.
-    *
-    * @throws TestBox.AssertionFailed
-    * @returns coldbox.system.web.context.RequestContext
-    */
-    public coldbox.system.web.context.RequestContext function makeFrameworkRequest(
-        required string method,
-        string event,
-        string route,
-        struct parameters = {}
-    ) {
-        // Setup a new ColdBox request
-        variables.baseTestCase.setup();
-
-        // cache the request context
-        local.event = variables.baseTestCase.getRequestContext();
-
-        // Set the parameters to the RequestContext collection
-        for (var key in arguments.parameters) {
-            local.event.setValue(key, arguments.parameters[key]);
-        }
-
-        // Only mock the HTTP method if needed
-        if (arguments.method != 'GET' && arguments.method != 'POST') {
-            // Prepare a request context mock
-            var eventMock = prepareMock(local.event);
-            // Set the HTTP Method
-            eventMock.$("getHTTPMethod", arguments.method);
-        }
-
-        try {
-            if (StructKeyExists(arguments, 'route')) {
-                return variables.baseTestCase.execute(route = arguments.route, renderResults = true);
-            }
-            else {
-                return variables.baseTestCase.execute(event = arguments.event, renderResults = true);   
-            }
-        }
-        catch (HandlerService.EventHandlerNotRegisteredException e) {
-            if (StructKeyExists(arguments, 'route')) {
-                throw(
-                    type = 'TestBox.AssertionFailed',
-                    message = 'Could not find any route called [#arguments.route#].',
-                    detail = e.message
-                );
-            }
-            else {
-                throw(
-                    type = 'TestBox.AssertionFailed',
-                    message = 'Could not find any event called [#arguments.event#].',
-                    detail = e.message
-                );
-            }
-        }
-    }
-
-    /**
-    * Returns the framework route portion of a url.
-    * Removes the SESBaseUrl from the form action.
-    *
-    * @url A full url
-    *
-    * @return string
-    */
-    private string function parseFrameworkRoute(required string url) {
-        var baseUrl = variables.baseTestCase.getController().getSetting('SESBaseUrl');
-
-        return replaceNoCase(arguments.url, baseUrl, '');
     }
 
     /**

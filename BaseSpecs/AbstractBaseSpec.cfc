@@ -85,7 +85,7 @@ component extends="testbox.system.compat.framework.TestCase" {
     * @return string
     */
     private string function parseFrameworkRoute(required string url) {
-        throw('Method is abstract and must be implemented in a concrete component.');
+        return variables.requestEngine.parseFrameworkRoute(argumentCollection = arguments);
     }
 
     /**
@@ -327,23 +327,20 @@ component extends="testbox.system.compat.framework.TestCase" {
         }
 
         // Send to the requestEngine and get back the event
-        var event = '';
         if (arguments.overrideEvent != '') {
-            event = makeRequest(
+            return makeRequest(
                 method = pageForm.attr('method'),
                 event = arguments.overrideEvent,
                 parameters = arguments.inputs
             );
         }
         else {
-            event = makeRequest(
+            return makeRequest(
                 method = pageForm.attr('method'),
                 route = parseFrameworkRoute(pageForm.attr('action')),
                 parameters = arguments.inputs
             );
         }
-
-        return this;
     }
 
     /**
@@ -378,9 +375,8 @@ component extends="testbox.system.compat.framework.TestCase" {
         // Clear out the requestMethod in case the call fails
         setRequestMethod('');
 
-        // Make a framework-specific request
+        // Make a request through the request engine
         var event = variables.requestEngine.makeRequest(argumentCollection = arguments);
-        // var event = makeFrameworkRequest(argumentCollection = arguments);
         setEvent(event);
 
         // Clear out the inputs for the next request.
@@ -421,7 +417,7 @@ component extends="testbox.system.compat.framework.TestCase" {
             variables.frameworkAssertionEngine.getHTML()
         );
 
-        return event;
+        return this;
     }
 
 
