@@ -11,7 +11,7 @@ component extends='Integrated.BaseSpecs.AbstractBaseSpec' {
         requestEngine.beforeAll();
 
         super.beforeAll(
-            frameworkAssertionEngine = new Integrated.Engines.Assertion.ColdBoxAssertionEngine(),
+            frameworkEngine = new Integrated.Engines.Assertion.ColdBoxAssertionEngine(),
             requestEngine = arguments.requestEngine
         );
     }

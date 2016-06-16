@@ -531,6 +531,67 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
     }
 
     /**
+    * Finds a form on the current page and returns the inputs as an array.
+    *
+    * If a button selector or text is provided, only find the form for the given button.
+    * Throws if no form is found with a button with the given selector or text.
+    * Throws if no button selector or text is provided and no form is found on the entire page.
+    *
+    * @selectorOrText The selector or text of a submit button.
+    *
+    * @throws TestBox.AssertionFailed
+    * @return org.jsoup.select.Elements
+    */
+    public array function getFormInputs(string selectorOrText = '') {
+        var pageForm = findForm(argumentCollection  = arguments);
+        
+        var inputs = pageForm.select('[name]');
+        var returnInputs = [];
+        for (var input in inputs) {
+            arrayAppend( returnInputs, {
+                name = input.attr( "name" ),
+                value = input.val()
+            } );
+        }
+
+        return returnInputs;
+    }
+
+    /**
+    * Finds a form on the current page and returns the form method.
+    * 
+    * If a button selector or text is provided, only find the form for the given button.
+    * Throws if no form is found with a button with the given selector or text.
+    * Throws if no button selector or text is provided and no form is found on the entire page.
+    *
+    * @selectorOrText The selector or text of a submit button.
+    *
+    * @throws TestBox.AssertionFailed
+    * @return string
+    */
+    public string function getFormMethod(string selectorOrText = '') {
+        var pageForm = findForm(argumentCollection  = arguments);
+        return pageForm.attr( "method" );
+    }
+
+    /**
+    * Finds a form on the current page and returns the form action.
+    *
+    * If a button selector or text is provided, only find the form for the given button.
+    * Throws if no form is found with a button with the given selector or text.
+    * Throws if no button selector or text is provided and no form is found on the entire page.
+    *
+    * @selectorOrText The selector or text of a submit button.
+    *
+    * @throws TestBox.AssertionFailed
+    * @return org.jsoup.select.Elements
+    */
+    public string function getFormAction(string selectorOrText = '') {
+        var pageForm = findForm(argumentCollection  = arguments);
+        return pageForm.attr( "action" );
+    }
+
+    /**
     * Finds the href of a link in the current page.
     *
     * @link A selector of a link or the text of the link to find.

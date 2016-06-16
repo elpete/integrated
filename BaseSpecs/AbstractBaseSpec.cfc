@@ -7,11 +7,12 @@
 component extends="testbox.system.compat.framework.TestCase" {
 
     // The DOM-specific assertion engine
-    property name='DOMAssertionEngine' type='Integrated.Engines.Assertion.Contracts.DOMAssertionEngine';
+    property name='domEngine' type='Integrated.Engines.Assertion.Contracts.DOMAssertionEngine';
     // The Framework-specific assertion engine
-    property name='frameworkAssertionEngine' type='Integrated.Engines.Assertion.Contracts.FrameworkAssertionEngine';
+    property name='frameworkEngine' type='Integrated.Engines.Assertion.Contracts.FrameworkAssertionEngine';
     // The interaction engine
-    property name='interactionEngine' type='Integrated.Engines.Interaction.Contracts.FrameworkAssertionEngine';
+    property name='interactionEngine' type='Integrated.Engines.Interaction.Contracts.InteractionEngine';
+    property name='requestEngine' type='Integrated.Engines.Request.Contracts.RequestEngine';
 
     // Boolean flag to turn on automatic database transactions
     this.useDatabaseTransactions = false;
@@ -29,55 +30,32 @@ component extends="testbox.system.compat.framework.TestCase" {
     * @beforeAll
     */
     public AbstractBaseSpec function beforeAll(
-        parser = createObject('java', 'org.jsoup.Jsoup'),
-        DOMAssertionEngine DOMAssertionEngine = new Integrated.Engines.Assertion.JSoupAssertionEngine(),
-        required FrameworkAssertionEngine frameworkAssertionEngine,
+        DOMAssertionEngine domEngine = new Integrated.Engines.Assertion.JSoupAssertionEngine(),
+        required FrameworkAssertionEngine frameworkEngine,
         InteractionEngine interactionEngine = new Integrated.Engines.Interaction.JSoupInteractionEngine(),
         required RequestEngine requestEngine,
         additionalMatchers = 'Integrated.BaseSpecs.DBMatchers'
     ) {
         // Prime the engines
-        variables.DOMAssertionEngine = arguments.DOMAssertionEngine;
-        variables.frameworkAssertionEngine = arguments.frameworkAssertionEngine;
+        variables.domEngine = arguments.domEngine;
+        variables.frameworkEngine = arguments.frameworkEngine;
         variables.interactionEngine = arguments.interactionEngine;
-        variables.interactionEngine.setDOMAssertionEngine(variables.DOMAssertionEngine);
+        variables.interactionEngine.setDOMAssertionEngine(variables.domEngine);
         variables.requestEngine = arguments.requestEngine;
 
         // Add the database matchers
         addMatchers(arguments.additionalMatchers);
 
         // Start with an empty request 
-        setRequestMethod( '' );
-        setEvent( '' );
+        setRequestMethod( "" );
+        setEvent( "" );
 
         return this;
     }
 
     public void function afterAll() {}
 
-
-    /***************************** Abstract Methods *******************************/
-
     /**
-    * @doc_abstract true
-    *
-    * Make a request specific to the framework extending the BaseSpec
-    *
-    * @method The HTTP method to use for the request.
-    * @route Optional. The route to execute. Default: ''.
-    * @event Optional. The event to execute. Default: ''.
-    * @parameters Optional. A struct of parameters to attach to the request. Default: {}.
-    *
-    * @throws TestBox.AssertionFailed
-    * @return Framework-specific event
-    */
-    public function makeFrameworkRequest(required string method, string event, string route, struct parameters = {}) {
-        throw('Method is abstract and must be implemented in a concrete component.');
-    }
-
-    /**
-    * @doc_abstract true
-    *
     * Returns the framework route portion of a url.
     *
     * @url A full url
@@ -223,7 +201,7 @@ component extends="testbox.system.compat.framework.TestCase" {
     * @return Integrated.BaseSpecs.AbstractBaseSpec
     */
     public AbstractBaseSpec function click(required string link) {
-        var href = variables.DOMAssertionEngine.findLink(argumentCollection = arguments);
+        var href = variables.domEngine.findLink(argumentCollection = arguments);
 
         var route = parseFrameworkRoute(href);
         route = isNull(route) ? '' : route;
@@ -316,28 +294,37 @@ component extends="testbox.system.compat.framework.TestCase" {
         struct inputs = {},
         string overrideEvent = ''
     ) {
-        // Send to the interactionEngine and get back the inputs
-        var pageForm = variables.DOMAssertionEngine.findForm(arguments.button);
 
         if (StructIsEmpty(arguments.inputs)) {
-            // Put the form values from the current page in to the variables.input struct
-            extractValuesFromForm(pageForm);
+            // Send to the interactionEngine and get back the inputs
+            var inputs = variables.domEngine.getFormInputs(arguments.button);
+            
+            // Put the form values from the current page in to the interactionEngine
+            for (var input in inputs) {
+                variables.interactionEngine.storeInput(
+                    element = input.name,
+                    value = input.value,
+                    overwrite = false
+                );
+            }
 
             arguments.inputs = variables.interactionEngine.getInputs();
         }
 
-        // Send to the requestEngine and get back the event
+        var method = variables.domEngine.getFormMethod(arguments.button);
+
         if (arguments.overrideEvent != '') {
             return makeRequest(
-                method = pageForm.attr('method'),
+                method = method,
                 event = arguments.overrideEvent,
                 parameters = arguments.inputs
             );
         }
         else {
+            var action = variables.domEngine.getFormAction(arguments.button);
             return makeRequest(
-                method = pageForm.attr('method'),
-                route = parseFrameworkRoute(pageForm.attr('action')),
+                method = method,
+                route = parseFrameworkRoute(action),
                 parameters = arguments.inputs
             );
         }
@@ -411,10 +398,10 @@ component extends="testbox.system.compat.framework.TestCase" {
         // Make the request using the request driver;
         // var event = variables.requestEngine.makeRequest();
         // Send the event to the frameworkAssertionEngine
-        variables.frameworkAssertionEngine.setEvent(event);
-        // Send the html to the DOMAssertionEngine
-        variables.DOMAssertionEngine.parse(
-            variables.frameworkAssertionEngine.getHTML()
+        variables.frameworkEngine.setEvent(event);
+        // Send the html to the domEngine
+        variables.domEngine.parse(
+            variables.frameworkEngine.getHTML()
         );
 
         return this;
@@ -433,7 +420,7 @@ component extends="testbox.system.compat.framework.TestCase" {
     * @return Integrated.BaseSpecs.AbstractBaseSpec
     */
     public AbstractBaseSpec function seePageIs(required string route) {
-        variables.frameworkAssertionEngine.seePageIs(argumentCollection = arguments);
+        variables.frameworkEngine.seePageIs(argumentCollection = arguments);
 
         return this;
     }
@@ -446,7 +433,7 @@ component extends="testbox.system.compat.framework.TestCase" {
     * @return Integrated.BaseSpecs.AbstractBaseSpec
     */
     public AbstractBaseSpec function seeTitleIs(required string title) {
-        variables.DOMAssertionEngine.seeTitleIs(argumentCollection = arguments);
+        variables.domEngine.seeTitleIs(argumentCollection = arguments);
 
         return this;
     }
@@ -459,7 +446,7 @@ component extends="testbox.system.compat.framework.TestCase" {
     * @return Integrated.BaseSpecs.AbstractBaseSpec
     */
     public AbstractBaseSpec function seeViewIs(required string view) {
-        variables.frameworkAssertionEngine.seeViewIs(argumentCollection = arguments);
+        variables.frameworkEngine.seeViewIs(argumentCollection = arguments);
 
         return this;
     }
@@ -472,7 +459,7 @@ component extends="testbox.system.compat.framework.TestCase" {
     * @return Integrated.BaseSpecs.AbstractBaseSpec
     */
     public AbstractBaseSpec function seeHandlerIs(required string handler) {
-        variables.frameworkAssertionEngine.seeHandlerIs(argumentCollection = arguments);
+        variables.frameworkEngine.seeHandlerIs(argumentCollection = arguments);
 
         return this;
     }
@@ -485,7 +472,7 @@ component extends="testbox.system.compat.framework.TestCase" {
     * @return Integrated.BaseSpecs.AbstractBaseSpec
     */
     public AbstractBaseSpec function seeActionIs(required string action) {
-        variables.frameworkAssertionEngine.seeActionIs(argumentCollection = arguments);
+        variables.frameworkEngine.seeActionIs(argumentCollection = arguments);
 
         return this;
     }
@@ -498,7 +485,7 @@ component extends="testbox.system.compat.framework.TestCase" {
     * @return Integrated.BaseSpecs.AbstractBaseSpec
     */
     public AbstractBaseSpec function seeEventIs(required string event) {
-        variables.frameworkAssertionEngine.seeEventIs(argumentCollection = arguments);
+        variables.frameworkEngine.seeEventIs(argumentCollection = arguments);
 
         return this;
     }
@@ -512,7 +499,7 @@ component extends="testbox.system.compat.framework.TestCase" {
     * @return Integrated.BaseSpecs.AbstractBaseSpec
     */
     public AbstractBaseSpec function see(required string text, boolean negate = false) {
-        variables.DOMAssertionEngine.see(argumentCollection = arguments);
+        variables.domEngine.see(argumentCollection = arguments);
 
         return this;
     }
@@ -542,7 +529,7 @@ component extends="testbox.system.compat.framework.TestCase" {
         required string text,
         boolean negate = false
     ) {
-        variables.DOMAssertionEngine.seeInElement(argumentCollection = arguments);
+        variables.domEngine.seeInElement(argumentCollection = arguments);
 
         return this;
     }
@@ -576,7 +563,7 @@ component extends="testbox.system.compat.framework.TestCase" {
     * @return Integrated.BaseSpecs.AbstractBaseSpec
     */
     public AbstractBaseSpec function seeLink(required string text, string url = '') {
-        variables.DOMAssertionEngine.seeLink(argumentCollection = arguments);
+        variables.domEngine.seeLink(argumentCollection = arguments);
 
         return this;
     }
@@ -591,7 +578,7 @@ component extends="testbox.system.compat.framework.TestCase" {
     * @return Integrated.BaseSpecs.AbstractBaseSpec
     */
     public AbstractBaseSpec function dontSeeLink(required string text, string url = '') {
-        variables.DOMAssertionEngine.dontSeeLink(argumentCollection = arguments);
+        variables.domEngine.dontSeeLink(argumentCollection = arguments);
 
         return this;
     }
@@ -610,7 +597,7 @@ component extends="testbox.system.compat.framework.TestCase" {
         required string value,
         boolean negate = false
     ) {
-        variables.DOMAssertionEngine.seeInField(argumentCollection = arguments);
+        variables.domEngine.seeInField(argumentCollection = arguments);
 
         return this;
     }
@@ -643,7 +630,7 @@ component extends="testbox.system.compat.framework.TestCase" {
         required string element,
         boolean negate = false
     ) {
-        variables.DOMAssertionEngine.seeIsChecked(argumentCollection = arguments);
+        variables.domEngine.seeIsChecked(argumentCollection = arguments);
 
         return this;
     }
@@ -676,7 +663,7 @@ component extends="testbox.system.compat.framework.TestCase" {
         required string value,
         boolean negate = false
     ) {
-        variables.DOMAssertionEngine.seeIsSelected(argumentCollection = arguments);
+        variables.domEngine.seeIsSelected(argumentCollection = arguments);
 
         return this;
     }
@@ -716,7 +703,7 @@ component extends="testbox.system.compat.framework.TestCase" {
         boolean private = false,
         boolean negate = false
     ) {
-        variables.frameworkAssertionEngine.seeInCollection(argumentCollection = arguments);
+        variables.frameworkEngine.seeInCollection(argumentCollection = arguments);
 
         return this;
     }
@@ -810,7 +797,7 @@ component extends="testbox.system.compat.framework.TestCase" {
     */
     private void function setEvent( required event ) {
         variables.event = arguments.event;
-        variables.frameworkAssertionEngine.setEvent(arguments.event);
+        variables.frameworkEngine.setEvent(arguments.event);
 
         return;
     }
@@ -821,7 +808,7 @@ component extends="testbox.system.compat.framework.TestCase" {
     * @event The request method
     */
     private void function setRequestMethod( required string requestMethod ) {
-        variables.frameworkAssertionEngine.setRequestMethod( arguments.requestMethod );
+        variables.frameworkEngine.setRequestMethod( arguments.requestMethod );
     }
 
     /**
@@ -830,25 +817,7 @@ component extends="testbox.system.compat.framework.TestCase" {
     * @return string
     */
     public string function getRequestMethod() {
-        return variables.frameworkAssertionEngine.getRequestMethod();
-    }
-
-    /**
-    * Retrives the last ColdBox request context (event) ran.
-    * Throws an exception if there is no event available.
-    *
-    * @throws TestBox.AssertionFailed
-    * @return coldbox.system.web.context.RequestContext
-    */
-    private function getEvent() {
-        if (IsSimpleValue(variables.event)) {
-            throw(
-                type = 'TestBox.AssertionFailed',
-                message = 'Cannot make assertions until you visit a page.  Make sure to run visit() or visitEvent() first.'
-            );
-        }
-
-        return variables.event;
+        return variables.frameworkEngine.getRequestMethod();
     }
 
     /**
@@ -858,7 +827,7 @@ component extends="testbox.system.compat.framework.TestCase" {
     * @htmlString The html string to parse.
     */
     private void function parse(required string htmlString) {
-        variables.DOMAssertionEngine.parse(argumentCollection = arguments);
+        variables.domEngine.parse(argumentCollection = arguments);
     }
 
     /**
