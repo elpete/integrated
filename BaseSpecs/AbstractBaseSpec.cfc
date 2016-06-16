@@ -12,6 +12,7 @@ component extends="testbox.system.compat.framework.TestCase" {
     property name='frameworkEngine' type='Integrated.Engines.Assertion.Contracts.FrameworkAssertionEngine';
     // The interaction engine
     property name='interactionEngine' type='Integrated.Engines.Interaction.Contracts.InteractionEngine';
+    // The request engine
     property name='requestEngine' type='Integrated.Engines.Request.Contracts.RequestEngine';
 
     // Boolean flag to turn on automatic database transactions
