@@ -12,7 +12,7 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
     *
     * @jsoup The JSoup parser
     *
-    * @return Integrated.Engines.DOMAssertionEngine
+    * @return Integrated.Engines.Assertion.Contracts.DOMAssertionEngine
     */
     public Integrated.Engines.Assertion.Contracts.DOMAssertionEngine function init(
         jsoup = createObject( "java", "org.jsoup.Jsoup" )
@@ -44,9 +44,9 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
     *
     * @title The expected title.
     *
-    * @return Integrated.Engines.DOMAssertionEngine
+    * @return Integrated.Engines.Assertion.Contracts.DOMAssertionEngine
     */
-    public DOMAssertionEngine function seeTitleIs(required string title) {
+    public Integrated.Engines.Assertion.Contracts.DOMAssertionEngine function seeTitleIs(required string title) {
         var actualTitle = getParsedPage().title();
 
         expect(arguments.title).toBe(actualTitle,
@@ -62,9 +62,9 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
     * @text The expected text.
     * @negate Optional. If true, throw an exception if the text IS found on the current page. Default: false.
     *
-    * @return Integrated.Engines.DOMAssertionEngine
+    * @return Integrated.Engines.Assertion.Contracts.DOMAssertionEngine
     */
-    public DOMAssertionEngine function see(required string text, boolean negate = false) {
+    public Integrated.Engines.Assertion.Contracts.DOMAssertionEngine function see(required string text, boolean negate = false) {
         var elems = getParsedPage().select('*:contains(#arguments.text#)');
 
         if (!negate) {
@@ -82,9 +82,9 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
     *
     * @text The text that should not appear.
     *
-    * @return Integrated.Engines.DOMAssertionEngine
+    * @return Integrated.Engines.Assertion.Contracts.DOMAssertionEngine
     */
-    public DOMAssertionEngine function dontSee(required string text) {
+    public Integrated.Engines.Assertion.Contracts.DOMAssertionEngine function dontSee(required string text) {
         return this.see(text = arguments.text, negate = true);
     }
 
@@ -95,9 +95,9 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
     * @text The expected text.
     * @negate Optional. If true, throw an exception if the element DOES contain the given text on the current page. Default: false.
     *
-    * @return Integrated.Engines.DOMAssertionEngine
+    * @return Integrated.Engines.Assertion.Contracts.DOMAssertionEngine
     */
-    public DOMAssertionEngine function seeInElement(
+    public Integrated.Engines.Assertion.Contracts.DOMAssertionEngine function seeInElement(
         required string element,
         required string text,
         boolean negate = false
@@ -122,9 +122,9 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
     * @element The provided element.
     * @text The text that should not be found.
     *
-    * @return Integrated.Engines.DOMAssertionEngine
+    * @return Integrated.Engines.Assertion.Contracts.DOMAssertionEngine
     */
-    public DOMAssertionEngine function dontSeeInElement(
+    public Integrated.Engines.Assertion.Contracts.DOMAssertionEngine function dontSeeInElement(
         required string element,
         required string text
     ) {
@@ -142,9 +142,9 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
     * @text The expected text of the link.
     * @url Optional. The expected url of the link. Default: ''.
     *
-    * @return Integrated.Engines.DOMAssertionEngine
+    * @return Integrated.Engines.Assertion.Contracts.DOMAssertionEngine
     */
-    public DOMAssertionEngine function seeLink(required string text, string url = '') {
+    public Integrated.Engines.Assertion.Contracts.DOMAssertionEngine function seeLink(required string text, string url = '') {
         var errorMessage = 'No links were found matching the pattern [#arguments.text#]';
 
         if (arguments.url != '') {
@@ -165,9 +165,9 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
     * @text The text of the link that should not be found.
     * @url Optional. The url that should not be found. Default: ''.
     *
-    * @return Integrated.Engines.DOMAssertionEngine
+    * @return Integrated.Engines.Assertion.Contracts.DOMAssertionEngine
     */
-    public DOMAssertionEngine function dontSeeLink(required string text, string url = '') {
+    public Integrated.Engines.Assertion.Contracts.DOMAssertionEngine function dontSeeLink(required string text, string url = '') {
         var errorMessage = 'A link was found with expected text [#arguments.text#]';
 
         if (arguments.url != '') {
@@ -188,9 +188,9 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
     * @value The expected value of the field.
     * @negate Optional. If true, throw an exception if the field DOES contain the given text on the current page. Default: false.
     *
-    * @return Integrated.Engines.DOMAssertionEngine
+    * @return Integrated.Engines.Assertion.Contracts.DOMAssertionEngine
     */
-    public DOMAssertionEngine function seeInField(required string element, required string value, boolean negate = false) {
+    public Integrated.Engines.Assertion.Contracts.DOMAssertionEngine function seeInField(required string element, required string value, boolean negate = false) {
         var inputs = findField(arguments.element);
 
         var inputsWithValue = inputs.select('[value=#arguments.value#');
@@ -211,9 +211,9 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
     * @element The selector or name of the field.
     * @value The value of the field to not find.
     *
-    * @return Integrated.Engines.DOMAssertionEngine
+    * @return Integrated.Engines.Assertion.Contracts.DOMAssertionEngine
     */
-    public DOMAssertionEngine function dontSeeInField(required string element, required string value) {
+    public Integrated.Engines.Assertion.Contracts.DOMAssertionEngine function dontSeeInField(required string element, required string value) {
         return this.seeInField(
             element = arguments.element,
             value = arguments.value,
@@ -227,9 +227,9 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
     * @element The selector or name of the checkbox.
     * @negate Optional. If true, throw an exception if the checkbox IS checked on the current page. Default: false.
     *
-    * @return Integrated.Engines.DOMAssertionEngine
+    * @return Integrated.Engines.Assertion.Contracts.DOMAssertionEngine
     */
-    public DOMAssertionEngine function seeIsChecked(required string element, boolean negate = false) {
+    public Integrated.Engines.Assertion.Contracts.DOMAssertionEngine function seeIsChecked(required string element, boolean negate = false) {
         var checkboxes = findCheckbox(arguments.element);
 
         var checkedCheckboxes = checkboxes.select('[checked]');
@@ -249,9 +249,9 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
     *
     * @element The selector or name of the field.
     *
-    * @return Integrated.Engines.DOMAssertionEngine
+    * @return Integrated.Engines.Assertion.Contracts.DOMAssertionEngine
     */
-    public DOMAssertionEngine function dontSeeIsChecked(required string element) {
+    public Integrated.Engines.Assertion.Contracts.DOMAssertionEngine function dontSeeIsChecked(required string element) {
         return this.seeIsChecked(
             element = arguments.element,
             negate = true
@@ -265,9 +265,9 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
     * @value The value or text of the option that should exist.
     * @negate Optional. If true, throw an exception if the option IS selected in the given select field on the current page. Default: false.
     *
-    * @return Integrated.Engines.DOMAssertionEngine
+    * @return Integrated.Engines.Assertion.Contracts.DOMAssertionEngine
     */
-    public DOMAssertionEngine function seeIsSelected(required string element, required string value, boolean negate = false) {
+    public Integrated.Engines.Assertion.Contracts.DOMAssertionEngine function seeIsSelected(required string element, required string value, boolean negate = false) {
         var selectFields = findSelectField(arguments.element);
 
         var selectedOption = selectFields.select('option[selected]');
@@ -292,9 +292,9 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
     * @element The selector or name of the select field.
     * @value The value or text of the option that should exist.
     *
-    * @return Integrated.Engines.DOMAssertionEngine
+    * @return Integrated.Engines.Assertion.Contracts.DOMAssertionEngine
     */
-    public DOMAssertionEngine function dontSeeIsSelected(required string element, required string value) {
+    public Integrated.Engines.Assertion.Contracts.DOMAssertionEngine function dontSeeIsSelected(required string element, required string value) {
         return this.seeIsSelected(
             element = arguments.element,
             value = arguments.value,
@@ -305,9 +305,9 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
     /**
     * Pipes the html of the page to the debug() output
     *
-    * @return Integrated.Engines.DOMAssertionEngine
+    * @return Integrated.Engines.Assertion.Contracts.DOMAssertionEngine
     */
-    public DOMAssertionEngine function debugPage() {
+    public Integrated.Engines.Assertion.Contracts.DOMAssertionEngine function debugPage() {
         debug(variables.page.html());
 
         return this;
