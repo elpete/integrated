@@ -18,6 +18,8 @@ component extends='Integrated.BaseSpecs.AbstractBaseSpec' {
 
     function afterAll() {
         super.afterAll();
+        // IMPORTANT: otherwise, ColdBox keeps the last request cached or something
+        requestEngine.afterAll();
     }
 
 
