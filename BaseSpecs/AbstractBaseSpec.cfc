@@ -377,6 +377,7 @@ component extends="testbox.system.compat.framework.TestCase" {
         setRequestMethod('');
 
         // Make a framework-specific request
+        // var event = variables.requestEngine.makeRequest(argumentCollection = arguments);
         var event = makeFrameworkRequest(argumentCollection = arguments);
         setEvent(event);
 
