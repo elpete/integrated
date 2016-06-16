@@ -66,47 +66,9 @@ component extends="testbox.system.compat.framework.TestCase" {
         return variables.requestEngine.parseFrameworkRoute(argumentCollection = arguments);
     }
 
-    /**
-    * @doc_abstract true
-    *
-    * Returns true if the response is a redirect
-    *
-    * @event The Framework-specific event object.
-    *
-    * @return boolean
-    */
-    private boolean function isRedirect(event) {
-        throw('Method is abstract and must be implemented in a concrete component.');   
-    }
-
-    /**
-    * @doc_abstract true
-    *
-    * Returns the redirect event name
-    *
-    * @event The Framework-specific event object.
-    *
-    * @return string
-    */
-    private string function getRedirectEvent(event) {
-        throw('Method is abstract and must be implemented in a concrete component.');   
-    }
-
-    /**
-    * @doc_abstract true
-    *
-    * Returns the inputs for the redirect event, if any.
-    *
-    * @event The Framework-specific event object.
-    *
-    * @return struct
-    */
-    private struct function getRedirectInputs(event) {
-        throw('Method is abstract and must be implemented in a concrete component.');   
-    }
-
 
     /***************************** Lifecycle Methods *******************************/
+
 
     /**
     * Wraps each spec in a database transaction, if desired.
@@ -294,7 +256,6 @@ component extends="testbox.system.compat.framework.TestCase" {
         struct inputs = {},
         string overrideEvent = ''
     ) {
-
         if (StructIsEmpty(arguments.inputs)) {
             // Send to the interactionEngine and get back the inputs
             var inputs = variables.domEngine.getFormInputs(arguments.button);
@@ -378,19 +339,19 @@ component extends="testbox.system.compat.framework.TestCase" {
         }
 
         // Follow any redirects found
-        if (isRedirect(variables.event)) {
+        if (variables.frameworkEngine.isRedirect()) {
             if (StructKeyExists(arguments, 'route')) {
                 return makeRequest(
                     method = arguments.method,
-                    route = getRedirectEvent(variables.event),
-                    parameters = getRedirectInputs(variables.event)
+                    route = variables.frameworkEngine.getRedirectEvent(),
+                    parameters = variables.frameworkEngine.getRedirectInputs()
                 );
             }
             else {
                 return makeRequest(
                     method = arguments.method,
-                    event = getRedirectEvent(variables.event),
-                    parameters = getRedirectInputs(variables.event)
+                    event = variables.frameworkEngine.getRedirectEvent(),
+                    parameters = variables.frameworkEngine.getRedirectInputs()
                 );
             }
         }

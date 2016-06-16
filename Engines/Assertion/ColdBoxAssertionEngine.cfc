@@ -39,6 +39,50 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
     }
 
     /**
+    * @doc_abstract true
+    *
+    * Returns true if the response is a redirect
+    *
+    * @event The ColdBox event object (coldbox.system.web.context.RequestContext)
+    *
+    * @return boolean
+    */
+    public boolean function isRedirect(event) {
+        return getEvent().valueExists('setNextEvent_event');
+    }
+
+    /**
+    * Returns the redirect event name
+    *
+    * @event The ColdBox event object (coldbox.system.web.context.RequestContext)
+    *
+    * @return string
+    */
+    public string function getRedirectEvent(event) {
+        return getEvent().getValue('setNextEvent_event');
+    }
+
+    /**
+    * Returns the inputs for the redirect event, if any.
+    *
+    * @event The ColdBox event object (coldbox.system.web.context.RequestContext)
+    *
+    * @return struct
+    */
+    public struct function getRedirectInputs(event) {
+        var persistKeys = ListToArray(getEvent().getValue('setNextEvent_persist', ''));
+
+        var persistStruct = {};
+        for (var key in persistKeys) {
+            persistStruct[key] = getEvent().getValue(key);
+        }
+
+        structAppend(persistStruct, getEvent().getValue('setNextEvent_persistStruct', {}));
+
+        return persistStruct;
+    }
+
+    /**
     * Verifies the route of the current page.
     * This method cannot be used after visiting a page using an event.
     *
