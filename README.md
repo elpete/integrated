@@ -30,8 +30,12 @@ Change your Integration tests to extend from `Integration.BaseSpecs.ColdBoxBaseS
 ```cfc
 component extends="Integrated.BaseSpecs.ColdBoxBaseSpec" {
     function beforeAll() {
-        // Make sure to call the parent class's beforeAll() method.
+        // Make sure to call the parent class's beforeAll() and afterAll() methods.
         super.beforeAll();
+    }
+
+    function afterAll() {
+        super.afterAll();
     }
 }
 ```
@@ -83,6 +87,8 @@ Easily add database transactions around your tests by adding this one property t
 this.useDatabaseTransactions = true;
 ```
 
+By default, we clear out the session scope on each request.  If you want to persist the session scope across requests, simply add `this.persistSessionScope = true;` to the top of your spec.  **Note:** this will happen for all tests in the file.
+
 ### Creating Framework-specific BaseSpecs
 
 To create your own framework specific BaseSpec, first extend the `Integrated.BaseSpecs.AbstractBaseSpec` component.
@@ -90,22 +96,70 @@ To create your own framework specific BaseSpec, first extend the `Integrated.Bas
 ```cfc
 component extends="Integrated.BaseSpecs.AbstractBaseSpec" {
     function beforeAll() {
-        super.beforeAll(); // IMPORTANT!  Don't forget to call `beforeAll()`!
+    // IMPORTANT!  Don't forget to call `beforeAll()` and `afterAll()`!
+        super.beforeAll(
+            // your setup here
+        );
+    }
 
-        // Your specific setup here.
+    function afterAll() {
+        super.afterAll();
     }
 }
 ```
 
-There are three abstract methods that you need to implement:
+The `beforeAll` method takes four separate engines that drive Integrated:
 
-1. `makeFrameworkRequest` — makes a request specifically for your framework.  Return whatever event object your framework uses.  That object will be passed to the `getHTML` method you implement.
-2. `getHTML` — returns the html string from your framework's event object.  This html string is then parsed and available for your tests.
-3. `parseActionFromForm` — returns just the route portion of a full uri.  For example, `http://localhost:8500/index.cfm/login` should return just `/login` in ColdBox.
+```cfc
+/**
+* Sets up the needed dependancies for Integrated.
+*
+* @requestEngine Integrated.Engines.Request.Contracts.RequestEngine
+* @frameworkEngine Integrated.Engines.Assertion.Contracts.FrameworkAssertionEngine
+* @domEngine Integrated.Engines.Assertion.Contracts.DOMAssertionEngine
+* @interactionEngine Integrated.Engines.Interaction.Contracts.InteractionEngine
+*
+* @return Integrated.BaseSpecs.AbstractBaseSpec
+*/
+public AbstractBaseSpec function beforeAll(
+    required RequestEngine requestEngine,
+    required FrameworkAssertionEngine frameworkEngine,
+    required DOMAssertionEngine domEngine,
+    required InteractionEngine interactionEngine
+);
+```
+
+In your base spec, you can return any combination of these four engines to power Integrated.  For instance, you may wish to specify a different `RequestEngine` and `FrameworkAssertionEngine` for your new base spec but  use JSoup for the `DOMAssertionEngine` and the `InteractionEngine`.  Or, you could use Selenium based engines for every one of the required engines.  It's up to you.
 
 You can look at [`Integrated.BaseSpecs.ColdBoxBaseSpec`](https://github.com/elpete/integrated/blob/master/BaseSpecs/ColdBoxBaseSpec.cfc) for how this is done for ColdBox.
+
+Each engine has an Interface that new engines must conform to as well as an abstract spec they should pass.
+
+```cfc
+// Integrated.Engines.Request.MyAwesomeRequestEngine
+component implements="Integrated.Engines.Request.Contracts.RequestEngine" {
+    // your implementation here
+}
+```
+
+```cfc
+component extends="tests.specs.unit.Engines.Request.Contracts.RequestEngineTest" {
+
+    function getCUT() {
+        return new Integrated.Engines.Request.MyAwesomeRequestEngine();
+    }
+
+}
+```
+
+**Note:** each engine's abstract spec may be slightly different in how they are set up.  Take a [look][DOMAssertionEngineTest] [at][FrameworkAssertionEngineTest] [the][InteractionEngineTest] [specs][RequestEngineTest] to see the details.
 
 ### Credits
 
 This package is **heavily** inspired by [Jeffrey Way's Integrated package for Laravel](https://github.com/laracasts/Integrated).
 I learned about it at [Laracasts](https://laracasts.com/), which I consider my best programming resource *regardless* of the fact that I have never deployed a line of PHP code.
+
+[DOMAssertionEngineTest]: https://github.com/elpete/integrated/blob/master/tests/specs/unit/Engines/Assertion/Contracts/DOMAssertionEngineTest.cfc
+[FrameworkAssertionEngineTest]: https://github.com/elpete/integrated/blob/master/tests/specs/unit/Engines/Assertion/Contracts/FrameworkAssertionEngineTest.cfc
+[InteractionEngineTest]: https://github.com/elpete/integrated/blob/master/tests/specs/unit/Engines/Interaction/Contracts/InteractionEngineTest.cfc
+[RequestEngineTest]: https://github.com/elpete/integrated/blob/master/tests/specs/unit/Engines/Request/Contracts/RequestEngineTest.cfc
