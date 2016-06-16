@@ -1,6 +1,5 @@
 language: java
-sudo: required
-dist: trusty
+sudo: false
 jdk:
 - oraclejdk8
 env:
@@ -11,12 +10,12 @@ env:
     - ENGINE=adobe@11
     - ENGINE=adobe@10
 before_install:
-- sudo apt-key adv --keyserver keys.gnupg.net --recv 6DA70622
-- sudo echo "deb http://downloads.ortussolutions.com/debs/noarch /" | sudo tee -a
-  /etc/apt/sources.list.d/commandbox.list
+- mkdir /tmp/bin
+- export PATH=$PATH:/tmp/bin
 install:
-- sudo apt-get update && sudo apt-get --assume-yes install commandbox
-- box install
+- curl --location 'http://integration.stg.ortussolutions.com/artifacts/ortussolutions/commandbox/3.1.1/commandbox-bin-3.1.1.zip' -o /tmp/box.zip
+- unzip /tmp/box.zip -d /tmp/bin
+- /tmp/bin/box install
 before_script:
 - box server start cfengine=$ENGINE
 script: >
