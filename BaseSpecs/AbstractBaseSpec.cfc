@@ -26,16 +26,20 @@ component extends="testbox.system.compat.framework.TestCase" {
     /**
     * Sets up the needed dependancies for Integrated.
     *
+    * @requestEngine Integrated.Engines.Request.Contracts.RequestEngine
+    * @frameworkEngine Integrated.Engines.Assertion.Contracts.FrameworkAssertionEngine
+    * @domEngine Integrated.Engines.Assertion.Contracts.DOMAssertionEngine
+    * @interactionEngine Integrated.Engines.Interaction.Contracts.InteractionEngine
+    *
     * @return Integrated.BaseSpecs.AbstractBaseSpec
     *
     * @beforeAll
     */
-    public AbstractBaseSpec function beforeAll(
+    public void function beforeAll(
         required RequestEngine requestEngine,
         required FrameworkAssertionEngine frameworkEngine,
-        DOMAssertionEngine domEngine = new Integrated.Engines.Assertion.JSoupAssertionEngine(),
-        InteractionEngine interactionEngine = new Integrated.Engines.Interaction.JSoupInteractionEngine(),
-        additionalMatchers = 'Integrated.BaseSpecs.DBMatchers'
+        required DOMAssertionEngine domEngine,
+        required InteractionEngine interactionEngine
     ) {
         // Prime the engines
         variables.requestEngine = arguments.requestEngine;
@@ -45,13 +49,11 @@ component extends="testbox.system.compat.framework.TestCase" {
         variables.interactionEngine.setDOMAssertionEngine(variables.domEngine);
 
         // Add the database matchers
-        addMatchers(arguments.additionalMatchers);
+        addMatchers('Integrated.BaseSpecs.DBMatchers');
 
         // Start with an empty request 
         setRequestMethod( "" );
         setEvent( "" );
-
-        return this;
     }
 
     public void function afterAll() {}

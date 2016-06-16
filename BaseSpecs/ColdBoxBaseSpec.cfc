@@ -11,8 +11,10 @@ component extends='Integrated.BaseSpecs.AbstractBaseSpec' {
         requestEngine.beforeAll();
 
         super.beforeAll(
+            requestEngine = arguments.requestEngine,
+            domEngine = new Integrated.Engines.Assertion.JSoupAssertionEngine(),
             frameworkEngine = new Integrated.Engines.Assertion.ColdBoxAssertionEngine(),
-            requestEngine = arguments.requestEngine
+            interactionEngine = new Integrated.Engines.Interaction.JSoupInteractionEngine()
         );
     }
 
