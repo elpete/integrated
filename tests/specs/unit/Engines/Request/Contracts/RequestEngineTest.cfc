@@ -20,6 +20,7 @@ component extends='testbox.system.BaseSpec' {
         this.CUT = getCUT();
         this.CUT.beforeAll();
         getMockBox().prepareMock( this.CUT );
+        this.CUT.$("getRequestContext", "event-object");
     }
 
     function run() {
@@ -114,7 +115,7 @@ component extends='testbox.system.BaseSpec' {
             });
 
             it( "passes along any parameters to the request", function() {
-                var mockEvent = this.CUT.getRequestContext();
+                var mockEvent = getMockBox().createMock("coldbox.system.web.context.RequestContext");
                 getMockBox().prepareMock(mockEvent);
 
                 mockEvent.$("setValue");

@@ -5,7 +5,7 @@ component extends='Integrated.BaseSpecs.AbstractBaseSpec' {
 
     function beforeAll(
         requestEngine = new Integrated.Engines.Request.ColdBoxRequestEngine(),
-        overrideMetadata
+        overrideMetadata = {}
     ) {
         passOnMetadata( arguments.requestEngine, arguments.overrideMetadata );
         requestEngine.beforeAll();
@@ -24,8 +24,8 @@ component extends='Integrated.BaseSpecs.AbstractBaseSpec' {
         requestEngine.afterAll();
     }
 
-    private function passOnMetadata(baseTestCase, overrideMetadata) {
-        var md = IsDefined("overrideMetadata") ? overrideMetadata : getMetadata(this);
+    private function passOnMetadata(baseTestCase, overrideMetadata = {}) {
+        var md = structIsEmpty(arguments.overrideMetadata) ? getMetadata(this) : arguments.overrideMetadata;
         // Inspect for appMapping annotation
         if (structKeyExists(md, "appMapping")) {
             arguments.baseTestCase.setAppMapping(md.appMapping);

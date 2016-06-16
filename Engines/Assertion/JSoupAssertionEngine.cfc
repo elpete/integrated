@@ -1,3 +1,5 @@
+import Integrated.Engines.Assertion.Contracts.DOMAssertionEngine;
+
 component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Assertion.Contracts.DOMAssertionEngine" {
 
     // The jsoup parser object
@@ -12,7 +14,7 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
     *
     * @return Integrated.Engines.DOMAssertionEngine
     */
-    public DOMAssertionEngine function init(
+    public Integrated.Engines.Assertion.Contracts.DOMAssertionEngine function init(
         jsoup = createObject( "java", "org.jsoup.Jsoup" )
     ) {
         variables.jsoup = arguments.jsoup;
@@ -318,9 +320,9 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
     * @errorMessage The error message to throw if an assertion fails.
     *
     * @throws TestBox.AssertionFailed
-    * @return org.jsoup.select.Elements
+    * @return Integrated.Engines.Assertion.Contracts.DOMAssertionEngine
     */
-    public DOMAssertionEngine function seeElement(
+    public Integrated.Engines.Assertion.Contracts.DOMAssertionEngine function seeElement(
         required string selectorOrName,
         string errorMessage = 'Failed to find a [#arguments.selectorOrName#] element on the page.'
     ) {
@@ -340,7 +342,7 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
     * @throws TestBox.AssertionFailed
     * @return org.jsoup.select.Elements
     */
-    public function findOptionValue(
+    public any function findOptionValue(
         required string value,
         required string selectorOrName,
         string errorMessage = 'Failed to find an option with value or text [#arguments.value#] in [#arguments.selectorOrName#].'

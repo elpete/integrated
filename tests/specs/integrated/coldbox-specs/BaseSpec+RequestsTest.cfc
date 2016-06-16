@@ -31,7 +31,7 @@ component extends='testbox.system.BaseSpec' {
                         var html = fileRead(expandPath('/tests/resources/login-page.html'));
                         mockEvent.$('valueExists').$args('setNextEvent_event').$results(false);
                         mockEvent.$(method = 'getCollection', returns = { cbox_rendered_content = html });
-
+                        requestEngine.$('getRequestContext', mockEvent);
                         requestEngine.$('execute').$args(route = '/login', renderResults = true).$results(mockEvent);
                     });
 
@@ -95,6 +95,7 @@ component extends='testbox.system.BaseSpec' {
                         mockEvent.$('valueExists').$args('setNextEvent_event').$results(false);
                         mockEvent.$(method = 'getCollection', returns = { cbox_rendered_content = html });
 
+                        requestEngine.$('getRequestContext', mockEvent);
                         requestEngine.$('execute').$args(event = 'Main.index', renderResults = true).$results(mockEvent);
                     });
 

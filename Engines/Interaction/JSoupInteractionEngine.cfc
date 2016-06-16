@@ -1,3 +1,6 @@
+import Integrated.Engines.Assertion.Contracts.DOMAssertionEngine;
+import Integrated.Engines.Interaction.Contracts.InteractionEngine;
+
 component implements="Integrated.Engines.Interaction.Contracts.InteractionEngine" {
     
     // The struct of form input values

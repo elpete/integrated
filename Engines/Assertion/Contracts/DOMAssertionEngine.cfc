@@ -1,3 +1,5 @@
+import Integrated.Engines.Assertion.Contracts.DOMAssertionEngine;
+
 interface displayname="DOMAssertionEngine" {
 
     /**
@@ -154,9 +156,9 @@ interface displayname="DOMAssertionEngine" {
     * @errorMessage The error message to throw if an assertion fails.
     *
     * @throws TestBox.AssertionFailed
-    * @return org.jsoup.select.Elements
+    * @return Integrated.Engines.Assertion.Contracts.DOMAssertionEngine
     */
-    public DOMAssertionEngine function seeElement(required string selectorOrName, string errorMessage);
+    public Integrated.Engines.Assertion.Contracts.DOMAssertionEngine function seeElement(required string selectorOrName, string errorMessage);
 
     /**
     * Returns the option value found with a given value or name in a select field with a given selector or name.

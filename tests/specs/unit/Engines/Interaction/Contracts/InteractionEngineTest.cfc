@@ -21,6 +21,9 @@ component extends='testbox.system.BaseSpec' {
             return;
         }
 
+        variables.blankEngine = getMockBox().createStub(
+            implements = "Integrated.Engines.Assertion.Contracts.DOMAssertionEngine"
+        );
         variables.engine = getMockBox().createStub(
             implements = "Integrated.Engines.Assertion.Contracts.DOMAssertionEngine"
         );
@@ -36,10 +39,17 @@ component extends='testbox.system.BaseSpec' {
         }
 
         describe( "Interaction Engine — #getMetadata(this).fullname#", function() {
+            beforeEach(function() {
+                variables.engine = getMockBox().createStub(
+                    implements = "Integrated.Engines.Assertion.Contracts.DOMAssertionEngine"
+                );
+                this.CUT.setDOMAssertionEngine( engine );
+            });
+
             describe('interaction methods', function() {
                 feature('type', function() {
                     it('types a value in to a form field', function() {
-                        engine.$( "seeElement", engine );
+                        engine.$( method = "seeElement", returns = blankEngine, preserveArguments = true );
                         this.CUT.type('john@example.com', '##email');
 
                         var inputs = this.CUT.getInputs();
@@ -48,7 +58,7 @@ component extends='testbox.system.BaseSpec' {
                     });
 
                     it('fails if the form field does not exist', function() {
-                        engine.$("seeElement").$args("credit-card-number").$throws(type = "TestBox.AssertionFailed");
+                        engine.$( method = "seeElement", throwException = true, throwType = "TestBox.AssertionFailed", preserveArguments = true);
                         expect(function() {
                             this.CUT.type('2626262626262626', 'credit-card-number');
                         }).toThrow(
@@ -59,7 +69,7 @@ component extends='testbox.system.BaseSpec' {
 
                 feature('check', function() {
                     it('checks a checkbox', function() {
-                        engine.$( "seeElement", engine );
+                        engine.$( method = "seeElement", returns = blankEngine, preserveArguments = true );
                         this.CUT.check('##spam-me');
 
                         var inputs = this.CUT.getInputs();
@@ -68,7 +78,7 @@ component extends='testbox.system.BaseSpec' {
                     });
 
                     it('fails if the checkbox does not exist', function() {
-                        engine.$("seeElement").$args("terms").$throws(type = "TestBox.AssertionFailed");
+                        engine.$( method = "seeElement", throwException = true, throwType = "TestBox.AssertionFailed", preserveArguments = true);
                         expect(function() {
                             this.CUT.check('terms');
                         }).toThrow(
@@ -79,7 +89,7 @@ component extends='testbox.system.BaseSpec' {
 
                 feature('unchecks', function() {
                     it('unchecks a checkbox', function() {
-                        engine.$( "seeElement", engine );
+                        engine.$( method = "seeElement", returns = blankEngine, preserveArguments = true );
                         this.CUT.uncheck('##remember-me');
 
                         var inputs = this.CUT.getInputs();
@@ -88,7 +98,7 @@ component extends='testbox.system.BaseSpec' {
                     });
 
                     it('fails if the checkbox does not exist', function() {
-                        engine.$("seeElement").$args("terms").$throws(type = "TestBox.AssertionFailed");
+                        engine.$( method = "seeElement", throwException = true, throwType = "TestBox.AssertionFailed", preserveArguments = true);
                         expect(function() {
                             this.CUT.check('terms');
                         }).toThrow(
@@ -99,11 +109,11 @@ component extends='testbox.system.BaseSpec' {
 
                 feature('select', function() {
                     beforeEach(function() {
-                        engine.$( "seeElement", engine );
+                        engine.$( method = "seeElement", returns = blankEngine, preserveArguments = true );
                     });
 
                     it('selects an option', function() {
-                        engine.$("findOptionValue").$args("CA", "##country").$results("CA");
+                        engine.$( method = "findOptionValue", returns = "CA", preserveArguments = true);
                         this.CUT.select('CA', '##country');
 
                         var inputs = this.CUT.getInputs();
@@ -121,7 +131,7 @@ component extends='testbox.system.BaseSpec' {
                     });
 
                     it('fails if the select field does not exist', function() {
-                        engine.$("findOptionValue").$args("Male", "gender").$throws(type = "TestBox.AssertionFailed");
+                        engine.$(method = "findOptionValue", throwException = true, throwType = "TestBox.AssertionFailed", preserveArguments = true);
                         expect(function() {
                             this.CUT.select('Male', 'gender');
                         }).toThrow(
@@ -130,7 +140,7 @@ component extends='testbox.system.BaseSpec' {
                     });
 
                     it('fails if the option does not exist in the select field provided', function() {
-                        engine.$("findOptionValue").$args("Earth", "country").$throws(type = "TestBox.AssertionFailed");
+                        engine.$(method = "findOptionValue", throwException = true, throwType = "TestBox.AssertionFailed", preserveArguments = true);
                         expect(function() {
                             this.CUT.select('Earth', 'country');
                         }).toThrow(

@@ -21,8 +21,8 @@ component extends='testbox.system.BaseSpec' {
                 feature('type', function() {
                     it('types a value in to a form field', function() {
                         this.CUT.visit('/login')
-                                .dontSeeInField('##email', 'john@example.com')
-                                .type('john@example.com', '##email');
+                            .dontSeeInField('##email', 'john@example.com')
+                            .type('john@example.com', '##email');
 
                         var inputs = this.CUT.getInputs();
 
@@ -137,6 +137,7 @@ component extends='testbox.system.BaseSpec' {
         mockLoginEvent = getMockBox().createMock('coldbox.system.web.context.RequestContext');
         mockLoginEvent.$('valueExists').$args('setNextEvent_event').$results(false);
         mockLoginEvent.$(method = 'getCollection', returns = { cbox_rendered_content = loginPage });
+        variables.requestEngine.$('getRequestContext', mockLoginEvent);
         variables.requestEngine.$('execute').$args(route = '/login', renderResults = true).$results(mockLoginEvent);
     }
 

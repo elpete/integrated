@@ -1,3 +1,8 @@
+import Integrated.Engines.Assertion.Contracts.DOMAssertionEngine;
+import Integrated.Engines.Assertion.Contracts.FrameworkAssertionEngine;
+import Integrated.Engines.Interaction.Contracts.InteractionEngine;
+import Integrated.Engines.Request.Contracts.RequestEngine;
+
 /**
 * Abstract component for fluent integration tests.
 * Needs to be implemented for each framework it targets.
@@ -250,10 +255,10 @@ component extends="testbox.system.compat.framework.TestCase" {
     ) {
         if (StructIsEmpty(arguments.inputs)) {
             // Send to the interactionEngine and get back the inputs
-            var inputs = variables.domEngine.getFormInputs(arguments.button);
+            var formInputs = variables.domEngine.getFormInputs(arguments.button);
             
             // Put the form values from the current page in to the interactionEngine
-            for (var input in inputs) {
+            for (var input in formInputs) {
                 variables.interactionEngine.storeInput(
                     element = input.name,
                     value = input.value,
@@ -316,8 +321,8 @@ component extends="testbox.system.compat.framework.TestCase" {
         setRequestMethod('');
 
         // Make a request through the request engine
-        var event = variables.requestEngine.makeRequest(argumentCollection = arguments);
-        setEvent(event);
+        var returnedEvent = variables.requestEngine.makeRequest( argumentCollection = arguments );
+        setEvent( returnedEvent );
 
         // Clear out the inputs for the next request.
         variables.interactionEngine.reset();
@@ -348,10 +353,6 @@ component extends="testbox.system.compat.framework.TestCase" {
             }
         }
 
-        // Make the request using the request driver;
-        // var event = variables.requestEngine.makeRequest();
-        // Send the event to the frameworkAssertionEngine
-        variables.frameworkEngine.setEvent(event);
         // Send the html to the domEngine
         variables.domEngine.parse(
             variables.frameworkEngine.getHTML()
