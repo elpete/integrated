@@ -7,6 +7,11 @@ component extends='testbox.system.BaseSpec' {
         throw('Method is abstract and must be implemented in a concrete test component. Return the component from this method.');
     }
 
+    function isAbstractSpec() {
+        var md = getMetadata(this);
+        return structKeyExists( md, 'doc_abstract' ) && md.doc_abstract == true;
+    }
+
     function beforeAll() {
         if (isAbstractSpec()) {
             return;
@@ -16,10 +21,6 @@ component extends='testbox.system.BaseSpec' {
         getMockBox().prepareMock( this.CUT );
     }
 
-    function isAbstractSpec() {
-        var md = getMetadata(this);
-        return structKeyExists( md, 'doc_abstract' ) && md.doc_abstract == true;
-    }
 
     function run() {
         if (isAbstractSpec()) {
