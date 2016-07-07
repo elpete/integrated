@@ -363,45 +363,6 @@ component extends="testbox.system.BaseSpec" {
                     );
                 });
             });
-
-            feature('debugEvent', function() {
-                it("should call TestBox's debug method with the current event object", function() {
-                    this.CUT.$('debug').$args(mockEvent);
-
-                    this.CUT.debugEvent();
-
-                    var callLog = this.CUT.$callLog().debug;
-
-                    expect(ArrayLen(callLog)).toBe(1);
-                    expect(callLog[1][1]).toBe(mockEvent);
-                });
-            });
-
-            feature('debugCollection', function() {
-                it("should call TestBox's debug method with the current request collection object", function() {
-                    this.CUT.$('debug').$args(variables.rc);
-
-                    this.CUT.debugCollection();
-
-                    var callLog = this.CUT.$callLog().debug;
-
-                    expect(ArrayLen(callLog)).toBe(1);
-                    expect(callLog[1][1]).toBe(variables.rc);
-                });
-            });
-
-            feature('debugPrivateCollection', function() {
-                it("should call TestBox's debug method with the current private request collection object", function() {
-                    this.CUT.$('debug').$args(variables.prc);
-
-                    this.CUT.debugPrivateCollection();
-
-                    var callLog = this.CUT.$callLog().debug;
-
-                    expect(ArrayLen(callLog)).toBe(1);
-                    expect(callLog[1][1]).toBe(variables.prc);
-                });
-            });     
         } );
     }
 }

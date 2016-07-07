@@ -747,6 +747,24 @@ component extends="testbox.system.compat.framework.TestCase" {
         return this;
     }
 
+    public AbstractBaseSpec function debugEvent() {
+        debug( variables.frameworkEngine.getFrameworkEvent() );
+
+        return this;
+    }
+
+    public AbstractBaseSpec function debugCollection() {
+        debug( variables.frameworkEngine.getCollection() );
+
+        return this;
+    }
+
+    public AbstractBaseSpec function debugPrivateCollection() {
+        debug( variables.frameworkEngine.getPrivateCollection() );
+
+        return this;
+    }
+
 
     /**************************** Helper Methods ******************************/
 

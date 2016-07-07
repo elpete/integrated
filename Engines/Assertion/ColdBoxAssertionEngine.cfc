@@ -276,36 +276,30 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
     }
 
     /**
-    * Pipes the framework event to the debug() output
+    * Returns the framework event
     *
-    * @return Integrated.Engines.FrameworkAssertionEngine
+    * @return any
     */
-    public FrameworkAssertionEngine function debugEvent() {
-        debug( getEvent() );
-
-        return this;
+    public any function getFrameworkEvent() {
+        return getEvent();
     }
 
     /**
-    * Pipes the framework request collection to the debug() output
+    * Returns the framework request collection
     *
-    * @return Integrated.Engines.FrameworkAssertionEngine
+    * @return any
     */
-    public FrameworkAssertionEngine function debugCollection() {
-        debug( getEvent().getCollection( private = false ) );
-
-        return this;
+    public any function getCollection() {
+        return getEvent().getCollection( private = false );
     }
 
     /**
-    * Pipes the framework private request collection to the debug() output
+    * Returns the framework private request collection
     *
-    * @return Integrated.Engines.FrameworkAssertionEngine
+    * @return any
     */
-    public FrameworkAssertionEngine function debugPrivateCollection() {
-        debug( getEvent().getCollection( private = true ) );
-
-        return this;
+    public any function getPrivateCollection() {
+        return getEvent().getCollection( private = true );
     }
 
 

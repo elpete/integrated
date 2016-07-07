@@ -139,24 +139,24 @@ interface displayname="FrameworkAssertionEngine" {
     public FrameworkAssertionEngine function dontSeeInCollection(required string key, string value, boolean private);
 
     /**
-    * Pipes the framework event to the debug() output
+    * Returns the framework event
     *
-    * @return Integrated.Engines.DOMAssertionEngine
+    * @return any
     */
-    public FrameworkAssertionEngine function debugEvent();
+    public any function getFrameworkEvent();
 
     /**
-    * Pipes the framework request collection to the debug() output
+    * Returns the framework request collection
     *
-    * @return Integrated.Engines.FrameworkAssertionEngine
+    * @return any
     */
-    public FrameworkAssertionEngine function debugCollection();
+    public any function getCollection();
 
     /**
-    * Pipes the framework request collection to the debug() output
+    * Returns the framework private request collection
     *
-    * @return Integrated.Engines.FrameworkAssertionEngine
+    * @return any
     */
-    public FrameworkAssertionEngine function debugPrivateCollection();
+    public any function getPrivateCollection();
 
 }
