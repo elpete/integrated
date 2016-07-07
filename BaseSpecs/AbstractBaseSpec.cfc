@@ -470,6 +470,19 @@ component extends="testbox.system.compat.framework.TestCase" {
     }
 
     /**
+    * Verifies that the given element exists on the current page.
+    *
+    * @selectorOrName The selector or name of the element to check.
+    *
+    * @return Integrated.BaseSpecs.AbstractBaseSpec
+    */
+    public AbstractBaseSpec function seeElement(required string selectorOrName) {
+        variables.domEngine.seeElement(argumentCollection = arguments);
+
+        return this;
+    }
+
+    /**
     * Verifies that the given element contains the given text on the current page.
     *
     * @element The provided element.
