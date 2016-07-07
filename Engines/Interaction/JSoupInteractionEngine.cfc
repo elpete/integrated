@@ -80,7 +80,7 @@ component implements="Integrated.Engines.Interaction.Contracts.InteractionEngine
     /**
     * Press a submit button.
     *
-    * @button The selector or name of the button to press.
+    * @button The text of the button to press.
     * @overrideEvent Optional. The event to run instead of the form's default. Default: ''.
     *
     * @return Integrated.Engines.Interaction.Contracts.InteractionEngine
