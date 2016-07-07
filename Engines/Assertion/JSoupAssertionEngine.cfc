@@ -303,14 +303,12 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
     }
 
     /**
-    * Pipes the html of the page to the debug() output
+    * Returns the html of the page
     *
     * @return Integrated.Engines.Assertion.Contracts.DOMAssertionEngine
     */
-    public Integrated.Engines.Assertion.Contracts.DOMAssertionEngine function debugPage() {
-        debug(variables.page.html());
-
-        return this;
+    public string function getPage() {
+        return variables.page.html();
     }
 
     /**

@@ -741,6 +741,12 @@ component extends="testbox.system.compat.framework.TestCase" {
         );
     }
 
+    public AbstractBaseSpec function debugPage() {
+        debug( variables.domEngine.getPage() );
+
+        return this;
+    }
+
 
     /**************************** Helper Methods ******************************/
 

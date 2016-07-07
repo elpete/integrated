@@ -143,11 +143,11 @@ interface displayname="DOMAssertionEngine" {
     public Integrated.Engines.Assertion.Contracts.DOMAssertionEngine function dontSeeIsSelected(required string element, required string value);
 
     /**
-    * Pipes the html of the page to the debug() output
+    * Returns the html of the page
     *
-    * @return Integrated.Engines.Assertion.Contracts.DOMAssertionEngine
+    * @return string
     */
-    public Integrated.Engines.Assertion.Contracts.DOMAssertionEngine function debugPage();
+    public string function getPage();
 
     /**
     * Throws if no elements are found with the given selector or name.
