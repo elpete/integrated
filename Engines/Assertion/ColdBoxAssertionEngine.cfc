@@ -137,6 +137,16 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
 
         var actualUrl = getEvent().getCurrentRoutedUrl();
 
+        // Add a leading slash if missing
+        if ( left( actualUrl, 1 ) != "/" ) {
+            actualUrl = "/" & actualUrl;
+        }
+
+        // Remove a trailing slash if present
+        if ( right( actualUrl, 1 ) == "/" ) {
+            actualUrl = left( actualUrl, len( actualUrl ) - 1 );    
+        }
+
         expect(actualUrl).toBe(
             arguments.route,
             "Failed asserting that the url [#actualUrl#] (actual) equalled [#arguments.route#] (expected)."
