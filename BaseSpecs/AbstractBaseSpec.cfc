@@ -476,10 +476,24 @@ component extends="testbox.system.compat.framework.TestCase" {
     *
     * @return Integrated.BaseSpecs.AbstractBaseSpec
     */
-    public AbstractBaseSpec function seeElement(required string selectorOrName) {
+    public AbstractBaseSpec function seeElement(
+        required string selectorOrName
+        boolean negate = false
+    ) {
         variables.domEngine.seeElement(argumentCollection = arguments);
 
         return this;
+    }
+
+    /**
+    * Verifies that the given element does not exist on the current page.
+    *
+    * @selectorOrName The selector or name of the element to check.
+    *
+    * @return Integrated.BaseSpecs.AbstractBaseSpec
+    */
+    public AbstractBaseSpec function seeElement(required string selectorOrName) {
+        return this.seeElement(selectorOrName = arguments.selectorOrName, negate = true);
     }
 
     /**

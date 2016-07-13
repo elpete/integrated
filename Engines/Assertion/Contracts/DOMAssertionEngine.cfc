@@ -154,11 +154,23 @@ interface displayname="DOMAssertionEngine" {
     *
     * @selectorOrName The selector or name for which to search.
     * @errorMessage The error message to throw if an assertion fails.
+    * @negate Optional. If true, throw an exception if the element DOES exist on the current page. Default: false.
     *
     * @throws TestBox.AssertionFailed
     * @return Integrated.Engines.Assertion.Contracts.DOMAssertionEngine
     */
-    public Integrated.Engines.Assertion.Contracts.DOMAssertionEngine function seeElement(required string selectorOrName, string errorMessage);
+    public Integrated.Engines.Assertion.Contracts.DOMAssertionEngine function seeElement(required string selectorOrName, string errorMessage, boolean negate);
+
+    /**
+    * Throws if an element is found with the given selector or name.
+    *
+    * @selectorOrName The selector or name for which to search.
+    * @errorMessage The error message to throw if an assertion fails.
+    *
+    * @throws TestBox.AssertionFailed
+    * @return Integrated.Engines.Assertion.Contracts.DOMAssertionEngine
+    */
+    public Integrated.Engines.Assertion.Contracts.DOMAssertionEngine function dontSeeElement(required string selectorOrName, string errorMessage);
 
     /**
     * Returns the option value found with a given value or name in a select field with a given selector or name.

@@ -322,11 +322,32 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
     */
     public Integrated.Engines.Assertion.Contracts.DOMAssertionEngine function seeElement(
         required string selectorOrName,
-        string errorMessage = 'Failed to find a [#arguments.selectorOrName#] element on the page.'
+        string errorMessage = 'Failed to find a [#arguments.selectorOrName#] element on the page.',
+        boolean negate = false
     ) {
         findElement(argumentCollection = arguments);
 
         return this;
+    }
+
+    /**
+    * Throws if an element is found with the given selector or name.
+    *
+    * @selectorOrName The selector or name for which to search.
+    * @errorMessage The error message to throw if an assertion fails.
+    *
+    * @throws TestBox.AssertionFailed
+    * @return Integrated.Engines.Assertion.Contracts.DOMAssertionEngine
+    */
+    public Integrated.Engines.Assertion.Contracts.DOMAssertionEngine function dontSeeElement(
+        required string selectorOrName,
+        string errorMessage = 'Found a [#arguments.selectorOrName#] element on the page.'
+    ) {
+        return this.seeElement(
+            selectorOrName = arguments.selectorOrName,
+            errorMessage = arguments.errorMessage,
+            negate = true
+        );
     }
 
     /**
@@ -641,7 +662,8 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
     */
     private any function findElement(
         required string selectorOrName,
-        string errorMessage = 'Failed to find a [#arguments.selectorOrName#] element on the page.'
+        string errorMessage = 'Failed to find a [#arguments.selectorOrName#] element on the page.',
+        boolean negate = false
     ) {
         // First try to find the field by selector
         try {
@@ -656,7 +678,12 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
             elements = getParsedPage().select('[name=#arguments.selectorOrName#]');
         }
 
-        expect(elements).notToBeEmpty(arguments.errorMessage);
+        if ( ! negate) {
+            expect(elements).notToBeEmpty(arguments.errorMessage);
+        }
+        else {
+            expect(elements).toBeEmpty(arguments.errorMessage);
+        }
 
         return elements;
     }

@@ -206,6 +206,36 @@ component extends='testbox.system.BaseSpec' {
                 });
             });
 
+            feature( "seeElement", function() {
+                it('verifies the given element exists on the page', function() {
+                    expect(function() {
+                        this.CUT.seeElement('label');
+                    }).notToThrow();
+
+                    expect(function() {
+                        this.CUT.seeElement('dl');
+                    }).toThrow(
+                        type = 'TestBox.AssertionFailed',
+                        regex = 'Failed to find a \[dl\] element on the page\.'
+                    );
+                });
+            } );
+
+            feature( "seeElement", function() {
+                it('verifies the given element does not exist on the page', function() {
+                    expect(function() {
+                        this.CUT.dontSeeElement('dl');
+                    }).notToThrow();
+
+                    expect(function() {
+                        this.CUT.dontSeeElement('label');
+                    }).toThrow(
+                        type = 'TestBox.AssertionFailed',
+                        regex = 'Found a \[label\] element on the page\.'
+                    );
+                });
+            } );
+
             feature('seeLink', function() {
                 it('verifies that a link with the given text exists', function() {
                     expect(function() {
