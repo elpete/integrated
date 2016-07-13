@@ -492,7 +492,7 @@ component extends="testbox.system.compat.framework.TestCase" {
     *
     * @return Integrated.BaseSpecs.AbstractBaseSpec
     */
-    public AbstractBaseSpec function seeElement(required string selectorOrName) {
+    public AbstractBaseSpec function dontSeeElement(required string selectorOrName) {
         return this.seeElement(selectorOrName = arguments.selectorOrName, negate = true);
     }
 
