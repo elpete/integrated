@@ -644,7 +644,12 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
         string errorMessage = 'Failed to find a [#arguments.selectorOrName#] element on the page.'
     ) {
         // First try to find the field by selector
-        var elements = getParsedPage().select('#arguments.selectorOrName#');
+        try {
+            var elements = getParsedPage().select('#arguments.selectorOrName#');
+        }
+        catch ( org.jsoup.select.Selector$SelectorParseException e ) {
+            var elements = [];
+        }
 
         // If we couldn't find it by selector, try by name
         if (ArrayIsEmpty(elements)) {
