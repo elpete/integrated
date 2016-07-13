@@ -74,7 +74,7 @@ component {
 			}
 			verifyQuery.addParam(argumentCollection = paramArgs);
 
-	        sqlString &= " AND CAST(#key# AS varchar) IN (:#uniqueKey#)";
+	        sqlString &= " AND #key# IN (:#uniqueKey#)";
 		}
 		
 		verifyQuery.setSQL(sqlString);
