@@ -143,7 +143,7 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
         }
 
         // Remove a trailing slash if present
-        if ( right( actualUrl, 1 ) == "/" ) {
+        if ( right( actualUrl, 1 ) == "/" && len( actualUrl ) > 1 ) {
             actualUrl = left( actualUrl, len( actualUrl ) - 1 );    
         }
 
