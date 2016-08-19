@@ -85,7 +85,10 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
     * @return boolean
     */
     public boolean function isRedirect() {
-        return getEvent().valueExists('setNextEvent_event');
+        var event = getEvent();
+        return event.valueExists('setNextEvent_URI') ||
+            event.valueExists('setNextEvent_URL') ||
+            event.valueExists('setNextEvent_event');
     }
 
     /**
@@ -96,7 +99,17 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
     * @return string
     */
     public string function getRedirectEvent() {
-        return getEvent().getValue('setNextEvent_event');
+        var event = getEvent();
+
+        if ( event.valueExists('setNextEvent_URI') ) {
+            return event.getValue('setNextEvent_URI');
+        }
+
+        if ( event.valueExists('setNextEvent_URL') ) {
+            return event.getValue('setNextEvent_URL');
+        }
+
+        return event.getValue('setNextEvent_event');
     }
 
     /**

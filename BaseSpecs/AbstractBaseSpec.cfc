@@ -340,7 +340,9 @@ component extends="testbox.system.compat.framework.TestCase" {
             if (StructKeyExists(arguments, 'route')) {
                 return makeRequest(
                     method = arguments.method,
-                    route = variables.frameworkEngine.getRedirectEvent(),
+                    route = variables.requestEngine.parseFrameworkRoute(
+                        variables.frameworkEngine.getRedirectEvent()
+                    ),
                     parameters = variables.frameworkEngine.getRedirectInputs()
                 );
             }
