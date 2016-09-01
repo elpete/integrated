@@ -246,6 +246,7 @@ component extends="testbox.system.compat.framework.TestCase" {
     * @inputs Optional. The form values to submit.  If not provided, uses the values stored in Integrated combined with any values on the current page. Default: {}.
     * @overrideEvent Optional. The event to run instead of the form's default. Defeault: ''.
     *
+    * @throws TestBox.AssertionFailed
     * @return Integrated.BaseSpecs.AbstractBaseSpec
     */
     public AbstractBaseSpec function submitForm(
@@ -280,6 +281,12 @@ component extends="testbox.system.compat.framework.TestCase" {
         }
         else {
             var action = variables.domEngine.getFormAction(arguments.button);
+            if (action == '') {
+                throw(
+                    type = 'TestBox.AssertionFailed',
+                    message = 'The specified form is missing an action.'
+                );
+            }
             return makeRequest(
                 method = method,
                 route = parseFrameworkRoute(action),

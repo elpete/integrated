@@ -291,6 +291,16 @@ component extends='testbox.system.BaseSpec' {
                         expect(setValueCallLogStruct).toHaveKey('password');
                         expect(setValueCallLogStruct.password).toBe('mY@wes0mep2ssw0rD');
                     });
+
+                    it( "throws when the form does not have an action", function() {
+                        expect(function() {
+                            this.CUT.visit('/login')
+                                .submitForm('Invalid Form');
+                        }).toThrow(
+                            type = 'TestBox.AssertionFailed',
+                            regex = 'The specified form is missing an action\.'
+                        );
+                    } );
                 });
             });
 
