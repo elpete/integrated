@@ -22,9 +22,6 @@ component extends="coldbox.system.testing.BaseTestCase" implements="Integrated.E
     * @return string
     */
     public string function parseFrameworkRoute(required string url) {
-        // convert all . to /
-        arguments.url = replace( arguments.url, ".", "/", "all" );
-
         var htmlBaseUrl = getController().getSetting('HTMLBaseUrl');
         var SESBaseUrl = getController().getSetting('SESBaseUrl');
 
@@ -32,7 +29,11 @@ component extends="coldbox.system.testing.BaseTestCase" implements="Integrated.E
             arguments.url = left( htmlBaseUrl, len( htmlBaseUrl ) - 1) & arguments.url;
         }
 
-        return replaceNoCase( arguments.url, SESBaseUrl, '' );
+        arguments.url = replaceNoCase( arguments.url, SESBaseUrl, '' );
+        // convert all . to /
+        arguments.url = replace( arguments.url, ".", "/", "all" );
+
+        return arguments.url;
     }
  
     /**
