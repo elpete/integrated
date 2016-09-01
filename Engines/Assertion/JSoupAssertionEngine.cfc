@@ -403,9 +403,23 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
         var inputs = pageForm.select('[name]');
         var returnInputs = [];
         for (var input in inputs) {
+            // skip all buttons because we only want to include the button we "clicked"
+            if ( input.tagName() == "button" ) {
+                continue;
+            }
+
             arrayAppend( returnInputs, {
                 name = input.attr( "name" ),
                 value = input.val()
+            } );
+        }
+
+        // include the button we clicked in the form inputs if it has a name
+        var button = getParsedPage().select('button[name]:contains(#selectorOrText#)');
+        if ( ! arrayIsEmpty( button ) ) {
+            arrayAppend( returnInputs, {
+                name = button.attr( "name" ),
+                value = button.val()
             } );
         }
 
