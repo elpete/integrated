@@ -254,7 +254,7 @@ component extends="testbox.system.compat.framework.TestCase" {
         string overrideEvent = ''
     ) {
         if (StructIsEmpty(arguments.inputs)) {
-            // Send to the interactionEngine and get back the inputs
+            // Send to the domEngine and get back the inputs
             var formInputs = variables.domEngine.getFormInputs(arguments.button);
             
             // Put the form values from the current page in to the interactionEngine
