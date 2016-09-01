@@ -76,4 +76,36 @@ interface displayname="InteractionEngine" {
     */
     public InteractionEngine function reset();
 
+    /**
+    * Verifies that a field with the given value exists in the current inputs regardless of value.
+    *
+    * @element The selector or name of the field.
+    *
+    * @return boolean
+    */
+    public boolean function fieldExists(required string element);
+
+    /**
+    * Verifies that a field with the given value exists in the current inputs with the given value.
+    *
+    * @value The expected value of the field.
+    * @element The selector or name of the field.
+    * @negate Optional. If true, throw an exception if the field DOES contain the given text on the current page. Default: false.
+    *
+    * @throws TestBox.AssertionFailed
+    * @return Integrated.Engines.Interaction.Contracts.InteractionEngine
+    */
+    public InteractionEngine function seeInField(required string value, required string element, boolean negate);
+
+    /**
+    * Verifies that a checkbox is checked in the stored inputs.
+    *
+    * @element The selector or name of the checkbox.
+    * @negate Optional. If true, throw an exception if the checkbox IS checked. Default: false.
+    *
+    * @throws TestBox.AssertionFailed
+    * @return Integrated.Engines.Interaction.Contracts.InteractionEngine
+    */
+    public InteractionEngine function seeIsChecked(required string element, boolean negate);
+
 }

@@ -173,6 +173,19 @@ interface displayname="DOMAssertionEngine" {
     public Integrated.Engines.Assertion.Contracts.DOMAssertionEngine function dontSeeElement(required string selectorOrName, string errorMessage);
 
     /**
+    * Returns the select fields found with a given selector or name.
+    * Throws if the given option is not found in the select field found with the given selector or name.
+    *
+    * @value The option value or text to find.
+    * @selectorOrName The select field selector or name to find the option in.
+    * @errorMessage The error message to throw if an assertion fails.
+    *
+    * @throws TestBox.AssertionFailed
+    * @return org.jsoup.select.Elements
+    */
+    public function findOption(required string value, required string selectorOrName, string errorMessage);
+
+    /**
     * Returns the option value found with a given value or name in a select field with a given selector or name.
     * Throws if the given option is not found in the select field found with the given selector or name.
     *

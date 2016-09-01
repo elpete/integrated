@@ -1,23 +1,20 @@
 component extends='testbox.system.BaseSpec' {
-    
-    function beforeAll() {
-        this.CUT = new BaseSpecs.ColdBoxBaseSpec();
-        getMockBox().prepareMock(this.CUT);
-
-        // Set the appMapping for testing
-        variables.mockBaseTestCase = getMockBox().createMock('coldbox.system.testing.BaseTestCase');
-        this.CUT.$property(propertyName = 'baseTestCase', mock = mockBaseTestCase);
-        variables.mockBaseTestCase.$property(propertyName = 'appMapping', mock = '/SampleApp');
-        variables.mockBaseTestCase.beforeAll();
-
-        // Set up the parent ColdBox BaseTestCase
-        this.CUT.beforeAll();
-    }
 
     function run() {
         describe('BaseSpec — Expectations', function() {
 
             beforeEach(function() {
+                this.CUT = new BaseSpecs.ColdBoxBaseSpec();
+                getMockBox().prepareMock(this.CUT);
+
+                // Set the appMapping for testing
+                variables.mockBaseTestCase = getMockBox().createMock('coldbox.system.testing.BaseTestCase');
+                this.CUT.$property(propertyName = 'baseTestCase', mock = mockBaseTestCase);
+                variables.mockBaseTestCase.$property(propertyName = 'appMapping', mock = '/SampleApp');
+                variables.mockBaseTestCase.beforeAll();
+
+                // Set up the parent ColdBox BaseTestCase
+                this.CUT.beforeAll();
                 // Read in a sample html page
                 var html = fileRead(expandPath('/tests/resources/login-page.html'));
 
@@ -485,6 +482,21 @@ component extends='testbox.system.BaseSpec' {
                     );
                 });
 
+                it('can also check text that has been "typed" in', function() {
+                    expect(function() {
+                        this.CUT.type('random', '##email')
+                            .seeInField('##email', 'random');
+                    }).notToThrow();
+
+                    expect(function() {
+                        this.CUT.type('random', '##email')
+                            .seeInField('##email', 'sample');
+                    }).toThrow(
+                        type = 'TestBox.AssertionFailed',
+                        regex = 'Failed asserting that \[sample\] appears in a \[##email\] input or textarea on the page\.'
+                    );
+                });
+
                 it('fails if the given selector cannot be found', function() {
                     expect(function() {
                         this.CUT.seeInField('##doesntExist', 'random');
@@ -551,6 +563,21 @@ component extends='testbox.system.BaseSpec' {
                         regex = 'Failed asserting that \[##spam\-me\] is checked on the page\.'
                     );
                 });
+
+                it( "also verifies fields that are 'checked' during the tests", function() {
+                    expect(function() {
+                        this.CUT.check('##spam-me')
+                            .seeIsChecked('##spam-me');
+                    }).notToThrow();
+
+                    expect(function() {
+                        this.CUT.uncheck('##remember-me')
+                            .seeIsChecked('##remember-me');
+                    }).toThrow(
+                        type = 'TestBox.AssertionFailed',
+                        regex = 'Failed asserting that \[##remember\-me\] is checked on the page\.'
+                    );
+                } );
 
                 it('fails if it cannot find the specified checkbox', function() {
                     expect(function() {
@@ -622,6 +649,27 @@ component extends='testbox.system.BaseSpec' {
                         this.CUT.seeIsSelected('##country', 'USA');
                     }).notToThrow();
                 });
+
+                it( "also verifies fields that are 'selected' during the tests", function() {
+                    expect(function() {
+                        this.CUT.select('CA', '##country')
+                            .seeIsSelected('##country', 'CA');
+                    }).notToThrow();
+
+                    expect(function() {
+                        this.CUT.select('CA', '##country')
+                            .seeIsSelected('##country', 'Canada');
+                    }).notToThrow();
+
+                    expect(function() {
+                        this.CUT.seeIsSelected('##country', 'USA')
+                            .select('##country', 'Canada')
+                            .seeIsSelected('##country', 'USA');
+                    }).toThrow(
+                        type = 'TestBox.AssertionFailed',
+                        regex = 'Failed asserting that \[USA\] is selected in a \[\##country\] element\.'
+                    );
+                } );
 
                 it('fails if it cannot find the specified select field', function() {
                     expect(function() {

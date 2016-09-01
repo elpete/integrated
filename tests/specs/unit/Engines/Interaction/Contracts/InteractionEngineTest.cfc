@@ -46,6 +46,10 @@ component extends='testbox.system.BaseSpec' {
                 this.CUT.setDOMAssertionEngine( engine );
             });
 
+            afterEach( function() {
+                this.CUT.$property( propertyName = "inputs", mock = {} );
+            } );
+
             describe('interaction methods', function() {
                 feature('type', function() {
                     it('types a value in to a form field', function() {
@@ -148,6 +152,152 @@ component extends='testbox.system.BaseSpec' {
                         );
                     });
                 });
+
+                feature( "seeInField", function() {
+                    it( "throws if the field does not exist in the current inputs", function() {
+                        expect(function() {
+                            this.CUT.seeInField('john@example.com', '##email');
+                        }).toThrow(
+                            type = "TestBox.AssertionFailed"
+                        );
+                    } );
+
+                    it( "does not throw if the field does exist in the current input", function() {
+                        engine.$( method = "seeElement", returns = blankEngine, preserveArguments = true );
+                        expect(function() {
+                            this.CUT.type('john@example.com', '##email')
+                                .seeInField('john@example.com', '##email');
+                        }).notToThrow(
+                            type = "TestBox.AssertionFailed"
+                        );
+                    } );
+
+                    it( "throws if the field does exist but not with the specified value", function() {
+                        engine.$( method = "seeElement", returns = blankEngine, preserveArguments = true );
+                        expect(function() {
+                            this.CUT.type('john@example.com', '##email')
+                                .seeInField('scott@example.com', '##email');
+                        }).toThrow(
+                            type = "TestBox.AssertionFailed"
+                        );
+                    } );
+
+                    it( "does not throw if the field exists with the specified value", function() {
+                        engine.$( method = "seeElement", returns = blankEngine, preserveArguments = true );
+                        expect(function() {
+                            this.CUT.type('john@example.com', '##email')
+                                .seeInField('john@example.com', '##email');
+                        }).notToThrow(
+                            type = "TestBox.AssertionFailed"
+                        );
+                    } );
+                } );
+
+                feature( "seeIsChecked", function() {
+                    it( "throws if the field is not checked in the current inputs", function() {
+                        expect(function() {
+                            this.CUT.seeIsChecked('##remember-me');
+                        }).toThrow(type = "TestBox.AssertionFailed");
+                    } );
+
+                    it( "does not throw if the checkbox is checked in the current input", function() {
+                        engine.$( method = "seeElement", returns = blankEngine, preserveArguments = true );
+                        expect(function() {
+                            this.CUT.check('##remember-me')
+                                .seeIsChecked('##remember-me');
+                        }).notToThrow();
+                    } );
+
+                    it( "handles negate checks as well", function() {
+                        expect(function() {
+                            this.CUT.seeIsChecked('##remember-me', true);
+                        }).notToThrow();
+
+                        engine.$( method = "seeElement", returns = blankEngine, preserveArguments = true );
+                        expect(function() {
+                            this.CUT.check('##remember-me')
+                                .seeIsChecked('##remember-me', true);
+                        }).toThrow(type = "TestBox.AssertionFailed");
+                    } );
+                } );
+
+                feature( "seeIsSelected", function() {
+                    beforeEach(function() {
+                        engine.$( method = "seeElement", returns = blankEngine, preserveArguments = true );
+                    });
+
+                    it( "throws if the option is not selected in the current inputs", function() {
+                        expect(function() {
+                            this.CUT.seeIsSelected('USA', '##country');
+                        }).toThrow(type = "TestBox.AssertionFailed");
+                    } );
+
+                    it( "does not throw if the option is selected in the current input", function() {
+                        var optionMock = getMockBox().createStub().$( "text", "United States" );
+                        engine.$( method = "findOptionValue", returns = "USA", preserveArguments = true);
+                        engine.$( method = "findOption", returns = optionMock, preserveArguments = true);
+                        expect(function() {
+                            this.CUT.select('USA', '##country')
+                                .seeIsSelected('USA', '##country');
+                        }).notToThrow();
+                    } );
+
+                    it( "handles negate checks as well", function() {
+                        var optionMock = getMockBox().createStub().$( "text", "United States" );
+                        engine.$( method = "findOptionValue", returns = "USA", preserveArguments = true);
+                        engine.$( method = "findOption", returns = optionMock, preserveArguments = true);
+                        expect(function() {
+                            this.CUT.select('USA', '##country')
+                                .seeIsSelected('Canada', '##country', true);
+                        }).notToThrow();
+
+                        // engine.$( method = "findOptionValue", returns = "USA", preserveArguments = true);
+                        // expect(function() {
+                        //     this.CUT.select('USA', '##country')
+                        //         .seeIsSelected('USA', '##country', true);
+                        // }).toThrow(type = "TestBox.AssertionFailed");
+                    } );
+                } );
+
+                feature( "dontSeeInField", function() {
+                    it( "throws if the field exists in the current inputs", function() {
+                        engine.$( method = "seeElement", returns = blankEngine, preserveArguments = true );
+                        expect(function() {
+                            this.CUT.type('john@example.com', '##email')
+                                .seeInField('john@example.com', '##email', true);
+                        }).toThrow(
+                            type = "TestBox.AssertionFailed"
+                        );
+                    } );
+
+                    it( "does not throw if the field does not exist in the current input", function() {
+                        expect(function() {
+                            this.CUT.seeInField('john@example.com', '##email', true);
+                        }).notToThrow(
+                            type = "TestBox.AssertionFailed"
+                        );
+                    } );
+
+                    it( "throws if the field exists with the specified value", function() {
+                        engine.$( method = "seeElement", returns = blankEngine, preserveArguments = true );
+                        expect(function() {
+                            this.CUT.type('john@example.com', '##email')
+                                .seeInField('john@example.com', '##email', true);
+                        }).toThrow(
+                            type = "TestBox.AssertionFailed"
+                        );
+                    } );
+
+                    it( "does not throw if the field exists but not with the specified value", function() {
+                        engine.$( method = "seeElement", returns = blankEngine, preserveArguments = true );
+                        expect(function() {
+                            this.CUT.type('john@example.com', '##email')
+                                .seeInField('scott@example.com', '##email', true);
+                        }).notToThrow(
+                            type = "TestBox.AssertionFailed"
+                        );
+                    } );
+                } );
             });
         });
     }

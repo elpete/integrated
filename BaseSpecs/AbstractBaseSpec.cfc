@@ -589,7 +589,12 @@ component extends="testbox.system.compat.framework.TestCase" {
         required string value,
         boolean negate = false
     ) {
-        variables.domEngine.seeInField(argumentCollection = arguments);
+        if ( variables.interactionEngine.fieldExists( element ) ) {
+            variables.interactionEngine.seeInField(argumentCollection = arguments);
+        }
+        else {
+            variables.domEngine.seeInField(argumentCollection = arguments);
+        }
 
         return this;
     }
@@ -622,7 +627,12 @@ component extends="testbox.system.compat.framework.TestCase" {
         required string element,
         boolean negate = false
     ) {
-        variables.domEngine.seeIsChecked(argumentCollection = arguments);
+        if ( variables.interactionEngine.fieldExists( element ) ) {
+            variables.interactionEngine.seeIsChecked(argumentCollection = arguments);
+        }
+        else {
+            variables.domEngine.seeIsChecked(argumentCollection = arguments);
+        }
 
         return this;
     }
@@ -655,7 +665,12 @@ component extends="testbox.system.compat.framework.TestCase" {
         required string value,
         boolean negate = false
     ) {
-        variables.domEngine.seeIsSelected(argumentCollection = arguments);
+        if ( variables.interactionEngine.fieldExists( element ) ) {
+            variables.interactionEngine.seeIsSelected(argumentCollection = arguments);
+        }
+        else {
+            variables.domEngine.seeIsSelected(argumentCollection = arguments);
+        }
 
         return this;
     }

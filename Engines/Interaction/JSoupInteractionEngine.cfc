@@ -1,7 +1,7 @@
 import Integrated.Engines.Assertion.Contracts.DOMAssertionEngine;
 import Integrated.Engines.Interaction.Contracts.InteractionEngine;
 
-component implements="Integrated.Engines.Interaction.Contracts.InteractionEngine" {
+component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Interaction.Contracts.InteractionEngine" {
     
     // The struct of form input values
     property name='inputs' type='struct' default='{}';
@@ -139,6 +139,143 @@ component implements="Integrated.Engines.Interaction.Contracts.InteractionEngine
     */
     public InteractionEngine function reset() {
         variables.inputs = {};
+
+        return this;
+    }
+
+    /**
+    * Verifies that a field with the given value exists in the current inputs regardless of value.
+    *
+    * @element The selector or name of the field.
+    *
+    * @return boolean
+    */
+    public boolean function fieldExists(required string element) {
+        return structKeyExists( variables.inputs, generateInputKey(element));
+    }
+
+    /**
+    * Verifies that a field with the given value exists in the current inputs with the given value.
+    *
+    * @element The selector or name of the field.
+    * @value The expected value of the field.
+    * @negate Optional. If true, throw an exception if the field DOES contain the given text on the current page. Default: false.
+    *
+    * @throws TestBox.AssertionFailed
+    * @return Integrated.Engines.Interaction.Contracts.InteractionEngine
+    */
+    public InteractionEngine function seeInField(
+        required string value,
+        required string element,
+        boolean negate = false
+    ) {
+        var key = generateInputKey(element);
+        var exists = structKeyExists( variables.inputs, key );
+
+        if ( ! exists ) {
+            if ( negate ) {
+                expect( exists ).toBeFalse( "Expected [#element#] to not exist in the stored inputs." );
+            }
+            else {
+                expect( exists ).toBeTrue( "Expected [#element#] to exist in the stored inputs." );
+            }
+            return this;
+        }
+
+        var actualValue = variables.inputs[ key ];
+
+        if ( negate ) {
+            expect( actualValue ).notToBe( value, "Failed asserting that [#value#] does not appear in a [#element#] input or textarea on the page." );
+        }
+        else {
+            expect( actualValue ).toBe( value, "Failed asserting that [#value#] appears in a [#element#] input or textarea on the page." );
+        }
+
+        return this;
+    }
+
+    /**
+    * Verifies that a checkbox is checked in the stored inputs.
+    *
+    * @element The selector or name of the checkbox.
+    * @negate Optional. If true, throw an exception if the checkbox IS checked. Default: false.
+    *
+    * @throws TestBox.AssertionFailed
+    * @return Integrated.Engines.Interaction.Contracts.InteractionEngine
+    */
+    public InteractionEngine function seeIsChecked(
+        required string element,
+        boolean negate = false
+    ) {
+        var key = generateInputKey(element);
+        var exists = structKeyExists( variables.inputs, key );
+
+        if ( ! exists ) {
+            if ( negate ) {
+                expect( exists ).toBeFalse( "Expected [#element#] to not exist in the stored inputs." );
+            }
+            else {
+                expect( exists ).toBeTrue( "Expected [#element#] to exist in the stored inputs." );
+            }
+            return this;
+        }
+
+        var actualValue = variables.inputs[ key ];
+
+        if ( negate ) {
+            expect( actualValue )
+                .toBeFalse( "Failed asserting that [#element#] is not checked on the page." );
+        }
+        else {
+            expect( actualValue )
+                .toBeTrue( "Failed asserting that [#element#] is checked on the page." );   
+        }
+
+        return this;
+    }
+
+    /**
+    * Verifies that an option is selected in the stored inputs.
+    *
+    * @value The selector or name of the option to look for.
+    * @element The selector or name of the element to look for the option in.
+    * @negate Optional. If true, throw an exception if the option IS selected in the element. Default: false.
+    *
+    * @throws TestBox.AssertionFailed
+    * @return Integrated.Engines.Interaction.Contracts.InteractionEngine
+    */
+    public InteractionEngine function seeIsSelected(
+        required string value,
+        required string element,
+        boolean negate = false
+    ) {
+        var key = generateInputKey(element);
+        var exists = structKeyExists( variables.inputs, key );
+
+        if ( ! exists ) {
+            if ( negate ) {
+                expect( exists ).toBeFalse( "Expected [#element#] to not exist in the stored inputs." );
+            }
+            else {
+                expect( exists ).toBeTrue( "Expected [#element#] to exist in the stored inputs." );
+            }
+            return this;
+        }
+
+        var actualValue = variables.inputs[ key ];
+        var option = variables.domEngine.findOption( actualValue, element );
+        var optionText = option.text();
+
+        if ( negate ) {
+            expect( value == actualValue || value == optionText ).toBeFalse(
+                "Failed asserting that [#value#] is not selected in a [#element#] element."
+            );
+        }
+        else {
+            expect( value == actualValue || value == optionText ).toBeTrue(
+                "Failed asserting that [#value#] is selected in a [#element#] element."
+            );
+        }
 
         return this;
     }
