@@ -52,7 +52,7 @@ component extends='testbox.system.BaseSpec' {
 
                 it('matches multiple fields in a single row', function() {
                     expect(function() {
-                        this.CUT.expect({ id = { value = '1', cfsqltype = 'CF_SQL_INTEGER' }, email = { value = 'john@example.com', cfsqltype = 'CF_SQL_VARHCHAR' } }).toBeInTable(table = 'users', query = variables.mockUsersTable);
+                        this.CUT.expect({ id = { value = '1', cfsqltype = 'CF_SQL_INTEGER' }, email = 'john@example.com' }).toBeInTable(table = 'users', query = variables.mockUsersTable);
                     }).notToThrow();
 
                     expect(function() {
