@@ -64,8 +64,14 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
     *
     * @return Integrated.Engines.Assertion.Contracts.DOMAssertionEngine
     */
-    public Integrated.Engines.Assertion.Contracts.DOMAssertionEngine function see(required string text, boolean negate = false) {
-        var elems = getParsedPage().select('*:contains(#arguments.text#)');
+    public Integrated.Engines.Assertion.Contracts.DOMAssertionEngine function see(required string text, boolean caseSensitive = true, boolean negate = false) {
+
+        if ( caseSensitive ) {
+            var elems = getParsedPage().select('*:matchesOwn(#arguments.text#)');
+        }
+        else {
+            var elems = getParsedPage().select('*:containsOwn(#arguments.text#)');   
+        }
 
         if (!negate) {
             expect(elems).notToBeEmpty('Failed asserting that [#arguments.text#] was found on the page.');
@@ -84,8 +90,9 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
     *
     * @return Integrated.Engines.Assertion.Contracts.DOMAssertionEngine
     */
-    public Integrated.Engines.Assertion.Contracts.DOMAssertionEngine function dontSee(required string text) {
-        return this.see(text = arguments.text, negate = true);
+    public Integrated.Engines.Assertion.Contracts.DOMAssertionEngine function dontSee(required string text, boolean caseSensitive = true) {
+        arguments.negate = true;
+        return this.see(argumentCollection = arguments);
     }
 
     /**

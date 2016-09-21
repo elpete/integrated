@@ -27,7 +27,7 @@ interface displayname="DOMAssertionEngine" {
     *
     * @return Integrated.Engines.Assertion.Contracts.DOMAssertionEngine
     */
-    public Integrated.Engines.Assertion.Contracts.DOMAssertionEngine function see(required string text, boolean negate);
+    public Integrated.Engines.Assertion.Contracts.DOMAssertionEngine function see(required string text, boolean caseSensitive, boolean negate);
 
     /**
     * Verifies that the given text does not exist in any element on the current page.
@@ -36,7 +36,7 @@ interface displayname="DOMAssertionEngine" {
     *
     * @return Integrated.Engines.Assertion.Contracts.DOMAssertionEngine
     */
-    public Integrated.Engines.Assertion.Contracts.DOMAssertionEngine function dontSee(required string text);
+    public Integrated.Engines.Assertion.Contracts.DOMAssertionEngine function dontSee(required string text, boolean caseSensitive);
 
     /**
     * Verifies that the given element contains the given text on the current page.

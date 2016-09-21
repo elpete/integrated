@@ -461,7 +461,7 @@ component extends="testbox.system.compat.framework.TestCase" {
     *
     * @return Integrated.BaseSpecs.AbstractBaseSpec
     */
-    public AbstractBaseSpec function see(required string text, boolean negate = false) {
+    public AbstractBaseSpec function see(required string text, boolean caseSensitive = true, boolean negate = false) {
         variables.domEngine.see(argumentCollection = arguments);
 
         return this;
@@ -474,8 +474,9 @@ component extends="testbox.system.compat.framework.TestCase" {
     *
     * @return Integrated.BaseSpecs.AbstractBaseSpec
     */
-    public AbstractBaseSpec function dontSee(required string text) {
-        return this.see(text = arguments.text, negate = true);
+    public AbstractBaseSpec function dontSee(required string text, boolean caseSensitive = true) {
+        arguments.negate = true;
+        return this.see(argumentCollection = arguments);
     }
 
     /**

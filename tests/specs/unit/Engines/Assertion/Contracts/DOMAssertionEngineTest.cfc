@@ -92,6 +92,25 @@ component extends='testbox.system.BaseSpec' {
                     );
                 });
 
+                it('defaults to case-sensitive', function() {
+                    expect(function() {
+                        this.CUT.see('Log In'); }
+                    ).notToThrow();
+
+                    expect(function() {
+                        this.CUT.see('Log in');
+                    }).toThrow(
+                        type = 'TestBox.AssertionFailed',
+                        regex = 'Failed asserting that \[Log in\] was found on the page\.'
+                    );
+                });
+
+                it('can also find case-insensitive text', function() {
+                    expect(function() {
+                        this.CUT.see( text = 'Log in', caseSensitive = false ); }
+                    ).notToThrow();
+                });
+
                 it('throws an exception if there is no parsed document', function() {
                     this.CUT.parsePublic('');
 
@@ -122,6 +141,28 @@ component extends='testbox.system.BaseSpec' {
                     expect(function() {
                         this.CUT.dontSee('div'); }
                     ).notToThrow();
+                });
+
+                it('defaults to case-sensitive', function() {
+                    expect(function() {
+                        this.CUT.dontSee('Log in'); }
+                    ).notToThrow();
+
+                    expect(function() {
+                        this.CUT.dontSee('Log In');
+                    }).toThrow(
+                        type = 'TestBox.AssertionFailed',
+                        regex = 'Failed asserting that \[Log In\] was not found on the page\.'
+                    );
+                });
+
+                it('can also find case-insensitive text', function() {
+                    expect(function() {
+                        this.CUT.dontSee( text = 'Log in', caseSensitive = false );
+                    }).toThrow(
+                        type = 'TestBox.AssertionFailed',
+                        regex = 'Failed asserting that \[Log in\] was not found on the page\.'
+                    );
                 });
 
                 it('throws an exception if there is no parsed document', function() {
