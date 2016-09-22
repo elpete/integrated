@@ -127,7 +127,7 @@ component extends="testbox.system.compat.framework.TestCase" {
 
 
     /**
-    * Makes a request to a ColdBox route.
+    * Makes a request to a route.
     *
     * @route The ColdBox route to visit, e.g. `/login` or `/posts/4`. Integrated will build the full url based on ColdBox settings (including `index.cfm`, if needed).
     *

@@ -2,6 +2,7 @@
 extends: _layouts.master
 section: content
 page: "/dontSee"
+title: "dontSee"
 ---
         
 <h1 class="title is-1">dontSee</h1>
