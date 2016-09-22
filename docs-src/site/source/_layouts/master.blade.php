@@ -7,9 +7,12 @@
 
         <title>{{ isset($title) ? "Integrated — $title" : "Integrated" }}</title>
 
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/themes/prism.min.css">
+
         @yield('styles')
 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/themes/prism.min.css">
         <link rel="stylesheet" href="/css/main.css">
     </head>
     <body>
@@ -19,7 +22,10 @@
             @include('_partials.search')
 
             @include('_partials.menu', [ $page = isset($page) ? $page : '/' ])
+            
+            @include('_partials.footer')
         </div>
+
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/prism.min.js"></script>
         @yield('scripts')

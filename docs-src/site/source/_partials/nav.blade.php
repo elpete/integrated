@@ -6,7 +6,12 @@
                     <a href="/" class="title nav-item is-tab">Integrated</a>
                 </div>
                 <div class="nav-right">
-                    <a class="nav-item is-tab">GitHub</a>
+                    <a href="/apidocs" class="nav-item is-tab">
+                        API Docs
+                    </a>
+                    <a href="https://github.com/elpete/integrated" class="nav-item is-tab">
+                        GitHub&nbsp;&nbsp;<i class="fa fa-github"></i>
+                    </a>
                 </div>
             </div>
         </nav>
