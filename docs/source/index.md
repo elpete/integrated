@@ -92,6 +92,7 @@ this.useDatabaseTransactions = true;
 
 By default, we clear out the session scope on each request.  If you want to persist the session scope across requests, simply add `this.persistSessionScope = true;` to the top of your spec.  **Note:** this will happen for all tests in the file.
 
+<br />
 <h3 class="title is-3">Credits</h3>
 
 This package is **heavily** inspired by [Jeffrey Way's Integrated package for Laravel](https://github.com/laracasts/Integrated).
