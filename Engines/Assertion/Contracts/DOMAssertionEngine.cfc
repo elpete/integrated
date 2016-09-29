@@ -174,6 +174,18 @@ interface displayname="DOMAssertionEngine" {
 
     /**
     * Returns the select fields found with a given selector or name.
+    * Throws if no select elements are found with the given selector or name.
+    *
+    * @selectorOrName The selector or name for which to search.
+    * @errorMessage The error message to throw if an assertion fails.
+    *
+    * @throws TestBox.AssertionFailed
+    * @return org.jsoup.select.Elements
+    */
+    public function findSelectField(required string selectorOrName, string errorMessage); 
+
+    /**
+    * Returns the select fields found with a given selector or name.
     * Throws if the given option is not found in the select field found with the given selector or name.
     *
     * @value The option value or text to find.

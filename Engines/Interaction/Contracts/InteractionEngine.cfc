@@ -43,10 +43,11 @@ interface displayname="InteractionEngine" {
     *
     * @option The value or text to select.
     * @selectorOrName The selector or name to choose the option in.
+    * @multiple If true, add the selection instead of replacing it. Default: true.
     *
     * @return Integrated.Engines.Interaction.Contracts.InteractionEngine
     */
-    public InteractionEngine function select(required string option, required string selectorOrName);
+    public InteractionEngine function select(required string option, required string selectorOrName, boolean multiple);
 
     /**
     * Press a submit button.
@@ -67,7 +68,7 @@ interface displayname="InteractionEngine" {
     *
     * @return Integrated.Engines.Interaction.Contracts.InteractionEngine
     */
-    public InteractionEngine function storeInput(required string value, required string selectorOrName, boolean overwrite);
+    public InteractionEngine function storeInput(required any value, required string selectorOrName, boolean overwrite);
 
     /**
     * Resets the inputs to empty

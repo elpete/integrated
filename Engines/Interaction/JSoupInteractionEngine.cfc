@@ -68,11 +68,25 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Inter
     *
     * @option The value or text to select.
     * @selectorOrName The selector or name to choose the option in.
+    * @multiple If true, add the selection instead of replacing it. Default: true.
     *
     * @return Integrated.Engines.Interaction.Contracts.InteractionEngine
     */
-    public InteractionEngine function select(required string option, required string selectorOrName) {
+    public InteractionEngine function select(
+        required string option,
+        required string selectorOrName,
+        boolean multiple = false
+    ) {
         var value = variables.domEngine.findOptionValue(arguments.option, arguments.selectorOrName);
+
+        if ( multiple ) {
+            var currentInput = getInput( arguments.selectorOrName );
+            if ( ! isArray( currentInput ) ) {
+                currentInput = [ currentInput ];
+            }
+            arrayAppend( currentInput, value );
+            value = currentInput;
+        }
 
         return storeInput(value, arguments.selectorOrName);
     }
@@ -102,7 +116,7 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Inter
     * @return Integrated.Engines.Interaction.Contracts.InteractionEngine
     */
     public InteractionEngine function storeInput(
-        required string value,
+        required any value,
         required string selectorOrName,
         boolean overwrite = true
     ) {
@@ -121,6 +135,23 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Inter
         }
 
         return this;
+    }
+
+    /**
+    * Returns the value for a given selector or name
+    *
+    * @selectorOrName The selector or name of an form field.
+    *
+    * @return any
+    */
+    public any function getInput( required string selectorOrName ) {
+        var key = generateInputKey(arguments.selectorOrName);
+
+        if ( ! structKeyExists( variables.inputs, key ) ) {
+            return [];
+        }
+
+        return variables.inputs[ key ];
     }
 
     /**

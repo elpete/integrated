@@ -61,7 +61,9 @@ component extends="coldbox.system.testing.BaseTestCase" implements="Integrated.E
 
         // Set the parameters to the RequestContext collection
         for (var key in arguments.parameters) {
-            local.event.setValue(key, arguments.parameters[key]);
+            var value = arguments.parameters[ key ];
+            value = isArray( value ) ? ArrayToList( value ) : value;
+            local.event.setValue(key, value);
         }
 
         // Only mock the HTTP method if needed

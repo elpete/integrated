@@ -134,6 +134,23 @@ component extends='testbox.system.BaseSpec' {
                         expect(inputs['country']).toBe('CA');
                     });
 
+                    it('can select multiple options', function() {
+                        engine.$("findOptionValue").$args("USA", "##country").$results("US");
+                        engine.$("findOptionValue").$args("CA", "##country").$results("CA");
+                        this.CUT.select(
+                                    option = 'USA',
+                                    selectorOrName = '##country'
+                                ).select(
+                                    option = 'CA',
+                                    selectorOrName = '##country',
+                                    multiple = true
+                                );
+
+                        var inputs = this.CUT.getInputs();
+
+                        expect(inputs['country']).toBe(['US', 'CA']);
+                    });
+
                     it('fails if the select field does not exist', function() {
                         engine.$(method = "findOptionValue", throwException = true, throwType = "TestBox.AssertionFailed", preserveArguments = true);
                         expect(function() {

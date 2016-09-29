@@ -39,7 +39,8 @@
     "ignore":[
         "**/.*",
         "test",
-        "tests"
+        "tests",
+        "docs"
     ],
     "installPaths":{
         "testbox":"testbox",

@@ -92,6 +92,36 @@ component extends='testbox.system.BaseSpec' {
                         expect(inputs['country']).toBe('CA');
                     });
 
+                    it('can select multiple options', function() {
+                        this.CUT.visit('/login')
+                                .select(
+                                    option = 'USA',
+                                    selectorOrName = '##country'
+                                ).select(
+                                    option = 'CA',
+                                    selectorOrName = '##country',
+                                    multiple = true
+                                );
+
+                        var inputs = this.CUT.getInputs();
+
+                        expect(inputs['country']).toBe(['US', 'CA']);
+                    });
+
+                    it('throws when trying to select multiple options when multiple is not set to true', function() {
+                        expect( function() {
+                            this.CUT.visit('/login')
+                                    .select(
+                                        option = 'Earth',
+                                        selectorOrName = '##planet',
+                                        multiple = true
+                                    );
+                        } ).toThrow(
+                            type = 'TestBox.AssertionFailed'
+                        );
+                        
+                    });
+
                     it('selects an option by name as well as value', function() {
                         this.CUT.visit('/login')
                                 .seeIsSelected('USA', '##country')

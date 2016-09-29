@@ -579,7 +579,7 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
     * @throws TestBox.AssertionFailed
     * @return org.jsoup.select.Elements
     */
-    private function findSelectField(
+    public function findSelectField(
         required string selectorOrName,
         string errorMessage = 'Failed to find a [#arguments.selectorOrName#] select field on the page.'
     ) {

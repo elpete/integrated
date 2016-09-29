@@ -215,10 +215,23 @@ component extends="testbox.system.compat.framework.TestCase" {
     *
     * @option The value or text to select.
     * @selectorOrName The selector or name to choose the option in.
+    * @multiple If true, add the selection instead of replacing it. Default: true.
     *
     * @return Integrated.BaseSpecs.AbstractBaseSpec
     */
-    public AbstractBaseSpec function select(required string option, required string selectorOrName) {
+    public AbstractBaseSpec function select(
+        required string option,
+        required string selectorOrName,
+        boolean multiple = false
+    ) {
+        var selectField = variables.domEngine.findSelectField(arguments.selectorOrName);
+
+        if ( multiple ) {
+            expect(selectField.hasAttr("multiple")).toBeTrue(
+                "The select field [#arguments.selectorOrName#] is not set to accept multiple selections"
+            );
+        }
+
         variables.interactionEngine.select(argumentCollection = arguments);
 
         return this;
