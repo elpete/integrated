@@ -294,16 +294,36 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Inter
         }
 
         var actualValue = variables.inputs[ key ];
-        var option = variables.domEngine.findOption( actualValue, selectorOrName );
-        var optionText = option.text();
+        var optionTexts = [];
+        for (var val in actualValue) {
+            var option = variables.domEngine.findOption( val, selectorOrName );
+            arrayAppend( optionTexts, option.text() );
+        }
+
+
+        var exists = false;
+        for ( var val in actualValue ) {
+            exists = value == val;
+            if ( exists ) {
+                break;
+            }
+        }
+        if ( ! exists ) {
+            for ( var text in optionTexts ) {
+                exists = value == text;
+                if ( exists ) {
+                    break;
+                }
+            }
+        }
 
         if ( negate ) {
-            expect( value == actualValue || value == optionText ).toBeFalse(
+            expect( exists ).toBeFalse(
                 "Failed asserting that [#value#] is not selected in a [#selectorOrName#] element."
             );
         }
         else {
-            expect( value == actualValue || value == optionText ).toBeTrue(
+            expect( exists ).toBeTrue(
                 "Failed asserting that [#value#] is selected in a [#selectorOrName#] element."
             );
         }
