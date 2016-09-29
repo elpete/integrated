@@ -174,11 +174,11 @@ component extends="testbox.system.compat.framework.TestCase" {
     * Types a value in to a form field.
     *
     * @text The value to type in the form field.
-    * @element The element selector or name to type the value in to.
+    * @selectorOrName The element selector or name to type the value in to.
     *
     * @return Integrated.BaseSpecs.AbstractBaseSpec
     */
-    public AbstractBaseSpec function type(required string text, required string element) {
+    public AbstractBaseSpec function type(required string text, required string selectorOrName) {
         variables.interactionEngine.type(argumentCollection = arguments);
 
         return this;
@@ -187,11 +187,11 @@ component extends="testbox.system.compat.framework.TestCase" {
     /**
     * Checks a checkbox.
     *
-    * @element The selector or name of the checkbox to check.
+    * @selectorOrName The selector or name of the checkbox to check.
     *
     * @return Integrated.BaseSpecs.AbstractBaseSpec
     */
-    public AbstractBaseSpec function check(required string element) {
+    public AbstractBaseSpec function check(required string selectorOrName) {
         variables.interactionEngine.check(argumentCollection = arguments);
 
         return this;
@@ -200,11 +200,11 @@ component extends="testbox.system.compat.framework.TestCase" {
     /**
     * Unchecks a checkbox.
     *
-    * @element The selector or name of the checkbox to uncheck.
+    * @selectorOrName The selector or name of the checkbox to uncheck.
     *
     * @return Integrated.BaseSpecs.AbstractBaseSpec
     */
-    public AbstractBaseSpec function uncheck(required string element) {
+    public AbstractBaseSpec function uncheck(required string selectorOrName) {
         variables.interactionEngine.uncheck(argumentCollection = arguments);
 
         return this;
@@ -214,11 +214,11 @@ component extends="testbox.system.compat.framework.TestCase" {
     * Selects a given option in a given select field.
     *
     * @option The value or text to select.
-    * @element The selector or name to choose the option in.
+    * @selectorOrName The selector or name to choose the option in.
     *
     * @return Integrated.BaseSpecs.AbstractBaseSpec
     */
-    public AbstractBaseSpec function select(required string option, required string element) {
+    public AbstractBaseSpec function select(required string option, required string selectorOrName) {
         variables.interactionEngine.select(argumentCollection = arguments);
 
         return this;
@@ -227,42 +227,42 @@ component extends="testbox.system.compat.framework.TestCase" {
     /**
     * Press a submit button.
     *
-    * @button The selector or name of the button to press.
+    * @selectorOrName The selector or name of the button to press.
     * @overrideEvent Optional. The event to run instead of the form's default. Default: ''.
     *
     * @return Integrated.BaseSpecs.AbstractBaseSpec
     */
-    public AbstractBaseSpec function press(required string button, string overrideEvent = '') {
+    public AbstractBaseSpec function press(required string selectorOrName, string overrideEvent = '') {
         return this.submitForm(
-            button = arguments.button,
+            selectorOrName = arguments.selectorOrName,
             overrideEvent = arguments.overrideEvent
         );
     }
 
     /**
-    * Submits a form
+    * Submits a form.
     *
-    * @button The selector or name of the button to press.
+    * @selectorOrName The selector or name of the button to press.
     * @inputs Optional. The form values to submit.  If not provided, uses the values stored in Integrated combined with any values on the current page. Default: {}.
-    * @overrideEvent Optional. The event to run instead of the form's default. Defeault: ''.
+    * @overrideEvent Optional. The event to run instead of the form's default. Default: ''.
     *
     * @throws TestBox.AssertionFailed
     * @return Integrated.BaseSpecs.AbstractBaseSpec
     */
     public AbstractBaseSpec function submitForm(
-        required string button,
+        required string selectorOrName,
         struct inputs = {},
         string overrideEvent = ''
     ) {
         if (StructIsEmpty(arguments.inputs)) {
             // Send to the domEngine and get back the inputs
-            var formInputs = variables.domEngine.getFormInputs(arguments.button);
+            var formInputs = variables.domEngine.getFormInputs(arguments.selectorOrName);
             
             // Put the form values from the current page in to the interactionEngine
             for (var input in formInputs) {
                 variables.interactionEngine.storeInput(
-                    element = input.name,
                     value = input.value,
+                    selectorOrName = input.name,
                     overwrite = false
                 );
             }
@@ -270,7 +270,7 @@ component extends="testbox.system.compat.framework.TestCase" {
             arguments.inputs = variables.interactionEngine.getInputs();
         }
 
-        var method = variables.domEngine.getFormMethod(arguments.button);
+        var method = variables.domEngine.getFormMethod(arguments.selectorOrName);
 
         if (arguments.overrideEvent != '') {
             return makeRequest(
@@ -280,7 +280,7 @@ component extends="testbox.system.compat.framework.TestCase" {
             );
         }
         else {
-            var action = variables.domEngine.getFormAction(arguments.button);
+            var action = variables.domEngine.getFormAction(arguments.selectorOrName);
             if (action == '') {
                 throw(
                     type = 'TestBox.AssertionFailed',
@@ -296,13 +296,13 @@ component extends="testbox.system.compat.framework.TestCase" {
     }
 
     /**
-    * Makes a request internally through ColdBox using `execute()`.
+    * Makes a request internally through the framework request engine.
     * Either a route or an event must be passed in.
     *
     * @method The HTTP method to use for the request.
-    * @route Optional. The ColdBox route to execute. Default: ''.
-    * @event Optional. The ColdBox event to execute. Default: ''.
-    * @parameters Optional. A struct of parameters to attach to the request.  The parameters are attached to ColdBox's RequestContext collection. Default: {}.
+    * @route Optional. The framework route to execute. Default: ''.
+    * @event Optional. The framework event to execute. Default: ''.
+    * @parameters Optional. A struct of parameters to attach to the request.  The parameters are attached to framework's collection. Default: {}.
     *
     * @throws TestBox.AssertionFailed
     * @return Integrated.BaseSpecs.AbstractBaseSpec
@@ -402,7 +402,7 @@ component extends="testbox.system.compat.framework.TestCase" {
     }
 
     /**
-    * Verifies the ColdBox view of the current page.
+    * Verifies the framework view of the current page.
     *
     * @view The expected view.
     *
@@ -415,7 +415,7 @@ component extends="testbox.system.compat.framework.TestCase" {
     }
 
     /**
-    * Verifies the ColdBox handler of the current page.
+    * Verifies the framework handler of the current page.
     *
     * @handler The expected handler.
     *
@@ -428,7 +428,20 @@ component extends="testbox.system.compat.framework.TestCase" {
     }
 
     /**
-    * Verifies the ColdBox action of the current page.
+    * Verifies the framework controller of the current page.
+    *
+    * @controller The expected controller.
+    *
+    * @return Integrated.BaseSpecs.AbstractBaseSpec
+    */
+    public AbstractBaseSpec function seeControllerIs(required string controller) {
+        variables.frameworkEngine.seeHandlerIs(argumentCollection = arguments);
+
+        return this;
+    }
+
+    /**
+    * Verifies the framework action of the current page.
     *
     * @action The expected action.
     *
@@ -441,7 +454,7 @@ component extends="testbox.system.compat.framework.TestCase" {
     }
 
     /**
-    * Verifies the ColdBox event of the current page.
+    * Verifies the framework event of the current page.
     *
     * @event The expected event.
     *
@@ -482,7 +495,7 @@ component extends="testbox.system.compat.framework.TestCase" {
     /**
     * Verifies that the given element exists on the current page.
     *
-    * @selectorOrName The selector or name of the element to check.
+    * @selectorOrName The selector or name of the element to find.
     *
     * @return Integrated.BaseSpecs.AbstractBaseSpec
     */
@@ -511,15 +524,15 @@ component extends="testbox.system.compat.framework.TestCase" {
     /**
     * Verifies that the given element contains the given text on the current page.
     *
-    * @element The provided element.
     * @text The expected text.
+    * @selectorOrName The provided selector or name to check for the text in.
     * @negate Optional. If true, throw an exception if the element DOES contain the given text on the current page. Default: false.
     *
     * @return Integrated.BaseSpecs.AbstractBaseSpec
     */
     public AbstractBaseSpec function seeInElement(
-        required string element,
         required string text,
+        required string selectorOrName,
         boolean negate = false
     ) {
         variables.domEngine.seeInElement(argumentCollection = arguments);
@@ -530,17 +543,17 @@ component extends="testbox.system.compat.framework.TestCase" {
     /**
     * Verifies that the given element does not contain the given text on the current page.
     *
-    * @element The provided element.
     * @text The text that should not be found.
+    * @selectorOrName The provided selector or name to check for the text in.
     *
     * @return Integrated.BaseSpecs.AbstractBaseSpec
     */
     public AbstractBaseSpec function dontSeeInElement(
-        required string element,
-        required string text
+        required string text,
+        required string selectorOrName
     ) {
         return this.seeInElement(
-            element = arguments.element,
+            selectorOrName = arguments.selectorOrName,
             text = arguments.text,
             negate = true
         );
@@ -579,18 +592,18 @@ component extends="testbox.system.compat.framework.TestCase" {
     /**
     * Verifies that a field with the given value exists on the current page.
     *
-    * @element The selector or name of the field.
     * @value The expected value of the field.
+    * @selectorOrName The selector or name of the field to find the value in.
     * @negate Optional. If true, throw an exception if the field DOES contain the given text on the current page. Default: false.
     *
     * @return Integrated.BaseSpecs.AbstractBaseSpec
     */
     public AbstractBaseSpec function seeInField(
-        required string element,
         required string value,
+        required string selectorOrName,
         boolean negate = false
     ) {
-        if ( variables.interactionEngine.fieldExists( element ) ) {
+        if ( variables.interactionEngine.fieldExists( selectorOrName ) ) {
             variables.interactionEngine.seeInField(argumentCollection = arguments);
         }
         else {
@@ -603,14 +616,17 @@ component extends="testbox.system.compat.framework.TestCase" {
     /**
     * Verifies that a field with the given value exists on the current page.
     *
-    * @element The selector or name of the field.
     * @value The value of the field to not find.
+    * @selectorOrName The selector or name of the field to not find the value in.
     *
     * @return Integrated.BaseSpecs.AbstractBaseSpec
     */
-    public AbstractBaseSpec function dontSeeInField(required string element, required string value) {
+    public AbstractBaseSpec function dontSeeInField(
+        required string value,
+        required string selectorOrName
+    ) {
         return this.seeInField(
-            element = arguments.element,
+            selectorOrName = arguments.selectorOrName,
             value = arguments.value,
             negate = true
         );
@@ -619,16 +635,16 @@ component extends="testbox.system.compat.framework.TestCase" {
     /**
     * Verifies that a checkbox is checked on the current page.
     *
-    * @element The selector or name of the checkbox.
+    * @selectorOrName The selector or name of the checkbox that should be checked.
     * @negate Optional. If true, throw an exception if the checkbox IS checked on the current page. Default: false.
     *
     * @return Integrated.BaseSpecs.AbstractBaseSpec
     */
     public AbstractBaseSpec function seeIsChecked(
-        required string element,
+        required string selectorOrName,
         boolean negate = false
     ) {
-        if ( variables.interactionEngine.fieldExists( element ) ) {
+        if ( variables.interactionEngine.fieldExists( selectorOrName ) ) {
             variables.interactionEngine.seeIsChecked(argumentCollection = arguments);
         }
         else {
@@ -639,34 +655,34 @@ component extends="testbox.system.compat.framework.TestCase" {
     }
 
     /**
-    * Verifies that a field with the given value exists on the current page.
+    * Verifies that a checkbox is not checked on the current page.
     *
-    * @element The selector or name of the field.
+    * @selectorOrName The selector or name of the checkbox that should not be checked.
     *
     * @return Integrated.BaseSpecs.AbstractBaseSpec
     */
-    public AbstractBaseSpec function dontSeeIsChecked(required string element) {
+    public AbstractBaseSpec function dontSeeIsChecked(required string selectorOrName) {
         return this.seeIsChecked(
-            element = arguments.element,
+            selectorOrName = arguments.selectorOrName,
             negate = true
         );
     }
 
     /**
-    * Verifies that a given selector has a given option selected.
+    * Verifies that a given select field has a given option selected.
     *
-    * @element The selector or name of the select field.
     * @value The value or text of the option that should exist.
+    * @selectorOrName The selector or name of the select field to check for the value in.
     * @negate Optional. If true, throw an exception if the option IS selected in the given select field on the current page. Default: false.
     *
     * @return Integrated.BaseSpecs.AbstractBaseSpec
     */
     public AbstractBaseSpec function seeIsSelected(
-        required string element,
         required string value,
+        required string selectorOrName,
         boolean negate = false
     ) {
-        if ( variables.interactionEngine.fieldExists( element ) ) {
+        if ( variables.interactionEngine.fieldExists( selectorOrName ) ) {
             variables.interactionEngine.seeIsSelected(argumentCollection = arguments);
         }
         else {
@@ -679,24 +695,24 @@ component extends="testbox.system.compat.framework.TestCase" {
     /**
     * Verifies that a given selector does not have a given option selected.
     *
-    * @element The selector or name of the select field.
-    * @value The value or text of the option that should exist.
+    * @value The value or text of the option that should not exist.
+    * @selectorOrName The selector or name of the select field.
     *
     * @return Integrated.BaseSpecs.AbstractBaseSpec
     */
     public AbstractBaseSpec function dontSeeIsSelected(
-        required string element,
-        required string value
+        required string value,
+        required string selectorOrName
     ) {
         return this.seeIsSelected(
-            element = arguments.element,
+            selectorOrName = arguments.selectorOrName,
             value = arguments.value,
             negate = true
         );
     }
 
     /**
-    * Verifies that the given key and optional value exists in the ColdBox request collection.
+    * Verifies that the given key and optional value exists in the framework request collection.
     *
     * @key The key to find in the collection.
     * @value The value to find in the collection with the given key.
@@ -717,10 +733,10 @@ component extends="testbox.system.compat.framework.TestCase" {
     }
 
     /**
-    * Verifies that the given key and optional value does not exist in the ColdBox request collection.
+    * Verifies that the given key and optional value does not exist in the framework request collection.
     *
     * @key The key that should not be found in the collection.
-    * @value The value that should not be founc in the collection with the given key.
+    * @value The value that should not be found in the collection with the given key.
     * @private If true, use the private collection instead of the default collection. Default: false.
     *
     * @return string
@@ -774,7 +790,7 @@ component extends="testbox.system.compat.framework.TestCase" {
     * Verifies that a given struct of keys and values does not exist in a row in a given table.
     *
     * @table The table name to look for the data in.
-    * @data A struct of data to verify exists in a row in the given table.
+    * @data A struct of data to verify does not exist in a row in the given table.
     * @datasource Optional. A datasource to use instead of the default datasource. Default: ''.
     * @query Optional. A query to use for a query of queries.  Mostly useful for testing. Default: ''.
     *

@@ -41,23 +41,23 @@ interface displayname="DOMAssertionEngine" {
     /**
     * Verifies that the given element contains the given text on the current page.
     *
-    * @element The provided element.
     * @text The expected text.
+    * @selectorOrName The provided selector or name to check for the text in.
     * @negate Optional. If true, throw an exception if the element DOES contain the given text on the current page. Default: false.
     *
     * @return Integrated.Engines.Assertion.Contracts.DOMAssertionEngine
     */
-    public Integrated.Engines.Assertion.Contracts.DOMAssertionEngine function seeInElement(required string element, required string text, boolean negate);
+    public Integrated.Engines.Assertion.Contracts.DOMAssertionEngine function seeInElement(required string text, required string selectorOrName, boolean negate);
 
     /**
     * Verifies that the given element does not contain the given text on the current page.
     *
-    * @element The provided element.
     * @text The text that should not be found.
+    * @selectorOrName The provided selector or name to check for the text in.
     *
     * @return Integrated.Engines.Assertion.Contracts.DOMAssertionEngine
     */
-    public Integrated.Engines.Assertion.Contracts.DOMAssertionEngine function dontSeeInElement(required string element, required string text);
+    public Integrated.Engines.Assertion.Contracts.DOMAssertionEngine function dontSeeInElement(required string text, required string selectorOrName);
 
     /**
     * Verifies that a link with the given text exists on the current page.
@@ -84,63 +84,63 @@ interface displayname="DOMAssertionEngine" {
     /**
     * Verifies that a field with the given value exists on the current page.
     *
-    * @element The selector or name of the field.
     * @value The expected value of the field.
+    * @selectorOrName The selector or name of the field.
     * @negate Optional. If true, throw an exception if the field DOES contain the given text on the current page. Default: false.
     *
     * @return Integrated.Engines.Assertion.Contracts.DOMAssertionEngine
     */
-    public Integrated.Engines.Assertion.Contracts.DOMAssertionEngine function seeInField(required string element, required string value, boolean negate);
+    public Integrated.Engines.Assertion.Contracts.DOMAssertionEngine function seeInField(required string value, required string selectorOrName, boolean negate);
 
     /**
     * Verifies that a field with the given value exists on the current page.
     *
-    * @element The selector or name of the field.
     * @value The value of the field to not find.
+    * @selectorOrName The selector or name of the field.
     *
     * @return Integrated.Engines.Assertion.Contracts.DOMAssertionEngine
     */
-    public Integrated.Engines.Assertion.Contracts.DOMAssertionEngine function dontSeeInField(required string element, required string value);
+    public Integrated.Engines.Assertion.Contracts.DOMAssertionEngine function dontSeeInField(required string value, required string selectorOrName);
 
     /**
     * Verifies that a checkbox is checked on the current page.
     *
-    * @element The selector or name of the checkbox.
+    * @selectorOrName The selector or name of the checkbox.
     * @negate Optional. If true, throw an exception if the checkbox IS checked on the current page. Default: false.
     *
     * @return Integrated.Engines.Assertion.Contracts.DOMAssertionEngine
     */
-    public Integrated.Engines.Assertion.Contracts.DOMAssertionEngine function seeIsChecked(required string element, boolean negate);
+    public Integrated.Engines.Assertion.Contracts.DOMAssertionEngine function seeIsChecked(required string selectorOrName, boolean negate);
 
     /**
     * Verifies that a field with the given value exists on the current page.
     *
-    * @element The selector or name of the field.
+    * @selectorOrName The selector or name of the field.
     *
     * @return Integrated.Engines.Assertion.Contracts.DOMAssertionEngine
     */
-    public Integrated.Engines.Assertion.Contracts.DOMAssertionEngine function dontSeeIsChecked(required string element);
+    public Integrated.Engines.Assertion.Contracts.DOMAssertionEngine function dontSeeIsChecked(required string selectorOrName);
 
     /**
     * Verifies that a given selector has a given option selected.
     *
-    * @element The selector or name of the select field.
     * @value The value or text of the option that should exist.
+    * @selectorOrName The selector or name of the select field.
     * @negate Optional. If true, throw an exception if the option IS selected in the given select field on the current page. Default: false.
     *
     * @return Integrated.Engines.Assertion.Contracts.DOMAssertionEngine
     */
-    public Integrated.Engines.Assertion.Contracts.DOMAssertionEngine function seeIsSelected(required string element, required string value, boolean negate);
+    public Integrated.Engines.Assertion.Contracts.DOMAssertionEngine function seeIsSelected(required string value, required string selectorOrName, boolean negate);
 
     /**
     * Verifies that a given selector does not have a given option selected.
     *
-    * @element The selector or name of the select field.
     * @value The value or text of the option that should exist.
+    * @selectorOrName The selector or name of the select field.
     *
     * @return Integrated.Engines.Assertion.Contracts.DOMAssertionEngine
     */
-    public Integrated.Engines.Assertion.Contracts.DOMAssertionEngine function dontSeeIsSelected(required string element, required string value);
+    public Integrated.Engines.Assertion.Contracts.DOMAssertionEngine function dontSeeIsSelected(required string value, required string selectorOrName);
 
     /**
     * Returns the html of the page

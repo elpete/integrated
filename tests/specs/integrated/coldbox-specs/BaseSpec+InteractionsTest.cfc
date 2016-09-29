@@ -21,7 +21,7 @@ component extends='testbox.system.BaseSpec' {
                 feature('type', function() {
                     it('types a value in to a form field', function() {
                         this.CUT.visit('/login')
-                            .dontSeeInField('##email', 'john@example.com')
+                            .dontSeeInField('john@example.com', '##email')
                             .type('john@example.com', '##email');
 
                         var inputs = this.CUT.getInputs();
@@ -84,7 +84,7 @@ component extends='testbox.system.BaseSpec' {
                 feature('select', function() {
                     it('selects an option', function() {
                         this.CUT.visit('/login')
-                                .seeIsSelected('##country', 'USA')
+                                .seeIsSelected('USA', '##country')
                                 .select('CA', '##country');
 
                         var inputs = this.CUT.getInputs();
@@ -94,7 +94,7 @@ component extends='testbox.system.BaseSpec' {
 
                     it('selects an option by name as well as value', function() {
                         this.CUT.visit('/login')
-                                .seeIsSelected('##country', 'USA')
+                                .seeIsSelected('USA', '##country')
                                 .select('Canada', '##country');
 
                         var inputs = this.CUT.getInputs();

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+        <title>Integrated &mdash; seeViewIs</title>
+
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/themes/prism-coy.min.css">
+
+        
+        <link rel="stylesheet" href="/css/main.css">
+    </head>
+    <body>
+        <div class="container">
+            <section class="hero is-dark is-bold">
+    <div class="hero-head">
+        <nav class="nav has-shadow is-success">
+            <div class="container">
+                <div class="nav-left">
+                    <a href="/" class="title nav-item is-tab">Integrated</a>
+                </div>
+                <div class="nav-right">
+                    <a href="/apidocs" class="nav-item is-tab">
+                        API Docs
+                    </a>
+                    <a href="https://github.com/elpete/integrated" class="nav-item is-tab">
+                        GitHub&nbsp;&nbsp;<i class="fa fa-github"></i>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </div>
+</section>
+            <section class="section">
+    <div class="container is-fullwidth">
+        <label class="label title is-1" for="docsearch">Search documentation</label>
+        <br />
+        <p class="control">
+          <input id="docsearch" class="input is-fullwidth is-large" type="text" placeholder="Search documentation — powered by Algolia" autofocus>
+        </p>
+    </div>
+</section>
+
+
+
+            <section class="section">
+    <div class="columns">
+        <div class="column is-3">
+            <div class="column">
+                <aside class="menu">
+                    <p class="menu-label">Assertion Methods</p>
+                    <ul class="menu-list">
+                        <li><a href="/dontSee" class="">dontSee</a></li>
+                        <li><a href="/dontSeeElement" class="">dontSeeElement</a></li>
+                        <li><a href="/dontSeeInCollection" class="">dontSeeInCollection</a></li>
+                        <li><a href="/dontSeeInElement" class="">dontSeeInElement</a></li>
+                        <li><a href="/dontSeeInField" class="">dontSeeInField</a></li>
+                        <li><a href="/dontSeeInTable" class="">dontSeeInTable</a></li>
+                        <li><a href="/dontSeeIsChecked" class="">dontSeeIsChecked</a></li>
+                        <li><a href="/dontSeeIsSelected" class="">dontSeeIsSelected</a></li>
+                        <li><a href="/dontSeeLink" class="">dontSeeLink</a></li>
+                        <li><a href="/see" class="">see</a></li>
+                        <li><a href="/seeActionIs" class="">seeActionIs</a></li>
+                        <li><a href="/seeControllerIs" class="">seeControllerIs</a></li>
+                        <li><a href="/seeElement" class="">seeElement</a></li>
+                        <li><a href="/seeEventIs" class="">seeEventIs</a></li>
+                        <li><a href="/seeHandlerIs" class="">seeHandlerIs</a></li>
+                        <li><a href="/seeInCollection" class="">seeInCollection</a></li>
+                        <li><a href="/seeInElement" class="">seeInElement</a></li>
+                        <li><a href="/seeInField" class="">seeInField</a></li>
+                        <li><a href="/seeInTable" class="">seeInTable</a></li>
+                        <li><a href="/seeIsChecked" class="">seeIsChecked</a></li>
+                        <li><a href="/seeIsSelected" class="">seeIsSelected</a></li>
+                        <li><a href="/seeLink" class="">seeLink</a></li>
+                        <li><a href="/seePageIs" class="">seePageIs</a></li>
+                        <li><a href="/seeTitleIs" class="">seeTitleIs</a></li>
+                        <li><a href="/seeViewIs" class="is-active">seeViewIs</a></li>
+                    </ul>
+                    <p class="menu-label">Interaction Methods</p>
+                    <ul class="menu-list">
+                        <li><a href="/check" class="">check</a></li></li>
+                        <li><a href="/click" class="">click</a></li></li>
+                        <li><a href="/makeRequest" class="">makeRequest</a></li></li>
+                        <li><a href="/press" class="">press</a></li></li>
+                        <li><a href="/select" class="">select</a></li></li>
+                        <li><a href="/submitForm" class="">submitForm</a></li></li>
+                        <li><a href="/type" class="">type</a></li></li>
+                        <li><a href="/uncheck" class="">uncheck</a></li></li>
+                        <li><a href="/visit" class="">visit</a></li></li>
+                        <li><a href="/visitEvent" class="">visitEvent</a></li></li>
+                    </ul>
+                    <p class="menu-label">Debug Methods</p>
+                    <ul class="menu-list">
+                        <li><a href="/debugPage" class="">debugPage</a></li></li>
+                        <li><a href="/debugEvent" class="">debugEvent</a></li></li>
+                        <li><a href="/debugCollection" class="">debugCollection</a></li></li>
+                        <li><a href="/debugPrivateCollection" class="">debugPrivateCollection</a></li></li>
+                    </ul>
+                    <p class="menu-label">Extending Integrated</p>
+                    <ul class="menu-list">
+                        <li><a href="/under-the-hood" class="">Under the Hood</a></li></li>
+                        <li><a href="/custom-engines" class="">Custom Engines</a></li></li>
+                        <li><a href="/custom-base-specs" class="">Custom Base Specs</a></li></li>
+                    </ul>
+                </aside>
+            </div>
+        </div>
+
+        <div class="column">
+            <h1 class="title is-1">seeViewIs</h1>
+<h2 class="subtitle is-4">
+    Verifies the framework view of the current page.
+</h2>
+<h3 class="subtitle is-5">Arguments</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Default</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="title is-5"><strong>view</strong></td>
+            <td class="title is-5">string</td>
+            <td class="title is-5">true</td>
+            <td class="title is-5"></td>
+            <td class="title is-5">The expected view.</td>
+        </tr>
+    </tbody>
+</table>
+<h3 class="subtitle is-5">Examples</h3>
+<pre><code class="language-js">it( "can verify the current framework view", function() {
+    this.visit( "/" )
+        .seeViewIs( "main/index" );
+} );</code></pre>
+        </div>
+    </div>
+</section>            
+            <footer class="footer">
+    <div class="container">
+        <div class="content has-text-centered">
+            <p>
+                <strong>Integrated</strong> by <a href="http://dev.elpete.com">Eric Peterson</a>. The source code is licensed
+                <a href="http://opensource.org/licenses/mit-license.php">MIT</a>.
+            </p>
+        </div>
+    </div>
+</footer>        </div>
+
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/prism.min.js"></script>
+            <script type="text/javascript" src="//cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script>
+    <script type="text/javascript">
+        docsearch({
+            apiKey: '<YOUR_API_KEY>',
+            indexName: '<YOUR_INDEX_NAME>',
+            inputSelector: '#docsearch'
+        });
+    </script>
+    </body>
+</html>

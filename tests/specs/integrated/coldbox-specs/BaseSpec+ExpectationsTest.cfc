@@ -295,11 +295,11 @@ component extends='testbox.system.BaseSpec' {
             feature('seeInElement', function() {
                 it('verifies that the given text appears inside a given element', function() {
                     expect(function() {
-                        this.CUT.seeInElement('label', 'Email');
+                        this.CUT.seeInElement('Email', 'label');
                     }).notToThrow();
 
                     expect(function() {
-                        this.CUT.seeInElement('h1', 'Email');
+                        this.CUT.seeInElement('Email', 'h1');
                     }).toThrow(
                         type = 'TestBox.AssertionFailed',
                         regex = 'Failed asserting that \[Email\] appears in a \[h1\] on the page\.'
@@ -308,7 +308,7 @@ component extends='testbox.system.BaseSpec' {
 
                 it('fails if the given element does not exist on the page', function() {
                     expect(function() {
-                        this.CUT.dontSeeInElement('span', 'Email');
+                        this.CUT.dontSeeInElement('Email', 'span');
                     }).toThrow(
                         type = 'TestBox.AssertionFailed',
                         regex = 'Failed to find a \[span\] element on the page\.'
@@ -319,7 +319,7 @@ component extends='testbox.system.BaseSpec' {
                     this.CUT.parsePublic('');
 
                     expect(function() {
-                        this.CUT.dontSeeInElement('label', 'Email');
+                        this.CUT.dontSeeInElement('Email', 'label');
                     }).toThrow(
                         type = 'TestBox.AssertionFailed',
                         regex = 'Cannot make assertions until you visit a page\.  Make sure to run visit\(\) or visitEvent\(\) first\.'
@@ -330,11 +330,11 @@ component extends='testbox.system.BaseSpec' {
             feature('dontSeeInElement', function() {
                 it('verifies that the given text does not appear inside a given element', function() {
                     expect(function() {
-                        this.CUT.dontSeeInElement('h1', 'Email');
+                        this.CUT.dontSeeInElement('Email', 'h1');
                     }).notToThrow();
 
                     expect(function() {
-                        this.CUT.dontSeeInElement('label', 'Email');
+                        this.CUT.dontSeeInElement('Email', 'label');
                     }).toThrow(
                         type = 'TestBox.AssertionFailed',
                         regex = 'Failed asserting that \[Email\] did not appear in a \[label\] on the page\.'
@@ -343,7 +343,7 @@ component extends='testbox.system.BaseSpec' {
 
                 it('fails if the given element does not exist on the page', function() {
                     expect(function() {
-                        this.CUT.dontSeeInElement('span', 'Email');
+                        this.CUT.dontSeeInElement('Email', 'span');
                     }).toThrow(
                         type = 'TestBox.AssertionFailed',
                         regex = 'Failed to find a \[span\] element on the page\.'
@@ -354,7 +354,7 @@ component extends='testbox.system.BaseSpec' {
                     this.CUT.parsePublic('');
 
                     expect(function() {
-                        this.CUT.dontSeeInElement('h1', 'Email');
+                        this.CUT.dontSeeInElement('Email', 'h1');
                     }).toThrow(
                         type = 'TestBox.AssertionFailed',
                         regex = 'Cannot make assertions until you visit a page\.  Make sure to run visit\(\) or visitEvent\(\) first\.'
@@ -471,11 +471,11 @@ component extends='testbox.system.BaseSpec' {
             feature('seeInField', function() {
                 it('verifies that a field has the value of the given text', function() {
                     expect(function() {
-                        this.CUT.seeInField('##email', 'sample');
+                        this.CUT.seeInField('sample', '##email');
                     }).notToThrow();
 
                     expect(function() {
-                        this.CUT.seeInField('##email', 'random');
+                        this.CUT.seeInField('random', '##email');
                     }).toThrow(
                         type = 'TestBox.AssertionFailed',
                         regex = 'Failed asserting that \[random\] appears in a \[##email\] input or textarea on the page\.'
@@ -485,12 +485,12 @@ component extends='testbox.system.BaseSpec' {
                 it('can also check text that has been "typed" in', function() {
                     expect(function() {
                         this.CUT.type('random', '##email')
-                            .seeInField('##email', 'random');
+                            .seeInField('random', '##email');
                     }).notToThrow();
 
                     expect(function() {
                         this.CUT.type('random', '##email')
-                            .seeInField('##email', 'sample');
+                            .seeInField('sample', '##email');
                     }).toThrow(
                         type = 'TestBox.AssertionFailed',
                         regex = 'Failed asserting that \[sample\] appears in a \[##email\] input or textarea on the page\.'
@@ -499,7 +499,7 @@ component extends='testbox.system.BaseSpec' {
 
                 it('fails if the given selector cannot be found', function() {
                     expect(function() {
-                        this.CUT.seeInField('##doesntExist', 'random');
+                        this.CUT.seeInField('random', '##doesntExist');
                     }).toThrow(
                         type = 'TestBox.AssertionFailed',
                         regex = 'Failed to find a \[##doesntExist\] input or textarea on the page\.'
@@ -510,7 +510,7 @@ component extends='testbox.system.BaseSpec' {
                     this.CUT.parsePublic('');
 
                     expect(function() {
-                        this.CUT.seeInField('##email', 'sample');
+                        this.CUT.seeInField('sample', '##email');
                     }).toThrow(
                         type = 'TestBox.AssertionFailed',
                         regex = 'Cannot make assertions until you visit a page\.  Make sure to run visit\(\) or visitEvent\(\) first\.'
@@ -521,11 +521,11 @@ component extends='testbox.system.BaseSpec' {
             feature('dontSeeInField', function() {
                 it('verifies that a field does not have the value of the given text', function() {
                     expect(function() {
-                        this.CUT.dontSeeInField('##email', 'random');
+                        this.CUT.dontSeeInField('random', '##email');
                     }).notToThrow();
 
                     expect(function() {
-                        this.CUT.dontSeeInField('##email', 'sample');
+                        this.CUT.dontSeeInField('sample', '##email');
                     }).toThrow(
                         type = 'TestBox.AssertionFailed',
                         regex = 'Failed asserting that \[sample\] does not appear in a \[##email\] input or textarea on the page\.'
@@ -534,7 +534,7 @@ component extends='testbox.system.BaseSpec' {
 
                 it('finds fields by names as well as ids', function() {
                     expect(function() {
-                        this.CUT.dontSeeInField('email', 'random');
+                        this.CUT.dontSeeInField('random', 'email');
                     }).notToThrow();
                 });
 
@@ -542,7 +542,7 @@ component extends='testbox.system.BaseSpec' {
                     this.CUT.parsePublic('');
 
                     expect(function() {
-                        this.CUT.dontSeeInField('##email', 'sample');
+                        this.CUT.dontSeeInField('sample', '##email');
                     }).toThrow(
                         type = 'TestBox.AssertionFailed',
                         regex = 'Cannot make assertions until you visit a page\.  Make sure to run visit\(\) or visitEvent\(\) first\.'
@@ -629,11 +629,11 @@ component extends='testbox.system.BaseSpec' {
             feature('seeIsSelected', function() {
                 it('verifies that a field has the given value selected', function() {
                     expect(function() {
-                        this.CUT.seeIsSelected('##country', 'USA');
+                        this.CUT.seeIsSelected('USA', '##country');
                     }).notToThrow();
 
                     expect(function() {
-                        this.CUT.seeIsSelected('##country', 'Canada');
+                        this.CUT.seeIsSelected('Canada', '##country');
                     }).toThrow(
                         type = 'TestBox.AssertionFailed',
                         regex = 'Failed asserting that \[Canada\] is selected in a \[##country\] input on the page\.'
@@ -642,29 +642,29 @@ component extends='testbox.system.BaseSpec' {
 
                 it('can verify by value or html', function() {
                     expect(function() {
-                        this.CUT.seeIsSelected('##country', 'US');
+                        this.CUT.seeIsSelected('US', '##country');
                     }).notToThrow();
 
                     expect(function() {
-                        this.CUT.seeIsSelected('##country', 'USA');
+                        this.CUT.seeIsSelected('USA', '##country');
                     }).notToThrow();
                 });
 
                 it( "also verifies fields that are 'selected' during the tests", function() {
                     expect(function() {
                         this.CUT.select('CA', '##country')
-                            .seeIsSelected('##country', 'CA');
+                            .seeIsSelected('CA', '##country');
                     }).notToThrow();
 
                     expect(function() {
                         this.CUT.select('CA', '##country')
-                            .seeIsSelected('##country', 'Canada');
+                            .seeIsSelected('Canada', '##country');
                     }).notToThrow();
 
                     expect(function() {
-                        this.CUT.seeIsSelected('##country', 'USA')
-                            .select('##country', 'Canada')
-                            .seeIsSelected('##country', 'USA');
+                        this.CUT.seeIsSelected('USA', '##country')
+                            .select('Canada', '##country')
+                            .seeIsSelected('USA', '##country');
                     }).toThrow(
                         type = 'TestBox.AssertionFailed',
                         regex = 'Failed asserting that \[USA\] is selected in a \[\##country\] element\.'
@@ -673,7 +673,7 @@ component extends='testbox.system.BaseSpec' {
 
                 it('fails if it cannot find the specified select field', function() {
                     expect(function() {
-                        this.CUT.seeIsSelected('##state', 'UT');
+                        this.CUT.seeIsSelected('UT', '##state');
                     }).toThrow(
                         type = 'TestBox.AssertionFailed',
                         regex = 'Failed to find a \[##state\] select field on the page\.'
@@ -682,7 +682,7 @@ component extends='testbox.system.BaseSpec' {
 
                 it('fails if it cannot find any selected options in the select field', function() {
                     expect(function() {
-                        this.CUT.seeIsSelected('##planet', 'Earth');
+                        this.CUT.seeIsSelected('Earth', '##planet');
                     }).toThrow(
                         type = 'TestBox.AssertionFailed',
                         regex = 'Failed to find any selected options in \[##planet\] select field on the page\.'
@@ -693,7 +693,7 @@ component extends='testbox.system.BaseSpec' {
                     this.CUT.parsePublic('');
 
                     expect(function() {
-                        this.CUT.seeIsSelected('##country', 'USA');
+                        this.CUT.seeIsSelected('USA', '##country');
                     }).toThrow(
                         type = 'TestBox.AssertionFailed',
                         regex = 'Cannot make assertions until you visit a page\.  Make sure to run visit\(\) or visitEvent\(\) first\.'
@@ -704,11 +704,11 @@ component extends='testbox.system.BaseSpec' {
             feature('dontSeeIsSelected', function() {
                 it('verifies that a field does not have the given value selected', function() {
                     expect(function() {
-                        this.CUT.dontSeeIsSelected('##country', 'Canada');
+                        this.CUT.dontSeeIsSelected('Canada', '##country');
                     }).notToThrow();
 
                     expect(function() {
-                        this.CUT.dontSeeIsSelected('##country', 'USA');
+                        this.CUT.dontSeeIsSelected('USA', '##country');
                     }).toThrow(
                         type = 'TestBox.AssertionFailed',
                         regex = 'Failed asserting that \[USA\] is not selected in a \[##country\] input on the page\.'
@@ -719,7 +719,7 @@ component extends='testbox.system.BaseSpec' {
                     this.CUT.parsePublic('');
 
                     expect(function() {
-                        this.CUT.dontSeeIsSelected('##country', 'Canada');
+                        this.CUT.dontSeeIsSelected('Canada', '##country');
                     }).toThrow(
                         type = 'TestBox.AssertionFailed',
                         regex = 'Cannot make assertions until you visit a page\.  Make sure to run visit\(\) or visitEvent\(\) first\.'

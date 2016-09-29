@@ -98,26 +98,26 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
     /**
     * Verifies that the given element contains the given text on the current page.
     *
-    * @element The provided element.
     * @text The expected text.
+    * @selectorOrName The provided selector or name to check for the text in.
     * @negate Optional. If true, throw an exception if the element DOES contain the given text on the current page. Default: false.
     *
     * @return Integrated.Engines.Assertion.Contracts.DOMAssertionEngine
     */
     public Integrated.Engines.Assertion.Contracts.DOMAssertionEngine function seeInElement(
-        required string element,
         required string text,
+        required string selectorOrName,
         boolean negate = false
     ) {
-        var elems = findElement(arguments.element);
+        var elems = findElement(arguments.selectorOrName);
 
         var elemsWithText = elems.select(':contains(#arguments.text#)');
 
         if (!negate) {
-            expect(elemsWithText).notToBeEmpty('Failed asserting that [#arguments.text#] appears in a [#arguments.element#] on the page.');
+            expect(elemsWithText).notToBeEmpty('Failed asserting that [#arguments.text#] appears in a [#arguments.selectorOrName#] on the page.');
         }
         else {
-            expect(elemsWithText).toBeEmpty('Failed asserting that [#arguments.text#] did not appear in a [#arguments.element#] on the page.');
+            expect(elemsWithText).toBeEmpty('Failed asserting that [#arguments.text#] did not appear in a [#arguments.selectorOrName#] on the page.');
         }
 
         return this;
@@ -126,17 +126,17 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
     /**
     * Verifies that the given element does not contain the given text on the current page.
     *
-    * @element The provided element.
     * @text The text that should not be found.
+    * @selectorOrName The provided selector or name to check for the text in.
     *
     * @return Integrated.Engines.Assertion.Contracts.DOMAssertionEngine
     */
     public Integrated.Engines.Assertion.Contracts.DOMAssertionEngine function dontSeeInElement(
-        required string element,
-        required string text
+        required string text,
+        required string selectorOrName
     ) {
         return this.seeInElement(
-            element = arguments.element,
+            selectorOrName = arguments.selectorOrName,
             text = arguments.text,
             negate = true
         );
@@ -191,22 +191,22 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
     /**
     * Verifies that a field with the given value exists on the current page.
     *
-    * @element The selector or name of the field.
     * @value The expected value of the field.
+    * @selectorOrName The selector or name of the field.
     * @negate Optional. If true, throw an exception if the field DOES contain the given text on the current page. Default: false.
     *
     * @return Integrated.Engines.Assertion.Contracts.DOMAssertionEngine
     */
-    public Integrated.Engines.Assertion.Contracts.DOMAssertionEngine function seeInField(required string element, required string value, boolean negate = false) {
-        var inputs = findField(arguments.element);
+    public Integrated.Engines.Assertion.Contracts.DOMAssertionEngine function seeInField(required string value, required string selectorOrName, boolean negate = false) {
+        var inputs = findField(arguments.selectorOrName);
 
         var inputsWithValue = inputs.select('[value=#arguments.value#');
 
         if (!negate) {
-            expect(inputsWithValue).notToBeEmpty('Failed asserting that [#arguments.value#] appears in a [#arguments.element#] input or textarea on the page.');
+            expect(inputsWithValue).notToBeEmpty('Failed asserting that [#arguments.value#] appears in a [#arguments.selectorOrName#] input or textarea on the page.');
         }
         else {
-            expect(inputsWithValue).toBeEmpty('Failed asserting that [#arguments.value#] does not appear in a [#arguments.element#] input or textarea on the page.');
+            expect(inputsWithValue).toBeEmpty('Failed asserting that [#arguments.value#] does not appear in a [#arguments.selectorOrName#] input or textarea on the page.');
         }
 
         return this;
@@ -215,14 +215,14 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
     /**
     * Verifies that a field with the given value exists on the current page.
     *
-    * @element The selector or name of the field.
     * @value The value of the field to not find.
+    * @selectorOrName The selector or name of the field.
     *
     * @return Integrated.Engines.Assertion.Contracts.DOMAssertionEngine
     */
-    public Integrated.Engines.Assertion.Contracts.DOMAssertionEngine function dontSeeInField(required string element, required string value) {
+    public Integrated.Engines.Assertion.Contracts.DOMAssertionEngine function dontSeeInField(required string value, required string selectorOrName) {
         return this.seeInField(
-            element = arguments.element,
+            selectorOrName = arguments.selectorOrName,
             value = arguments.value,
             negate = true
         );
@@ -231,21 +231,21 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
     /**
     * Verifies that a checkbox is checked on the current page.
     *
-    * @element The selector or name of the checkbox.
+    * @selectorOrName The selector or name of the checkbox.
     * @negate Optional. If true, throw an exception if the checkbox IS checked on the current page. Default: false.
     *
     * @return Integrated.Engines.Assertion.Contracts.DOMAssertionEngine
     */
-    public Integrated.Engines.Assertion.Contracts.DOMAssertionEngine function seeIsChecked(required string element, boolean negate = false) {
-        var checkboxes = findCheckbox(arguments.element);
+    public Integrated.Engines.Assertion.Contracts.DOMAssertionEngine function seeIsChecked(required string selectorOrName, boolean negate = false) {
+        var checkboxes = findCheckbox(arguments.selectorOrName);
 
         var checkedCheckboxes = checkboxes.select('[checked]');
 
         if (!negate) {
-            expect(checkedCheckboxes).notToBeEmpty('Failed asserting that [#arguments.element#] is checked on the page.');
+            expect(checkedCheckboxes).notToBeEmpty('Failed asserting that [#arguments.selectorOrName#] is checked on the page.');
         }
         else {
-            expect(checkedCheckboxes).toBeEmpty('Failed asserting that [#arguments.element#] is not checked on the page.');
+            expect(checkedCheckboxes).toBeEmpty('Failed asserting that [#arguments.selectorOrName#] is not checked on the page.');
         }
 
         return this;
@@ -254,13 +254,13 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
     /**
     * Verifies that a field with the given value exists on the current page.
     *
-    * @element The selector or name of the field.
+    * @selectorOrName The selector or name of the field.
     *
     * @return Integrated.Engines.Assertion.Contracts.DOMAssertionEngine
     */
-    public Integrated.Engines.Assertion.Contracts.DOMAssertionEngine function dontSeeIsChecked(required string element) {
+    public Integrated.Engines.Assertion.Contracts.DOMAssertionEngine function dontSeeIsChecked(required string selectorOrName) {
         return this.seeIsChecked(
-            element = arguments.element,
+            selectorOrName = arguments.selectorOrName,
             negate = true
         );
     }
@@ -268,26 +268,26 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
     /**
     * Verifies that a given selector has a given option selected.
     *
-    * @element The selector or name of the select field.
     * @value The value or text of the option that should exist.
+    * @selectorOrName The selector or name of the select field.
     * @negate Optional. If true, throw an exception if the option IS selected in the given select field on the current page. Default: false.
     *
     * @return Integrated.Engines.Assertion.Contracts.DOMAssertionEngine
     */
-    public Integrated.Engines.Assertion.Contracts.DOMAssertionEngine function seeIsSelected(required string element, required string value, boolean negate = false) {
-        var selectFields = findSelectField(arguments.element);
+    public Integrated.Engines.Assertion.Contracts.DOMAssertionEngine function seeIsSelected(required string value, required string selectorOrName, boolean negate = false) {
+        var selectFields = findSelectField(arguments.selectorOrName);
 
         var selectedOption = selectFields.select('option[selected]');
 
-        expect(selectedOption).notToBeEmpty('Failed to find any selected options in [#arguments.element#] select field on the page.');
+        expect(selectedOption).notToBeEmpty('Failed to find any selected options in [#arguments.selectorOrName#] select field on the page.');
 
         if (!negate) {
             var isValue = selectedOption.val() == arguments.value || selectedOption.html() == arguments.value;
-            expect(isValue).toBeTrue('Failed asserting that [#arguments.value#] is selected in a [#arguments.element#] input on the page.');
+            expect(isValue).toBeTrue('Failed asserting that [#arguments.value#] is selected in a [#arguments.selectorOrName#] input on the page.');
         }
         else {
             var isNotValue = selectedOption.val() != arguments.value && selectedOption.html() != arguments.value;
-            expect(isNotValue).toBeTrue('Failed asserting that [#arguments.value#] is not selected in a [#arguments.element#] input on the page.');
+            expect(isNotValue).toBeTrue('Failed asserting that [#arguments.value#] is not selected in a [#arguments.selectorOrName#] input on the page.');
         }
 
         return this;
@@ -296,14 +296,14 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
     /**
     * Verifies that a given selector does not have a given option selected.
     *
-    * @element The selector or name of the select field.
     * @value The value or text of the option that should exist.
+    * @selectorOrName The selector or name of the select field.
     *
     * @return Integrated.Engines.Assertion.Contracts.DOMAssertionEngine
     */
-    public Integrated.Engines.Assertion.Contracts.DOMAssertionEngine function dontSeeIsSelected(required string element, required string value) {
+    public Integrated.Engines.Assertion.Contracts.DOMAssertionEngine function dontSeeIsSelected(required string value, required string selectorOrName) {
         return this.seeIsSelected(
-            element = arguments.element,
+            selectorOrName = arguments.selectorOrName,
             value = arguments.value,
             negate = true
         );

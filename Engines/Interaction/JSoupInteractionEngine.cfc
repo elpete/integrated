@@ -33,48 +33,48 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Inter
     * Types a value in to a form field.
     *
     * @text The value to type in the form field.
-    * @element The element selector or name to type the value in to.
+    * @selectorOrName The element selector or name to type the value in to.
     *
     * @return Integrated.Engines.Interaction.Contracts.InteractionEngine
     */
-    public InteractionEngine function type(required string text, required string element) {
-        return storeInput(arguments.element, arguments.text);
+    public InteractionEngine function type(required string text, required string selectorOrName) {
+        return storeInput(arguments.text, arguments.selectorOrName);
     }
 
     /**
     * Checks a checkbox.
     *
-    * @element The selector or name of the checkbox to check.
+    * @selectorOrName The selector or name of the checkbox to check.
     *
     * @return Integrated.Engines.Interaction.Contracts.InteractionEngine
     */
-    public InteractionEngine function check(required string element) {
-        return storeInput(arguments.element, true);
+    public InteractionEngine function check(required string selectorOrName) {
+        return storeInput(true, arguments.selectorOrName);
     }
 
     /**
     * Unchecks a checkbox.
     *
-    * @element The selector or name of the checkbox to uncheck.
+    * @selectorOrName The selector or name of the checkbox to uncheck.
     *
     * @return Integrated.Engines.Interaction.Contracts.InteractionEngine
     */
-    public InteractionEngine function uncheck(required string element) {
-        return storeInput(arguments.element, false);
+    public InteractionEngine function uncheck(required string selectorOrName) {
+        return storeInput(false, arguments.selectorOrName);
     }
 
     /**
     * Selects a given option in a given select field.
     *
     * @option The value or text to select.
-    * @element The selector or name to choose the option in.
+    * @selectorOrName The selector or name to choose the option in.
     *
     * @return Integrated.Engines.Interaction.Contracts.InteractionEngine
     */
-    public InteractionEngine function select(required string option, required string element) {
-        var value = variables.domEngine.findOptionValue(arguments.option, arguments.element);
+    public InteractionEngine function select(required string option, required string selectorOrName) {
+        var value = variables.domEngine.findOptionValue(arguments.option, arguments.selectorOrName);
 
-        return storeInput(arguments.element, value);
+        return storeInput(value, arguments.selectorOrName);
     }
 
     /**
@@ -95,21 +95,21 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Inter
     /**
     * Stores a value in an in-memory input struct with the element name as the key.
     *
-    * @element The selector or name of an form field.
     * @value The value to store in-memory.
+    * @selectorOrName The selector or name of an form field.
     * @overwrite Optional. Specifies whether to overwrite any existing in-memory input values.  Default: true.
     *
     * @return Integrated.Engines.Interaction.Contracts.InteractionEngine
     */
     public InteractionEngine function storeInput(
-        required string element,
         required string value,
+        required string selectorOrName,
         boolean overwrite = true
     ) {
         // First verify that the given element exists
-        variables.domEngine.seeElement(arguments.element);
+        variables.domEngine.seeElement(arguments.selectorOrName);
 
-        var key = generateInputKey(arguments.element);
+        var key = generateInputKey(arguments.selectorOrName);
 
         if (StructKeyExists(variables.inputs, key)) {
             if (arguments.overwrite) {
@@ -146,19 +146,19 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Inter
     /**
     * Verifies that a field with the given value exists in the current inputs regardless of value.
     *
-    * @element The selector or name of the field.
+    * @selectorOrName The selector or name of the field.
     *
     * @return boolean
     */
-    public boolean function fieldExists(required string element) {
-        return structKeyExists( variables.inputs, generateInputKey(element));
+    public boolean function fieldExists(required string selectorOrName) {
+        return structKeyExists( variables.inputs, generateInputKey(selectorOrName));
     }
 
     /**
     * Verifies that a field with the given value exists in the current inputs with the given value.
     *
-    * @element The selector or name of the field.
     * @value The expected value of the field.
+    * @selectorOrName The selector or name of the field.
     * @negate Optional. If true, throw an exception if the field DOES contain the given text on the current page. Default: false.
     *
     * @throws TestBox.AssertionFailed
@@ -166,18 +166,18 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Inter
     */
     public InteractionEngine function seeInField(
         required string value,
-        required string element,
+        required string selectorOrName,
         boolean negate = false
     ) {
-        var key = generateInputKey(element);
+        var key = generateInputKey(selectorOrName);
         var exists = structKeyExists( variables.inputs, key );
 
         if ( ! exists ) {
             if ( negate ) {
-                expect( exists ).toBeFalse( "Expected [#element#] to not exist in the stored inputs." );
+                expect( exists ).toBeFalse( "Expected [#selectorOrName#] to not exist in the stored inputs." );
             }
             else {
-                expect( exists ).toBeTrue( "Expected [#element#] to exist in the stored inputs." );
+                expect( exists ).toBeTrue( "Expected [#selectorOrName#] to exist in the stored inputs." );
             }
             return this;
         }
@@ -185,10 +185,10 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Inter
         var actualValue = variables.inputs[ key ];
 
         if ( negate ) {
-            expect( actualValue ).notToBe( value, "Failed asserting that [#value#] does not appear in a [#element#] input or textarea on the page." );
+            expect( actualValue ).notToBe( value, "Failed asserting that [#value#] does not appear in a [#selectorOrName#] input or textarea on the page." );
         }
         else {
-            expect( actualValue ).toBe( value, "Failed asserting that [#value#] appears in a [#element#] input or textarea on the page." );
+            expect( actualValue ).toBe( value, "Failed asserting that [#value#] appears in a [#selectorOrName#] input or textarea on the page." );
         }
 
         return this;
@@ -197,25 +197,25 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Inter
     /**
     * Verifies that a checkbox is checked in the stored inputs.
     *
-    * @element The selector or name of the checkbox.
+    * @selectorOrName The selector or name of the checkbox.
     * @negate Optional. If true, throw an exception if the checkbox IS checked. Default: false.
     *
     * @throws TestBox.AssertionFailed
     * @return Integrated.Engines.Interaction.Contracts.InteractionEngine
     */
     public InteractionEngine function seeIsChecked(
-        required string element,
+        required string selectorOrName,
         boolean negate = false
     ) {
-        var key = generateInputKey(element);
+        var key = generateInputKey(selectorOrName);
         var exists = structKeyExists( variables.inputs, key );
 
         if ( ! exists ) {
             if ( negate ) {
-                expect( exists ).toBeFalse( "Expected [#element#] to not exist in the stored inputs." );
+                expect( exists ).toBeFalse( "Expected [#selectorOrName#] to not exist in the stored inputs." );
             }
             else {
-                expect( exists ).toBeTrue( "Expected [#element#] to exist in the stored inputs." );
+                expect( exists ).toBeTrue( "Expected [#selectorOrName#] to exist in the stored inputs." );
             }
             return this;
         }
@@ -224,11 +224,11 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Inter
 
         if ( negate ) {
             expect( actualValue )
-                .toBeFalse( "Failed asserting that [#element#] is not checked on the page." );
+                .toBeFalse( "Failed asserting that [#selectorOrName#] is not checked on the page." );
         }
         else {
             expect( actualValue )
-                .toBeTrue( "Failed asserting that [#element#] is checked on the page." );   
+                .toBeTrue( "Failed asserting that [#selectorOrName#] is checked on the page." );   
         }
 
         return this;
@@ -238,7 +238,7 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Inter
     * Verifies that an option is selected in the stored inputs.
     *
     * @value The selector or name of the option to look for.
-    * @element The selector or name of the element to look for the option in.
+    * @selectorOrName The selector or name of the element to look for the option in.
     * @negate Optional. If true, throw an exception if the option IS selected in the element. Default: false.
     *
     * @throws TestBox.AssertionFailed
@@ -246,34 +246,34 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Inter
     */
     public InteractionEngine function seeIsSelected(
         required string value,
-        required string element,
+        required string selectorOrName,
         boolean negate = false
     ) {
-        var key = generateInputKey(element);
+        var key = generateInputKey(selectorOrName);
         var exists = structKeyExists( variables.inputs, key );
 
         if ( ! exists ) {
             if ( negate ) {
-                expect( exists ).toBeFalse( "Expected [#element#] to not exist in the stored inputs." );
+                expect( exists ).toBeFalse( "Expected [#selectorOrName#] to not exist in the stored inputs." );
             }
             else {
-                expect( exists ).toBeTrue( "Expected [#element#] to exist in the stored inputs." );
+                expect( exists ).toBeTrue( "Expected [#selectorOrName#] to exist in the stored inputs." );
             }
             return this;
         }
 
         var actualValue = variables.inputs[ key ];
-        var option = variables.domEngine.findOption( actualValue, element );
+        var option = variables.domEngine.findOption( actualValue, selectorOrName );
         var optionText = option.text();
 
         if ( negate ) {
             expect( value == actualValue || value == optionText ).toBeFalse(
-                "Failed asserting that [#value#] is not selected in a [#element#] element."
+                "Failed asserting that [#value#] is not selected in a [#selectorOrName#] element."
             );
         }
         else {
             expect( value == actualValue || value == optionText ).toBeTrue(
-                "Failed asserting that [#value#] is selected in a [#element#] element."
+                "Failed asserting that [#value#] is selected in a [#selectorOrName#] element."
             );
         }
 

@@ -1,0 +1,23 @@
+// Set variables before this import
+@import "node_modules/bulma/bulma";
+
+.algolia-autocomplete {
+    width: 100%;
+}
+
+// fix since both bulma and prism use the same class name
+.number {
+    font-size: inherit;
+}
+
+code {
+    font-size: inherit;
+}
+
+td:not(:last-child) {
+    white-space: nowrap;
+}
+
+.no-wrap {
+    white-space: nowrap;
+}

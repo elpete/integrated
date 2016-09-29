@@ -14,39 +14,39 @@ interface displayname="InteractionEngine" {
     * Types a value in to a form field.
     *
     * @text The value to type in the form field.
-    * @element The element selector or name to type the value in to.
+    * @selectorOrName The element selector or name to type the value in to.
     *
     * @return Integrated.Engines.Interaction.Contracts.InteractionEngine
     */
-    public InteractionEngine function type(required string text, required string element);
+    public InteractionEngine function type(required string text, required string selectorOrName);
 
     /**
     * Checks a checkbox.
     *
-    * @element The selector or name of the checkbox to check.
+    * @selectorOrName The selector or name of the checkbox to check.
     *
     * @return Integrated.Engines.Interaction.Contracts.InteractionEngine
     */
-    public InteractionEngine function check(required string element);
+    public InteractionEngine function check(required string selectorOrName);
 
     /**
     * Unchecks a checkbox.
     *
-    * @element The selector or name of the checkbox to uncheck.
+    * @selectorOrName The selector or name of the checkbox to uncheck.
     *
     * @return Integrated.Engines.Interaction.Contracts.InteractionEngine
     */
-    public InteractionEngine function uncheck(required string element);
+    public InteractionEngine function uncheck(required string selectorOrName);
 
     /**
     * Selects a given option in a given select field.
     *
     * @option The value or text to select.
-    * @element The selector or name to choose the option in.
+    * @selectorOrName The selector or name to choose the option in.
     *
     * @return Integrated.Engines.Interaction.Contracts.InteractionEngine
     */
-    public InteractionEngine function select(required string option, required string element);
+    public InteractionEngine function select(required string option, required string selectorOrName);
 
     /**
     * Press a submit button.
@@ -61,13 +61,13 @@ interface displayname="InteractionEngine" {
     /**
     * Stores a value in an in-memory input struct with the element name as the key.
     *
-    * @element The selector or name of an form field.
     * @value The value to store in-memory.
+    * @selectorOrName The selector or name of an form field.
     * @overwrite Optional. Specifies whether to overwrite any existing in-memory input values.  Default: true.
     *
     * @return Integrated.Engines.Interaction.Contracts.InteractionEngine
     */
-    public InteractionEngine function storeInput(required string element, required string value, boolean overwrite);
+    public InteractionEngine function storeInput(required string value, required string selectorOrName, boolean overwrite);
 
     /**
     * Resets the inputs to empty
@@ -79,33 +79,45 @@ interface displayname="InteractionEngine" {
     /**
     * Verifies that a field with the given value exists in the current inputs regardless of value.
     *
-    * @element The selector or name of the field.
+    * @selectorOrName The selector or name of the field.
     *
     * @return boolean
     */
-    public boolean function fieldExists(required string element);
+    public boolean function fieldExists(required string selectorOrName);
 
     /**
     * Verifies that a field with the given value exists in the current inputs with the given value.
     *
     * @value The expected value of the field.
-    * @element The selector or name of the field.
+    * @selectorOrName The selector or name of the field.
     * @negate Optional. If true, throw an exception if the field DOES contain the given text on the current page. Default: false.
     *
     * @throws TestBox.AssertionFailed
     * @return Integrated.Engines.Interaction.Contracts.InteractionEngine
     */
-    public InteractionEngine function seeInField(required string value, required string element, boolean negate);
+    public InteractionEngine function seeInField(required string value, required string selectorOrName, boolean negate);
 
     /**
     * Verifies that a checkbox is checked in the stored inputs.
     *
-    * @element The selector or name of the checkbox.
+    * @selectorOrName The selector or name of the checkbox.
     * @negate Optional. If true, throw an exception if the checkbox IS checked. Default: false.
     *
     * @throws TestBox.AssertionFailed
     * @return Integrated.Engines.Interaction.Contracts.InteractionEngine
     */
-    public InteractionEngine function seeIsChecked(required string element, boolean negate);
+    public InteractionEngine function seeIsChecked(required string selectorOrName, boolean negate);
+
+    /**
+    * Verifies that an option is selected in the stored inputs.
+    *
+    * @value The selector or name of the option to look for.
+    * @selectorOrName The selector or name of the element to look for the option in.
+    * @negate Optional. If true, throw an exception if the option IS selected in the element. Default: false.
+    *
+    * @throws TestBox.AssertionFailed
+    * @return Integrated.Engines.Interaction.Contracts.InteractionEngine
+    */
+    public InteractionEngine function seeIsSelected(required string value, required string selectorOrName, boolean negate);
 
 }
