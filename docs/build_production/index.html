@@ -144,7 +144,7 @@ Add the Integrated lib directory to <code>this.javaSettings</code> in your <code
         });
     });
 }</code></pre>
-<p>You can see all the different methods you can call in the <a href="http://elpete.github.io/integrated/">API docs</a>.</p>
+<p>You can see all the different methods you can call in the menu.</p>
 <p>You can add automatic database transactions by adding one line to the top of your spec:</p>
 <pre><code class="language-js">component extends="Integrated.BaseSpecs.ColdBoxBaseSpec" {
 
@@ -166,53 +166,7 @@ Add the Integrated lib directory to <code>this.javaSettings</code> in your <code
 <p>Easily add database transactions around your tests by adding this one property to your test:</p>
 <pre><code class="language-js">this.useDatabaseTransactions = true;</code></pre>
 <p>By default, we clear out the session scope on each request.  If you want to persist the session scope across requests, simply add <code>this.persistSessionScope = true;</code> to the top of your spec.  <strong>Note:</strong> this will happen for all tests in the file.</p>
-<h3>Creating Framework-specific BaseSpecs</h3>
-<p>To create your own framework specific BaseSpec, first extend the <code>Integrated.BaseSpecs.AbstractBaseSpec</code> component.</p>
-<pre><code class="language-js">component extends="Integrated.BaseSpecs.AbstractBaseSpec" {
-    function beforeAll() {
-    // IMPORTANT!  Don't forget to call `beforeAll()` and `afterAll()`!
-        super.beforeAll(
-            // your setup here
-        );
-    }
-
-    function afterAll() {
-        super.afterAll();
-    }
-}</code></pre>
-<p>The <code>beforeAll</code> method takes four separate engines that drive Integrated:</p>
-<pre><code class="language-js">/**
-* Sets up the needed dependancies for Integrated.
-*
-* @requestEngine Integrated.Engines.Request.Contracts.RequestEngine
-* @frameworkEngine Integrated.Engines.Assertion.Contracts.FrameworkAssertionEngine
-* @domEngine Integrated.Engines.Assertion.Contracts.DOMAssertionEngine
-* @interactionEngine Integrated.Engines.Interaction.Contracts.InteractionEngine
-*
-* @return Integrated.BaseSpecs.AbstractBaseSpec
-*/
-public AbstractBaseSpec function beforeAll(
-    required RequestEngine requestEngine,
-    required FrameworkAssertionEngine frameworkEngine,
-    required DOMAssertionEngine domEngine,
-    required InteractionEngine interactionEngine
-);</code></pre>
-<p>In your base spec, you can return any combination of these four engines to power Integrated.  For instance, you may wish to specify a different <code>RequestEngine</code> and <code>FrameworkAssertionEngine</code> for your new base spec but  use JSoup for the <code>DOMAssertionEngine</code> and the <code>InteractionEngine</code>.  Or, you could use Selenium based engines for every one of the required engines.  It's up to you.</p>
-<p>You can look at <a href="https://github.com/elpete/integrated/blob/master/BaseSpecs/ColdBoxBaseSpec.cfc"><code>Integrated.BaseSpecs.ColdBoxBaseSpec</code></a> for how this is done for ColdBox.</p>
-<p>Each engine has an Interface that new engines must conform to as well as an abstract spec they should pass.</p>
-<pre><code class="language-js">// Integrated.Engines.Request.MyAwesomeRequestEngine
-component implements="Integrated.Engines.Request.Contracts.RequestEngine" {
-    // your implementation here
-}</code></pre>
-<pre><code class="language-js">component extends="tests.specs.unit.Engines.Request.Contracts.RequestEngineTest" {
-
-    function getCUT() {
-        return new Integrated.Engines.Request.MyAwesomeRequestEngine();
-    }
-
-}</code></pre>
-<p><strong>Note:</strong> each engine's abstract spec may be slightly different in how they are set up.  Take a <a href="https://github.com/elpete/integrated/blob/master/tests/specs/unit/Engines/Assertion/Contracts/DOMAssertionEngineTest.cfc">look</a> <a href="https://github.com/elpete/integrated/blob/master/tests/specs/unit/Engines/Assertion/Contracts/FrameworkAssertionEngineTest.cfc">at</a> <a href="https://github.com/elpete/integrated/blob/master/tests/specs/unit/Engines/Interaction/Contracts/InteractionEngineTest.cfc">the</a> <a href="https://github.com/elpete/integrated/blob/master/tests/specs/unit/Engines/Request/Contracts/RequestEngineTest.cfc">specs</a> to see the details.</p>
-<h3>Credits</h3>
+<h3 class="title is-3">Credits</h3>
 <p>This package is <strong>heavily</strong> inspired by <a href="https://github.com/laracasts/Integrated">Jeffrey Way's Integrated package for Laravel</a>.
 I learned about it at <a href="https://laracasts.com/">Laracasts</a>, which I consider my best programming resource <em>regardless</em> of the fact that I have never deployed a line of PHP code.</p>
         </div>
