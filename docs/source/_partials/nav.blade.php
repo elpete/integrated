@@ -3,12 +3,9 @@
         <nav class="nav has-shadow is-success">
             <div class="container">
                 <div class="nav-left">
-                    <a href="/" class="title nav-item is-tab">Integrated</a>
+                    <a href="/integrated" class="title nav-item is-tab">Integrated</a>
                 </div>
                 <div class="nav-right">
-                    <a href="/apidocs" class="nav-item is-tab">
-                        API Docs
-                    </a>
                     <a href="https://github.com/elpete/integrated" class="nav-item is-tab">
                         GitHub&nbsp;&nbsp;<i class="fa fa-github"></i>
                     </a>
