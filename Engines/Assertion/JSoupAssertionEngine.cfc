@@ -277,16 +277,28 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
     public Integrated.Engines.Assertion.Contracts.DOMAssertionEngine function seeIsSelected(required string value, required string selectorOrName, boolean negate = false) {
         var selectFields = findSelectField(arguments.selectorOrName);
 
-        var selectedOption = selectFields.select('option[selected]');
+        var selectedOptions = selectFields.select('option[selected]');
 
-        expect(selectedOption).notToBeEmpty('Failed to find any selected options in [#arguments.selectorOrName#] select field on the page.');
+        expect(selectedOptions).notToBeEmpty('Failed to find any selected options in [#arguments.selectorOrName#] select field on the page.');
 
         if (!negate) {
-            var isValue = selectedOption.val() == arguments.value || selectedOption.html() == arguments.value;
+            var isValue = false;
+            for ( var option in selectedOptions ) {
+                isValue = option.val() == arguments.value || option.html() == arguments.value;
+                if ( isValue ) {
+                    break;
+                }
+            }
             expect(isValue).toBeTrue('Failed asserting that [#arguments.value#] is selected in a [#arguments.selectorOrName#] input on the page.');
         }
         else {
-            var isNotValue = selectedOption.val() != arguments.value && selectedOption.html() != arguments.value;
+            var isNotValue = false;
+            for ( var option in selectedOptions ) {
+                isNotValue = option.val() != arguments.value && option.html() != arguments.value;
+                if ( isNotValue ) {
+                    break;
+                }
+            }
             expect(isNotValue).toBeTrue('Failed asserting that [#arguments.value#] is not selected in a [#arguments.selectorOrName#] input on the page.');
         }
 
