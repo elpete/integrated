@@ -5,6 +5,11 @@
     width: 100%;
 }
 
+.ds-dropdown-menu {
+    max-width: 100% !important;
+    width: 100% !important;
+}
+
 // fix since both bulma and prism use the same class name
 .number {
     font-size: inherit;

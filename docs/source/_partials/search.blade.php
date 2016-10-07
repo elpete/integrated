@@ -8,17 +8,14 @@
     </div>
 </section>
 
-@section('styles')
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css" />
-@endsection
-
 @section('scripts')
-    <script type="text/javascript" src="//cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/2/docsearch.min.js"></script>
     <script type="text/javascript">
-        docsearch({
-            apiKey: '<YOUR_API_KEY>',
-            indexName: '<YOUR_INDEX_NAME>',
-            inputSelector: '#docsearch'
-        });
+    docsearch({
+      apiKey: '673e68d2a8d2ef74ea88683b1328684d',
+      indexName: 'integrated',
+      inputSelector: '#docsearch',
+      debug: true
+    });
     </script>
 @endsection

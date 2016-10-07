@@ -119,7 +119,6 @@ component extends='testbox.system.BaseSpec' {
                         } ).toThrow(
                             type = 'TestBox.AssertionFailed'
                         );
-                        
                     });
 
                     it('selects an option by name as well as value', function() {

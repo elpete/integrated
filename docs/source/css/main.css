@@ -4093,6 +4093,10 @@ a.panel-block:hover {
 .algolia-autocomplete {
   width: 100%; }
 
+.ds-dropdown-menu {
+  max-width: 100% !important;
+  width: 100% !important; }
+
 .number {
   font-size: inherit; }
 
