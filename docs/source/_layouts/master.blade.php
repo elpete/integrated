@@ -14,7 +14,7 @@
 
         @yield('styles')
 
-        <link rel="stylesheet" href="/css/main.css">
+        <link rel="stylesheet" href="/integrated/css/main.css">
     </head>
     <body>
         <div class="container">
