@@ -23,7 +23,7 @@ box install integrated
 Add the Integrated lib directory to `this.javaSettings` in your `*tests*` directory's `Application.cfc`.
 
 ```js
-this.javaSettings = { loadPaths = [ "Integrated/lib" ], reloadOnChange = false };
+this.javaSettings = { loadPaths = [ "integrated/lib" ], reloadOnChange = false };
 ```
 
 ### Usage
