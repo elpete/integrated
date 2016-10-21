@@ -67,7 +67,7 @@ component extends="coldbox.system.testing.BaseTestCase" implements="Integrated.E
         }
 
         // Only mock the HTTP method if needed
-        if (arguments.method != 'GET' && arguments.method != 'POST') {
+        if (arguments.method != 'GET') {
             // Prepare a request context mock
             var eventMock = prepareMock(local.event);
             // Set the HTTP Method
@@ -86,15 +86,13 @@ component extends="coldbox.system.testing.BaseTestCase" implements="Integrated.E
             if (StructKeyExists(arguments, 'route')) {
                 throw(
                     type = 'TestBox.AssertionFailed',
-                    message = 'Could not find any route called [#arguments.route#].',
-                    detail = e.message
+                    message = e.message
                 );
             }
             else {
                 throw(
                     type = 'TestBox.AssertionFailed',
-                    message = 'Could not find any event called [#arguments.event#].',
-                    detail = e.message
+                    message = e.message
                 );
             }
         }
