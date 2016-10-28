@@ -1,8 +1,8 @@
 {
     "name":"Integrated",
-    "version":"3.0.0",
+    "version":"3.0.1",
     "author":"Eric Peterson",
-    "location":"elpete/integrated#v3.0.0",
+    "location":"elpete/integrated#v3.0.1",
     "directory":"",
     "createPackageDirectory":true,
     "packageDirectory":"",
