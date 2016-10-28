@@ -1,8 +1,8 @@
 {
     "name":"Integrated",
-    "version":"3.0.1",
+    "version":"3.0.2",
     "author":"Eric Peterson",
-    "location":"elpete/integrated#v3.0.1",
+    "location":"elpete/integrated#v3.0.2",
     "directory":"",
     "createPackageDirectory":true,
     "packageDirectory":"",
@@ -50,7 +50,7 @@
         "composer.lock",
         "gulpfile.js",
         "package.json",
-        "server.json",
+        "server.json"
     ],
     "installPaths":{
         "testbox":"testbox",
