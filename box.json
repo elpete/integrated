@@ -1,8 +1,8 @@
 {
     "name":"Integrated",
-    "version":"3.0.0-SNAPSHOT",
+    "version":"2.0.0",
     "author":"Eric Peterson",
-    "location":"elpete/integrated#development",
+    "location":"elpete/integrated#v2.0.0",
     "directory":"",
     "createPackageDirectory":true,
     "packageDirectory":"",
@@ -24,6 +24,11 @@
         "testing",
         "database"
     ],
+    "scripts":{
+        "postVersion":"package set location='elpete/redirectBack#v`package version`'",
+        "onRelease":"publish",
+        "postPublish":"!git push && !git push --tags"
+    },
     "private":false,
     "license":[
         {
