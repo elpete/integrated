@@ -569,7 +569,10 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
     *
     * @return string
     */
-    private function findLink(required string link) {
+    private function findLink(
+        required string link,
+        string errorMessage = 'Failed to find a [#arguments.link#] link on the page.'
+    ) {
         // First try to find using the argument as a selector
         var anchorTag = getParsedPage().select('#arguments.link#');
 
@@ -577,6 +580,8 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
         if (ArrayIsEmpty(anchorTag)) {
             anchorTag = getParsedPage().select('a:contains(#arguments.link#)');
         }
+
+        expect(anchorTag).notToBeEmpty(arguments.errorMessage);
 
         return anchorTag;
     }
