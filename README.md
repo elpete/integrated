@@ -23,6 +23,8 @@ Add the Integrated lib directory to `this.javaSettings` in your `*tests*` direct
 this.javaSettings = { loadPaths = [ "Integrated/lib" ], reloadOnChange = false };
 ```
 
+You might also be interested in [`integrated-commands`](https://github.com/elpete/integrated-commands), a [CommandBox](https://www.ortussolutions.com/products/commandbox) module for scaffolding Integrated tests quickly.
+
 ### Usage
 
 Change your Integration tests to extend from `Integration.BaseSpecs.ColdBoxBaseSpec`. (Make sure to call the parent class's `beforeAll` method.)
