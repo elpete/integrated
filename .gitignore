@@ -3,3 +3,4 @@ tests/results/*.*
 tests/resources/SampleApp/coldbox
 docbox/
 node_modules/
+*.sublime-workspace
