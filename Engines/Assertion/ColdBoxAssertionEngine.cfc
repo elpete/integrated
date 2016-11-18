@@ -14,7 +14,7 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
     *
     * @return Integrated.Engines.FrameworkAssertionEngine
     */
-    public FrameworkAssertionEngine function setRequestMethod(required string requestMethod) {
+    public FrameworkAssertionEngine function setRequestMethod( required string requestMethod ) {
         variables.requestMethod = arguments.requestMethod;
 
         return this;
@@ -36,7 +36,7 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
     *
     * @return Integrated.Engines.FrameworkAssertionEngine
     */
-    public FrameworkAssertionEngine function setEvent(required event) {
+    public FrameworkAssertionEngine function setEvent( required event ) {
         variables.event = arguments.event;
 
         return this;
@@ -51,10 +51,10 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
     * @return coldbox.system.web.context.RequestContext
     */
     public any function getEvent() {
-        if (IsSimpleValue(variables.event)) {
+        if ( isSimpleValue( variables.event ) ) {
             throw(
-                type = 'TestBox.AssertionFailed',
-                message = 'Cannot make assertions until you visit a page.  Make sure to run visit() or visitEvent() first.'
+                type = "TestBox.AssertionFailed",
+                message = "Cannot make assertions until you visit a page.  Make sure to run visit() or visitEvent() first."
             );
         }
 
@@ -69,11 +69,11 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
     public string function getHTML() {
         var rc = getEvent().getCollection();
 
-        if (StructKeyExists(rc, 'cbox_rendered_content')) {
+        if ( structKeyExists( rc, "cbox_rendered_content" ) ) {
             return rc.cbox_rendered_content;
         }
 
-        return '';
+        return "";
     }
 
 
@@ -86,9 +86,9 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
     */
     public boolean function isRedirect() {
         var event = getEvent();
-        return event.valueExists('setNextEvent_URI') ||
-            event.valueExists('setNextEvent_URL') ||
-            event.valueExists('setNextEvent_event');
+        return event.valueExists( "setNextEvent_URI" ) ||
+            event.valueExists( "setNextEvent_URL" ) ||
+            event.valueExists( "setNextEvent_event" );
     }
 
     /**
@@ -101,15 +101,15 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
     public string function getRedirectEvent() {
         var event = getEvent();
 
-        if ( event.valueExists('setNextEvent_URI') ) {
-            return event.getValue('setNextEvent_URI');
+        if ( event.valueExists( "setNextEvent_URI" ) ) {
+            return event.getValue( "setNextEvent_URI" );
         }
 
-        if ( event.valueExists('setNextEvent_URL') ) {
-            return event.getValue('setNextEvent_URL');
+        if ( event.valueExists( "setNextEvent_URL" ) ) {
+            return event.getValue( "setNextEvent_URL" );
         }
 
-        return event.getValue('setNextEvent_event');
+        return event.getValue( "setNextEvent_event" );
     }
 
     /**
@@ -120,14 +120,14 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
     * @return struct
     */
     public struct function getRedirectInputs() {
-        var persistKeys = ListToArray(getEvent().getValue('setNextEvent_persist', ''));
+        var persistKeys = listToArray( getEvent().getValue( "setNextEvent_persist", "" ) );
 
         var persistStruct = {};
-        for (var key in persistKeys) {
-            persistStruct[key] = getEvent().getValue(key);
+        for ( var key in persistKeys ) {
+            persistStruct[ key ] = getEvent().getValue( key );
         }
 
-        structAppend(persistStruct, getEvent().getValue('setNextEvent_persistStruct', {}));
+        structAppend( persistStruct, getEvent().getValue( "setNextEvent_persistStruct", {} ) );
 
         return persistStruct;
     }
@@ -140,11 +140,11 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
     *
     * @return Integrated.Engines.FrameworkAssertionEngine
     */
-    public FrameworkAssertionEngine function seePageIs(required string route) {
-        if (variables.requestMethod == 'visitEvent') {
+    public FrameworkAssertionEngine function seePageIs( required string route ) {
+        if ( variables.requestMethod == "visitEvent" ) {
             throw(
-                type = 'TestBox.AssertionFailed',
-                message = 'You cannot assert the page when you visited using the visitEvent() method. Please use visit() instead.'
+                type = "TestBox.AssertionFailed",
+                message = "You cannot assert the page when you visited using the visitEvent() method. Please use visit() instead."
             );
         }
 
@@ -160,7 +160,7 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
             actualUrl = left( actualUrl, len( actualUrl ) - 1 );    
         }
 
-        expect(actualUrl).toBe(
+        expect( actualUrl ).toBe(
             arguments.route,
             "Failed asserting that the url [#actualUrl#] (actual) equalled [#arguments.route#] (expected)."
         );
@@ -175,11 +175,11 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
     *
     * @return Integrated.Engines.FrameworkAssertionEngine
     */
-    public FrameworkAssertionEngine function seeViewIs(required string view) {
+    public FrameworkAssertionEngine function seeViewIs( required string view ) {
         var actualView = getEvent().getCurrentView();
-        expect(actualView).toBe(
+        expect( actualView ).toBe(
             arguments.view,
-            'Failed asserting that view [#actualView#] (actual) equalled [#arguments.view#] (expected).'
+            "Failed asserting that view [#actualView#] (actual) equalled [#arguments.view#] (expected)."
         );
 
         return this;
@@ -192,11 +192,11 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
     *
     * @return Integrated.Engines.FrameworkAssertionEngine
     */
-    public FrameworkAssertionEngine function seeHandlerIs(required string handler) {
+    public FrameworkAssertionEngine function seeHandlerIs( required string handler ) {
         var actualHandler = getEvent().getCurrentHandler();
-        expect(actualHandler).toBe(
+        expect( actualHandler ).toBe(
             arguments.handler,
-            'Failed asserting that handler [#actualHandler#] (actual) equalled [#arguments.handler#] (expected).'
+            "Failed asserting that handler [#actualHandler#] (actual) equalled [#arguments.handler#] (expected)."
         );
 
         return this;
@@ -209,11 +209,11 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
     *
     * @return Integrated.Engines.FrameworkAssertionEngine
     */
-    public FrameworkAssertionEngine function seeActionIs(required string action) {
+    public FrameworkAssertionEngine function seeActionIs( required string action ) {
         var actualAction = getEvent().getCurrentAction();
-        expect(actualAction).toBe(
+        expect( actualAction ).toBe(
             arguments.action,
-            'Failed asserting that action [#actualAction#] (actual) equalled [#arguments.action#] (expected).'
+            "Failed asserting that action [#actualAction#] (actual) equalled [#arguments.action#] (expected)."
         );
 
         return this;
@@ -226,11 +226,11 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
     *
     * @return Integrated.Engines.FrameworkAssertionEngine
     */
-    public FrameworkAssertionEngine function seeEventIs(required string event) {
+    public FrameworkAssertionEngine function seeEventIs( required string event ) {
         var actualEvent = getEvent().getCurrentEvent();
-        expect(actualEvent).toBe(
+        expect( actualEvent ).toBe(
             arguments.event,
-            'Failed asserting that event [#actualEvent#] (actual) equalled [#arguments.event#] (expected).'
+            "Failed asserting that event [#actualEvent#] (actual) equalled [#arguments.event#] (expected)."
         );
 
         return this;
@@ -252,28 +252,28 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
         boolean private = false,
         boolean negate = false
     ) {
-        var collection = getEvent().getCollection(private = arguments.private);
+        var collection = getEvent().getCollection( private = arguments.private );
 
-        var failureMessage = generateCollectionFailureMessage(argumentCollection = arguments);
+        var failureMessage = generateCollectionFailureMessage( argumentCollection = arguments );
 
-        if (!negate) {
+        if ( !negate ) {
             // If a value was provided and the key exists...
-            if (StructKeyExists(arguments, 'value') && StructKeyExists(collection, arguments.key)) {
-                expect(collection[arguments.key]).toBe(arguments.value, failureMessage);
+            if ( structKeyExists( arguments, "value" ) && structKeyExists( collection, arguments.key ) ) {
+                expect( collection[ arguments.key ] ).toBe( arguments.value, failureMessage );
             }
             // Otherwise, just verify the existance of the key
             else {
-                expect(collection).toHaveKey(arguments.key, failureMessage);    
+                expect( collection ).toHaveKey( arguments.key, failureMessage );    
             }
         }
         else {
             // If a value was provided and the key exists...
-            if (StructKeyExists(arguments, 'value') && StructKeyExists(collection, arguments.key)) {
-                expect(collection[arguments.key]).notToBe(arguments.value, failureMessage);
+            if ( structKeyExists( arguments, "value" ) && structKeyExists( collection, arguments.key ) ) {
+                expect( collection[ arguments.key ] ).notToBe( arguments.value, failureMessage );
             }
             // Otherwise, just verify the existance of the key
             else {
-                expect(collection).notToHaveKey(arguments.key, failureMessage);    
+                expect( collection ).notToHaveKey( arguments.key, failureMessage );    
             }
         }
 
@@ -295,7 +295,7 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
         boolean private = false
     ) {
         arguments.negate = true;
-        return seeInCollection(argumentCollection = arguments);
+        return seeInCollection( argumentCollection = arguments );
     }
 
     /**
@@ -344,18 +344,18 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
         boolean private = false,
         boolean negate = false
     ) {
-        var failureMessage = 'Failed asserting that the key [#arguments.key#]';
-        var existancePhrase = arguments.negate ? 'does not exist' : 'exists';
+        var failureMessage = "Failed asserting that the key [#arguments.key#]";
+        var existancePhrase = arguments.negate ? "does not exist" : "exists";
 
-        if (StructKeyExists(arguments, 'value')) {
-            failureMessage &= ' with the value [#arguments.value#]';
+        if ( structKeyExists( arguments, "value" ) ) {
+            failureMessage &= " with the value [#arguments.value#]";
         }
 
-        if (arguments.private) {
-            failureMessage &= ' #existancePhrase# in the private request collection.';
+        if ( arguments.private ) {
+            failureMessage &= " #existancePhrase# in the private request collection.";
         }
         else {
-            failureMessage &= ' #existancePhrase# in the request collection.';   
+            failureMessage &= " #existancePhrase# in the request collection.";   
         }
 
         return failureMessage;
