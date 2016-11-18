@@ -124,7 +124,9 @@ component extends="testbox.system.BaseSpec" implements="Integrated.Engines.Asser
 
         var persistStruct = {};
         for ( var key in persistKeys ) {
-            persistStruct[ key ] = getEvent().getValue( key );
+            if ( getEvent().valueExists( key ) ) {
+                persistStruct[ key ] = getEvent().getValue( key );
+            }
         }
 
         structAppend( persistStruct, getEvent().getValue( "setNextEvent_persistStruct", {} ) );
