@@ -368,6 +368,7 @@ component extends='testbox.system.BaseSpec' {
                     mockSecuredEvent.$('valueExists').$args('setNextEvent_event').$results(true);
                     mockSecuredEvent.$('getValue').$args('setNextEvent_event').$results('/index.cfm/login');
                     mockSecuredEvent.$('getValue').$args('setNextEvent_persist', '').$results('email');
+                    mockSecuredEvent.$('valueExists').$args('email').$results(true);
                     mockSecuredEvent.$('getValue').$args('email').$results('john@example.com');
                     mockSecuredEvent.$('getValue').$args('setNextEvent_persistStruct', {}).$results({ birthday = '01/01/1980' });
                     variables.requestEngine.$('execute').$args(route = '/securedWithPersistedData', renderResults = true).$results(mockSecuredEvent);
