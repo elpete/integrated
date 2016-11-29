@@ -71,7 +71,7 @@ component extends="coldbox.system.testing.BaseTestCase" implements="Integrated.E
             // Prepare a request context mock
             var eventMock = prepareMock(local.event);
             // Set the HTTP Method
-            eventMock.$("getHTTPMethod", arguments.method);
+            eventMock.$("getHTTPMethod", local.event.getValue( "_method", arguments.method ) );
         }
 
         try {
