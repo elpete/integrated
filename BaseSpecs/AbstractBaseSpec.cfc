@@ -122,6 +122,21 @@ component extends="testbox.system.compat.framework.TestCase" {
         structClear(session);
     }
 
+    /**
+    * Sends the page to the debug output on any test failure
+    *
+    * @aroundEach
+    */
+    public void function debugPageOnTestFailure(spec) {
+        try {
+            arguments.spec.body();
+        }
+        catch ( any e ) {
+            debugPage();
+            rethrow;
+        }
+    }
+
 
     /***************************** Interactions *******************************/
 
