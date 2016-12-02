@@ -840,7 +840,7 @@ component extends="testbox.system.compat.framework.TestCase" {
     }
 
     public AbstractBaseSpec function debugPage() {
-        debug( variables.domEngine.getPage() );
+        debug( var = variables.domEngine.getPage(), format = "text" );
 
         return this;
     }
