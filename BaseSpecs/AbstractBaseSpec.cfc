@@ -841,7 +841,7 @@ component extends="testbox.system.compat.framework.TestCase" {
         );
     }
 
-    public AbstractBaseSpec function debugPage( boolean formatted = false ) {
+    public AbstractBaseSpec function debugPage( boolean formatted ) {
         if ( ! isDefined( "arguments.formatted" ) ) {
             arguments.formatted = this.formatDebugPage;
         }
