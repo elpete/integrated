@@ -839,8 +839,13 @@ component extends="testbox.system.compat.framework.TestCase" {
         );
     }
 
-    public AbstractBaseSpec function debugPage() {
-        debug( var = variables.domEngine.getPage(), format = "text" );
+    public AbstractBaseSpec function debugPage( boolean formatted = false ) {
+        debug(
+            var = arguments.formatted ?
+                encodeForHTML( variables.domEngine.getPage() ) :
+                variables.domEngine.getPage(),
+            format = arguments.formatted ? "text" : "html"
+        );
 
         return this;
     }
