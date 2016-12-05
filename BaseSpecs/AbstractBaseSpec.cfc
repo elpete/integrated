@@ -24,6 +24,8 @@ component extends="testbox.system.compat.framework.TestCase" {
     this.useDatabaseTransactions = false;
     // Boolean flag to turn on persisting of the session scope between specs
     this.persistSessionScope = false;
+    // Boolean flag to automatically format debugPage to show nice, indented html
+    this.formatDebugPage = false;
 
 
     /***************************** Set Up *******************************/
@@ -840,6 +842,10 @@ component extends="testbox.system.compat.framework.TestCase" {
     }
 
     public AbstractBaseSpec function debugPage( boolean formatted = false ) {
+        if ( ! isDefined( "arguments.formatted" ) ) {
+            arguments.formatted = this.formatDebugPage;
+        }
+
         debug(
             var = arguments.formatted ?
                 encodeForHTML( variables.domEngine.getPage() ) :
