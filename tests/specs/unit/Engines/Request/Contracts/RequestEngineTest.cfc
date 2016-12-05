@@ -18,8 +18,9 @@ component extends='testbox.system.BaseSpec' {
         }
 
         this.CUT = getCUT();
-        this.CUT.beforeAll();
         getMockBox().prepareMock( this.CUT );
+        this.CUT.$property( propertyName = "appMapping", mock = "/SampleApp" );
+        this.CUT.beforeAll();
         this.CUT.$("getRequestContext", "event-object");
     }
 
