@@ -181,6 +181,7 @@ component extends='testbox.system.BaseSpec' {
                     it('presses a button', function() {
                         var mockEvent = getMockBox().createMock('coldbox.system.web.context.RequestContext');
                         mockEvent.$('setValue', mockEvent);
+                        mockEvent.$('getValue', 'POST');
                         variables.requestEngine.$('getRequestContext', mockEvent);
 
                         this.CUT.visit('/login')
@@ -209,6 +210,7 @@ component extends='testbox.system.BaseSpec' {
                     it('can take an optional override event', function() {
                         var mockEvent = getMockBox().createMock('coldbox.system.web.context.RequestContext');
                         mockEvent.$('setValue', mockEvent);
+                        mockEvent.$('getValue', 'POST');
                         variables.requestEngine.$('getRequestContext', mockEvent);
 
                         this.CUT.visit('/login')
@@ -239,6 +241,7 @@ component extends='testbox.system.BaseSpec' {
                     it('submits a form', function() {
                         var mockEvent = getMockBox().createMock('coldbox.system.web.context.RequestContext');
                         mockEvent.$('setValue', mockEvent);
+                        mockEvent.$('getValue', 'POST');
                         variables.requestEngine.$('getRequestContext', mockEvent);
                         
                         this.CUT.visit('/login')
@@ -249,6 +252,7 @@ component extends='testbox.system.BaseSpec' {
                     it('accepts an optional struct of form data', function() {
                         var mockEvent = getMockBox().createMock('coldbox.system.web.context.RequestContext');
                         mockEvent.$('setValue', mockEvent);
+                        mockEvent.$('getValue', 'POST');
                         variables.requestEngine.$('getRequestContext', mockEvent);
 
                         this.CUT.visit('/login')
@@ -278,6 +282,7 @@ component extends='testbox.system.BaseSpec' {
                     it('can take an optional override event', function() {
                         var mockEvent = getMockBox().createMock('coldbox.system.web.context.RequestContext');
                         mockEvent.$('setValue', mockEvent);
+                        mockEvent.$('getValue', 'POST');
                         variables.requestEngine.$('getRequestContext', mockEvent);
 
                         this.CUT.visit('/login')

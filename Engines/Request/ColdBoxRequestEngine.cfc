@@ -69,9 +69,10 @@ component extends="coldbox.system.testing.BaseTestCase" implements="Integrated.E
         // Only mock the HTTP method if needed
         if (arguments.method != 'GET') {
             // Prepare a request context mock
+            local.method = local.event.getValue( "_method", arguments.method );
             var eventMock = prepareMock(local.event);
             // Set the HTTP Method
-            eventMock.$("getHTTPMethod", local.event.getValue( "_method", arguments.method ) );
+            eventMock.$("getHTTPMethod", local.method );
         }
 
         try {
