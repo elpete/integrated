@@ -32,6 +32,9 @@ component extends="coldbox.system.testing.BaseTestCase" implements="Integrated.E
         arguments.url = replaceNoCase( arguments.url, SESBaseUrl, '' );
         // convert all . to /
         arguments.url = replace( arguments.url, ".", "/", "all" );
+        if ( ! len( arguments.url ) ) {
+            return "/";
+        }
 
         return arguments.url;
     }
