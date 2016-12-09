@@ -134,7 +134,10 @@ component extends="testbox.system.compat.framework.TestCase" {
             arguments.spec.body();
         }
         catch ( any e ) {
-            debugPage();
+            try {
+                debugPage();
+            }
+            catch ( any e ) {}
             rethrow;
         }
     }
