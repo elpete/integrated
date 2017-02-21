@@ -30,6 +30,10 @@ component extends="coldbox.system.testing.BaseTestCase" implements="Integrated.E
         }
 
         arguments.url = replaceNoCase( arguments.url, SESBaseUrl, '' );
+
+        // if there is still http(s) on the front of the string, get rid of it.
+        arguments.url = REReplaceNoCase( arguments.url, "^https?:", "/", "ALL" );
+
         // convert all . to /
         arguments.url = replace( arguments.url, ".", "/", "all" );
         if ( ! len( arguments.url ) ) {
