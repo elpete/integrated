@@ -1,5 +1,6 @@
 import Integrated.Engines.Assertion.Contracts.DOMAssertionEngine;
 import Integrated.Engines.Assertion.Contracts.FrameworkAssertionEngine;
+import Integrated.Engines.Assertion.Contracts.APIAssertionEngine;
 import Integrated.Engines.Interaction.Contracts.InteractionEngine;
 import Integrated.Engines.Request.Contracts.RequestEngine;
 
@@ -46,7 +47,8 @@ component extends="testbox.system.compat.framework.TestCase" {
         required RequestEngine requestEngine,
         required FrameworkAssertionEngine frameworkEngine,
         required DOMAssertionEngine domEngine,
-        required InteractionEngine interactionEngine
+        required InteractionEngine interactionEngine,
+        required APIAssertionEngine apiEngine
     ) {
         // Prime the engines
         variables.requestEngine = arguments.requestEngine;
@@ -54,6 +56,7 @@ component extends="testbox.system.compat.framework.TestCase" {
         variables.domEngine = arguments.domEngine;
         variables.interactionEngine = arguments.interactionEngine;
         variables.interactionEngine.setDOMAssertionEngine(variables.domEngine);
+        variables.apiEngine = arguments.apiEngine;
 
         // Add the database matchers
         addMatchers('Integrated.BaseSpecs.DBMatchers');
@@ -169,6 +172,20 @@ component extends="testbox.system.compat.framework.TestCase" {
     public AbstractBaseSpec function visitEvent(required string event) {
         makeRequest(method = 'GET', event = arguments.event);
 
+        return this;
+    }
+
+    /**
+    * Makes a json request to a ColdBox route.
+    *
+    * @method The HTTP method to use for the json request.
+    * @route The ColdBox route to visit, e.g. `/login` or `/posts/4`. Integrated will build the full url based on ColdBox settings (including `index.cfm`, if needed).
+    *
+    * @return Integrated.BaseSpecs.AbstractBaseSpec
+    */
+    public AbstractBaseSpec function json( required string method, required string route ) {
+        arguments.json = true;
+        makeRequest( argumentCollection = arguments );
         return this;
     }
 
@@ -344,7 +361,8 @@ component extends="testbox.system.compat.framework.TestCase" {
         required string method,
         string route,
         string event,
-        struct parameters = {}
+        struct parameters = {},
+        boolean json = false
     ) {
         // Make sure the method is always all caps
         arguments.method = UCase(arguments.method);
@@ -395,16 +413,41 @@ component extends="testbox.system.compat.framework.TestCase" {
             }
         }
 
-        // Send the html to the domEngine
-        variables.domEngine.parse(
-            variables.frameworkEngine.getHTML()
-        );
+        var requestBody = variables.frameworkEngine.getHTML();
+
+        if ( isJSON( requestBody ) && ! arguments.json ) {
+            debug( requestBody );
+            fail( "Expected HTML but recieved JSON." );
+        }
+
+        if ( isJSON( requestBody ) ) {
+            if ( ! arguments.json ) {
+                debug( requestBody );
+                fail( "Expected HTML but recieved JSON." );       
+            }
+
+            variables.apiEngine.parse( requestBody );
+        }
+        else {
+            // Send the html to the domEngine
+            variables.domEngine.parse( requestBody );
+        }
 
         return this;
     }
 
 
     /***************************** Expectations *******************************/
+
+    public AbstractBaseSpec function seeJsonEquals( required any json ) {
+        variables.apiEngine.seeJsonEquals( json );
+        return this;
+    }
+
+    public AbstractBaseSpec function dontSeeJsonEquals( required any json ) {
+        variables.apiEngine.dontSeeJsonEquals( json );
+        return this;
+    }
 
 
     /**

@@ -14,7 +14,8 @@ component extends='Integrated.BaseSpecs.AbstractBaseSpec' {
             requestEngine = arguments.requestEngine,
             domEngine = new Integrated.Engines.Assertion.JSoupAssertionEngine(),
             frameworkEngine = new Integrated.Engines.Assertion.ColdBoxAssertionEngine(),
-            interactionEngine = new Integrated.Engines.Interaction.JSoupInteractionEngine()
+            interactionEngine = new Integrated.Engines.Interaction.JSoupInteractionEngine(),
+            apiEngine = new Integrated.Engines.Assertion.InMemoryAPIAssertionEngine()
         );
     }
 

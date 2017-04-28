@@ -37,7 +37,7 @@
         }
     ],
     "devDependencies":{
-        "coldbox":"^4.2.0+00002",
+        "coldbox":"^4.3.0+188",
         "testbox":"2.3.0+00044",
         "docbox":"2.0.5"
     },
