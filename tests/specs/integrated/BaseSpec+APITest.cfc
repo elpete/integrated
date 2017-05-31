@@ -18,8 +18,8 @@ component extends='testbox.system.BaseSpec' {
             feature( "json", function() {
                 it( "visit throws an error if json is returned", function() {
                     expect( function() {
-                        this.CUT.visit( "/api/posts" )
-                    } ).toThrow( type = "TestBox.AssertionFailed" )
+                        this.CUT.visit( "/api/posts" );
+                    } ).toThrow( type = "TestBox.AssertionFailed" );
                 } );
 
                 it( "can get json from an api", function() {

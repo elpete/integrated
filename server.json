@@ -3,5 +3,8 @@
         "http":{
             "port":"12121"
         }
+    },
+    "app":{
+        "cfengine":"adobe@10"
     }
 }
