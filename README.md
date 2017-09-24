@@ -5,6 +5,10 @@
 [![Master Branch Build Status](https://img.shields.io/travis/elpete/integrated/master.svg?style=flat-square&label=master)](https://travis-ci.org/elpete/integrated)
 [![Development Branch Build Status](https://img.shields.io/travis/elpete/integrated/development.svg?style=flat-square&label=development)](https://travis-ci.org/elpete/integrated)
 
+<a target='_blank' rel='nofollow' href='https://app.codesponsor.io/link/TQMfPZtDP7SHs7UgJVGg61uH/elpete/integrated'>
+  <img alt='Sponsor' width='888' height='68' src='https://app.codesponsor.io/embed/TQMfPZtDP7SHs7UgJVGg61uH/elpete/integrated.svg' />
+</a>
+
 ### Requirements
 
 Requires ColdBox 4.2+ and TestBox 2.3+
