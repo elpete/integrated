@@ -1,0 +1,18 @@
+{
+  "projectName": "integrated",
+  "projectOwner": "elpete",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": true,
+  "contributors": [
+    {
+      "login": "elpete",
+      "name": "Eric Peterson",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/2583646?v=4",
+      "profile": "https://github.com/elpete",
+      "contributions": []
+    }
+  ]
+}
