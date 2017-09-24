@@ -161,6 +161,12 @@ component extends="tests.specs.unit.Engines.Request.Contracts.RequestEngineTest"
 
 **Note:** each engine's abstract spec may be slightly different in how they are set up.  Take a [look][DOMAssertionEngineTest] [at][FrameworkAssertionEngineTest] [the][InteractionEngineTest] [specs][RequestEngineTest] to see the details.
 
+### Resources
+
+#### Talks
+
++ [Integration Testing in a Modern World](https://speakerdeck.com/elpete/integration-testing-in-a-modern-world) ([elpete](https://github.com/elpete))
+
 ### Credits
 
 This package is **heavily** inspired by [Jeffrey Way's Integrated package for Laravel](https://github.com/laracasts/Integrated).
