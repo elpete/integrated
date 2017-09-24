@@ -176,7 +176,7 @@ I learned about it at [Laracasts](https://laracasts.com/), which I consider my b
 Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds/all-contributors#emoji-key)):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-| [<img src="https://avatars1.githubusercontent.com/u/2583646?v=4" width="100px;"/><br /><sub>Eric Peterson</sub>](https://github.com/elpete)<br /> |
+| [<img src="https://avatars1.githubusercontent.com/u/2583646?v=4" width="100px;"/><br /><sub>Eric Peterson</sub>](https://github.com/elpete)<br />[🐛](https://github.com/elpete/integrated/issues?q=author%3Aelpete "Bug reports") [💻](https://github.com/elpete/integrated/commits?author=elpete "Code") [📖](https://github.com/elpete/integrated/commits?author=elpete "Documentation") [📢](#talk-elpete "Talks") [⚠️](https://github.com/elpete/integrated/commits?author=elpete "Tests") [🔧](#tool-elpete "Tools") |
 | :---: |
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
