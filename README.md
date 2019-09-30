@@ -53,7 +53,7 @@ function run() {
                 .type('mYAw$someP2ssw0rd!', 'password')
                 .press('Register')
                 .seeTitleIs('Home')
-                .seeOnPage('Welcome, Eric!');
+                .see('Welcome, Eric!');
         });
     });
 }
@@ -76,7 +76,7 @@ component extends="Integrated.BaseSpecs.ColdBoxBaseSpec" {
                     .type('mYAw$someP2ssw0rd!', 'password')
                     .press('Register')
                     .seeTitleIs('Home')
-                    .seeOnPage('Welcome, Eric!');
+                    .see('Welcome, Eric!');
             });
         });
     }
