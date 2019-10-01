@@ -21,15 +21,17 @@ component extends="coldbox.system.testing.BaseTestCase" implements="Integrated.E
     *
     * @return string
     */
-    public string function parseFrameworkRoute(required string url) {
-        var htmlBaseUrl = getController().getSetting('HTMLBaseUrl');
-        var SESBaseUrl = getController().getSetting('SESBaseUrl');
+    public string function parseFrameworkRoute( required string url ) {
+        var htmlBaseUrl = getController().getSetting( "HTMLBaseUrl" );
+        // trim off the ending slash if it exists
+        htmlBaseUrl = right(htmlBaseUrl, 1) == "/" ? left( htmlBaseUrl, len( htmlBaseUrl ) - 1 ) : htmlBaseUrl;
+        var SESBaseUrl = getController().getSetting( "SESBaseUrl" );
 
         if ( left( arguments.url, 1 ) == "/" ) {
-            arguments.url = left( htmlBaseUrl, len( htmlBaseUrl ) - 1) & arguments.url;
+            arguments.url = htmlBaseUrl & arguments.url;
         }
 
-        arguments.url = replaceNoCase( arguments.url, SESBaseUrl, '' );
+        arguments.url = replaceNoCase( arguments.url, SESBaseUrl, "" );
 
         // if there is still http(s) on the front of the string, get rid of it.
         arguments.url = REReplaceNoCase( arguments.url, "^https?:", "/", "ALL" );
@@ -42,7 +44,7 @@ component extends="coldbox.system.testing.BaseTestCase" implements="Integrated.E
 
         return arguments.url;
     }
- 
+
     /**
     * Make a request
     *
@@ -87,7 +89,7 @@ component extends="coldbox.system.testing.BaseTestCase" implements="Integrated.E
                 return execute(route = arguments.route, renderResults = true);
             }
             else {
-                return execute(event = arguments.event, renderResults = true);   
+                return execute(event = arguments.event, renderResults = true);
             }
         }
         catch (HandlerService.EventHandlerNotRegisteredException e) {
