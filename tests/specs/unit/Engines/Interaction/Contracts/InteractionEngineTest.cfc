@@ -53,7 +53,7 @@ component extends='testbox.system.BaseSpec' {
             describe('interaction methods', function() {
                 feature('type', function() {
                     it('types a value in to a form field', function() {
-                        engine.$( method = "seeElement", returns = blankEngine, preserveArguments = true );
+                        engine.$( method = "seeElement", returns = blankEngine );
                         this.CUT.type('john@example.com', '##email');
 
                         var inputs = this.CUT.getInputs();
@@ -62,7 +62,7 @@ component extends='testbox.system.BaseSpec' {
                     });
 
                     it('fails if the form field does not exist', function() {
-                        engine.$( method = "seeElement", throwException = true, throwType = "TestBox.AssertionFailed", preserveArguments = true);
+                        engine.$( method = "seeElement", throwException = true, throwType = "TestBox.AssertionFailed");
                         expect(function() {
                             this.CUT.type('2626262626262626', 'credit-card-number');
                         }).toThrow(
@@ -73,7 +73,7 @@ component extends='testbox.system.BaseSpec' {
 
                 feature('check', function() {
                     it('checks a checkbox', function() {
-                        engine.$( method = "seeElement", returns = blankEngine, preserveArguments = true );
+                        engine.$( method = "seeElement", returns = blankEngine );
                         this.CUT.check('##spam-me');
 
                         var inputs = this.CUT.getInputs();
@@ -82,7 +82,7 @@ component extends='testbox.system.BaseSpec' {
                     });
 
                     it('fails if the checkbox does not exist', function() {
-                        engine.$( method = "seeElement", throwException = true, throwType = "TestBox.AssertionFailed", preserveArguments = true);
+                        engine.$( method = "seeElement", throwException = true, throwType = "TestBox.AssertionFailed");
                         expect(function() {
                             this.CUT.check('terms');
                         }).toThrow(
@@ -93,7 +93,7 @@ component extends='testbox.system.BaseSpec' {
 
                 feature('unchecks', function() {
                     it('unchecks a checkbox', function() {
-                        engine.$( method = "seeElement", returns = blankEngine, preserveArguments = true );
+                        engine.$( method = "seeElement", returns = blankEngine );
                         this.CUT.uncheck('##remember-me');
 
                         var inputs = this.CUT.getInputs();
@@ -102,7 +102,7 @@ component extends='testbox.system.BaseSpec' {
                     });
 
                     it('fails if the checkbox does not exist', function() {
-                        engine.$( method = "seeElement", throwException = true, throwType = "TestBox.AssertionFailed", preserveArguments = true);
+                        engine.$( method = "seeElement", throwException = true, throwType = "TestBox.AssertionFailed");
                         expect(function() {
                             this.CUT.check('terms');
                         }).toThrow(
@@ -113,11 +113,11 @@ component extends='testbox.system.BaseSpec' {
 
                 feature('select', function() {
                     beforeEach(function() {
-                        engine.$( method = "seeElement", returns = blankEngine, preserveArguments = true );
+                        engine.$( method = "seeElement", returns = blankEngine );
                     });
 
                     it('selects an option', function() {
-                        engine.$( method = "findOptionValue", returns = "CA", preserveArguments = true);
+                        engine.$( method = "findOptionValue", returns = "CA");
                         this.CUT.select('CA', '##country');
 
                         var inputs = this.CUT.getInputs();
@@ -152,7 +152,7 @@ component extends='testbox.system.BaseSpec' {
                     });
 
                     it('fails if the select field does not exist', function() {
-                        engine.$(method = "findOptionValue", throwException = true, throwType = "TestBox.AssertionFailed", preserveArguments = true);
+                        engine.$(method = "findOptionValue", throwException = true, throwType = "TestBox.AssertionFailed");
                         expect(function() {
                             this.CUT.select('Male', 'gender');
                         }).toThrow(
@@ -161,7 +161,7 @@ component extends='testbox.system.BaseSpec' {
                     });
 
                     it('fails if the option does not exist in the select field provided', function() {
-                        engine.$(method = "findOptionValue", throwException = true, throwType = "TestBox.AssertionFailed", preserveArguments = true);
+                        engine.$(method = "findOptionValue", throwException = true, throwType = "TestBox.AssertionFailed");
                         expect(function() {
                             this.CUT.select('Earth', 'country');
                         }).toThrow(
@@ -180,7 +180,7 @@ component extends='testbox.system.BaseSpec' {
                     } );
 
                     it( "does not throw if the field does exist in the current input", function() {
-                        engine.$( method = "seeElement", returns = blankEngine, preserveArguments = true );
+                        engine.$( method = "seeElement", returns = blankEngine );
                         expect(function() {
                             this.CUT.type('john@example.com', '##email')
                                 .seeInField('john@example.com', '##email');
@@ -190,7 +190,7 @@ component extends='testbox.system.BaseSpec' {
                     } );
 
                     it( "throws if the field does exist but not with the specified value", function() {
-                        engine.$( method = "seeElement", returns = blankEngine, preserveArguments = true );
+                        engine.$( method = "seeElement", returns = blankEngine );
                         expect(function() {
                             this.CUT.type('john@example.com', '##email')
                                 .seeInField('scott@example.com', '##email');
@@ -200,7 +200,7 @@ component extends='testbox.system.BaseSpec' {
                     } );
 
                     it( "does not throw if the field exists with the specified value", function() {
-                        engine.$( method = "seeElement", returns = blankEngine, preserveArguments = true );
+                        engine.$( method = "seeElement", returns = blankEngine );
                         expect(function() {
                             this.CUT.type('john@example.com', '##email')
                                 .seeInField('john@example.com', '##email');
@@ -218,7 +218,7 @@ component extends='testbox.system.BaseSpec' {
                     } );
 
                     it( "does not throw if the checkbox is checked in the current input", function() {
-                        engine.$( method = "seeElement", returns = blankEngine, preserveArguments = true );
+                        engine.$( method = "seeElement", returns = blankEngine );
                         expect(function() {
                             this.CUT.check('##remember-me')
                                 .seeIsChecked('##remember-me');
@@ -230,7 +230,7 @@ component extends='testbox.system.BaseSpec' {
                             this.CUT.seeIsChecked('##remember-me', true);
                         }).notToThrow();
 
-                        engine.$( method = "seeElement", returns = blankEngine, preserveArguments = true );
+                        engine.$( method = "seeElement", returns = blankEngine );
                         expect(function() {
                             this.CUT.check('##remember-me')
                                 .seeIsChecked('##remember-me', true);
@@ -240,7 +240,7 @@ component extends='testbox.system.BaseSpec' {
 
                 feature( "seeIsSelected", function() {
                     beforeEach(function() {
-                        engine.$( method = "seeElement", returns = blankEngine, preserveArguments = true );
+                        engine.$( method = "seeElement", returns = blankEngine );
                     });
 
                     it( "throws if the option is not selected in the current inputs", function() {
@@ -251,8 +251,8 @@ component extends='testbox.system.BaseSpec' {
 
                     it( "does not throw if the option is selected in the current input", function() {
                         var optionMock = getMockBox().createStub().$( "text", "United States" );
-                        engine.$( method = "findOptionValue", returns = "USA", preserveArguments = true);
-                        engine.$( method = "findOption", returns = optionMock, preserveArguments = true);
+                        engine.$( method = "findOptionValue", returns = "USA");
+                        engine.$( method = "findOption", returns = optionMock);
                         expect(function() {
                             this.CUT.select('USA', '##country')
                                 .seeIsSelected('USA', '##country');
@@ -261,14 +261,14 @@ component extends='testbox.system.BaseSpec' {
 
                     it( "handles negate checks as well", function() {
                         var optionMock = getMockBox().createStub().$( "text", "United States" );
-                        engine.$( method = "findOptionValue", returns = "USA", preserveArguments = true);
-                        engine.$( method = "findOption", returns = optionMock, preserveArguments = true);
+                        engine.$( method = "findOptionValue", returns = "USA");
+                        engine.$( method = "findOption", returns = optionMock);
                         expect(function() {
                             this.CUT.select('USA', '##country')
                                 .seeIsSelected('Canada', '##country', true);
                         }).notToThrow();
 
-                        // engine.$( method = "findOptionValue", returns = "USA", preserveArguments = true);
+                        // engine.$( method = "findOptionValue", returns = "USA");
                         // expect(function() {
                         //     this.CUT.select('USA', '##country')
                         //         .seeIsSelected('USA', '##country', true);
@@ -278,7 +278,7 @@ component extends='testbox.system.BaseSpec' {
 
                 feature( "dontSeeInField", function() {
                     it( "throws if the field exists in the current inputs", function() {
-                        engine.$( method = "seeElement", returns = blankEngine, preserveArguments = true );
+                        engine.$( method = "seeElement", returns = blankEngine );
                         expect(function() {
                             this.CUT.type('john@example.com', '##email')
                                 .seeInField('john@example.com', '##email', true);
@@ -296,7 +296,7 @@ component extends='testbox.system.BaseSpec' {
                     } );
 
                     it( "throws if the field exists with the specified value", function() {
-                        engine.$( method = "seeElement", returns = blankEngine, preserveArguments = true );
+                        engine.$( method = "seeElement", returns = blankEngine );
                         expect(function() {
                             this.CUT.type('john@example.com', '##email')
                                 .seeInField('john@example.com', '##email', true);
@@ -306,7 +306,7 @@ component extends='testbox.system.BaseSpec' {
                     } );
 
                     it( "does not throw if the field exists but not with the specified value", function() {
-                        engine.$( method = "seeElement", returns = blankEngine, preserveArguments = true );
+                        engine.$( method = "seeElement", returns = blankEngine );
                         expect(function() {
                             this.CUT.type('john@example.com', '##email')
                                 .seeInField('scott@example.com', '##email', true);
