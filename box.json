@@ -37,9 +37,9 @@
         }
     ],
     "devDependencies":{
-        "coldbox":"^4.2.0+00002",
-        "testbox":"2.3.0+00044",
-        "docbox":"2.0.5"
+        "coldbox":"^5.0.0",
+        "testbox":"^2.0.0",
+        "docbox":"^2.0.0"
     },
     "ignore":[
         "**/.*",
@@ -53,14 +53,14 @@
         "server.json"
     ],
     "installPaths":{
-        "testbox":"testbox",
-        "coldbox":"tests/resources/SampleApp/coldbox",
-        "docbox":"docbox"
+        "testbox":"testbox/",
+        "coldbox":"tests/resources/SampleApp/coldbox/",
+        "docbox":"docbox/"
     },
     "testbox":{
         "runner":"http://localhost:12121/tests/runner.cfm"
     },
     "dependencies":{
-
+        "testbox":"^2.0.0"
     }
 }
