@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
     "content-hash": "b3af4e74070c6f3b166b1e515b4ef804",
@@ -72,21 +72,28 @@
                 "singularize",
                 "string"
             ],
-            "time": "2015-11-06 14:35:42"
+            "time": "2015-11-06T14:35:42+00:00"
         },
         {
             "name": "erusev/parsedown",
-            "version": "1.6.0",
+            "version": "1.7.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/erusev/parsedown.git",
-                "reference": "3ebbd730b5c2cf5ce78bc1bf64071407fc6674b7"
+                "reference": "cb17b6477dfff935958ba01325f2e8a2bfa6dab3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/erusev/parsedown/zipball/3ebbd730b5c2cf5ce78bc1bf64071407fc6674b7",
-                "reference": "3ebbd730b5c2cf5ce78bc1bf64071407fc6674b7",
+                "url": "https://api.github.com/repos/erusev/parsedown/zipball/cb17b6477dfff935958ba01325f2e8a2bfa6dab3",
+                "reference": "cb17b6477dfff935958ba01325f2e8a2bfa6dab3",
                 "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8.35"
             },
             "type": "library",
             "autoload": {
@@ -111,7 +118,11 @@
                 "markdown",
                 "parser"
             ],
-            "time": "2015-10-04 16:44:32"
+            "support": {
+                "issues": "https://github.com/erusev/parsedown/issues",
+                "source": "https://github.com/erusev/parsedown/tree/1.7.x"
+            },
+            "time": "2019-12-30T22:54:17+00:00"
         },
         {
             "name": "hamcrest/hamcrest-php",
@@ -156,7 +167,7 @@
             "keywords": [
                 "test"
             ],
-            "time": "2015-05-11 14:41:42"
+            "time": "2015-05-11T14:41:42+00:00"
         },
         {
             "name": "illuminate/container",
@@ -199,7 +210,7 @@
             ],
             "description": "The Illuminate Container package.",
             "homepage": "http://laravel.com",
-            "time": "2016-08-01 13:49:14"
+            "time": "2016-08-01T13:49:14+00:00"
         },
         {
             "name": "illuminate/contracts",
@@ -241,7 +252,7 @@
             ],
             "description": "The Illuminate Contracts package.",
             "homepage": "http://laravel.com",
-            "time": "2016-08-08 11:46:08"
+            "time": "2016-08-08T11:46:08+00:00"
         },
         {
             "name": "illuminate/events",
@@ -286,7 +297,7 @@
             ],
             "description": "The Illuminate Events package.",
             "homepage": "http://laravel.com",
-            "time": "2016-08-01 13:49:14"
+            "time": "2016-08-01T13:49:14+00:00"
         },
         {
             "name": "illuminate/filesystem",
@@ -336,7 +347,7 @@
             ],
             "description": "The Illuminate Filesystem package.",
             "homepage": "http://laravel.com",
-            "time": "2016-08-17 17:21:29"
+            "time": "2016-08-17T17:21:29+00:00"
         },
         {
             "name": "illuminate/support",
@@ -395,7 +406,7 @@
             ],
             "description": "The Illuminate Support package.",
             "homepage": "http://laravel.com",
-            "time": "2016-08-05 14:49:58"
+            "time": "2016-08-05T14:49:58+00:00"
         },
         {
             "name": "illuminate/view",
@@ -443,7 +454,7 @@
             ],
             "description": "The Illuminate View package.",
             "homepage": "http://laravel.com",
-            "time": "2016-08-01 13:49:14"
+            "time": "2016-08-01T13:49:14+00:00"
         },
         {
             "name": "mnapoli/front-yaml",
@@ -477,7 +488,7 @@
             "license": [
                 "MIT"
             ],
-            "time": "2016-04-15 11:49:09"
+            "time": "2016-04-15T11:49:09+00:00"
         },
         {
             "name": "mockery/mockery",
@@ -542,7 +553,7 @@
                 "test double",
                 "testing"
             ],
-            "time": "2016-05-22 21:52:33"
+            "time": "2016-05-22T21:52:33+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -590,7 +601,7 @@
                 "pseudorandom",
                 "random"
             ],
-            "time": "2016-03-18 20:34:03"
+            "time": "2016-03-18T20:34:03+00:00"
         },
         {
             "name": "psr/log",
@@ -637,7 +648,7 @@
                 "psr",
                 "psr-3"
             ],
-            "time": "2016-09-19 16:02:08"
+            "time": "2016-09-19T16:02:08+00:00"
         },
         {
             "name": "symfony/console",
@@ -697,7 +708,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2016-08-19 06:48:39"
+            "time": "2016-08-19T06:48:39+00:00"
         },
         {
             "name": "symfony/debug",
@@ -754,7 +765,7 @@
             ],
             "description": "Symfony Debug Component",
             "homepage": "https://symfony.com",
-            "time": "2016-07-30 07:22:48"
+            "time": "2016-07-30T07:22:48+00:00"
         },
         {
             "name": "symfony/finder",
@@ -803,7 +814,7 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
-            "time": "2016-06-29 05:40:00"
+            "time": "2016-06-29T05:40:00+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -862,7 +873,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2016-05-18 14:26:46"
+            "time": "2016-05-18T14:26:46+00:00"
         },
         {
             "name": "symfony/yaml",
@@ -911,7 +922,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2016-09-02 02:12:52"
+            "time": "2016-09-02T02:12:52+00:00"
         },
         {
             "name": "tightenco/jigsaw",
@@ -968,7 +979,7 @@
                 "site",
                 "static"
             ],
-            "time": "2016-06-27 17:59:25"
+            "time": "2016-06-27T17:59:25+00:00"
         }
     ],
     "aliases": [],
@@ -977,5 +988,6 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "2.2.0"
 }
