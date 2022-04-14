@@ -35,6 +35,7 @@ Change your Integration tests to extend from `Integration.BaseSpecs.ColdBoxBaseS
 
 ```cfc
 component extends="Integrated.BaseSpecs.ColdBoxBaseSpec" {
+    // beforeAll method
     function beforeAll() {
         // Make sure to call the parent class's beforeAll() and afterAll() methods.
         super.beforeAll();
