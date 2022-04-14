@@ -40,6 +40,7 @@ component extends="Integrated.BaseSpecs.ColdBoxBaseSpec" {
         super.beforeAll();
     }
 
+    // afterAll method
     function afterAll() {
         super.afterAll();
     }
